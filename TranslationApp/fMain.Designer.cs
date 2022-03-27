@@ -43,6 +43,7 @@ namespace TranslationApp
             this.eventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hexToJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbJapaneseText = new System.Windows.Forms.TextBox();
             this.tbEnglishText = new System.Windows.Forms.TextBox();
             this.tbNoteText = new System.Windows.Forms.TextBox();
@@ -69,7 +70,8 @@ namespace TranslationApp
             this.cbListStatus = new System.Windows.Forms.CheckedListBox();
             this.cbSections = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.searchJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tODDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tODDCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabType1.SuspendLayout();
@@ -92,7 +94,8 @@ namespace TranslationApp
             // 
             this.translationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.storyAndSkitsToolStripMenuItem,
-            this.eventsAndNPCToolStripMenuItem});
+            this.eventsAndNPCToolStripMenuItem,
+            this.tODDCToolStripMenuItem});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
             this.translationToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.translationToolStripMenuItem.Text = "Translation";
@@ -100,14 +103,14 @@ namespace TranslationApp
             // storyAndSkitsToolStripMenuItem
             // 
             this.storyAndSkitsToolStripMenuItem.Name = "storyAndSkitsToolStripMenuItem";
-            this.storyAndSkitsToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.storyAndSkitsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.storyAndSkitsToolStripMenuItem.Text = "TOPX";
             this.storyAndSkitsToolStripMenuItem.Click += new System.EventHandler(this.TOPXToolStripMenuItem_Click);
             // 
             // eventsAndNPCToolStripMenuItem
             // 
             this.eventsAndNPCToolStripMenuItem.Name = "eventsAndNPCToolStripMenuItem";
-            this.eventsAndNPCToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.eventsAndNPCToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eventsAndNPCToolStripMenuItem.Text = "TOR";
             this.eventsAndNPCToolStripMenuItem.Click += new System.EventHandler(this.TORToolStripMenuItem_Click);
             // 
@@ -115,7 +118,8 @@ namespace TranslationApp
             // 
             this.packToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tOPXToolStripMenuItem,
-            this.tORToolStripMenuItem});
+            this.tORToolStripMenuItem,
+            this.tODDCToolStripMenuItem1});
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
             this.packToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.packToolStripMenuItem.Text = "Packing";
@@ -123,7 +127,7 @@ namespace TranslationApp
             // tOPXToolStripMenuItem
             // 
             this.tOPXToolStripMenuItem.Name = "tOPXToolStripMenuItem";
-            this.tOPXToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.tOPXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tOPXToolStripMenuItem.Text = "TOPX";
             this.tOPXToolStripMenuItem.Click += new System.EventHandler(this.tOPXToolStripMenuItem_Click_1);
             // 
@@ -136,7 +140,7 @@ namespace TranslationApp
             this.skitsToolStripMenuItem,
             this.eventsToolStripMenuItem});
             this.tORToolStripMenuItem.Name = "tORToolStripMenuItem";
-            this.tORToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.tORToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tORToolStripMenuItem.Text = "TOR";
             // 
             // allToolStripMenuItem
@@ -182,9 +186,15 @@ namespace TranslationApp
             // hexToJapaneseToolStripMenuItem
             // 
             this.hexToJapaneseToolStripMenuItem.Name = "hexToJapaneseToolStripMenuItem";
-            this.hexToJapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hexToJapaneseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.hexToJapaneseToolStripMenuItem.Text = "Hex to Japanese";
             this.hexToJapaneseToolStripMenuItem.Click += new System.EventHandler(this.hexToJapaneseToolStripMenuItem_Click);
+            // 
+            // searchJapaneseToolStripMenuItem
+            // 
+            this.searchJapaneseToolStripMenuItem.Name = "searchJapaneseToolStripMenuItem";
+            this.searchJapaneseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.searchJapaneseToolStripMenuItem.Text = "Search files for Japanese";
             // 
             // tbJapaneseText
             // 
@@ -455,11 +465,17 @@ namespace TranslationApp
             this.label8.TabIndex = 31;
             this.label8.Text = "Filter by Section";
             // 
-            // searchJapaneseToolStripMenuItem
+            // tODDCToolStripMenuItem
             // 
-            this.searchJapaneseToolStripMenuItem.Name = "searchJapaneseToolStripMenuItem";
-            this.searchJapaneseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.searchJapaneseToolStripMenuItem.Text = "Search files for Japanese";
+            this.tODDCToolStripMenuItem.Name = "tODDCToolStripMenuItem";
+            this.tODDCToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tODDCToolStripMenuItem.Text = "TODDC";
+            // 
+            // tODDCToolStripMenuItem1
+            // 
+            this.tODDCToolStripMenuItem1.Name = "tODDCToolStripMenuItem1";
+            this.tODDCToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.tODDCToolStripMenuItem1.Text = "TODDC";
             // 
             // fMain
             // 
@@ -549,6 +565,8 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem skitsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eventsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchJapaneseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tODDCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tODDCToolStripMenuItem1;
     }
 }
 
