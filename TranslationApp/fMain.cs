@@ -259,6 +259,17 @@ namespace TranslationApp
             loadFileList();
         }
 
+        private void TODDCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gameName = "TODDC";
+            lbEntries.BorderStyle = BorderStyle.FixedSingle;
+            basePath = basePath + gameName;
+            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
+            cbFileType.DataSource = directory;
+
+            loadFileList();
+        }
+
         private void loadFile(string fileName)
         {
             try
@@ -460,6 +471,8 @@ namespace TranslationApp
             string res = Tools.callFunction( gameName, "pack", "Menu");
             MessageBox.Show(res);
         }
+
+        
     }
 }
 

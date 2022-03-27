@@ -70,7 +70,7 @@ namespace TranslationApp
             this.cbListStatus = new System.Windows.Forms.CheckedListBox();
             this.cbSections = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.tODDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TODDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tODDCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
@@ -95,7 +95,7 @@ namespace TranslationApp
             this.translationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.storyAndSkitsToolStripMenuItem,
             this.eventsAndNPCToolStripMenuItem,
-            this.tODDCToolStripMenuItem});
+            this.TODDCToolStripMenuItem});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
             this.translationToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.translationToolStripMenuItem.Text = "Translation";
@@ -465,11 +465,12 @@ namespace TranslationApp
             this.label8.TabIndex = 31;
             this.label8.Text = "Filter by Section";
             // 
-            // tODDCToolStripMenuItem
+            // TODDCToolStripMenuItem
             // 
-            this.tODDCToolStripMenuItem.Name = "tODDCToolStripMenuItem";
-            this.tODDCToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tODDCToolStripMenuItem.Text = "TODDC";
+            this.TODDCToolStripMenuItem.Name = "TODDCToolStripMenuItem";
+            this.TODDCToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TODDCToolStripMenuItem.Text = "TODDC";
+            this.TODDCToolStripMenuItem.Click += new System.EventHandler(this.TODDCToolStripMenuItem_Click);
             // 
             // tODDCToolStripMenuItem1
             // 
@@ -565,7 +566,7 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem skitsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eventsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchJapaneseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tODDCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TODDCToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tODDCToolStripMenuItem1;
     }
 }
