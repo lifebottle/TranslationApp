@@ -238,19 +238,11 @@ namespace TranslationApp
             }
    
         }
-        private void TOPXToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            gameName = "TOPX";
-            basePath = basePath+ gameName;
-            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
-            cbFileType.DataSource = directory;
-            
-            loadFileList();
-        }
+ 
 
         private void TORToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameName = "TOR";
+            gameName = "Tales-of-Rebirth";
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
             basePath = basePath + gameName;
             string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
@@ -261,7 +253,7 @@ namespace TranslationApp
 
         private void TODDCToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameName = "TODDC";
+            gameName = "Tales-of-Destiny-DC";
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
             basePath = basePath + gameName;
             string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
