@@ -21,7 +21,6 @@ namespace TranslationApp
         public Entry entryElement = new Entry();
         public Dictionary<string, Type> dictFileType = new Dictionary<string, Type>();
         public Entry currentEntry;
-        public Struct currentStruct;
         public int nbTags = 0;
         private string gameName;
         public string basePath;
