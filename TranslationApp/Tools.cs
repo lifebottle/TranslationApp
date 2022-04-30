@@ -33,30 +33,18 @@ namespace TranslationApp
 
         }
 
-        public static List<EntryElement> getEntryElements(TalesFile storyText, string section="")
+        public static List<Entry> getEntries(TalesFile storyText, string section="")
         {
-
-            List<EntryElement> res = new List<EntryElement>();
             List<Entry> entries = new List<Entry>();
 
             List<Strings> listStrings = storyText.Strings;
             if (section != "")
             {
-                listStrings = storyText.Strings.Where(x => x.Section == section).ToList();
+                entries = storyText.Strings.Where(x => x.Section == section).FirstOrDefault().Entries;
             }
            
 
-            
-            foreach (Strings str in listStrings)
-            {
-                foreach (Entry ele in str.Entries)
-                {
-                    res.Add(new EntryElement(ele));
-
-                }
-            }
-            return res;
-
+            return entries;
         }
 
         public static void insertFile()
@@ -102,24 +90,6 @@ namespace TranslationApp
         public static string massReplace()
         {
             return "";
-        }
-
-    }
-
-    public class EntryElement
-    {
-        public EntryElement(Entry Entry)
-        {
-            this.Entry = Entry;
-
-        }
-        public EntryElement() {}
-        public Entry Entry{ get; set;}
-
-
-        public string DisplayText
-        {
-            get { return $"{this.Entry.JapaneseText}"; }
         }
 
     }
