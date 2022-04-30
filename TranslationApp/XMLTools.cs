@@ -65,31 +65,6 @@ namespace TranslationApp
 		public List<Strings> Strings { get; set; }
 	}
 
-	public class Struct
-	{
-		[XmlElement(ElementName = "PointerOffset")]
-		public string PointerOffset { get; set; }
-		[XmlElement(ElementName = "PointerUnknownValue")]
-		public string PointerUnknownValue { get; set; }
-		[XmlElement(ElementName = "Unknown1Text")]
-		public string Unknown1Text{ get; set; }
-		[XmlElement(ElementName = "Unknown2Text")]
-		public string Unknown2Text { get; set; }
-		[XmlElement(ElementName = "PersonJapaneseText")]
-		public string PersonJapaneseText { get; set; }
-		[XmlElement(ElementName = "PersonEnglishText")]
-		public string PersonEnglishText { get; set; }
-		[XmlElement(ElementName = "Type")]
-		public string Type { get; set; }
-		[XmlElement(ElementName = "Entry")]
-		public List<Entry> Entries { get; set; }
-
-		public string DisplayText
-		{
-			get { return $"{this.JapaneseText}"; }
-		}
-	}
-
 
 	[XmlRoot(ElementName = "SceneText")]
 	public class TOPXSceneText
