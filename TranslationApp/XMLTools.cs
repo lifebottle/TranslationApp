@@ -23,6 +23,10 @@ namespace TranslationApp
 		public string Notes { get; set; }
 		[XmlElement(ElementName = "Status")]
 		public string Status { get; set; }
+		[XmlElement(ElementName = "Id")]
+		public string Id { get; set; }
+		[XmlElement(ElementName = "GroupId")]
+		public string GroupId { get; set; }
 	}
 
 	[XmlRoot(ElementName = "Strings")]
