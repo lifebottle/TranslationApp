@@ -15,16 +15,22 @@ namespace TranslationApp
 	{
 		[XmlElement(ElementName = "PointerOffset")]
 		public string PointerOffset { get; set; }
+
 		[XmlElement(ElementName = "JapaneseText")]
 		public string JapaneseText { get; set; }
+
 		[XmlElement(ElementName = "EnglishText")]
 		public string EnglishText { get; set; }
+
 		[XmlElement(ElementName = "Notes")]
 		public string Notes { get; set; }
+
 		[XmlElement(ElementName = "Status")]
 		public string Status { get; set; }
+
 		[XmlElement(ElementName = "Id")]
 		public string Id { get; set; }
+
 		[XmlElement(ElementName = "GroupId")]
 		public string GroupId { get; set; }
 	}
@@ -78,6 +84,10 @@ namespace TranslationApp
 		[XmlElement(ElementName = "Entry")]
 		public List<Entry> Entries { get; set; }
 
+		public string DisplayText
+		{
+			get { return $"{this.Entry.JapaneseText}"; }
+		}
 	}
 
 
