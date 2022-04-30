@@ -205,9 +205,9 @@ namespace TranslationApp
             //Basepath
             List<string> directories = Directory.GetDirectories(@"..").Where(x => x.Contains("Debug")).ToList();
             if (directories.Count > 0)
-                basePath = "../../../../Data/";
+                basePath = "../../../../";
             else
-                basePath = "../Data/";
+                basePath = "../";
 
 
 
@@ -244,8 +244,9 @@ namespace TranslationApp
         {
             gameName = "Tales-of-Rebirth";
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
-            basePath = basePath + gameName;
-            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
+            basePath = basePath + gameName + "/Data/TOR";
+
+            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).Where(x => x != "Disc" && x != "Misc").ToArray();
             cbFileType.DataSource = directory;
             
             loadFileList();
