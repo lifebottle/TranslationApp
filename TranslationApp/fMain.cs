@@ -60,7 +60,7 @@ namespace TranslationApp
 
                 Font normalFont = new Font("Arial", 8, FontStyle.Regular);
                 Font boldFont = new Font("Arial", 8, FontStyle.Bold);
-                Entry entry = ((EntryElement)lbEntries.Items[e.Index]).Entry;
+                Entry entry = ((Entry)lbEntries.Items[e.Index]);
                 string japText = entry.JapaneseText;
 
                 //1. Split based on the line breaks
@@ -121,7 +121,7 @@ namespace TranslationApp
         {
             if (entryElements.Count > 0)
             {
-                entryElement = (EntryElement)lbEntries.Items[lbEntries.SelectedIndex];
+                entryElement = (Entry)lbEntries.Items[lbEntries.SelectedIndex];
 
                 switch (tcType.SelectedTab.Text)
                 {
@@ -346,7 +346,7 @@ namespace TranslationApp
                 string fileType = cbFileType.Text;
                 string fileName = cbFileList.Text;
                 string fullName = $@"{basePath}\{fileType}\XML\{fileName}";
-                entryElements = Tools.getEntryElements(listFileXML[cbFileList.SelectedIndex]);
+                entryElements = Tools.getEntries(listFileXML[cbFileList.SelectedIndex]);
                 lbEntries.DataSource = entryElements;
                 bSave.Enabled = true;
 
@@ -370,7 +370,7 @@ namespace TranslationApp
 
         private void tbEnglishText_TextChanged(object sender, EventArgs e)
         {
-            ((EntryElement)lbEntries.Items[lbEntries.SelectedIndex]).Entry.EnglishText = tbEnglishText.Text;
+            ((Entry)lbEntries.Items[lbEntries.SelectedIndex]).EnglishText = tbEnglishText.Text;
             bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
             if (!error)
             {
@@ -386,17 +386,17 @@ namespace TranslationApp
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
         {
-            ((EntryElement)lbEntries.Items[lbEntries.SelectedIndex]).Entry.Status = cbStatus.Text;
+            ((Entry)lbEntries.Items[lbEntries.SelectedIndex]).Status = cbStatus.Text;
         }
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
         {
-            ((EntryElement)lbEntries.Items[lbEntries.SelectedIndex]).Entry.Notes = tbNoteText.Text;
+            ((Entry)lbEntries.Items[lbEntries.SelectedIndex]).Notes = tbNoteText.Text;
         }
 
         private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            string text = ((EntryElement)((ListBox)sender).Items[e.Index]).Entry.JapaneseText;
+            string text = ((Entry)((ListBox)sender).Items[e.Index]).JapaneseText;
             int nb = Regex.Matches(text, "\\n").Count;
             e.ItemHeight = (int)((nb + 1) * ((ListBox)sender).Font.GetHeight() + 2) + 10;
         }
@@ -410,7 +410,7 @@ namespace TranslationApp
                 checkedBox.Add(cbListStatus.CheckedItems[i].ToString());
             }
 
-            lbEntries.DataSource = Tools.getEntryElements(listFileXML[cbFileList.SelectedIndex]).Where(x => checkedBox.Any(y => x.Entry.Status == y)).ToList();
+            lbEntries.DataSource = Tools.getEntries(listFileXML[cbFileList.SelectedIndex]).Where(x => checkedBox.Any(y => x.Status == y)).ToList();
         }
         private void cbListStatus_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -423,13 +423,13 @@ namespace TranslationApp
             //Get the file selected
             if (listFileXML.Count > 0)
             {
-                List<EntryElement> currentEntryElements = Tools.getEntryElements(listFileXML[e.Index]);
+                List<Entry> currentEntryElements = Tools.getEntries(listFileXML[e.Index]);
                 string text = ((ComboBox)sender).Items[e.Index].ToString();
 
                 if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
                     e.Graphics.FillRectangle(new SolidBrush(Color.Black), e.Bounds);
                 else
-                if (currentEntryElements.Count(x => x.Entry.Status == "Done") == currentEntryElements.Count)
+                if (currentEntryElements.Count(x => x.Status == "Done") == currentEntryElements.Count)
                 {
                     // Background item brush
                     SolidBrush backgroundBrush = new SolidBrush(Color.LightGreen);
@@ -454,7 +454,7 @@ namespace TranslationApp
         private void cbSections_TextChanged(object sender, EventArgs e)
         {
             string section = cbSections.Text;
-            lbEntries.DataSource = Tools.getEntryElements(listFileXML[cbFileList.SelectedIndex], section);
+            lbEntries.DataSource = Tools.getEntries(listFileXML[cbFileList.SelectedIndex], section);
         }
 
         private void hexToJapaneseToolStripMenuItem_Click(object sender, EventArgs e)
