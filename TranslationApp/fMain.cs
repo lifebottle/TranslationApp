@@ -17,8 +17,8 @@ namespace TranslationApp
 {
     public partial class fMain : Form
     {
-        public List<EntryElement> entryElements = new List<EntryElement>();
-        public EntryElement entryElement = new EntryElement();
+        public List<Entry> entryElements = new List<Entry>();
+        public Entry entryElement = new Entry();
         public Dictionary<string, Type> dictFileType = new Dictionary<string, Type>();
         public Entry currentEntry;
         public Struct currentStruct;
@@ -157,7 +157,7 @@ namespace TranslationApp
 
         private void loadStringsData()
         {
-            currentEntry = entryElements.Where(x => x.Entry.PointerOffset == entryElement.Entry.PointerOffset).FirstOrDefault().Entry;
+            currentEntry = entryElements.Where(x => x.PointerOffset == entryElement.PointerOffset).FirstOrDefault();
 
             string pattern = @"(<\w+:?\w+>)";
             string[] result = Regex.Split(currentEntry.JapaneseText, pattern,

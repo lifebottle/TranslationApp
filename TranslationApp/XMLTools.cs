@@ -86,7 +86,7 @@ namespace TranslationApp
 
 		public string DisplayText
 		{
-			get { return $"{this.Entry.JapaneseText}"; }
+			get { return $"{this.JapaneseText}"; }
 		}
 	}
 
