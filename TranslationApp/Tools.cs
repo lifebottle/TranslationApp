@@ -12,27 +12,6 @@ namespace TranslationApp
     public static class Tools
     {
         static string workingDirectory = "../../../../PythonLib_Playground/PythonLib";
-        public static List<EntryElement> getEntryElements(TOPXSceneText storyText)
-        {
-            List<EntryElement> res = new List<EntryElement>();
-            List<Entry> entries = new List<Entry>();
-            List<Struct> listStruct = storyText.Struct;
-            string pointerOffset = "";
-
-            foreach (Struct ele in listStruct)
-            {
-
-                pointerOffset = ele.PointerOffset;
-                entries = ele.Entries;
-                foreach (Entry entry in entries)
-                {
-                    res.Add(new EntryElement(entry));
-                }
-            }
-            return res;
-
-        }
-
         public static List<Entry> getEntries(TalesFile storyText, string section="")
         {
             List<Entry> entries = new List<Entry>();
