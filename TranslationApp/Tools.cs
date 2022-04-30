@@ -12,14 +12,14 @@ namespace TranslationApp
     public static class Tools
     {
         static string workingDirectory = "../../../../PythonLib_Playground/PythonLib";
-        public static List<Entry> getEntries(TalesFile storyText, string section="")
+        public static List<Entry> getEntries(TalesFile file, string section="")
         {
             List<Entry> entries = new List<Entry>();
 
-            List<Strings> listStrings = storyText.Strings;
+            List<Strings> listStrings = file.Strings;
             if (section != "")
             {
-                entries = storyText.Strings.Where(x => x.Section == section).FirstOrDefault().Entries;
+                entries = file.Strings.Where(x => x.Section == section).FirstOrDefault().Entries;
             }
            
 
