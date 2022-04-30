@@ -204,9 +204,9 @@ namespace TranslationApp
             //Basepath
             List<string> directories = Directory.GetDirectories(@"..").Where(x => x.Contains("Debug")).ToList();
             if (directories.Count > 0)
-                basePath = "../../../../Data/";
+                basePath = "../../../../";
             else
-                basePath = "../Data/";
+                basePath = "../";
 
 
 
@@ -249,10 +249,10 @@ namespace TranslationApp
 
         private void TORToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameName = "TOR";
+            gameName = "Tales-Of-Rebirth/Data/TOR";
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
             basePath = basePath + gameName;
-            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
+            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).Where(x => x != "Disc" && x != "Misc").ToArray();
             cbFileType.DataSource = directory;
             
             loadFileList();
