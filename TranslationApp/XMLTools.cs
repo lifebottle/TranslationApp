@@ -66,16 +66,5 @@ namespace TranslationApp
 	}
 
 
-	[XmlRoot(ElementName = "SceneText")]
-	public class TOPXSceneText
-	{
-		[XmlElement(ElementName = "Type")]
-		public string Type { get; set; }
-		[XmlElement(ElementName = "Struct")]
-		public List<Struct> Struct { get; set; }
-
-	}
-
-
 
 }
