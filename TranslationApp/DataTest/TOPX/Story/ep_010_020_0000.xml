@@ -1,0 +1,2485 @@
+<FileStruct>
+  <Type>Story</Type>
+  <OriginalName>Data/Story TOPX/ep_010_020/ep_010_020.pak3</OriginalName>
+  <Struct>
+    <PointerOffset>258312</PointerOffset>
+    <PointerUnknownValue>24</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>275488</TextOffset>
+    <PersonJapaneseText>エトス</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_001</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>もう……[DIO]……
+どこに行ったんだろ……</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>258492</PointerOffset>
+    <PointerUnknownValue>13</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>275584</TextOffset>
+    <PersonJapaneseText>[MEL]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_002</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>平気だって、エト</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>259356</PointerOffset>
+    <PointerUnknownValue>13</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>275864</TextOffset>
+    <PersonJapaneseText>[MEL]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_005</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>きっと、いつもみたいに
+けろっとした顔して
+帰ってくるって</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>259824</PointerOffset>
+    <PointerUnknownValue>12</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276144</TextOffset>
+    <PersonJapaneseText>少年の声</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_008</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>ただいま〜</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>260568</PointerOffset>
+    <PointerUnknownValue>13</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276208</TextOffset>
+    <PersonJapaneseText>[MEL]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_009</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>ほら……</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>261776</PointerOffset>
+    <PointerUnknownValue>12</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276436</TextOffset>
+    <PersonJapaneseText>[DIO]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_012</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>いっ……てっ……！
+何すんだよ！</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>262528</PointerOffset>
+    <PointerUnknownValue>13</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276520</TextOffset>
+    <PersonJapaneseText>[MEL]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_013</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>危ないから家を離れるなって、
+いつも言ってるでしょ</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>262764</PointerOffset>
+    <PointerUnknownValue>12</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276624</TextOffset>
+    <PersonJapaneseText>[DIO]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_014</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>分かってるって。
+だから、危ないことなんて
+してねーし</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>263072</PointerOffset>
+    <PointerUnknownValue>13</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276728</TextOffset>
+    <PersonJapaneseText>[MEL]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_015</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>そういうことじゃなくて……</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>263936</PointerOffset>
+    <PointerUnknownValue>12</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>276808</TextOffset>
+    <PersonJapaneseText>[DIO]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_016</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>オレ、狭い家にずっと
+閉じこもってんのなんて
+ヤだよ</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+    <Entry>
+      <VoiceId>VSM_010_020_017</VoiceId>
+      <Id>1</Id>
+      <JapaneseText>もっと外見たい……
+いろんな街に行きたい！</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>264404</PointerOffset>
+    <PointerUnknownValue>13</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>277204</TextOffset>
+    <PersonJapaneseText>[MEL]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_021</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>ここで三人で
+楽しく暮らせれば、
+それでいいじゃない？</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>264824</PointerOffset>
+    <PointerUnknownValue>12</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>277308</TextOffset>
+    <PersonJapaneseText>[DIO]</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_022</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>そりゃ、オレだって
+そうできたらって思うよ！
+でも、だからって……</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Struct>
+    <PointerOffset>266280</PointerOffset>
+    <PointerUnknownValue>24</PointerUnknownValue>
+    <Unknown1Text></Unknown1Text>
+    <Unknown2Text></Unknown2Text>
+    <TextOffset>277424</TextOffset>
+    <PersonJapaneseText>エトス</PersonJapaneseText>
+    <PersonEnglishText></PersonEnglishText>
+    <Type>VoiceId</Type>
+    <Entry>
+      <VoiceId>VSM_010_020_023</VoiceId>
+      <Id>0</Id>
+      <JapaneseText>なに……？</JapaneseText>
+      <EnglishText></EnglishText>
+      <Notes></Notes>
+    </Entry>
+  </Struct>
+  <Static>
+    <PointerOffset>916</PointerOffset>
+    <TextOffset>267540</TextOffset>
+    <JapaneseText>DYC_EP_010_020</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>1040</PointerOffset>
+    <TextOffset>267555</TextOffset>
+    <JapaneseText>DYC_EP_010_020</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>1480</PointerOffset>
+    <TextOffset>267570</TextOffset>
+    <JapaneseText>MUS_B001</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>1732</PointerOffset>
+    <TextOffset>267579</TextOffset>
+    <JapaneseText>MUS_B002</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>18740</PointerOffset>
+    <TextOffset>267588</TextOffset>
+    <JapaneseText>init_common_script 開始
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>18780</PointerOffset>
+    <TextOffset>267613</TextOffset>
+    <JapaneseText>フェードアウト開始
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>19240</PointerOffset>
+    <TextOffset>267633</TextOffset>
+    <JapaneseText>
+今の累計プレイ時間は【[%d]秒】で、
+おおざっぱに言うと【[%d]時間台】です
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>19660</PointerOffset>
+    <TextOffset>267704</TextOffset>
+    <JapaneseText>
+セーブポイントめぐりのチェックリスト
+１だと行ってます
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>19804</PointerOffset>
+    <TextOffset>267761</TextOffset>
+    <JapaneseText>[%d] [[%d]]
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>20256</PointerOffset>
+    <TextOffset>267770</TextOffset>
+    <JapaneseText>init_common_script 終了
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>20988</PointerOffset>
+    <TextOffset>267804</TextOffset>
+    <JapaneseText>COMM_EVENT_START開始
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>21588</PointerOffset>
+    <TextOffset>267826</TextOffset>
+    <JapaneseText>NULL</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>21964</PointerOffset>
+    <TextOffset>267831</TextOffset>
+    <JapaneseText>COMM_EVENT_START終了
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>22552</PointerOffset>
+    <TextOffset>267853</TextOffset>
+    <JapaneseText>COMM_SUB_START開始
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>23364</PointerOffset>
+    <TextOffset>267873</TextOffset>
+    <JapaneseText>NULL</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>34864</PointerOffset>
+    <TextOffset>267878</TextOffset>
+    <JapaneseText>FAR CAMERA:%f
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>35744</PointerOffset>
+    <TextOffset>267893</TextOffset>
+    <JapaneseText>&lt;_set_cam_limit_trap&gt; Warning: カメラリミットIDが登録済み
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>36124</PointerOffset>
+    <TextOffset>267952</TextOffset>
+    <JapaneseText>&lt;_set_cam_limit_trap&gt; Warning: カメラリミットバッファに空き無し
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>37116</PointerOffset>
+    <TextOffset>268017</TextOffset>
+    <JapaneseText>&lt;_set_cam_limit_var&gt; Warning: カメラリミットバッファに指定IDの登録無し
+[INFOS_2]</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>42464</PointerOffset>
+    <TextOffset>268096</TextOffset>
+    <JapaneseText>&lt;_set_jump&gt; 終了座標の指定が不正です
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>45640</PointerOffset>
+    <TextOffset>268134</TextOffset>
+    <JapaneseText>&lt;_set_jump_th&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>45948</PointerOffset>
+    <TextOffset>268188</TextOffset>
+    <JapaneseText>&lt;_set_jump_th&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>46892</PointerOffset>
+    <TextOffset>268223</TextOffset>
+    <JapaneseText>&lt;_float_motion&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>47200</PointerOffset>
+    <TextOffset>268278</TextOffset>
+    <JapaneseText>&lt;_float_motion&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>48172</PointerOffset>
+    <TextOffset>268314</TextOffset>
+    <JapaneseText>&lt;_float_motion&gt; 登録されていません
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>48404</PointerOffset>
+    <TextOffset>268350</TextOffset>
+    <JapaneseText>&lt;_float_landing_motion&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>48712</PointerOffset>
+    <TextOffset>268413</TextOffset>
+    <JapaneseText>&lt;_float_landing_motion&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>51208</PointerOffset>
+    <TextOffset>268457</TextOffset>
+    <JapaneseText>&lt;_get_abs_angle&gt; ループカウントがリミットを越え、正確な値を返していません
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>53780</PointerOffset>
+    <TextOffset>268532</TextOffset>
+    <JapaneseText>&lt;_set_turn&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>53836</PointerOffset>
+    <TextOffset>268583</TextOffset>
+    <JapaneseText>&lt;_set_turn&gt; セット箇所はgnTurnStatus[[%d]]
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>54148</PointerOffset>
+    <TextOffset>268625</TextOffset>
+    <JapaneseText>&lt;_set_turn&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>56940</PointerOffset>
+    <TextOffset>268657</TextOffset>
+    <JapaneseText>&lt;_set_turn_th&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>57248</PointerOffset>
+    <TextOffset>268711</TextOffset>
+    <JapaneseText>&lt;_set_turn_th&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>58788</PointerOffset>
+    <TextOffset>268746</TextOffset>
+    <JapaneseText>&lt;_set_watch_c2c_th&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>58844</PointerOffset>
+    <TextOffset>268805</TextOffset>
+    <JapaneseText>&lt;_set_watch_c2c_th&gt; セット箇所はgnTurnStatus[[%d]]
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>59152</PointerOffset>
+    <TextOffset>268855</TextOffset>
+    <JapaneseText>&lt;_set_watch_c2c_th&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>59692</PointerOffset>
+    <TextOffset>268895</TextOffset>
+    <JapaneseText>&lt;_set_around_look_th&gt; 登録済みキャラクタIDです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>59984</PointerOffset>
+    <TextOffset>268943</TextOffset>
+    <JapaneseText>&lt;_set_around_look_th&gt; 最大登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>62108</PointerOffset>
+    <TextOffset>268989</TextOffset>
+    <JapaneseText>&lt;_set_alpha&gt; アルファ値が設定範囲外です(0&lt;=alpha&lt;=255)
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>63020</PointerOffset>
+    <TextOffset>269045</TextOffset>
+    <JapaneseText>&lt;_set_alpha_th&gt; キャラクタID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>63328</PointerOffset>
+    <TextOffset>269100</TextOffset>
+    <JapaneseText>&lt;_set_alpha_th&gt; 最大登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>66516</PointerOffset>
+    <TextOffset>269140</TextOffset>
+    <JapaneseText>&lt;_init_motion_detail&gt; 引数が不正です
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>67436</PointerOffset>
+    <TextOffset>269178</TextOffset>
+    <JapaneseText>&lt;_set_motion_detail_th&gt; 登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>75868</PointerOffset>
+    <TextOffset>269222</TextOffset>
+    <JapaneseText>&lt;_disp_ef&gt; エフェクトID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>76176</PointerOffset>
+    <TextOffset>269272</TextOffset>
+    <JapaneseText>&lt;_disp_ef&gt; 最大登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>77584</PointerOffset>
+    <TextOffset>269307</TextOffset>
+    <JapaneseText>&lt;_move_pos_ef&gt; 移動量の指定が0以下です
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>77820</PointerOffset>
+    <TextOffset>269347</TextOffset>
+    <JapaneseText>&lt;_move_pos_ef&gt; エフェクトID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>78132</PointerOffset>
+    <TextOffset>269401</TextOffset>
+    <JapaneseText>&lt;_move_pos_ef&gt; 最大登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>81032</PointerOffset>
+    <TextOffset>269440</TextOffset>
+    <JapaneseText>&lt;_move_pos_spline_ef_th&gt;引数が不正です
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>81232</PointerOffset>
+    <TextOffset>269480</TextOffset>
+    <JapaneseText>&lt;_move_pos_spline_ef_th&gt; エフェクトID:[%d]は既に登録されています
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>81540</PointerOffset>
+    <TextOffset>269544</TextOffset>
+    <JapaneseText>&lt;_move_pos_spline_ef_th&gt; 最大登録数オーバーです
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>84460</PointerOffset>
+    <TextOffset>269593</TextOffset>
+    <JapaneseText>イベントをスキップしますか？</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>84476</PointerOffset>
+    <TextOffset>269622</TextOffset>
+    <JapaneseText>はい
+いいえ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>86020</PointerOffset>
+    <TextOffset>269634</TextOffset>
+    <JapaneseText>選択肢</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>86036</PointerOffset>
+    <TextOffset>269641</TextOffset>
+    <JapaneseText>はい
+いいえ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>90664</PointerOffset>
+    <TextOffset>269660</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>90680</PointerOffset>
+    <TextOffset>269671</TextOffset>
+    <JapaneseText>これが記憶陣だべ。
+旅の記録ができるのはもちろん、
+ダンジョンでは魔物も入ってこれないから、
+おらも出てきてやるから着替えられるだ〜よ。
+ちなみに青い記憶陣は
+ＨＰも回復するだ。
+おらの耳寄り情報に感謝せぇ〜よ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>92500</PointerOffset>
+    <TextOffset>269876</TextOffset>
+    <JapaneseText>[%s]が
+仲間になっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>92632</PointerOffset>
+    <TextOffset>269898</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>92768</PointerOffset>
+    <TextOffset>269909</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]は休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>92928</PointerOffset>
+    <TextOffset>269963</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>93940</PointerOffset>
+    <TextOffset>269974</TextOffset>
+    <JapaneseText>[%s]
+[%s]が
+仲間になっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>94088</PointerOffset>
+    <TextOffset>269999</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>94244</PointerOffset>
+    <TextOffset>270010</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>94448</PointerOffset>
+    <TextOffset>270070</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>94592</PointerOffset>
+    <TextOffset>270081</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>94752</PointerOffset>
+    <TextOffset>270136</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>95912</PointerOffset>
+    <TextOffset>270147</TextOffset>
+    <JapaneseText>[%s]
+[%s]
+[%s]が
+仲間になっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>96076</PointerOffset>
+    <TextOffset>270175</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>96252</PointerOffset>
+    <TextOffset>270186</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>96500</PointerOffset>
+    <TextOffset>270251</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>96664</PointerOffset>
+    <TextOffset>270262</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>96868</PointerOffset>
+    <TextOffset>270322</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>97012</PointerOffset>
+    <TextOffset>270333</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>97172</PointerOffset>
+    <TextOffset>270388</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>98400</PointerOffset>
+    <TextOffset>270399</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>98416</PointerOffset>
+    <TextOffset>270410</TextOffset>
+    <JapaneseText>時空戦士が仲間になっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>98636</PointerOffset>
+    <TextOffset>270437</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]と
+[%s]と
+[%s]と
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>99016</PointerOffset>
+    <TextOffset>270517</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>99240</PointerOffset>
+    <TextOffset>270528</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]と
+[%s]と
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>99576</PointerOffset>
+    <TextOffset>270603</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>99780</PointerOffset>
+    <TextOffset>270614</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]と
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>100072</PointerOffset>
+    <TextOffset>270684</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>100256</PointerOffset>
+    <TextOffset>270695</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>100504</PointerOffset>
+    <TextOffset>270760</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>100668</PointerOffset>
+    <TextOffset>270771</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]と
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>100872</PointerOffset>
+    <TextOffset>270831</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>101016</PointerOffset>
+    <TextOffset>270842</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]は
+休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>101176</PointerOffset>
+    <TextOffset>270897</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>101408</PointerOffset>
+    <TextOffset>270908</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>101424</PointerOffset>
+    <TextOffset>270919</TextOffset>
+    <JapaneseText>こ、こんどの時空戦士たちは
+バッチリ準備して駆けつけてくれたみたいだなや〜
+前とはまるで強さが違うみてぇだから、
+一度確認しておくとええだ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>101808</PointerOffset>
+    <TextOffset>271055</TextOffset>
+    <JapaneseText>[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>102040</PointerOffset>
+    <TextOffset>271077</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>102832</PointerOffset>
+    <TextOffset>271088</TextOffset>
+    <JapaneseText>[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>102964</PointerOffset>
+    <TextOffset>271110</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>103232</PointerOffset>
+    <TextOffset>271121</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>103248</PointerOffset>
+    <TextOffset>271132</TextOffset>
+    <JapaneseText>別れた時に
+装備品をもらっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>104240</PointerOffset>
+    <TextOffset>271164</TextOffset>
+    <JapaneseText>[%s]
+[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>104488</PointerOffset>
+    <TextOffset>271189</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>105408</PointerOffset>
+    <TextOffset>271200</TextOffset>
+    <JapaneseText>[%s]
+[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>105656</PointerOffset>
+    <TextOffset>271225</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>105824</PointerOffset>
+    <TextOffset>271236</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>105840</PointerOffset>
+    <TextOffset>271247</TextOffset>
+    <JapaneseText>別れた時に
+装備品をもらっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>106992</PointerOffset>
+    <TextOffset>271279</TextOffset>
+    <JapaneseText>[%s]
+[%s]
+[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>107256</PointerOffset>
+    <TextOffset>271307</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>108368</PointerOffset>
+    <TextOffset>271318</TextOffset>
+    <JapaneseText>[%s]
+[%s]
+[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>108632</PointerOffset>
+    <TextOffset>271346</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>108800</PointerOffset>
+    <TextOffset>271357</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>108816</PointerOffset>
+    <TextOffset>271368</TextOffset>
+    <JapaneseText>別れた時に
+装備品をもらっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>109920</PointerOffset>
+    <TextOffset>271400</TextOffset>
+    <JapaneseText>[%s]
+[%s]
+[%s]
+[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>110200</PointerOffset>
+    <TextOffset>271431</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>111504</PointerOffset>
+    <TextOffset>271442</TextOffset>
+    <JapaneseText>[%s]
+[%s]
+[%s]
+[%s]と
+別れただ！　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>111784</PointerOffset>
+    <TextOffset>271473</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>111952</PointerOffset>
+    <TextOffset>271484</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>111968</PointerOffset>
+    <TextOffset>271495</TextOffset>
+    <JapaneseText>別れた時に
+装備品をもらっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>113900</PointerOffset>
+    <TextOffset>271527</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>113916</PointerOffset>
+    <TextOffset>271538</TextOffset>
+    <JapaneseText>みんなと別れただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>114720</PointerOffset>
+    <TextOffset>271557</TextOffset>
+    <JapaneseText>アイテムを取得しました！
+[INFOS_1]×[%d]</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>114900</PointerOffset>
+    <TextOffset>271597</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>115260</PointerOffset>
+    <TextOffset>271609</TextOffset>
+    <JapaneseText>アイテムを取得しました！
+[INFOS_1]×[%d]</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>115440</PointerOffset>
+    <TextOffset>271649</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>115688</PointerOffset>
+    <TextOffset>271661</TextOffset>
+    <JapaneseText>[%s]を失っただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>115820</PointerOffset>
+    <TextOffset>271676</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>116180</PointerOffset>
+    <TextOffset>271687</TextOffset>
+    <JapaneseText>[%d]ガルドを手に入れただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>116312</PointerOffset>
+    <TextOffset>271712</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>116932</PointerOffset>
+    <TextOffset>271723</TextOffset>
+    <JapaneseText>[%s]は『[%s]』の
+称号を手に入れただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>117080</PointerOffset>
+    <TextOffset>271757</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>117628</PointerOffset>
+    <TextOffset>271768</TextOffset>
+    <JapaneseText>[%s]は[INFOS_1]の
+コスチュームを手に入れただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>117808</PointerOffset>
+    <TextOffset>271814</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>118228</PointerOffset>
+    <TextOffset>271825</TextOffset>
+    <JapaneseText>[%s]は[%s]を
+習得しただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>118376</PointerOffset>
+    <TextOffset>271847</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>118680</PointerOffset>
+    <TextOffset>271858</TextOffset>
+    <JapaneseText>[%s]は[%s]の
+スキルを習得しただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>118828</PointerOffset>
+    <TextOffset>271888</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>128188</PointerOffset>
+    <TextOffset>271899</TextOffset>
+    <JapaneseText>クラースがいるので判定開始デス
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>128808</PointerOffset>
+    <TextOffset>271931</TextOffset>
+    <JapaneseText>
+GLRへぼますたー
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>128912</PointerOffset>
+    <TextOffset>271950</TextOffset>
+    <JapaneseText>
+FBSへぼますたー
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>129016</PointerOffset>
+    <TextOffset>271969</TextOffset>
+    <JapaneseText>
+YSRへぼますたー
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>129120</PointerOffset>
+    <TextOffset>271988</TextOffset>
+    <JapaneseText>
+FRBへぼますたー
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>129224</PointerOffset>
+    <TextOffset>272007</TextOffset>
+    <JapaneseText>
+BGEへぼますたー
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>129328</PointerOffset>
+    <TextOffset>272026</TextOffset>
+    <JapaneseText>
+JSTへぼますたー
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>132144</PointerOffset>
+    <TextOffset>272045</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>132160</PointerOffset>
+    <TextOffset>272057</TextOffset>
+    <JapaneseText>この魔法陣から
+入口に戻ることができそうだ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>132336</PointerOffset>
+    <TextOffset>272099</TextOffset>
+    <JapaneseText>入口に……</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>132352</PointerOffset>
+    <TextOffset>272110</TextOffset>
+    <JapaneseText>戻る
+やめる　　　</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>135660</PointerOffset>
+    <TextOffset>272128</TextOffset>
+    <JapaneseText>MUS_B003</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>135860</PointerOffset>
+    <TextOffset>272137</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>136060</PointerOffset>
+    <TextOffset>272146</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>136260</PointerOffset>
+    <TextOffset>272155</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>136460</PointerOffset>
+    <TextOffset>272164</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>136660</PointerOffset>
+    <TextOffset>272173</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>136956</PointerOffset>
+    <TextOffset>272182</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>137156</PointerOffset>
+    <TextOffset>272191</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>137452</PointerOffset>
+    <TextOffset>272200</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>137796</PointerOffset>
+    <TextOffset>272209</TextOffset>
+    <JapaneseText>MUS_C003</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>138044</PointerOffset>
+    <TextOffset>272218</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>138292</PointerOffset>
+    <TextOffset>272227</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>138540</PointerOffset>
+    <TextOffset>272236</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>138740</PointerOffset>
+    <TextOffset>272245</TextOffset>
+    <JapaneseText>MUS_B004</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>138940</PointerOffset>
+    <TextOffset>272254</TextOffset>
+    <JapaneseText>MUS_B009</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>139140</PointerOffset>
+    <TextOffset>272263</TextOffset>
+    <JapaneseText>MUS_B005</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>139340</PointerOffset>
+    <TextOffset>272272</TextOffset>
+    <JapaneseText>MUS_B009</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>139540</PointerOffset>
+    <TextOffset>272281</TextOffset>
+    <JapaneseText>MUS_B009</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>139740</PointerOffset>
+    <TextOffset>272290</TextOffset>
+    <JapaneseText>MUS_B009</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>139940</PointerOffset>
+    <TextOffset>272299</TextOffset>
+    <JapaneseText>MUS_B009</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>140140</PointerOffset>
+    <TextOffset>272308</TextOffset>
+    <JapaneseText>MUS_B009</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>140340</PointerOffset>
+    <TextOffset>272317</TextOffset>
+    <JapaneseText>MUS_B003</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>140540</PointerOffset>
+    <TextOffset>272326</TextOffset>
+    <JapaneseText>MUS_B003</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>140740</PointerOffset>
+    <TextOffset>272335</TextOffset>
+    <JapaneseText>MUS_B005</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>140940</PointerOffset>
+    <TextOffset>272344</TextOffset>
+    <JapaneseText>MUS_B006</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>141140</PointerOffset>
+    <TextOffset>272353</TextOffset>
+    <JapaneseText>MUS_C003</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>141340</PointerOffset>
+    <TextOffset>272362</TextOffset>
+    <JapaneseText>MUS_B007</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>141540</PointerOffset>
+    <TextOffset>272371</TextOffset>
+    <JapaneseText>MUS_B008</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>141720</PointerOffset>
+    <TextOffset>272380</TextOffset>
+    <JapaneseText>
+メインイベント終了処理開始！
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>150344</PointerOffset>
+    <TextOffset>272412</TextOffset>
+    <JapaneseText>[%s]ですよ
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>150508</PointerOffset>
+    <TextOffset>272422</TextOffset>
+    <JapaneseText>パーティがいっぱいだったので
+[%s]は休憩所へ向かっただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>150676</PointerOffset>
+    <TextOffset>272476</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>150852</PointerOffset>
+    <TextOffset>272487</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>150868</PointerOffset>
+    <TextOffset>272498</TextOffset>
+    <JapaneseText>魔物がいるところでは着替えらんねーかんな。
+安全な記憶陣でおらを呼ぶだよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>154860</PointerOffset>
+    <TextOffset>272570</TextOffset>
+    <JapaneseText>
+くらーすいんぐま
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>158080</PointerOffset>
+    <TextOffset>272590</TextOffset>
+    <JapaneseText>[%s]
+[%s]
+[%s]を
+戦闘メンバーに加えてください</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>158244</PointerOffset>
+    <TextOffset>272630</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>159936</PointerOffset>
+    <TextOffset>272642</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>159952</PointerOffset>
+    <TextOffset>272653</TextOffset>
+    <JapaneseText>ハゲぼうずたちだけで戦ったから
+ショートカットの設定が外れちまっただ……
+戦う前には注意するべや〜</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>168680</PointerOffset>
+    <TextOffset>272750</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>168696</PointerOffset>
+    <TextOffset>272761</TextOffset>
+    <JapaneseText>フリーパーティーシステムが開放されただ！
+今後は戦闘参加人数を２〜４人の間で自由に
+決めることができるでな。
+詳しくはバトルメモに書いてあっから
+よっく確認するだよ〜</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>171304</PointerOffset>
+    <TextOffset>272924</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>171320</PointerOffset>
+    <TextOffset>272935</TextOffset>
+    <JapaneseText>システム
+『オーバーブレイブ』と
+『オーバーキル』が開放されただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>171828</PointerOffset>
+    <TextOffset>273000</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>171844</PointerOffset>
+    <TextOffset>273011</TextOffset>
+    <JapaneseText>二人だけで戦ったから
+ショートカットの設定が外れちまっただ……
+戦う前には注意するべや〜</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>173532</PointerOffset>
+    <TextOffset>273098</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>173548</PointerOffset>
+    <TextOffset>273109</TextOffset>
+    <JapaneseText>ハゲぼうず一人で戦ったせいで
+ショートカットの設定が外れちまっただ……
+戦う前には注意するべや〜</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>177540</PointerOffset>
+    <TextOffset>273204</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>177556</PointerOffset>
+    <TextOffset>273215</TextOffset>
+    <JapaneseText>エレメンツポットと
+今まで集めた精霊晶核を
+失っただ……</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>182736</PointerOffset>
+    <TextOffset>273270</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>182752</PointerOffset>
+    <TextOffset>273281</TextOffset>
+    <JapaneseText>火、水、地、土の
+精霊晶核を手に入れただ！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>186192</PointerOffset>
+    <TextOffset>273323</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>186208</PointerOffset>
+    <TextOffset>273334</TextOffset>
+    <JapaneseText>[RND_P]たんの装備は何もないから
+ちゃんとセットするだーよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>195868</PointerOffset>
+    <TextOffset>273392</TextOffset>
+    <JapaneseText>[%s]を戦闘メンバーに加えてください</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>196000</PointerOffset>
+    <TextOffset>273425</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>199352</PointerOffset>
+    <TextOffset>273437</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>199368</PointerOffset>
+    <TextOffset>273448</TextOffset>
+    <JapaneseText>おーい、はやる気持ちもわかるけんど、
+ちゃんと準備できてっか！？
+ヴァルハラとかのショップの売り物も
+新しくなっているみたいだーよ。
+この時代でちょっと寄り道して
+準備万端にするのもありだべ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>202048</PointerOffset>
+    <TextOffset>273634</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>202064</PointerOffset>
+    <TextOffset>273645</TextOffset>
+    <JapaneseText>彼女の装備は何もないから
+ちゃんとセットするだーよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>211548</PointerOffset>
+    <TextOffset>273695</TextOffset>
+    <JapaneseText>[%s]を戦闘メンバーに加えてください</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>211680</PointerOffset>
+    <TextOffset>273728</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>215528</PointerOffset>
+    <TextOffset>273740</TextOffset>
+    <JapaneseText>[%s]が抜けました。
+隊列をセットしてください</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>215760</PointerOffset>
+    <TextOffset>273782</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>217352</PointerOffset>
+    <TextOffset>273794</TextOffset>
+    <JapaneseText>[%s]が加わりました。
+隊列をセットしてください</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>217584</PointerOffset>
+    <TextOffset>273838</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>219516</PointerOffset>
+    <TextOffset>273850</TextOffset>
+    <JapaneseText>＿SUB_END_PROC開始！！！
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>220340</PointerOffset>
+    <TextOffset>273876</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>220356</PointerOffset>
+    <TextOffset>273887</TextOffset>
+    <JapaneseText>時空戦士の装備は何もないから
+ちゃんとセットするだーよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>220944</PointerOffset>
+    <TextOffset>273941</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>220960</PointerOffset>
+    <TextOffset>273952</TextOffset>
+    <JapaneseText>時空戦士の装備は何もないから
+ちゃんとセットするだーよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>221596</PointerOffset>
+    <TextOffset>274006</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>221612</PointerOffset>
+    <TextOffset>274017</TextOffset>
+    <JapaneseText>時空戦士の装備は何もないから
+ちゃんとセットするだーよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>222200</PointerOffset>
+    <TextOffset>274071</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>222216</PointerOffset>
+    <TextOffset>274082</TextOffset>
+    <JapaneseText>時空戦士の装備は何もないから
+ちゃんとセットするだーよ</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>227164</PointerOffset>
+    <TextOffset>274136</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>227180</PointerOffset>
+    <TextOffset>274148</TextOffset>
+    <JapaneseText>グーングニルの真の力が
+解放された！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>232956</PointerOffset>
+    <TextOffset>274184</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>232972</PointerOffset>
+    <TextOffset>274196</TextOffset>
+    <JapaneseText>おにぎりのレシピを
+教えてもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>233268</PointerOffset>
+    <TextOffset>274232</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>233284</PointerOffset>
+    <TextOffset>274244</TextOffset>
+    <JapaneseText>教わったレシピの食材を
+３セットもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>233804</PointerOffset>
+    <TextOffset>274286</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>233820</PointerOffset>
+    <TextOffset>274298</TextOffset>
+    <JapaneseText>マーボーカレースープのレシピを
+教えてもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>234272</PointerOffset>
+    <TextOffset>274346</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>234288</PointerOffset>
+    <TextOffset>274358</TextOffset>
+    <JapaneseText>教わったレシピの食材を
+３セットもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>234672</PointerOffset>
+    <TextOffset>274400</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>234688</PointerOffset>
+    <TextOffset>274412</TextOffset>
+    <JapaneseText>マーボーカレーのレシピを
+教えてもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>235140</PointerOffset>
+    <TextOffset>274454</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>235156</PointerOffset>
+    <TextOffset>274466</TextOffset>
+    <JapaneseText>教わったレシピの食材を
+３セットもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>248428</PointerOffset>
+    <TextOffset>274508</TextOffset>
+    <JapaneseText>
+
+正解終了処理に入りました
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>248484</PointerOffset>
+    <TextOffset>274537</TextOffset>
+    <JapaneseText>../sysdata/gust.gim</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>249516</PointerOffset>
+    <TextOffset>274557</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>249532</PointerOffset>
+    <TextOffset>274569</TextOffset>
+    <JapaneseText>チーズINハンバーグのレシピを
+教えてもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>249684</PointerOffset>
+    <TextOffset>274615</TextOffset>
+    <JapaneseText>information</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>249700</PointerOffset>
+    <TextOffset>274627</TextOffset>
+    <JapaneseText>チーズINハンバーグの材料も
+１セットもらった！</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>250540</PointerOffset>
+    <TextOffset>274673</TextOffset>
+    <JapaneseText>
+
+終了処理に入りました
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>252256</PointerOffset>
+    <TextOffset>274698</TextOffset>
+    <JapaneseText>&lt;_CnvPTNo2EVNo&gt; Error: PTNo:[%d] は変換不可です
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>253932</PointerOffset>
+    <TextOffset>274745</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>253948</PointerOffset>
+    <TextOffset>274756</TextOffset>
+    <JapaneseText>優勝賞品だべ
+
+アップルグミ　　x 6
+オレンジグミ　　x 6
+レモングミ　　　x 6
+パイングミ　　　x 6
+ミックスグミ　　x 6
+ミラクルグミ　　x 6
+クジグミ　　　　x 6</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>254548</PointerOffset>
+    <TextOffset>274910</TextOffset>
+    <JapaneseText>
+
+ディオONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>254688</PointerOffset>
+    <TextOffset>274927</TextOffset>
+    <JapaneseText>
+
+メルONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>254828</PointerOffset>
+    <TextOffset>274942</TextOffset>
+    <JapaneseText>
+
+クルールONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>254968</PointerOffset>
+    <TextOffset>274961</TextOffset>
+    <JapaneseText>
+
+ロディONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>255108</PointerOffset>
+    <TextOffset>274978</TextOffset>
+    <JapaneseText>
+
+クレスONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>255248</PointerOffset>
+    <TextOffset>274995</TextOffset>
+    <JapaneseText>
+
+ミントONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>255388</PointerOffset>
+    <TextOffset>275012</TextOffset>
+    <JapaneseText>
+
+チェスターONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>255528</PointerOffset>
+    <TextOffset>275033</TextOffset>
+    <JapaneseText>
+
+アーチェONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>255668</PointerOffset>
+    <TextOffset>275052</TextOffset>
+    <JapaneseText>
+
+クラースONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>255808</PointerOffset>
+    <TextOffset>275071</TextOffset>
+    <JapaneseText>
+
+すずONです
+
+</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>256124</PointerOffset>
+    <TextOffset>275086</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>256140</PointerOffset>
+    <TextOffset>275097</TextOffset>
+    <JapaneseText>優勝賞品だべ
+
+ダークボトル　　　x 6
+ホーリィボトル　　x 6
+ライフボトル　　　x 6
+リキュールボトル　x 6
+カクテルボトル　　x 6
+パナシーアボトル　x 6
+キュアボトル　　　x 6
+ディネイボトル　　x 6</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>256292</PointerOffset>
+    <TextOffset>275287</TextOffset>
+    <JapaneseText>アルベルト</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>256308</PointerOffset>
+    <TextOffset>275298</TextOffset>
+    <JapaneseText>優勝賞品だべ
+
+オールディバイド　x 6
+フレアボトル　　　x 6
+ハードボトル　　　x 6
+マジックボトル　　x 6
+レジストボトル　　x 6
+スピードボトル　　x 6
+スペルボトル　　　x 6
+スペシフィック　　x 6</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>257440</PointerOffset>
+    <TextOffset>277488</TextOffset>
+    <JapaneseText>EP_010_020</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>257684</PointerOffset>
+    <TextOffset>277499</TextOffset>
+    <JapaneseText>rDIO</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>257896</PointerOffset>
+    <TextOffset>277504</TextOffset>
+    <JapaneseText>rMEL</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>258028</PointerOffset>
+    <TextOffset>277509</TextOffset>
+    <JapaneseText>rETS</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>259200</PointerOffset>
+    <TextOffset>277514</TextOffset>
+    <JapaneseText>rMEL218</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>259520</PointerOffset>
+    <TextOffset>277522</TextOffset>
+    <JapaneseText>rMEL_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>261080</PointerOffset>
+    <TextOffset>277530</TextOffset>
+    <JapaneseText>rMEL120</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>261136</PointerOffset>
+    <TextOffset>277538</TextOffset>
+    <JapaneseText>rDIO120</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>261460</PointerOffset>
+    <TextOffset>277546</TextOffset>
+    <JapaneseText>rMEL_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>261676</PointerOffset>
+    <TextOffset>277554</TextOffset>
+    <JapaneseText>rDIO027</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>261900</PointerOffset>
+    <TextOffset>277562</TextOffset>
+    <JapaneseText>rDIO_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>262296</PointerOffset>
+    <TextOffset>277570</TextOffset>
+    <JapaneseText>rDIO224</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>262428</PointerOffset>
+    <TextOffset>277578</TextOffset>
+    <JapaneseText>rMEL224</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>262624</PointerOffset>
+    <TextOffset>277586</TextOffset>
+    <JapaneseText>rDIO203</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>262860</PointerOffset>
+    <TextOffset>277594</TextOffset>
+    <JapaneseText>rDIO_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>262916</PointerOffset>
+    <TextOffset>277602</TextOffset>
+    <JapaneseText>rMEL217</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>263236</PointerOffset>
+    <TextOffset>277610</TextOffset>
+    <JapaneseText>rMEL_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>263836</PointerOffset>
+    <TextOffset>277618</TextOffset>
+    <JapaneseText>rDIO_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>264304</PointerOffset>
+    <TextOffset>277626</TextOffset>
+    <JapaneseText>rMEL008</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>264528</PointerOffset>
+    <TextOffset>277634</TextOffset>
+    <JapaneseText>rMEL_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>264724</PointerOffset>
+    <TextOffset>277642</TextOffset>
+    <JapaneseText>rDIO008</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>265316</PointerOffset>
+    <TextOffset>277650</TextOffset>
+    <JapaneseText>rDIO</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+  <Static>
+    <PointerOffset>265372</PointerOffset>
+    <TextOffset>277655</TextOffset>
+    <JapaneseText>rMEL_EV</JapaneseText>
+    <EnglishText></EnglishText>
+    <Notes></Notes>
+  </Static>
+</FileStruct>
