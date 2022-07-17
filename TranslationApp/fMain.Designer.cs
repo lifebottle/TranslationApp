@@ -727,11 +727,13 @@ namespace TranslationApp
             this.Controls.Add(this.tbEnglishText);
             this.Controls.Add(this.menuStripMain);
             this.Controls.Add(this.tbJapaneseText);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "fMain";
             this.Text = "Translation App";
             this.Load += new System.EventHandler(this.fMain_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.fMain_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.tcType.ResumeLayout(false);

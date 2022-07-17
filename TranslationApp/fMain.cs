@@ -674,6 +674,26 @@ namespace TranslationApp
 
             loadSections();
         }
+
+        private void fMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.Down)
+                    if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
+                        lbEntries.SelectedIndex += 1;
+
+                if (e.KeyCode == Keys.Up)
+                    if (lbEntries.SelectedIndex > 0)
+                        lbEntries.SelectedIndex -= 1;
+
+                if (e.KeyCode == Keys.W)
+                    tbEnglishText.Text = tbJapaneseText.Text;
+
+                //Swallow event 
+                e.Handled = true;
+            }
+        }
     }
 }
 
