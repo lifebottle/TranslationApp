@@ -1,6 +1,7 @@
-name: Game Crash
-description: When the game crash
-labels: ["Game crash"]
+name: Bug related to a patch
+description: When a patch has some issues
+title: [Bug]: Your title here 
+labels: ["bug"]
 
 body:
   - type: markdown
