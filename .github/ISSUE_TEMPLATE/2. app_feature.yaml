@@ -1,0 +1,33 @@
+name: "Feature request: Translation App"
+description: "When a user wants a new feature inside the Translation App"
+title: "[Feature]: Your short description here"
+labels: ["feature","translation app"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+
+        This template should be uses when you want a new feature available
+        in the Translation App. Your request will be validated by the lifebottle team and we will
+        come back to you for validations.
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: Discord name
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What is your request?
+      description: Insert any screenshot, diagram that might be usefull
+      placeholder: "Describe the new feature here"
+    validations:
+      required: true
+
