@@ -1,5 +1,6 @@
-name: Bug: Translation App
+name: "Bug: Translation App"
 description: When the translation App doesn't work as expected
+title: "[Bug]: Translation App"
 labels: ["translation app", "bug"]
 
 body:
