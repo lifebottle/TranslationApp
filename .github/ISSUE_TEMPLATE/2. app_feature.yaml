@@ -9,8 +9,8 @@ body:
       value: |
         Thanks for taking the time to fill out this feature request!
 
-        This template should be uses when you want a new feature available
-        in the Translation App. Your request will be validated by the lifebottle team and we will
+        This template should be used when you want a new feature available
+        in the Translation App. Your request will be validated by the LifeBottle team and we will
         come back to you for validations.
 
   - type: input
