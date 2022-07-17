@@ -687,7 +687,7 @@ namespace TranslationApp
                     if (lbEntries.SelectedIndex > 0)
                         lbEntries.SelectedIndex -= 1;
 
-                if (e.KeyCode == Keys.W)
+                if (e.KeyCode == Keys.W && String.IsNullOrWhiteSpace(tbEnglishText.Text))
                     tbEnglishText.Text = tbJapaneseText.Text;
 
                 //Swallow event 
