@@ -1,6 +1,6 @@
-name: Translation App Crash
+name: Bug: Translation App
 description: When the translation App doesn't work as expected
-labels: ["Translation App"]
+labels: ["translation app", "bug"]
 
 body:
   - type: markdown
