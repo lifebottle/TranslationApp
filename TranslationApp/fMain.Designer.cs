@@ -401,7 +401,7 @@ namespace TranslationApp
             "To Do",
             "Proofreading",
             "Problematic",
-            "For Review",
+            "In Review",
             "Done"});
             this.cbStatus.Location = new System.Drawing.Point(337, 126);
             this.cbStatus.Name = "cbStatus";
