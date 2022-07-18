@@ -499,11 +499,11 @@ namespace TranslationApp
 
 
             //File Count of status
-            lNbToDo.Text = listBasic.SelectMany(x => x.Entries).Where(y => y.Status == "To Do").Count().ToString();
-            lNbProof.Text = listBasic.SelectMany(x => x.Entries).Where(x => x.Status == "Proofreading").Count().ToString();
-            lNbProb.Text = listBasic.SelectMany(x => x.Entries).Where(x => x.Status == "Problematic").Count().ToString();
-            lNbReview.Text = listBasic.SelectMany(x => x.Entries).Where(x => x.Status == "In Review").Count().ToString();
-            lNbDone.Text = listBasic.SelectMany(x => x.Entries).Where(x=> x.Status == "Done").Count().ToString();
+            lNbToDo.Text = countEntries("To Do", listBasic);
+            lNbProof.Text = countEntries("Proofreading", listBasic);
+            lNbProb.Text = countEntries("Problematic", listBasic);
+            lNbReview.Text = countEntries("In Review", listBasic);
+            lNbDone.Text = countEntries("Done", listBasic);
 
             //Section Count of status
             lNbToDoSect.Text = listBasic
