@@ -464,7 +464,28 @@ namespace TranslationApp
 
 
         }
+        private string countEntries(string status, List<Strings> listEntries, bool withSection = false)
+        {
+            int nbEntries = 0;
+            if (withSection)
+            {
 
+                //Count nb entries only inside that section
+                nbEntries = listEntries
+                .Where(x => x.Section == cbSections.Text)
+                .SelectMany(x => x.Entries)
+                .Where(y => y.Status == status)
+                .Count();
+            }
+            else
+            {
+
+                //Count nb entries for the whole file
+                nbEntries = listEntries.SelectMany(x => x.Entries).Where(x => x.Status == status).Count();
+            }
+
+            return nbEntries.ToString();
+        }
         //Create a list of entries and filter the Section and Status then update the lbentries datasource
         private void updateListEntries()
         {
