@@ -506,32 +506,12 @@ namespace TranslationApp
             lNbDone.Text = countEntries("Done", listBasic);
 
             //Section Count of status
-            lNbToDoSect.Text = listBasic
-                .Where(x=> x.Section == cbSections.Text)
-                .SelectMany(x => x.Entries)
-                .Where(y => y.Status == "To Do")
-                .Count().ToString();
-            lNbProofSect.Text = listBasic
-                .Where(x => x.Section == cbSections.Text)
-                .SelectMany(x => x.Entries)
-                .Where(y => y.Status == "Proofreading")
-                .Count().ToString();
-            lNbProbSect.Text = listBasic
-                .Where(x => x.Section == cbSections.Text)
-                .SelectMany(x => x.Entries)
-                .Where(y => y.Status == "Problematic")
-                .Count().ToString();
-            lNbReviewSect.Text = listBasic
-                .Where(x => x.Section == cbSections.Text)
-                .SelectMany(x => x.Entries)
-                .Where(y => y.Status == "In Review")
-                .Count().ToString();
-            lNbDoneSect.Text = listBasic
-                .Where(x => x.Section == cbSections.Text)
-                .SelectMany(x => x.Entries)
-                .Where(y => y.Status == "Done")
-                .Count().ToString();
-
+            lNbToDoSect.Text = countEntries("To Do", listBasic,true);
+            lNbProofSect.Text = countEntries("Proofreading", listBasic, true);
+            lNbProbSect.Text = countEntries("Problematic", listBasic, true); 
+            lNbReviewSect.Text = countEntries("In Review", listBasic, true);
+            lNbDoneSect.Text = countEntries("Done", listBasic, true);
+          
         }
         private void cbFileList_TextChanged(object sender, EventArgs e)
         {
