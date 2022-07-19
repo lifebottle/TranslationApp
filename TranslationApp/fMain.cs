@@ -109,6 +109,10 @@ namespace TranslationApp
             //Draw only if elements are present in the listbox
             if (e.Index > -1)
             {
+                //Regardless of text, draw elements close together
+                //and use the intmax size as per the docs
+                TextFormatFlags flags = TextFormatFlags.NoPadding;
+                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
 
                 //Grab the current entry to draw
                 Entry entry = listEntries[e.Index];
@@ -132,9 +136,9 @@ namespace TranslationApp
                     e.Index % 2 == 0 ? Color.WhiteSmoke : Color.White;
                 SolidBrush backgroundBrush = new SolidBrush(color);
 
-                // Text color brush
-                SolidBrush textBrush = new SolidBrush(e.ForeColor);
-                SolidBrush blueBrush = new SolidBrush(Color.Blue);
+                // Text colors
+                Color regularColor = e.ForeColor;
+                Color tagColor = isSelected ? Color.Orange : Color.Blue;
 
                 // Draw the background
                 e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
@@ -146,12 +150,14 @@ namespace TranslationApp
               
 
                 //1. Split based on the line breaks
-                // We will need to increase the baseY after each line
-                int baseX = 0;
-                int baseY = e.Bounds.Y;
                 if (text != "")
                 {
                     string[] lines = Regex.Split(text, "\\r*\\n", RegexOptions.IgnoreCase);
+
+                    //Starting point for drawing, a little offsetted
+                    //in order to not touch the borders
+                    Point startPoint = new Point(3, e.Bounds.Y + 3);
+                    Size mySize;
 
                     foreach (string line in lines)
                     {
@@ -161,46 +167,33 @@ namespace TranslationApp
                         string[] result = Regex.Split(line, pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
 
                         //We need to loop over each element to adjust the color
-                        Size mySize = TextRenderer.MeasureText(line, normalFont);
-                     
                         foreach (string element in result)
                         {
-
                             if (element[0] == '<')
                             {
-                                mySize = TextRenderer.MeasureText(element, boldFont);
-                                e.Graphics.DrawString(element, boldFont, blueBrush, new Rectangle(new Point(baseX, baseY), mySize), StringFormat.GenericTypographic);
-                                baseX = baseX + mySize.Width;
-                                //baseX = baseX + mySize.Width - 5;
+                                mySize = TextRenderer.MeasureText(e.Graphics, element, boldFont, proposedSize, flags);
 
+                                TextRenderer.DrawText(e.Graphics, element, boldFont, startPoint, tagColor, flags);
+                                startPoint.X += mySize.Width;
                             }
                             else
                             {
-                                mySize = TextRenderer.MeasureText(element, normalFont);
+                                mySize = TextRenderer.MeasureText(e.Graphics, element, normalFont, proposedSize, flags);
 
-                                //if (!element.Any( x => x >= 0x2016 && x<= 0xFF5D) && element.ToUpper() == element) 
-                                //    mySize.Width = mySize.Width + 5;
-
-                                e.Graphics.DrawString(element, normalFont, textBrush, new Rectangle(new Point(baseX, baseY), mySize), StringFormat.GenericTypographic);
-                                baseX = baseX + mySize.Width;
+                                TextRenderer.DrawText(e.Graphics, element, normalFont, startPoint, regularColor, flags);
+                                startPoint.X += mySize.Width;
                             }
                             
                         }
 
-                        //baseY = baseY + mySize.Height - 1;
-                        baseY = baseY + 12;
-                        baseX = 0;
+                        startPoint.Y += 13;
+                        startPoint.X = 3;
 
                     }
                 }
 
-
-
-
-
                 // Clean up
                 backgroundBrush.Dispose();
-                textBrush.Dispose();
             }
             e.DrawFocusRectangle();
 
