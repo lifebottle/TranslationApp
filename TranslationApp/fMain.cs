@@ -645,6 +645,17 @@ namespace TranslationApp
             dictStatus["Proofreading"] = cbProof.Checked;
             updateListEntries();
         }
+        private void cbDone_CheckedChanged(object sender, EventArgs e)
+        {
+            dictStatus["Done"] = cbDone.Checked;
+            updateListEntries();
+        }
+
+        private void cbProblematic_CheckedChanged(object sender, EventArgs e)
+        {
+            dictStatus["Problematic"] = cbProblematic.Checked;
+            updateListEntries();
+        }
 
         private void cbInReview_CheckedChanged(object sender, EventArgs e)
         {
