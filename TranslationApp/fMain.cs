@@ -708,6 +708,9 @@ namespace TranslationApp
                 if (e.KeyCode == Keys.Down)
                     if (cbFileList.Items.Count - 1 != cbFileList.SelectedIndex)
                         cbFileList.SelectedIndex += 1;
+
+                //Swallow event 
+                e.Handled = true;
             }
         }
 
