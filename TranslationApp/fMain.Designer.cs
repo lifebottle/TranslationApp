@@ -495,6 +495,7 @@ namespace TranslationApp
             this.cbDone.TabIndex = 4;
             this.cbDone.Text = "Done";
             this.cbDone.UseVisualStyleBackColor = true;
+            this.cbDone.CheckedChanged += new System.EventHandler(this.cbDone_CheckedChanged);
             // 
             // cbProblematic
             // 
@@ -505,6 +506,7 @@ namespace TranslationApp
             this.cbProblematic.TabIndex = 3;
             this.cbProblematic.Text = "Problematic";
             this.cbProblematic.UseVisualStyleBackColor = true;
+            this.cbProblematic.CheckedChanged += new System.EventHandler(this.cbProblematic_CheckedChanged);
             // 
             // cbInReview
             // 
