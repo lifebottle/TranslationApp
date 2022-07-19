@@ -687,6 +687,22 @@ namespace TranslationApp
                 //Swallow event 
                 e.Handled = true;
             }
+
+            if(e.Shift)
+            {
+                if (e.KeyCode == Keys.Up)
+                    if (cbFileList.SelectedIndex > 0)
+                        cbFileList.SelectedIndex -= 1;
+
+                if (e.KeyCode == Keys.Down)
+                    if (cbFileList.Items.Count - 1 != cbFileList.SelectedIndex)
+                        cbFileList.SelectedIndex += 1;
+            }
+        }
+
+        private void cbFileList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -400,8 +400,8 @@ namespace TranslationApp
             this.cbStatus.Items.AddRange(new object[] {
             "To Do",
             "Proofreading",
-            "Problematic",
             "In Review",
+            "Problematic",
             "Done"});
             this.cbStatus.Location = new System.Drawing.Point(337, 126);
             this.cbStatus.Name = "cbStatus";
