@@ -18,7 +18,6 @@ namespace TranslationApp
 {
     public partial class fMain : Form
     {
-
         public Dictionary<string, Type> dictFileType = new Dictionary<string, Type>();
         public Entry currentEntry;
         public Struct currentStruct;
@@ -35,18 +34,11 @@ namespace TranslationApp
         public fMain()
         {
             InitializeComponent();
-
-            
         }
 
         private void fMain_Load(object sender, EventArgs e)
         {
-
-
-
             dictStatus["To Do"] = true;
-
-            
 
             cbLanguage.Text = "English (if available)";
             dictFileType.Add("TORStory", typeof(TORStory));
@@ -105,7 +97,6 @@ namespace TranslationApp
         {
             bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
 
-  
             //Draw only if elements are present in the listbox
             if (e.Index > -1)
             {
@@ -130,7 +121,6 @@ namespace TranslationApp
                     //textColor       = 
                 }
 
-
                 // Background item brush
                 Color color = isSelected ? SystemColors.Highlight :
                     e.Index % 2 == 0 ? Color.WhiteSmoke : Color.White;
@@ -148,7 +138,6 @@ namespace TranslationApp
                 
                 string text = getTextBasedLanguage(e.Index);
               
-
                 //1. Split based on the line breaks
                 if (text != "")
                 {
@@ -185,18 +174,14 @@ namespace TranslationApp
                             }
                             
                         }
-
                         startPoint.Y += 13;
                         startPoint.X = 3;
-
                     }
                 }
-
                 // Clean up
                 backgroundBrush.Dispose();
             }
             e.DrawFocusRectangle();
-
         }
 
         //Event when an entry is selected in the listbox
@@ -204,7 +189,6 @@ namespace TranslationApp
         {
             if (listEntries.Count > 0)
             {
-              
                 switch (tcType.SelectedTab.Text)
                 {
                     case "Struct":
@@ -215,11 +199,7 @@ namespace TranslationApp
                         loadStringsData(listEntries[lbEntries.SelectedIndex]);
                         break;
                 }
-
-
-
             }
-
         }
 
         private void loadStructData()
@@ -232,14 +212,10 @@ namespace TranslationApp
             tbEnglishText.Text = currentEntry.EnglishText.Replace("\n", Environment.NewLine);
             tbNoteText.Text = currentEntry.Notes;
             */
-
-
         }
 
         private void loadStringsData(Entry currentEntry)
         {
-
-
             tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r","").Replace("\n", Environment.NewLine);
             tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
             tbNoteText.Text = currentEntry.Notes;
@@ -251,14 +227,12 @@ namespace TranslationApp
         */
         private void bSave_Click(object sender, EventArgs e)
         {
-
             //Remove declaration
             var settings = new XmlWriterSettings
             {
                 Indent = true,
                 OmitXmlDeclaration = true
             };
-
 
             //Remove Namespace
             var ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
@@ -277,8 +251,6 @@ namespace TranslationApp
 
             File.WriteAllText($@"{basePath}\{cbFileType.Text}\XML\{cbFileList.Text}", result);
             //TextWriter writer = new StreamWriter( );
-
-
 
             MessageBox.Show("Text has been written to the XML files");
             updateListEntries();
@@ -311,7 +283,6 @@ namespace TranslationApp
                 return res;
         }
         
-
         private void loadFileList()
         {
             string fileType = cbFileType.Text;
@@ -322,10 +293,7 @@ namespace TranslationApp
             {
                 fileList = Directory.GetFiles($@"{basePath}\{fileType}\XML").Select(x => Path.GetFileName(x)).ToArray();
                 cbFileList.DataSource = fileList;
-
-               
             }
-   
         }
 
         private string get_Folder_Path()
@@ -384,9 +352,6 @@ namespace TranslationApp
         {
             try
             {
-  
-             
-                
                 using (FileStream stream = File.OpenRead(fileName))
                 {
                     XmlSerializer serializer;
@@ -404,9 +369,6 @@ namespace TranslationApp
                             break;
 
                     }
-                    
-                    
-                    
                     //lbEntries.DataSource = entryElements;
 
                     tabType1.Text = "Strings";
@@ -418,7 +380,6 @@ namespace TranslationApp
                 MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
                 $"Details:\n\n{ex.StackTrace}");
             }
-
             //Filter to remove the entries with status = Done
             //filterStatus();
         }
@@ -427,8 +388,6 @@ namespace TranslationApp
         {
             string[] sections = listFileXML[cbFileList.SelectedIndex].Strings.OrderBy(x => x.Section).Select(x => x.Section).ToArray();
             cbSections.DataSource = sections;
-
-
         }
 
         private void loadAllFiles()
@@ -439,30 +398,23 @@ namespace TranslationApp
                 //Load all the XML files in memory
                 foreach (string fileName in cbFileList.Items)
                 {
-
                     loadFile($@"{basePath}\{cbFileType.Text}\XML\{fileName}");
                 }
-                
             }
         }
 
         private void cbFileType_TextChanged(object sender, EventArgs e)
         {
             loadFileList();
-
             loadAllFiles();
-
             loadSections();
-
-
-
         }
+
         private string countEntries(string status, List<Strings> listEntries, bool withSection = false)
         {
             int nbEntries = 0;
             if (withSection)
             {
-
                 //Count nb entries only inside that section
                 nbEntries = listEntries
                 .Where(x => x.Section == cbSections.Text)
@@ -472,13 +424,13 @@ namespace TranslationApp
             }
             else
             {
-
                 //Count nb entries for the whole file
                 nbEntries = listEntries.SelectMany(x => x.Entries).Where(x => x.Status == status).Count();
             }
 
             return nbEntries.ToString();
         }
+
         //Create a list of entries and filter the Section and Status then update the lbentries datasource
         private void updateListEntries()
         {
@@ -489,7 +441,6 @@ namespace TranslationApp
                 .Where(y => listStatus.Contains(y.Status)).ToList();
 
             lbEntries.DataSource = listEntries;
-
 
             //File Count of status
             lNbToDo.Text = countEntries("To Do", listBasic);
@@ -504,8 +455,8 @@ namespace TranslationApp
             lNbProbSect.Text = countEntries("Problematic", listBasic, true); 
             lNbReviewSect.Text = countEntries("In Review", listBasic, true);
             lNbDoneSect.Text = countEntries("Done", listBasic, true);
-          
         }
+
         private void cbFileList_TextChanged(object sender, EventArgs e)
         {
             if (cbFileList.SelectedIndex != -1)
@@ -519,9 +470,6 @@ namespace TranslationApp
                 updateListEntries();
                 
                 bSave.Enabled = true;
-
-                
-
             }
         }
 
@@ -530,12 +478,9 @@ namespace TranslationApp
       
         }
 
-  
-
         private void tbEnglishText_TextChanged(object sender, EventArgs e)
         {
             listEntries[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
-
 
             bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
             if (!error)
@@ -544,34 +489,26 @@ namespace TranslationApp
                 lErrors.ForeColor = Color.Red;
             }
             else
-            {
                 lErrors.Text = "";
 
-            }
-
             if (tbEnglishText.Text == tbJapaneseText.Text)
-            {
                 cbStatus.Text = "Done";
-            }else if (tbEnglishText.Text == "")
-            {
+
+            else if (tbEnglishText.Text == "")
                 cbStatus.Text = "To Do";
-            }
+
             else
-            {
                 cbStatus.Text = "Proofreading";
-            }
         }
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
         {
             listEntries[lbEntries.SelectedIndex].Status = cbStatus.Text;
-            
         }
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
         {
             listEntries[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
-            
         }
 
         private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
@@ -605,8 +542,8 @@ namespace TranslationApp
                     e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                 }
                 else
-                    e.Graphics.FillRectangle(new SolidBrush(((Control)sender).BackColor),
-                                             e.Bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(((Control)sender).BackColor), e.Bounds);
+
                 SolidBrush textBrush = new SolidBrush(e.ForeColor);
                 e.Graphics.DrawString(text, ((Control)sender).Font, textBrush, e.Bounds, StringFormat.GenericDefault);
 
@@ -625,7 +562,6 @@ namespace TranslationApp
             myForm.Show();
         }
 
-
         private void menuToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             gameName = "TOR";
@@ -636,8 +572,7 @@ namespace TranslationApp
         private void cbToDo_CheckedChanged(object sender, EventArgs e)
         {
             dictStatus["To Do"] = cbToDo.Checked;
-            updateListEntries();
-              
+            updateListEntries();   
         }
 
         private void cbProof_CheckedChanged(object sender, EventArgs e)
@@ -665,7 +600,6 @@ namespace TranslationApp
         private void bRefresh_Click(object sender, EventArgs e)
         {
             loadAllFiles();
-
             loadSections();
         }
 
@@ -697,6 +631,9 @@ namespace TranslationApp
                 if (e.KeyCode == Keys.Down)
                     if (cbFileList.Items.Count - 1 != cbFileList.SelectedIndex)
                         cbFileList.SelectedIndex += 1;
+
+                //Swallow event 
+                e.Handled = true;
             }
         }
 
