@@ -710,7 +710,7 @@ namespace TranslationApp
                                 lbEntries.SelectedIndex -= 1;
                         }
                         break;
-                    case Keys.W:
+                    case Keys.L:
                         if (string.IsNullOrWhiteSpace(tbEnglishText.Text))
                             tbEnglishText.Text = tbJapaneseText.Text;
                         break;
