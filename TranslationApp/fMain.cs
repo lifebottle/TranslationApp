@@ -725,6 +725,50 @@ namespace TranslationApp
             }
         }
 
+        private string stripTags(string input)
+        {
+            string output = "";
+            string pattern = @"(<\w+:?\w+>)";
+            string[] result = Regex.Split(input.Replace("\r", "").Replace("\n", ""), pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+
+            string[] names = { "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>" };
+
+            foreach (string element in result)
+            {
+
+                if (element[0] == '<')
+                {
+                    if (names.Contains(element))
+                    {
+                        output += element.Substring(1, element.Length - 2);
+                    }
+                    if (element.Contains("Unk") || element.Contains("04"))
+                    {
+                        output += "〇〇〇";
+                    }
+                    if (element.Contains("nmb"))
+                    {
+                        string el = element.Substring(5, element.Length - 7);
+                        output += Convert.ToInt32(el, 16);
+                    }
+                }
+                else
+                {
+                    output += element;
+                }
+            }
+
+            return output;
+
+        }
+
+        private void lbEntries_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                Clipboard.SetText(stripTags(tbJapaneseText.Text));
+            }
+        }
     }
 }
 

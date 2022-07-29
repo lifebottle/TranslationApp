@@ -305,6 +305,7 @@ namespace TranslationApp
             this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
             this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
             this.lbEntries.SelectedIndexChanged += new System.EventHandler(this.lbEntries_SelectedIndexChanged);
+            this.lbEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbEntries_KeyDown);
             // 
             // lFile
             // 
