@@ -251,6 +251,14 @@ namespace TranslationApp
         */
         private void bSave_Click(object sender, EventArgs e)
         {
+            //Update "Done" status for entries
+            //with same text on JP and EN fields
+            foreach (Entry entry in listEntries) {
+                if (entry.JapaneseText == entry.EnglishText)
+                {
+                    entry.Status = "Done";
+                }
+            }
 
             //Remove declaration
             var settings = new XmlWriterSettings
