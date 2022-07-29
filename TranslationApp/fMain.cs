@@ -714,6 +714,9 @@ namespace TranslationApp
                         if (string.IsNullOrWhiteSpace(tbEnglishText.Text))
                             tbEnglishText.Text = tbJapaneseText.Text;
                         break;
+                    case Keys.S:
+                        bSave.PerformClick();
+                        break;
                     default:
                         e.Handled = false;
                         return;
