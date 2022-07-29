@@ -557,6 +557,11 @@ namespace TranslationApp
 
             }
 
+            if (cbStatus.Text == "Problematic" || cbStatus.Text == "In Review")
+            {
+                return;
+            }
+
             if (tbEnglishText.Text == tbJapaneseText.Text)
             {
                 cbStatus.Text = "Done";
