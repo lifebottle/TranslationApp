@@ -684,41 +684,45 @@ namespace TranslationApp
         {
             if (e.Control)
             {
-                if (e.KeyCode == Keys.Down)
-                    if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
-                        lbEntries.SelectedIndex += 1;
-
-                if (e.KeyCode == Keys.Up)
-                    if (lbEntries.SelectedIndex > 0)
-                        lbEntries.SelectedIndex -= 1;
-
-                if (e.KeyCode == Keys.W && String.IsNullOrWhiteSpace(tbEnglishText.Text))
-                    tbEnglishText.Text = tbJapaneseText.Text;
-
-                //Swallow event 
-                e.Handled = true;
-            }
-
-            if(e.Shift)
-            {
-                if (e.KeyCode == Keys.Up)
-                    if (cbFileList.SelectedIndex > 0)
-                        cbFileList.SelectedIndex -= 1;
-
-                if (e.KeyCode == Keys.Down)
-                    if (cbFileList.Items.Count - 1 != cbFileList.SelectedIndex)
-                        cbFileList.SelectedIndex += 1;
-
-                //Swallow event 
+                switch (e.KeyCode)
+                {
+                    case Keys.Down:
+                        if (e.Alt)
+                        {
+                            if (cbFileList.Items.Count - 1 != cbFileList.SelectedIndex)
+                                cbFileList.SelectedIndex += 1;
+                        }
+                        else
+                        {
+                            if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
+                                lbEntries.SelectedIndex += 1;
+                        }
+                        break;
+                    case Keys.Up:
+                        if (e.Alt)
+                        {
+                            if (cbFileList.SelectedIndex > 0)
+                                cbFileList.SelectedIndex -= 1;
+                        }
+                        else
+                        {
+                            if (lbEntries.SelectedIndex > 0)
+                                lbEntries.SelectedIndex -= 1;
+                        }
+                        break;
+                    case Keys.W:
+                        if (string.IsNullOrWhiteSpace(tbEnglishText.Text))
+                            tbEnglishText.Text = tbJapaneseText.Text;
+                        break;
+                    default:
+                        e.Handled = false;
+                        return;
+                }
                 e.Handled = true;
             }
         }
 
-        private void cbFileList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
 
-    
+
