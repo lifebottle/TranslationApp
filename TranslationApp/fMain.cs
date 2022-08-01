@@ -53,10 +53,10 @@ namespace TranslationApp
             dictFileType.Add("TORMenu", typeof(Menu));
 
             dictColor["To Do"]          = Color.White;
-            dictColor["Proofreading"]   = Color.FromArgb(255, 152, 228);
-            dictColor["In Review"]      = Color.Purple;
-            dictColor["Problematic"]    = Color.Orange;
-            dictColor["Done"]           = Color.Green;
+            dictColor["Proofreading"]   = Color.FromArgb(162, 255, 255); // Light Cyan
+            dictColor["In Review"]      = Color.FromArgb(255, 102, 255); // Magenta
+            dictColor["Problematic"]    = Color.FromArgb(255, 255, 162); // Light Yellow
+            dictColor["Done"]           = Color.FromArgb(162, 255, 162); // Light Green
 
             lNbToDo.Text = "";
             lNbReview.Text = "";
@@ -117,24 +117,8 @@ namespace TranslationApp
                 //Grab the current entry to draw
                 Entry entry = listEntries[e.Index];
 
-                //Create a color for the background and text
-                Color backgroundColor;
-                Color textColor = Color.White;
-                if (isSelected)
-                {
-                    backgroundColor = SystemColors.Highlight;
-                }
-                else
-                {
-                    backgroundColor = dictColor[entry.Status];
-                    //textColor       = 
-                }
-
-
                 // Background item brush
-                Color color = isSelected ? SystemColors.Highlight :
-                    e.Index % 2 == 0 ? Color.WhiteSmoke : Color.White;
-                SolidBrush backgroundBrush = new SolidBrush(color);
+                SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : dictColor[entry.Status]);
 
                 // Text colors
                 Color regularColor = e.ForeColor;
@@ -142,6 +126,10 @@ namespace TranslationApp
 
                 // Draw the background
                 e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+
+                // Add separators for each entry
+                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Bottom - 1), new Point(e.Bounds.Width, e.Bounds.Bottom - 1));
+                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Top - 1), new Point(e.Bounds.Width, e.Bounds.Top - 1));
 
                 Font normalFont = new Font("Arial", 8, FontStyle.Regular);
                 Font boldFont = new Font("Arial", 8, FontStyle.Bold);
