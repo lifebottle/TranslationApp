@@ -13,12 +13,13 @@ using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Xml;
+using TranslationLib;
 
 namespace TranslationApp
 {
     public partial class fMain : Form
     {
-
+        private static TranslationProject Project;
         public Dictionary<string, Type> dictFileType = new Dictionary<string, Type>();
         public Entry currentEntry;
         public Struct currentStruct;
@@ -226,8 +227,14 @@ namespace TranslationApp
 
         private void loadStringsData(Entry currentEntry)
         {
+            TranslationEntry TranslationEntry;
+            Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
 
-
+            if (TranslationEntry != null && TranslationEntry.Count > 1)
+                lblJapanese.Text = $@"Japanese ({TranslationEntry.Count - 1} duplicate(s) found)";
+            else
+                lblJapanese.Text = $@"Japanese";
+            
             tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r","").Replace("\n", Environment.NewLine);
             tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
             tbNoteText.Text = currentEntry.Notes;
@@ -367,6 +374,9 @@ namespace TranslationApp
 
                     loadFileList();
                     changeEnabledProp(true);
+
+                    folderIncluded = new List<string> { "Story", "Menu" };
+                    Project = new TranslationProject(basePath, folderIncluded);
                 }
                 else
                 {
