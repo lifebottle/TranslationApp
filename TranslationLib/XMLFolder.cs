@@ -27,7 +27,7 @@ namespace TranslationLib
 
             foreach (var file in fileList)
             {
-                var XMLFile = new XMLFile { Name = Path.GetFileName(file), FilePath = file };
+                var XMLFile = new XMLFile { Name = Path.GetFileName(file), FilePath = file, FileType = Name };
                 XMLFiles.Add(XMLFile);
                 var document = XDocument.Load(file);
 

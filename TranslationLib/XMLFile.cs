@@ -9,6 +9,7 @@ namespace TranslationLib
     public class XMLFile
     {
         public string Name { get; set; }
+        public string FileType { get; set; }
         public string FilePath { get; set; }
         public List<XMLSection> Sections = new List<XMLSection>();
         public XMLSection CurrentSection { get; set; }
@@ -49,13 +50,21 @@ namespace TranslationLib
         public void SaveToDisk()
         {
             var document = new XDocument(
-                new XElement("SceneText",
+                new XElement(GetXMLTextTagName(),
                     new XElement("Strings",
                         GetXmlSectionElement(Sections.First()))
                 )
             );
 
             File.WriteAllText(FilePath, document.ToString().Replace(" />", "/>") + Environment.NewLine);
+        }
+
+        private string GetXMLTextTagName()
+        {
+            if (FileType == "Menu")
+                return "MenuText";
+            
+            return "SceneText";
         }
 
         private List<XElement> GetXmlSectionElement(XMLSection section)
