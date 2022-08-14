@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Xml;
+using System.Windows.Forms;
 using TranslationLib;
 
 namespace TranslationApp
@@ -20,60 +12,52 @@ namespace TranslationApp
     public partial class fMain : Form
     {
         private static TranslationProject Project;
-        public Dictionary<string, Type> dictFileType = new Dictionary<string, Type>();
-        public Entry currentEntry;
-        public Struct currentStruct;
-        public int nbTags = 0;
-        private string gameName;
-        public string basePath;
+        private static List<XMLEntry> CurrentEntryList;
+        private Dictionary<string, Color> ColorByStatus;
 
-        private Dictionary<int, int> dictItemSize = new Dictionary<int, int>();
-        private Dictionary<string, bool> dictStatus = new Dictionary<string, bool>();
-        private Dictionary<string, Color> dictColor = new Dictionary<string, Color>();
-        private List<Entry> listEntries = new List<Entry>();
-        public List<TalesFile> listFileXML = new List<TalesFile>();
+        private string basePath;
 
         public fMain()
         {
             InitializeComponent();
-
-            
         }
 
         private void fMain_Load(object sender, EventArgs e)
         {
-
-
-
-            dictStatus["To Do"] = true;
-
-            
-
             cbLanguage.Text = "English (if available)";
-            dictFileType.Add("TORStory", typeof(TORStory));
-            dictFileType.Add("TORMenu", typeof(Menu));
+            CreateColorByStatusDictionnary();
+            InitialiseStatusText();
+            ChangeEnabledProp(false);
+        }
+        
+        private void CreateColorByStatusDictionnary()
+        {
+            ColorByStatus = new Dictionary<string, Color>
+            {
+                {"To Do", Color.White},
+                {"Proofreading", Color.FromArgb(162, 255, 255)},    // Light Cyan
+                {"In Review", Color.FromArgb(255, 102, 255)},       // Magenta
+                {"Problematic", Color.FromArgb(255, 255, 162)},     // Light Yellow
+                {"Done", Color.FromArgb(162, 255, 162)},            // Light Green
+            };
+        }
 
-            dictColor["To Do"]          = Color.White;
-            dictColor["Proofreading"]   = Color.FromArgb(162, 255, 255); // Light Cyan
-            dictColor["In Review"]      = Color.FromArgb(255, 102, 255); // Magenta
-            dictColor["Problematic"]    = Color.FromArgb(255, 255, 162); // Light Yellow
-            dictColor["Done"]           = Color.FromArgb(162, 255, 162); // Light Green
-
+        private void InitialiseStatusText()
+        {
             lNbToDo.Text = "";
             lNbReview.Text = "";
             lNbProb.Text = "";
             lNbProof.Text = "";
             lNbDone.Text = "";
-
+            
             lNbToDoSect.Text = "";
             lNbProbSect.Text = "";
             lNbReviewSect.Text = "";
             lNbProofSect.Text = "";
             lNbDoneSect.Text = "";
-            changeEnabledProp(false);
         }
 
-        private void changeEnabledProp(bool status)
+        private void ChangeEnabledProp(bool status)
         {
             cbFileType.Enabled = status;
             cbFileList.Enabled = status;
@@ -95,18 +79,17 @@ namespace TranslationApp
 
             //Button
             bSave.Enabled = status;
-            bRefresh.Enabled = status;
 
             //Panel
             panelNb1.Enabled = status;
             panelNb2.Enabled = status;
         }
+
         //Draw entries with multiline and font color changed
         private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
         {
             bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
 
-  
             //Draw only if elements are present in the listbox
             if (e.Index > -1)
             {
@@ -116,10 +99,10 @@ namespace TranslationApp
                 Size proposedSize = new Size(int.MaxValue, int.MaxValue);
 
                 //Grab the current entry to draw
-                Entry entry = listEntries[e.Index];
+                XMLEntry entry = CurrentEntryList[e.Index];
 
                 // Background item brush
-                SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : dictColor[entry.Status]);
+                SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : ColorByStatus[entry.Status]);
 
                 // Text colors
                 Color regularColor = e.ForeColor;
@@ -134,12 +117,12 @@ namespace TranslationApp
 
                 Font normalFont = new Font("Arial", 8, FontStyle.Regular);
                 Font boldFont = new Font("Arial", 8, FontStyle.Bold);
-                
-                string text = getTextBasedLanguage(e.Index);
-              
+
+                string text = GetTextBasedLanguage(e.Index);
+
 
                 //1. Split based on the line breaks
-                if (text != "")
+                if (!string.IsNullOrEmpty(text))
                 {
                     string[] lines = Regex.Split(text, "\\r*\\n", RegexOptions.IgnoreCase);
 
@@ -172,124 +155,65 @@ namespace TranslationApp
                                 TextRenderer.DrawText(e.Graphics, element, normalFont, startPoint, regularColor, flags);
                                 startPoint.X += mySize.Width;
                             }
-                            
                         }
 
                         startPoint.Y += 13;
                         startPoint.X = 3;
-
                     }
                 }
 
                 // Clean up
                 backgroundBrush.Dispose();
             }
-            e.DrawFocusRectangle();
 
+            e.DrawFocusRectangle();
         }
 
-        //Event when an entry is selected in the listbox
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listEntries.Count > 0)
-            {
-              
-                switch (tcType.SelectedTab.Text)
-                {
-                    case "Struct":
-                        loadStructData();
-                        break;
-
-                    case "Strings":
-                        loadStringsData(listEntries[lbEntries.SelectedIndex]);
-                        break;
-                }
-
-
-
-            }
-
+            LoadEntryData(CurrentEntryList[lbEntries.SelectedIndex]);
         }
 
-        private void loadStructData()
+        private void LoadEntryData(XMLEntry currentEntry)
         {
-            /*
-            currentStruct = fileStruct.Struct.Where(x => x.PointerOffset == entryElement.PointerOffset).FirstOrDefault();
-            currentEntry = currentStruct.Entries.Where(x => x.Id == entryElement.Id).FirstOrDefault();
+            tbEnglishText.TextChanged -= tbEnglishText_TextChanged;
 
-            tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\n", Environment.NewLine);
-            tbEnglishText.Text = currentEntry.EnglishText.Replace("\n", Environment.NewLine);
-            tbNoteText.Text = currentEntry.Notes;
-            */
+            tbJapaneseText.Text = string.Empty;
+            tbEnglishText.Text = string.Empty;
 
-
-        }
-
-        private void loadStringsData(Entry currentEntry)
-        {
             TranslationEntry TranslationEntry;
-            Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
+            if (currentEntry.JapaneseText == null)
+                TranslationEntry = new TranslationEntry { EnglishTranslation = "" };
+            else
+                Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
 
             if (TranslationEntry != null && TranslationEntry.Count > 1)
                 lblJapanese.Text = $@"Japanese ({TranslationEntry.Count - 1} duplicate(s) found)";
             else
                 lblJapanese.Text = $@"Japanese";
-            
-            tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r","").Replace("\n", Environment.NewLine);
-            tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
-            tbNoteText.Text = currentEntry.Notes;
+
+            if (currentEntry.JapaneseText != null)
+                tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r", "").Replace("\n", Environment.NewLine);
+            if (currentEntry.EnglishText != null)
+                tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
+            if (tbNoteText != null)
+                tbNoteText.Text = currentEntry.Notes;
             cbStatus.Text = currentEntry.Status;
+
+            tbEnglishText.TextChanged += tbEnglishText_TextChanged;
         }
 
-        /*
-            Save the new changes made to the selected XML file
-        */
         private void bSave_Click(object sender, EventArgs e)
         {
-            //Update "Done" status for entries
-            //with same text on JP and EN fields
-            foreach (Entry entry in listEntries) {
-                if (entry.JapaneseText == entry.EnglishText)
-                {
-                    entry.Status = "Done";
-                }
-            }
-
-            //Remove declaration
-            var settings = new XmlWriterSettings
-            {
-                Indent = true,
-                OmitXmlDeclaration = true
-            };
-
-
-            //Remove Namespace
-            var ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
-            var xml_string = "";
-            var result = "";
-
-            using (var stream = new StringWriter())
-            using (var writer = XmlWriter.Create(stream, settings))
-            {
-                var serializer = new XmlSerializer(dictFileType[gameName + cbFileType.Text]);
-                serializer.Serialize(writer, listFileXML[cbFileList.SelectedIndex], ns);
-                xml_string = stream.ToString();
-                string pattern = @" \/>";
-                result = Regex.Replace(xml_string, pattern, @"/>") +"\r\n";
-            }
-
-            File.WriteAllText($@"{basePath}\{cbFileType.Text}\XML\{cbFileList.Text}", result);
-            //TextWriter writer = new StreamWriter( );
-
-
-
+            Project.CurrentFolder.XMLFiles.ForEach(x => x.SaveToDisk());
             MessageBox.Show("Text has been written to the XML files");
-            updateListEntries();
+
+            UpdateDisplayedEntries();
+            UpdateStatusData();
         }
 
         private void fMain_Paint(object sender, PaintEventArgs e)
         {
-            Pen blackPen = new Pen(Color.Black, 4);
             Point p = new Point();
             p.X = tbJapaneseText.Location.X + tbJapaneseText.Size.Width - trackBarAlign.Value * 10;
             p.Y = tbJapaneseText.Location.Y;
@@ -298,326 +222,228 @@ namespace TranslationApp
 
         private void trackBarAlign_ValueChanged(object sender, EventArgs e)
         {
-            this.Invalidate();
+            Invalidate();
         }
 
-        private string getTextBasedLanguage(int entryIndex)
+        private string GetTextBasedLanguage(int entryIndex)
         {
-            string res = "";
-            Entry myEntry = listEntries[entryIndex];
+            var myEntry = CurrentEntryList[entryIndex];
 
             if (cbLanguage.Text == "Japanese")
-                res = myEntry.JapaneseText;
-            else
-                res = string.IsNullOrEmpty(myEntry.EnglishText) ? myEntry.JapaneseText : myEntry.EnglishText;
+                return myEntry.JapaneseText;
 
-                return res;
-        }
-        
-
-        private void loadFileList()
-        {
-            string fileType = cbFileType.Text;
-            string[] fileList;
-            string path = $@"{basePath}\{fileType}\XML";
-
-            if (Directory.Exists(path))
-            {
-                fileList = Directory.GetFiles($@"{basePath}\{fileType}\XML").Select(x => Path.GetFileName(x)).ToArray();
-                cbFileList.DataSource = fileList;
-
-               
-            }
-   
+            return string.IsNullOrEmpty(myEntry.EnglishText) ? myEntry.JapaneseText : myEntry.EnglishText;
         }
 
-        private string get_Folder_Path()
+        private string GetFolderPath()
         {
-            int size = -1;
-            string folderPath = "";
             using (var fbd = new FolderBrowserDialog())
             {
-                DialogResult result = fbd.ShowDialog();
+                if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    return fbd.SelectedPath;
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
-                    folderPath = fbd.SelectedPath;
-                }
+                return "";
             }
-            return folderPath;
         }
 
         private void TOPXToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameName = "TOPX";
-            basePath = get_Folder_Path();
+            basePath = GetFolderPath();
             string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
             cbFileType.DataSource = directory;
-            
-            loadFileList();
         }
 
         private void TORToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameName = "TOR";
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
             if (basePath == null)
             {
-                basePath = get_Folder_Path() + "/Data/TOR";
+                basePath = GetFolderPath() + "/Data/TOR";
 
-                List<string> folderIncluded = new List<string> { "Story", "Menu" };
                 if (Directory.Exists(basePath))
                 {
-                    string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).Where(x => folderIncluded.Contains(x)).ToArray();
-                    cbFileType.DataSource = directory;
-
-                    loadFileList();
-                    changeEnabledProp(true);
-
-                    folderIncluded = new List<string> { "Story", "Menu" };
+                    DisableEventHandlers();
+                    
+                    var folderIncluded = new List<string> { "Story", "Menu" };
                     Project = new TranslationProject(basePath, folderIncluded);
+                    
+                    CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+
+                    cbFileType.DataSource = Project.GetFolderNames();
+                    cbFileList.SelectedText = Project.CurrentFolder.Name;
+                    cbFileList.DataSource = Project.CurrentFolder.FileList();
+                    cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+                    UpdateDisplayedEntries();
+                    UpdateStatusData();
+
+                    ChangeEnabledProp(true);
+                    EnableEventHandlers();
                 }
                 else
                 {
-                    MessageBox.Show($"Are you sure you selected the right folder?\nThe folder you choose doesn't represent a valid Tales of Repo.\nIt should have the Data folder in it.\nPath {basePath} not valid.");
+                    MessageBox.Show($"Are you sure you selected the right folder?\n" +
+                                    $"The folder you choose doesn't represent a valid Tales of Repo.\n" +
+                                    $"It should have the Data folder in it.\nPath {basePath} not valid.");
                     basePath = null;
                 }
             }
         }
 
-        private void loadFile(string fileName)
+        private void DisableEventHandlers()
         {
-            try
-            {
-  
-             
-                
-                using (FileStream stream = File.OpenRead(fileName))
-                {
-                    XmlSerializer serializer;
-                    
-                    switch (cbFileType.Text)
-                    {
-                        case "Story": 
-                            serializer = new XmlSerializer(typeof(TORStory));
-                            listFileXML.Add((TORStory)serializer.Deserialize(stream));
-                            break;
-
-                        case "Menu":
-                            serializer = new XmlSerializer(typeof(Menu));
-                            listFileXML.Add((Menu)serializer.Deserialize(stream));
-                            break;
-
-                    }
-                    
-                    
-                    
-                    //lbEntries.DataSource = entryElements;
-
-                    tabType1.Text = "Strings";
-                    //sr.Close();
-                }
-            }
-            catch (SecurityException ex)
-            {
-                MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
-                $"Details:\n\n{ex.StackTrace}");
-            }
-
-            //Filter to remove the entries with status = Done
-            //filterStatus();
+            cbFileType.TextChanged -= cbFileType_TextChanged;
+            cbFileList.DrawItem -= cbFileList_DrawItem;
+            cbFileList.TextChanged -= cbFileList_TextChanged;
+            cbSections.TextChanged -= cbSections_TextChanged;
+            cbSections.SelectedIndexChanged -= cbSections_SelectedIndexChanged;
         }
 
-        private void loadSections()
+        private void EnableEventHandlers()
         {
-            string[] sections = listFileXML[cbFileList.SelectedIndex].Strings.OrderBy(x => x.Section).Select(x => x.Section).ToArray();
-            cbSections.DataSource = sections;
-
-
-        }
-
-        private void loadAllFiles()
-        {
-            if (cbFileList.Items.Count > 0)
-            {
-                listFileXML.Clear();
-                //Load all the XML files in memory
-                foreach (string fileName in cbFileList.Items)
-                {
-
-                    loadFile($@"{basePath}\{cbFileType.Text}\XML\{fileName}");
-                }
-                
-            }
+            cbFileType.TextChanged += cbFileType_TextChanged;
+            cbFileList.DrawItem += cbFileList_DrawItem;
+            cbFileList.TextChanged += cbFileList_TextChanged;
+            cbSections.TextChanged += cbSections_TextChanged;
+            cbSections.SelectedIndexChanged += cbSections_SelectedIndexChanged;
         }
 
         private void cbFileType_TextChanged(object sender, EventArgs e)
         {
-            loadFileList();
-
-            loadAllFiles();
-
-            loadSections();
-
-
-
-        }
-        private string countEntries(string status, List<Strings> listEntries, bool withSection = false)
-        {
-            int nbEntries = 0;
-            if (withSection)
+            if (cbFileType.SelectedItem.ToString() != string.Empty)
             {
+                Project.SetCurrentFolder(cbFileType.SelectedItem.ToString());
+                cbFileList.DataSource = Project.CurrentFolder.FileList();
 
-                //Count nb entries only inside that section
-                nbEntries = listEntries
-                .Where(x => x.Section == cbSections.Text)
-                .SelectMany(x => x.Entries)
-                .Where(y => y.Status == status)
-                .Count();
+                cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+                UpdateStatusData();
             }
-            else
-            {
-
-                //Count nb entries for the whole file
-                nbEntries = listEntries.SelectMany(x => x.Entries).Where(x => x.Status == status).Count();
-            }
-
-            return nbEntries.ToString();
         }
-        //Create a list of entries and filter the Section and Status then update the lbentries datasource
-        private void updateListEntries()
+
+        private void UpdateDisplayedEntries()
         {
-            List<string> listStatus = dictStatus.Where(x => x.Value == true).Select(x => x.Key).ToList();
-            List<Strings> listBasic = listFileXML[cbFileList.SelectedIndex].Strings;
-            listEntries = listBasic
-                .Where(x => x.Section == cbSections.Text).FirstOrDefault().Entries
-                .Where(y => listStatus.Contains(y.Status)).ToList();
+            var checkedFilters = new List<string>
+            {
+                cbToDo.Checked ? "To Do" : string.Empty,
+                cbProof.Checked ? "Proofreading" : string.Empty,
+                cbInReview.Checked ? "In Review" : string.Empty,
+                cbProblematic.Checked ? "Problematic" : string.Empty,
+                cbDone.Checked ? "Done" : string.Empty
+            };
 
-            lbEntries.DataSource = listEntries;
+            CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+            lbEntries.DataSource = CurrentEntryList;
+        }
 
-
+        private void UpdateStatusData()
+        {
+            var statusStats = Project.CurrentFolder.CurrentFile.GetStatusData();
             //File Count of status
-            lNbToDo.Text = countEntries("To Do", listBasic);
-            lNbProof.Text = countEntries("Proofreading", listBasic);
-            lNbProb.Text = countEntries("Problematic", listBasic);
-            lNbReview.Text = countEntries("In Review", listBasic);
-            lNbDone.Text = countEntries("Done", listBasic);
+            lNbToDo.Text = statusStats["To Do"].ToString();
+            lNbProof.Text = statusStats["Proofreading"].ToString();
+            lNbProb.Text = statusStats["Problematic"].ToString();
+            lNbReview.Text = statusStats["In Review"].ToString();
+            lNbDone.Text = statusStats["Done"].ToString();
 
+            var sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData();
             //Section Count of status
-            lNbToDoSect.Text = countEntries("To Do", listBasic,true);
-            lNbProofSect.Text = countEntries("Proofreading", listBasic, true);
-            lNbProbSect.Text = countEntries("Problematic", listBasic, true); 
-            lNbReviewSect.Text = countEntries("In Review", listBasic, true);
-            lNbDoneSect.Text = countEntries("Done", listBasic, true);
-          
+            lNbToDoSect.Text = sectionStatusStats["To Do"].ToString();
+            lNbProofSect.Text = sectionStatusStats["Proofreading"].ToString();
+            lNbProbSect.Text = sectionStatusStats["Problematic"].ToString();
+            lNbReviewSect.Text = sectionStatusStats["In Review"].ToString();
+            lNbDoneSect.Text = sectionStatusStats["Done"].ToString();
         }
+
         private void cbFileList_TextChanged(object sender, EventArgs e)
         {
             if (cbFileList.SelectedIndex != -1)
             {
-                string fileType = cbFileType.Text;
-                string fileName = cbFileList.Text;
-                string fullName = $@"{basePath}\{fileType}\XML\{fileName}";
+                Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
+                CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
 
-                loadSections();
+                FilterEntryList();
 
-                updateListEntries();
-                
                 bSave.Enabled = true;
-
-                
-
             }
         }
 
         private void tOPXToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-      
         }
-
-  
 
         private void tbEnglishText_TextChanged(object sender, EventArgs e)
         {
-            listEntries[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
-
+            CurrentEntryList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
 
             bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
+            lErrors.Text = "";
             if (!error)
             {
                 lErrors.Text = "Warning: You might be missing a </> for your tags.\nIf you are using </> as a symbol, you can continue.";
                 lErrors.ForeColor = Color.Red;
             }
-            else
-            {
-                lErrors.Text = "";
 
-            }
-
-            if (cbStatus.Text == "Problematic" || cbStatus.Text == "In Review")
-            {
-                return;
-            }
-
+            string status;
             if (tbEnglishText.Text == tbJapaneseText.Text)
-            {
-                cbStatus.Text = "Done";
-            }else if (tbEnglishText.Text == "")
-            {
-                cbStatus.Text = "To Do";
-            }
+                status = "Done";
+            else if (tbEnglishText.Text == "")
+                status = "To Do";
             else
-            {
-                cbStatus.Text = "Proofreading";
-            }
+                status = "Proofreading";
+
+            CurrentEntryList[lbEntries.SelectedIndex].Status = status;
+            cbStatus.Text = status;
         }
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
         {
-            listEntries[lbEntries.SelectedIndex].Status = cbStatus.Text;
-            
+            if (cbStatus.Text != string.Empty)
+                CurrentEntryList[lbEntries.SelectedIndex].Status = cbStatus.Text;
         }
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
         {
-            listEntries[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
-            
+            CurrentEntryList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
         }
 
         private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            var myEntry = listEntries[e.Index];
-            string text = getTextBasedLanguage(e.Index);
-            int nb = Regex.Matches(text, "\\r*\\n").Count;
-            int size = (int)((nb + 1) * 14) + 6;
-            dictItemSize[e.Index] = size;
-            e.ItemHeight = size;
+            string text = GetTextBasedLanguage(e.Index);
+
+            int nb;
+            if (string.IsNullOrEmpty(text))
+                nb = 0;
+            else
+                nb = Regex.Matches(text, "\\r*\\n").Count;
             
+            var size = (int)((nb + 1) * 14) + 6;
+
+            e.ItemHeight = size;
         }
 
         private void cbFileList_DrawItem(object sender, DrawItemEventArgs e)
         {
-
             //Get the file selected
-            if (listFileXML.Count > 0)
+            if (Project.CurrentFolder.FileList().Count > 0)
             {
-                
                 string text = ((ComboBox)sender).Items[e.Index].ToString();
-                var count = listEntries.Count;
                 if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Black), e.Bounds);
-                else
-                if (listEntries.Count(x => x.Status == "Done") == count && count > 0)
                 {
-                    // Background item brush
-                    SolidBrush backgroundBrush = new SolidBrush(Color.LightGreen);
-
-                    e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(Color.Black), e.Bounds);
                 }
                 else
-                    e.Graphics.FillRectangle(new SolidBrush(((Control)sender).BackColor),
-                                             e.Bounds);
+                {
+                    var count = CurrentEntryList.Count;
+                    if (CurrentEntryList.Count(x => x.Status == "Done") == count && count > 0)
+                    {
+                        SolidBrush backgroundBrush = new SolidBrush(Color.LightGreen);
+                        e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                    }
+                    else
+                    {
+                        e.Graphics.FillRectangle(new SolidBrush(((Control)sender).BackColor), e.Bounds);
+                    }
+                }
+
                 SolidBrush textBrush = new SolidBrush(e.ForeColor);
                 e.Graphics.DrawString(text, ((Control)sender).Font, textBrush, e.Bounds, StringFormat.GenericDefault);
 
@@ -627,7 +453,6 @@ namespace TranslationApp
 
         private void cbSections_TextChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void hexToJapaneseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -636,42 +461,39 @@ namespace TranslationApp
             myForm.Show();
         }
 
-
         private void menuToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            gameName = "TOR";
-            //string res = Tools.callFunction( gameName, "pack", "Menu");
-            //MessageBox.Show(res);
         }
 
         private void cbToDo_CheckedChanged(object sender, EventArgs e)
         {
-            dictStatus["To Do"] = cbToDo.Checked;
-            updateListEntries();
-              
+            FilterEntryList();
         }
 
         private void cbProof_CheckedChanged(object sender, EventArgs e)
         {
-            dictStatus["Proofreading"] = cbProof.Checked;
-            updateListEntries();
+            FilterEntryList();
         }
+
         private void cbDone_CheckedChanged(object sender, EventArgs e)
         {
-            dictStatus["Done"] = cbDone.Checked;
-            updateListEntries();
+            FilterEntryList();
         }
 
         private void cbProblematic_CheckedChanged(object sender, EventArgs e)
         {
-            dictStatus["Problematic"] = cbProblematic.Checked;
-            updateListEntries();
+            FilterEntryList();
         }
 
         private void cbInReview_CheckedChanged(object sender, EventArgs e)
         {
-            dictStatus["In Review"] = cbInReview.Checked;
-            updateListEntries();
+            FilterEntryList();
+        }
+
+        private void FilterEntryList()
+        {
+            UpdateDisplayedEntries();
+            UpdateStatusData();
         }
 
         private void cbLanguage_SelectedIndexChanged(object sender, EventArgs e)
@@ -681,14 +503,9 @@ namespace TranslationApp
 
         private void cbSections_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateListEntries();
-        }
-
-        private void bRefresh_Click(object sender, EventArgs e)
-        {
-            loadAllFiles();
-
-            loadSections();
+            Project.CurrentFolder.CurrentFile.SetSection(cbSections.SelectedItem.ToString());
+            UpdateDisplayedEntries();
+            UpdateStatusData();
         }
 
         private void fMain_KeyDown(object sender, KeyEventArgs e)
@@ -708,6 +525,7 @@ namespace TranslationApp
                             if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
                                 lbEntries.SelectedIndex += 1;
                         }
+
                         break;
                     case Keys.Up:
                         if (e.Alt)
@@ -720,6 +538,7 @@ namespace TranslationApp
                             if (lbEntries.SelectedIndex > 0)
                                 lbEntries.SelectedIndex -= 1;
                         }
+
                         break;
                     case Keys.L:
                         if (string.IsNullOrWhiteSpace(tbEnglishText.Text))
@@ -732,6 +551,7 @@ namespace TranslationApp
                         e.Handled = false;
                         return;
                 }
+
                 e.Handled = true;
             }
         }
@@ -782,5 +602,3 @@ namespace TranslationApp
         }
     }
 }
-
-
