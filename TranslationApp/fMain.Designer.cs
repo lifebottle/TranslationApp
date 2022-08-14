@@ -89,7 +89,6 @@ namespace TranslationApp
             this.lNbReviewSect = new System.Windows.Forms.Label();
             this.lNbProofSect = new System.Windows.Forms.Label();
             this.lNbToDoSect = new System.Windows.Forms.Label();
-            this.bRefresh = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabType1.SuspendLayout();
@@ -108,7 +107,7 @@ namespace TranslationApp
             this.toolsToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(1126, 36);
+            this.menuStripMain.Size = new System.Drawing.Size(1126, 33);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -118,7 +117,7 @@ namespace TranslationApp
             this.TOPXTranslationToolStripMenuItem,
             this.TORTranslationToolStripMenuItem});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
-            this.translationToolStripMenuItem.Size = new System.Drawing.Size(112, 32);
+            this.translationToolStripMenuItem.Size = new System.Drawing.Size(112, 29);
             this.translationToolStripMenuItem.Text = "Translation";
             // 
             // TOPXTranslationToolStripMenuItem
@@ -142,7 +141,7 @@ namespace TranslationApp
             this.TOPXPackingToolStripMenuItem,
             this.TORPackingToolStripMenuItem});
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
-            this.packToolStripMenuItem.Size = new System.Drawing.Size(88, 32);
+            this.packToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
             this.packToolStripMenuItem.Text = "Packing";
             // 
             // TOPXPackingToolStripMenuItem
@@ -201,7 +200,7 @@ namespace TranslationApp
             this.hexToJapaneseToolStripMenuItem,
             this.searchJapaneseToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 32);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // hexToJapaneseToolStripMenuItem
@@ -729,23 +728,11 @@ namespace TranslationApp
             this.lNbToDoSect.TabIndex = 0;
             this.lNbToDoSect.Text = "label9";
             // 
-            // bRefresh
-            // 
-            this.bRefresh.Location = new System.Drawing.Point(332, 40);
-            this.bRefresh.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bRefresh.Name = "bRefresh";
-            this.bRefresh.Size = new System.Drawing.Size(106, 35);
-            this.bRefresh.TabIndex = 36;
-            this.bRefresh.Text = "Refresh";
-            this.bRefresh.UseVisualStyleBackColor = true;
-            this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
-            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 1134);
-            this.Controls.Add(this.bRefresh);
             this.Controls.Add(this.panelNb2);
             this.Controls.Add(this.panelNb1);
             this.Controls.Add(this.lLanguage);
@@ -861,7 +848,6 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbReviewSect;
         private System.Windows.Forms.Label lNbProofSect;
         private System.Windows.Forms.Label lNbToDoSect;
-        private System.Windows.Forms.Button bRefresh;
     }
 }
 
