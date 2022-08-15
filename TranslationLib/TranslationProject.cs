@@ -6,7 +6,7 @@ namespace TranslationLib
 {
     public class TranslationProject
     {
-        private List<XMLFolder> XmlFolders;
+        public List<XMLFolder> XmlFolders { get; set; }
         public XMLFolder CurrentFolder { get; set; }
 
         public TranslationProject(string basePath, List<string> folderIncluded)

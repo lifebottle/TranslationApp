@@ -205,7 +205,7 @@ namespace TranslationApp
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            Project.CurrentFolder.XMLFiles.ForEach(x => x.SaveToDisk());
+            Project.XmlFolders.ForEach(f => f.XMLFiles.ForEach(x => x.SaveToDisk()));
             MessageBox.Show("Text has been written to the XML files");
 
             UpdateDisplayedEntries();

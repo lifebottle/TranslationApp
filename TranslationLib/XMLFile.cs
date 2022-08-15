@@ -49,11 +49,9 @@ namespace TranslationLib
 
         public void SaveToDisk()
         {
+            var sectionsElements = Sections.Select(GetXmlSectionElement);
             var document = new XDocument(
-                new XElement(GetXMLTextTagName(),
-                    new XElement("Strings",
-                        GetXmlSectionElement(Sections.First()))
-                )
+                new XElement(GetXMLTextTagName(), sectionsElements)
             );
 
             File.WriteAllText(FilePath, document.ToString().Replace(" />", "/>") + Environment.NewLine);
@@ -63,11 +61,11 @@ namespace TranslationLib
         {
             if (FileType == "Menu")
                 return "MenuText";
-            
+
             return "SceneText";
         }
 
-        private List<XElement> GetXmlSectionElement(XMLSection section)
+        private XElement GetXmlSectionElement(XMLSection section)
         {
             var sectionEntry = new List<XElement>
             {
@@ -76,17 +74,18 @@ namespace TranslationLib
 
             sectionEntry.AddRange(section.Entries.Select(entry => GetXMLEntryElement(entry)).ToList());
 
-            return sectionEntry;
+            return new XElement("Strings", sectionEntry);
         }
 
         private static XElement GetXMLEntryElement(XMLEntry entry)
         {
+            var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
             return new XElement("Entry",
                 new XElement("PointerOffset", entry.PointerOffset),
                 new XElement("JapaneseText", entry.JapaneseText),
                 new XElement("EnglishText", entry.EnglishText),
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
-                new XElement("Id", entry.Id),
+                elemenId,
                 new XElement("Status", entry.Status)
             );
         }
