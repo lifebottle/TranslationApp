@@ -44,7 +44,7 @@ namespace TranslationLib
 
         public List<string> GetSectionNames()
         {
-            return Sections.Select(s => s.Name).ToList();
+            return Sections.Select(s => s.Name).OrderBy(s => s).ToList();
         }
 
         public void SaveToDisk()
