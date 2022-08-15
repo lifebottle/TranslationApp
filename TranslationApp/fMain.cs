@@ -79,6 +79,7 @@ namespace TranslationApp
 
             //Button
             bSave.Enabled = status;
+            btnRefresh.Enabled = status;
 
             //Panel
             panelNb1.Enabled = status;
@@ -262,22 +263,7 @@ namespace TranslationApp
 
                 if (Directory.Exists(basePath))
                 {
-                    DisableEventHandlers();
-                    
-                    var folderIncluded = new List<string> { "Story", "Menu" };
-                    Project = new TranslationProject(basePath, folderIncluded);
-                    
-                    CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
-
-                    cbFileType.DataSource = Project.GetFolderNames();
-                    cbFileList.SelectedText = Project.CurrentFolder.Name;
-                    cbFileList.DataSource = Project.CurrentFolder.FileList();
-                    cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
-                    UpdateDisplayedEntries();
-                    UpdateStatusData();
-
-                    ChangeEnabledProp(true);
-                    EnableEventHandlers();
+                    LoadFolder();
                 }
                 else
                 {
@@ -287,6 +273,26 @@ namespace TranslationApp
                     basePath = null;
                 }
             }
+        }
+
+        private void LoadFolder()
+        {
+            DisableEventHandlers();
+                    
+            var folderIncluded = new List<string> { "Story", "Menu" };
+            Project = new TranslationProject(basePath, folderIncluded);
+                    
+            CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+
+            cbFileType.DataSource = Project.GetFolderNames();
+            cbFileList.SelectedText = Project.CurrentFolder.Name;
+            cbFileList.DataSource = Project.CurrentFolder.FileList();
+            cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+            UpdateDisplayedEntries();
+            UpdateStatusData();
+
+            ChangeEnabledProp(true);
+            EnableEventHandlers();
         }
 
         private void DisableEventHandlers()
@@ -599,6 +605,11 @@ namespace TranslationApp
             {
                 Clipboard.SetText(stripTags(tbJapaneseText.Text));
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadFolder();
         }
     }
 }
