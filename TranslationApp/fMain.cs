@@ -279,7 +279,7 @@ namespace TranslationApp
         {
             DisableEventHandlers();
                     
-            var folderIncluded = new List<string> { "Story", "Menu" };
+            var folderIncluded = new List<string> { "Story", "Menu", "Skits" };
             Project = new TranslationProject(basePath, folderIncluded);
                     
             CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
