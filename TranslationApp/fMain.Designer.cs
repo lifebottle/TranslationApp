@@ -89,6 +89,7 @@ namespace TranslationApp
             this.lNbReviewSect = new System.Windows.Forms.Label();
             this.lNbProofSect = new System.Windows.Forms.Label();
             this.lNbToDoSect = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabType1.SuspendLayout();
@@ -107,7 +108,7 @@ namespace TranslationApp
             this.toolsToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(1126, 33);
+            this.menuStripMain.Size = new System.Drawing.Size(1126, 36);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -220,7 +221,7 @@ namespace TranslationApp
             // 
             this.tbJapaneseText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbJapaneseText.HideSelection = false;
-            this.tbJapaneseText.Location = new System.Drawing.Point(506, 288);
+            this.tbJapaneseText.Location = new System.Drawing.Point(506, 302);
             this.tbJapaneseText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbJapaneseText.Multiline = true;
             this.tbJapaneseText.Name = "tbJapaneseText";
@@ -232,7 +233,7 @@ namespace TranslationApp
             // tbEnglishText
             // 
             this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEnglishText.Location = new System.Drawing.Point(507, 577);
+            this.tbEnglishText.Location = new System.Drawing.Point(507, 591);
             this.tbEnglishText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbEnglishText.Multiline = true;
             this.tbEnglishText.Name = "tbEnglishText";
@@ -243,7 +244,7 @@ namespace TranslationApp
             // 
             // tbNoteText
             // 
-            this.tbNoteText.Location = new System.Drawing.Point(506, 869);
+            this.tbNoteText.Location = new System.Drawing.Point(506, 883);
             this.tbNoteText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbNoteText.Multiline = true;
             this.tbNoteText.Name = "tbNoteText";
@@ -253,7 +254,7 @@ namespace TranslationApp
             // 
             // lblJapanese
             // 
-            this.lblJapanese.Location = new System.Drawing.Point(501, 263);
+            this.lblJapanese.Location = new System.Drawing.Point(501, 277);
             this.lblJapanese.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblJapanese.Name = "lblJapanese";
             this.lblJapanese.Size = new System.Drawing.Size(2000, 20);
@@ -262,7 +263,7 @@ namespace TranslationApp
             // 
             // lblEnglish
             // 
-            this.lblEnglish.Location = new System.Drawing.Point(501, 552);
+            this.lblEnglish.Location = new System.Drawing.Point(501, 566);
             this.lblEnglish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEnglish.Name = "lblEnglish";
             this.lblEnglish.Size = new System.Drawing.Size(500, 20);
@@ -272,7 +273,7 @@ namespace TranslationApp
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(501, 845);
+            this.label4.Location = new System.Drawing.Point(501, 859);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 20);
@@ -282,7 +283,7 @@ namespace TranslationApp
             // tcType
             // 
             this.tcType.Controls.Add(this.tabType1);
-            this.tcType.Location = new System.Drawing.Point(24, 346);
+            this.tcType.Location = new System.Drawing.Point(24, 360);
             this.tcType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tcType.Name = "tcType";
             this.tcType.SelectedIndex = 0;
@@ -318,7 +319,7 @@ namespace TranslationApp
             // 
             this.lFile.AutoSize = true;
             this.lFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lFile.Location = new System.Drawing.Point(20, 80);
+            this.lFile.Location = new System.Drawing.Point(20, 94);
             this.lFile.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lFile.Name = "lFile";
             this.lFile.Size = new System.Drawing.Size(0, 25);
@@ -326,7 +327,7 @@ namespace TranslationApp
             // 
             // bSave
             // 
-            this.bSave.Location = new System.Drawing.Point(918, 894);
+            this.bSave.Location = new System.Drawing.Point(918, 908);
             this.bSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(147, 35);
@@ -338,7 +339,7 @@ namespace TranslationApp
             // trackBarAlign
             // 
             this.trackBarAlign.AutoSize = false;
-            this.trackBarAlign.Location = new System.Drawing.Point(722, 205);
+            this.trackBarAlign.Location = new System.Drawing.Point(722, 219);
             this.trackBarAlign.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.trackBarAlign.Name = "trackBarAlign";
             this.trackBarAlign.Size = new System.Drawing.Size(172, 40);
@@ -348,7 +349,7 @@ namespace TranslationApp
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(717, 185);
+            this.label7.Location = new System.Drawing.Point(717, 199);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 20);
@@ -359,7 +360,7 @@ namespace TranslationApp
             // 
             this.verticalLine.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.verticalLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.verticalLine.Location = new System.Drawing.Point(1062, 289);
+            this.verticalLine.Location = new System.Drawing.Point(1062, 303);
             this.verticalLine.Margin = new System.Windows.Forms.Padding(0, 0, 4, 5);
             this.verticalLine.Name = "verticalLine";
             this.verticalLine.Size = new System.Drawing.Size(2, 537);
@@ -370,7 +371,7 @@ namespace TranslationApp
             this.cbFileList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbFileList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFileList.FormattingEnabled = true;
-            this.cbFileList.Location = new System.Drawing.Point(204, 75);
+            this.cbFileList.Location = new System.Drawing.Point(204, 89);
             this.cbFileList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbFileList.Name = "cbFileList";
             this.cbFileList.Size = new System.Drawing.Size(232, 28);
@@ -383,7 +384,7 @@ namespace TranslationApp
             this.cbFileType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbFileType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFileType.FormattingEnabled = true;
-            this.cbFileType.Location = new System.Drawing.Point(18, 75);
+            this.cbFileType.Location = new System.Drawing.Point(18, 89);
             this.cbFileType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbFileType.Name = "cbFileType";
             this.cbFileType.Size = new System.Drawing.Size(154, 28);
@@ -392,7 +393,7 @@ namespace TranslationApp
             // 
             // bBrowse
             // 
-            this.bBrowse.Location = new System.Drawing.Point(506, 72);
+            this.bBrowse.Location = new System.Drawing.Point(506, 86);
             this.bBrowse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bBrowse.Name = "bBrowse";
             this.bBrowse.Size = new System.Drawing.Size(112, 35);
@@ -402,7 +403,7 @@ namespace TranslationApp
             // 
             // bMassReplace
             // 
-            this.bMassReplace.Location = new System.Drawing.Point(627, 72);
+            this.bMassReplace.Location = new System.Drawing.Point(627, 86);
             this.bMassReplace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bMassReplace.Name = "bMassReplace";
             this.bMassReplace.Size = new System.Drawing.Size(216, 35);
@@ -420,7 +421,7 @@ namespace TranslationApp
             "In Review",
             "Problematic",
             "Done"});
-            this.cbStatus.Location = new System.Drawing.Point(506, 194);
+            this.cbStatus.Location = new System.Drawing.Point(506, 208);
             this.cbStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(180, 28);
@@ -430,7 +431,7 @@ namespace TranslationApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(501, 169);
+            this.label1.Location = new System.Drawing.Point(501, 183);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 20);
@@ -441,7 +442,7 @@ namespace TranslationApp
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(14, 128);
+            this.label5.Location = new System.Drawing.Point(14, 142);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(130, 22);
@@ -453,7 +454,7 @@ namespace TranslationApp
             this.lErrors.AutoSize = true;
             this.lErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lErrors.ForeColor = System.Drawing.Color.Red;
-            this.lErrors.Location = new System.Drawing.Point(572, 940);
+            this.lErrors.Location = new System.Drawing.Point(572, 954);
             this.lErrors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lErrors.Name = "lErrors";
             this.lErrors.Size = new System.Drawing.Size(20, 22);
@@ -464,7 +465,7 @@ namespace TranslationApp
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(502, 940);
+            this.label6.Location = new System.Drawing.Point(502, 954);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 22);
@@ -477,7 +478,7 @@ namespace TranslationApp
             this.cbSections.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbSections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSections.FormattingEnabled = true;
-            this.cbSections.Location = new System.Drawing.Point(204, 251);
+            this.cbSections.Location = new System.Drawing.Point(204, 265);
             this.cbSections.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbSections.Name = "cbSections";
             this.cbSections.Size = new System.Drawing.Size(232, 28);
@@ -489,7 +490,7 @@ namespace TranslationApp
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(20, 252);
+            this.label8.Location = new System.Drawing.Point(20, 266);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(139, 22);
@@ -505,7 +506,7 @@ namespace TranslationApp
             this.panel1.Controls.Add(this.cbInReview);
             this.panel1.Controls.Add(this.cbProof);
             this.panel1.Controls.Add(this.cbToDo);
-            this.panel1.Location = new System.Drawing.Point(152, 117);
+            this.panel1.Location = new System.Drawing.Point(152, 131);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(138, 124);
@@ -580,7 +581,7 @@ namespace TranslationApp
             this.cbLanguage.Items.AddRange(new object[] {
             "English (if available)",
             "Japanese"});
-            this.cbLanguage.Location = new System.Drawing.Point(244, 305);
+            this.cbLanguage.Location = new System.Drawing.Point(244, 319);
             this.cbLanguage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbLanguage.Name = "cbLanguage";
             this.cbLanguage.Size = new System.Drawing.Size(192, 28);
@@ -591,7 +592,7 @@ namespace TranslationApp
             // 
             this.lLanguage.AutoSize = true;
             this.lLanguage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lLanguage.Location = new System.Drawing.Point(20, 305);
+            this.lLanguage.Location = new System.Drawing.Point(20, 319);
             this.lLanguage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lLanguage.Name = "lLanguage";
             this.lLanguage.Size = new System.Drawing.Size(90, 22);
@@ -607,7 +608,7 @@ namespace TranslationApp
             this.panelNb1.Controls.Add(this.lNbReview);
             this.panelNb1.Controls.Add(this.lNbProof);
             this.panelNb1.Controls.Add(this.lNbToDo);
-            this.panelNb1.Location = new System.Drawing.Point(374, 117);
+            this.panelNb1.Location = new System.Drawing.Point(374, 131);
             this.panelNb1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelNb1.Name = "panelNb1";
             this.panelNb1.Size = new System.Drawing.Size(64, 124);
@@ -672,7 +673,7 @@ namespace TranslationApp
             this.panelNb2.Controls.Add(this.lNbReviewSect);
             this.panelNb2.Controls.Add(this.lNbProofSect);
             this.panelNb2.Controls.Add(this.lNbToDoSect);
-            this.panelNb2.Location = new System.Drawing.Point(298, 117);
+            this.panelNb2.Location = new System.Drawing.Point(298, 131);
             this.panelNb2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelNb2.Name = "panelNb2";
             this.panelNb2.Size = new System.Drawing.Size(64, 124);
@@ -728,11 +729,23 @@ namespace TranslationApp
             this.lNbToDoSect.TabIndex = 0;
             this.lNbToDoSect.Text = "label9";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(18, 47);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(112, 35);
+            this.btnRefresh.TabIndex = 36;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 1134);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.panelNb2);
             this.Controls.Add(this.panelNb1);
             this.Controls.Add(this.lLanguage);
@@ -848,6 +861,7 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbReviewSect;
         private System.Windows.Forms.Label lNbProofSect;
         private System.Windows.Forms.Label lNbToDoSect;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
