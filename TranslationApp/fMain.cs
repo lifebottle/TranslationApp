@@ -364,6 +364,7 @@ namespace TranslationApp
             if (cbFileList.SelectedIndex != -1)
             {
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
+                cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
                 CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
 
                 FilterEntryList();
