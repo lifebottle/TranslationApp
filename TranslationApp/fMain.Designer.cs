@@ -33,6 +33,8 @@ namespace TranslationApp
             this.translationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TOPXTranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TORTranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadLastFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TOPXPackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TORPackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +92,8 @@ namespace TranslationApp
             this.lNbProofSect = new System.Windows.Forms.Label();
             this.lNbToDoSect = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.loadLastFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadNewFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabType1.SuspendLayout();
@@ -101,6 +105,7 @@ namespace TranslationApp
             // 
             // menuStripMain
             // 
+            this.menuStripMain.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStripMain.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.translationToolStripMenuItem,
@@ -108,7 +113,7 @@ namespace TranslationApp
             this.toolsToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(1126, 36);
+            this.menuStripMain.Size = new System.Drawing.Size(1126, 33);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -123,18 +128,37 @@ namespace TranslationApp
             // 
             // TOPXTranslationToolStripMenuItem
             // 
+            this.TOPXTranslationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadLastFolderToolStripMenuItem1,
+            this.loadNewFolderToolStripMenuItem1});
             this.TOPXTranslationToolStripMenuItem.Enabled = false;
             this.TOPXTranslationToolStripMenuItem.Name = "TOPXTranslationToolStripMenuItem";
-            this.TOPXTranslationToolStripMenuItem.Size = new System.Drawing.Size(157, 34);
+            this.TOPXTranslationToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.TOPXTranslationToolStripMenuItem.Text = "TOPX";
             this.TOPXTranslationToolStripMenuItem.Click += new System.EventHandler(this.TOPXToolStripMenuItem_Click);
             // 
             // TORTranslationToolStripMenuItem
             // 
+            this.TORTranslationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadLastFolderToolStripMenuItem,
+            this.loadNewFolderToolStripMenuItem});
             this.TORTranslationToolStripMenuItem.Name = "TORTranslationToolStripMenuItem";
-            this.TORTranslationToolStripMenuItem.Size = new System.Drawing.Size(157, 34);
+            this.TORTranslationToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.TORTranslationToolStripMenuItem.Text = "TOR";
-            this.TORTranslationToolStripMenuItem.Click += new System.EventHandler(this.TORToolStripMenuItem_Click);
+            // 
+            // loadLastFolderToolStripMenuItem
+            // 
+            this.loadLastFolderToolStripMenuItem.Name = "loadLastFolderToolStripMenuItem";
+            this.loadLastFolderToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.loadLastFolderToolStripMenuItem.Text = "Load Last Folder";
+            this.loadLastFolderToolStripMenuItem.Click += new System.EventHandler(this.loadLastFolderToolStripMenuItem_Click);
+            // 
+            // loadNewFolderToolStripMenuItem
+            // 
+            this.loadNewFolderToolStripMenuItem.Name = "loadNewFolderToolStripMenuItem";
+            this.loadNewFolderToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.loadNewFolderToolStripMenuItem.Text = "Load New Folder";
+            this.loadNewFolderToolStripMenuItem.Click += new System.EventHandler(this.loadNewFolderToolStripMenuItem_Click);
             // 
             // packToolStripMenuItem
             // 
@@ -740,6 +764,18 @@ namespace TranslationApp
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // loadLastFolderToolStripMenuItem1
+            // 
+            this.loadLastFolderToolStripMenuItem1.Name = "loadLastFolderToolStripMenuItem1";
+            this.loadLastFolderToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.loadLastFolderToolStripMenuItem1.Text = "Load Last Folder";
+            // 
+            // loadNewFolderToolStripMenuItem1
+            // 
+            this.loadNewFolderToolStripMenuItem1.Name = "loadNewFolderToolStripMenuItem1";
+            this.loadNewFolderToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.loadNewFolderToolStripMenuItem1.Text = "Load New Folder";
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -862,6 +898,10 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbProofSect;
         private System.Windows.Forms.Label lNbToDoSect;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.ToolStripMenuItem loadLastFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadNewFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadLastFolderToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem loadNewFolderToolStripMenuItem1;
     }
 }
 
