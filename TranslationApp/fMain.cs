@@ -266,7 +266,7 @@ namespace TranslationApp
             config.LastProjectFolderPath = loadedFolder;
             config.TORFolderPath = loadedFolder;
         }
-        
+
         private void loadLastFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TryLoadFolder(config.TORFolderPath);
@@ -621,7 +621,27 @@ namespace TranslationApp
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            var selectedFileType = cbFileType.Text;
+            var selectedFile = cbFileList.Text;
+            var selectedSection = cbSections.Text;
+            var selectedLanguage = cbLanguage.Text;
             LoadFolder(Project.ProjectPath);
+
+            DisableEventHandlers();
+            Project.SetCurrentFolder(selectedFileType);
+            cbFileType.Text = selectedFileType;
+            Project.CurrentFolder.SetCurrentFile(selectedFile);
+            cbFileList.DataSource = Project.CurrentFolder.FileList();
+            cbFileList.Text = selectedFile;
+            Project.CurrentFolder.CurrentFile.SetSection(selectedSection);
+            cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+            cbSections.Text = selectedSection;
+            cbLanguage.Text = selectedLanguage;
+            lbEntries.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+            EnableEventHandlers();
+            
+            UpdateDisplayedEntries();
+            UpdateStatusData();
         }
     }
 }
