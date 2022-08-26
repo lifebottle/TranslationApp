@@ -6,11 +6,13 @@ namespace TranslationLib
 {
     public class TranslationProject
     {
+        public string ProjectPath { get; }
         public List<XMLFolder> XmlFolders { get; set; }
         public XMLFolder CurrentFolder { get; set; }
 
         public TranslationProject(string basePath, List<string> folderIncluded)
         {
+            ProjectPath = basePath;
             XmlFolders = new List<XMLFolder>();
 
             foreach (var folder in folderIncluded)

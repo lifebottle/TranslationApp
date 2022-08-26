@@ -11,11 +11,10 @@ namespace TranslationApp
 {
     public partial class fMain : Form
     {
+        private static Config config;
         private static TranslationProject Project;
         private static List<XMLEntry> CurrentEntryList;
         private Dictionary<string, Color> ColorByStatus;
-
-        private string basePath;
 
         public fMain()
         {
@@ -28,17 +27,25 @@ namespace TranslationApp
             CreateColorByStatusDictionnary();
             InitialiseStatusText();
             ChangeEnabledProp(false);
+
+            config = new Config();
+            config.Load();
+
+            if (!string.IsNullOrEmpty(config.LastProjectFolderPath))
+            {
+                TryLoadFolder(config.LastProjectFolderPath);
+            }
         }
-        
+
         private void CreateColorByStatusDictionnary()
         {
             ColorByStatus = new Dictionary<string, Color>
             {
-                {"To Do", Color.White},
-                {"Proofreading", Color.FromArgb(162, 255, 255)},    // Light Cyan
-                {"In Review", Color.FromArgb(255, 102, 255)},       // Magenta
-                {"Problematic", Color.FromArgb(255, 255, 162)},     // Light Yellow
-                {"Done", Color.FromArgb(162, 255, 162)},            // Light Green
+                { "To Do", Color.White },
+                { "Proofreading", Color.FromArgb(162, 255, 255) }, // Light Cyan
+                { "In Review", Color.FromArgb(255, 102, 255) }, // Magenta
+                { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
+                { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
             };
         }
 
@@ -49,7 +56,7 @@ namespace TranslationApp
             lNbProb.Text = "";
             lNbProof.Text = "";
             lNbDone.Text = "";
-            
+
             lNbToDoSect.Text = "";
             lNbProbSect.Text = "";
             lNbReviewSect.Text = "";
@@ -249,39 +256,43 @@ namespace TranslationApp
 
         private void TOPXToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            basePath = GetFolderPath();
-            string[] directory = Directory.GetDirectories(basePath).Select(x => Path.GetFileName(x)).ToArray();
-            cbFileType.DataSource = directory;
         }
 
-        private void TORToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
-            if (basePath == null)
-            {
-                basePath = GetFolderPath() + "/Data/TOR";
 
-                if (Directory.Exists(basePath))
-                {
-                    LoadFolder();
-                }
-                else
-                {
-                    MessageBox.Show($"Are you sure you selected the right folder?\n" +
-                                    $"The folder you choose doesn't represent a valid Tales of Repo.\n" +
-                                    $"It should have the Data folder in it.\nPath {basePath} not valid.");
-                    basePath = null;
-                }
-            }
+            var loadedFolder = TryLoadFolder(GetFolderPath() + "/Data/TOR");
+            config.LastProjectFolderPath = loadedFolder;
+            config.TORFolderPath = loadedFolder;
+        }
+        
+        private void loadLastFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TryLoadFolder(config.TORFolderPath);
         }
 
-        private void LoadFolder()
+        private string TryLoadFolder(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                LoadFolder(path);
+                return path;
+            }
+
+            MessageBox.Show("Are you sure you selected the right folder?\n" +
+                            "The folder you choose doesn't represent a valid Tales of Repo.\n" +
+                            $"It should have the Data folder in it.\nPath {path} not valid.");
+            return null;
+        }
+
+        private void LoadFolder(string path)
         {
             DisableEventHandlers();
-                    
+
             var folderIncluded = new List<string> { "Story", "Menu", "Skits" };
-            Project = new TranslationProject(basePath, folderIncluded);
-                    
+            Project = new TranslationProject(path, folderIncluded);
+
             CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
 
             cbFileType.DataSource = Project.GetFolderNames();
@@ -421,7 +432,7 @@ namespace TranslationApp
                 nb = 0;
             else
                 nb = Regex.Matches(text, "\\r*\\n").Count;
-            
+
             var size = (int)((nb + 1) * 14) + 6;
 
             e.ItemHeight = size;
@@ -573,17 +584,18 @@ namespace TranslationApp
 
             foreach (string element in result)
             {
-
                 if (element[0] == '<')
                 {
                     if (names.Contains(element))
                     {
                         output += element.Substring(1, element.Length - 2);
                     }
+
                     if (element.Contains("Unk") || element.Contains("04"))
                     {
                         output += "〇〇〇";
                     }
+
                     if (element.Contains("nmb"))
                     {
                         string el = element.Substring(5, element.Length - 7);
@@ -597,7 +609,6 @@ namespace TranslationApp
             }
 
             return output;
-
         }
 
         private void lbEntries_KeyDown(object sender, KeyEventArgs e)
@@ -610,7 +621,7 @@ namespace TranslationApp
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadFolder();
+            LoadFolder(Project.ProjectPath);
         }
     }
 }
