@@ -25,36 +25,39 @@ namespace TranslationLib
         {
             var fileList = Directory.GetFiles(FolderPath);
 
-            foreach (var file in fileList)
+            if (fileList.Length > 0)
             {
-                var XMLFile = new XMLFile { Name = Path.GetFileName(file), FilePath = file, FileType = Name };
-                XMLFiles.Add(XMLFile);
-                var document = XDocument.Load(file);
-
-                var XMLSections = document.Root.Elements("Strings");
-
-                foreach (var XMLSection in XMLSections)
+                foreach (var file in fileList)
                 {
-                    var section = new XMLSection(XMLSection.Element("Section").Value);
-                    XMLFile.Sections.Add(section);
+                    var XMLFile = new XMLFile { Name = Path.GetFileName(file), FilePath = file, FileType = Name };
+                    XMLFiles.Add(XMLFile);
+                    var document = XDocument.Load(file);
 
-                    foreach (var XMLEntry in XMLSection.Elements("Entry"))
+                    var XMLSections = document.Root.Elements("Strings");
+
+                    foreach (var XMLSection in XMLSections)
                     {
-                        var entry = ExtractXMLEntry(XMLEntry);
-                        section.Entries.Add(entry);
+                        var section = new XMLSection(XMLSection.Element("Section").Value);
+                        XMLFile.Sections.Add(section);
 
-                        if (!string.IsNullOrEmpty(entry.JapaneseText))
+                        foreach (var XMLEntry in XMLSection.Elements("Entry"))
                         {
-                            if (!Translations.ContainsKey(entry.JapaneseText))
-                                AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
-                            else
-                                AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                            var entry = ExtractXMLEntry(XMLEntry);
+                            section.Entries.Add(entry);
+
+                            if (!string.IsNullOrEmpty(entry.JapaneseText))
+                            {
+                                if (!Translations.ContainsKey(entry.JapaneseText))
+                                    AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                                else
+                                    AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                            }
                         }
                     }
+                    XMLFile.CurrentSection = XMLFile.Sections.First();
                 }
-                XMLFile.CurrentSection = XMLFile.Sections.First();
+                CurrentFile = XMLFiles.First();
             }
-            CurrentFile = XMLFiles.First();
         }
 
         private XMLEntry ExtractXMLEntry(XElement element)
