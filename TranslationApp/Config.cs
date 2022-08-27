@@ -10,6 +10,7 @@ namespace TranslationApp
 
         private string _lastProjectFolderPath;
         private string _TORFolderPath;
+        private string _NDXFolderPath;
 
         public string LastProjectFolderPath
         {
@@ -27,6 +28,16 @@ namespace TranslationApp
             set
             {
                 _TORFolderPath = value;
+                Save();
+            }
+        }
+
+        public string NDXFolderPath
+        {
+            get => _NDXFolderPath;
+            set
+            {
+                _NDXFolderPath = value;
                 Save();
             }
         }
