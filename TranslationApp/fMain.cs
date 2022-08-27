@@ -254,7 +254,7 @@ namespace TranslationApp
             }
         }
 
-        private void TOPXToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NDXToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
 
@@ -383,7 +383,7 @@ namespace TranslationApp
             }
         }
 
-        private void tOPXToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void NDXToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
         }
 
