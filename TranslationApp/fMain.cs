@@ -645,5 +645,19 @@ namespace TranslationApp
             UpdateDisplayedEntries();
             UpdateStatusData();
         }
+
+        private void loadLastFolderToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TryLoadFolder(config.NDXFolderPath);
+        }
+
+        private void loadNewFolderToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            lbEntries.BorderStyle = BorderStyle.FixedSingle;
+
+            var loadedFolder = TryLoadFolder(GetFolderPath() + "/Data/NDX");
+            config.LastProjectFolderPath = loadedFolder;
+            config.NDXFolderPath = loadedFolder;
+        }
     }
 }
