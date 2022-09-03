@@ -296,7 +296,6 @@ namespace TranslationApp
             CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
 
             cbFileType.DataSource = Project.GetFolderNames();
-            cbFileList.SelectedText = Project.CurrentFolder.Name;
             cbFileList.DataSource = Project.CurrentFolder.FileList();
             cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
             UpdateDisplayedEntries();
@@ -425,6 +424,9 @@ namespace TranslationApp
 
         private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
         {
+            if (e.Index >= CurrentEntryList.Count)
+                return;
+            
             string text = GetTextBasedLanguage(e.Index);
 
             int nb;
