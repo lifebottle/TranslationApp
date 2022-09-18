@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TranslationLib;
+using PackingLib;
 
 namespace TranslationApp
 {
@@ -13,8 +14,10 @@ namespace TranslationApp
     {
         private static Config config;
         private static TranslationProject Project;
+        private static PackingProject PackingAssistant;
         private static List<XMLEntry> CurrentEntryList;
         private Dictionary<string, Color> ColorByStatus;
+        private string gameName;
 
         public fMain()
         {
@@ -27,14 +30,24 @@ namespace TranslationApp
             CreateColorByStatusDictionnary();
             InitialiseStatusText();
             ChangeEnabledProp(false);
-
+            
             config = new Config();
             config.Load();
+            UpdateOptionsVisibility();
+            PackingAssistant = new PackingProject();
 
             if (!string.IsNullOrEmpty(config.LastProjectFolderPath))
             {
                 TryLoadFolder(config.LastProjectFolderPath);
+
+                if (config.LastProjectFolderPath.EndsWith("TOR"))
+                    this.gameName = "TOR";
+                else
+                    this.gameName = "NDX";
+
+                
             }
+        
         }
 
         private void CreateColorByStatusDictionnary()
@@ -243,7 +256,7 @@ namespace TranslationApp
             return string.IsNullOrEmpty(myEntry.EnglishText) ? myEntry.JapaneseText : myEntry.EnglishText;
         }
 
-        private string GetFolderPath()
+        public string GetFolderPath()
         {
             using (var fbd = new FolderBrowserDialog())
             {
@@ -258,21 +271,25 @@ namespace TranslationApp
         {
         }
 
-        private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsTORLoadNew_Click(object sender, EventArgs e)
         {
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
 
             var loadedFolder = TryLoadFolder(GetFolderPath() + "/Data/TOR");
             config.LastProjectFolderPath = loadedFolder;
             config.TORFolderPath = loadedFolder;
+            this.gameName = "TOR";
+            UpdateOptionsVisibility();
         }
 
-        private void loadLastFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsTORLoadLast_Click(object sender, EventArgs e)
         {
             TryLoadFolder(config.TORFolderPath);
+            this.gameName = "TOR";
+            UpdateOptionsVisibility();
         }
 
-        private string TryLoadFolder(string path)
+        public string TryLoadFolder(string path)
         {
             if (Directory.Exists(path))
             {
@@ -348,6 +365,21 @@ namespace TranslationApp
 
             CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
             lbEntries.DataSource = CurrentEntryList;
+        }
+
+        public void UpdateOptionsVisibility()
+        {
+            bool TORFolder = !string.IsNullOrEmpty(config.TORFolderPath);
+            bool TORIso = !string.IsNullOrEmpty(config.TORIsoPath);
+            bool pythonFolder = !string.IsNullOrEmpty(config.PythonLocation);
+            bool pythonLib = !string.IsNullOrEmpty(config.PythonLib);
+            tsTORPacking.Enabled = TORFolder && TORIso && pythonFolder && pythonLib;
+            tsTORExtract.Enabled = TORFolder && TORIso && pythonFolder && pythonLib;
+            tsTORMakeIso.Enabled = TORFolder && TORIso && pythonFolder && pythonLib;
+
+
+
+
         }
 
         private void UpdateStatusData()
@@ -483,6 +515,9 @@ namespace TranslationApp
 
         private void menuToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            MessageBox.Show("Extraction of Rebirth's files is in progress.\n You can still continue other work in the meantime");
+            string successMessage = "Extraction of the files";
+            PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.LastProjectFolderPath, @"..\..\..\PythonLib"), this.gameName, "unpack", $"Init --iso \"{config.TORIsoPath}\"", successMessage);
         }
 
         private void cbToDo_CheckedChanged(object sender, EventArgs e)
@@ -645,5 +680,12 @@ namespace TranslationApp
             UpdateDisplayedEntries();
             UpdateStatusData();
         }
+
+        private void tsSetup_Click(object sender, EventArgs e)
+        {
+            fSetup setupForm = new fSetup( this, config, PackingAssistant);
+            setupForm.Show();
+        }
+
     }
 }
