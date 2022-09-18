@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9CABDB58-3FA4-4400-BBD6-BF8C8D54A071}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>TranslationApp</RootNamespace>
     <AssemblyName>TranslationApp</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
@@ -47,6 +47,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -90,6 +93,12 @@
     <Compile Include="fSearchJapanese.Designer.cs">
       <DependentUpon>fSearchJapanese.cs</DependentUpon>
     </Compile>
+    <Compile Include="fSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSetup.Designer.cs">
+      <DependentUpon>fSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XMLTools.cs" />
@@ -104,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fSearchJapanese.resx">
       <DependentUpon>fSearchJapanese.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSetup.resx">
+      <DependentUpon>fSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -142,6 +154,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PackingLib\PackingLib.csproj">
+      <Project>{4665ea5b-2c76-4026-9622-0f63c1c49284}</Project>
+      <Name>PackingLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TranslationLib\TranslationLib.csproj">
       <Project>{a3d11231-6c87-41ee-b1c2-2284c309f13c}</Project>
       <Name>TranslationLib</Name>
