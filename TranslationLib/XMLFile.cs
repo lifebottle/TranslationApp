@@ -14,6 +14,10 @@ namespace TranslationLib
         public List<XMLSection> Sections = new List<XMLSection>();
         public XMLSection CurrentSection { get; set; }
 
+        public XMLFile()
+        {
+            CurrentSection = new XMLSection("Default");
+        }
         public void SetSection(string name)
         {
             CurrentSection = Sections.First(c => c.Name == name);
