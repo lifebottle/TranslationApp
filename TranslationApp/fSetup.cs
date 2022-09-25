@@ -29,8 +29,8 @@ namespace TranslationApp
         }
         private void ShowPythonLibOptions()
         {
-            DirectoryInfo infos = Directory.GetParent(this.config.LastProjectFolderPath);
-            string option = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(this.config.LastProjectFolderPath).FullName).FullName).FullName, "PythonLib");
+            DirectoryInfo infos = Directory.GetParent(this.config.GamesConfigList[0].LastFolderPath);
+            string option = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(this.config.GamesConfigList[0].LastFolderPath).FullName).FullName).FullName, "PythonLib");
             if (Directory.Exists(option))
                 lbPythonLib.DataSource = new List<string> { option };
   
@@ -38,7 +38,7 @@ namespace TranslationApp
 
         private void ShowIsoOptions()
         {
-            string basePath = config.TORFolderPath ?? config.NDXFolderPath;
+            string basePath = config.GamesConfigList[0].FolderPath;
             if (!string.IsNullOrEmpty(basePath))
             {
                 var fileList = Directory.GetFiles(Directory.GetParent(Directory.GetParent(Directory.GetParent(basePath).FullName).FullName).FullName);
@@ -74,22 +74,25 @@ namespace TranslationApp
         private void SaveIsos()
         {
             //TOR
-            if (lbTORIso.Items.Count > 0)
+            var TORConfig = config.GetGameConfig("TOR");
+            if (TORConfig != null)
             {
                 if (lbTORIso.SelectedIndex > -1)
                 {
-                    config.TORIsoPath = lbTORIso.SelectedItem.ToString();
+                    TORConfig.IsoPath = lbTORIso.SelectedItem.ToString();
                     Console.WriteLine("Tales of Rebirth's iso location has been updated");
                 }
 
             }
 
+
             //NDX
-            if (lbNDXIso.Items.Count > 0)
+            var NDXConfig = config.GetGameConfig("NDX");
+            if (NDXConfig != null)
             {
                 if (lbNDXIso.SelectedIndex > -1)
                 {
-                    config.NDXIsoPath = lbNDXIso.SelectedItem.ToString();
+                    NDXConfig.IsoPath = lbNDXIso.SelectedItem.ToString();
                     Console.WriteLine("Narikiri Dungeon X's iso location has been updated");
                 }
             }

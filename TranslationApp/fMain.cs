@@ -13,6 +13,7 @@ namespace TranslationApp
     public partial class fMain : Form
     {
         private static Config config;
+        private GameConfig gameConfig;
         private static TranslationProject Project;
         private static PackingProject PackingAssistant;
         private static List<XMLEntry> CurrentEntryList;
@@ -33,20 +34,9 @@ namespace TranslationApp
             
             config = new Config();
             config.Load();
-            UpdateOptionsVisibility();
             PackingAssistant = new PackingProject();
 
-            if (!string.IsNullOrEmpty(config.LastProjectFolderPath))
-            {
-                TryLoadFolder(config.LastProjectFolderPath);
-
-                if (config.LastProjectFolderPath.EndsWith("TOR"))
-                    this.gameName = "TOR";
-                else
-                    this.gameName = "NDX";
-
-                
-            }
+          
         
         }
 
@@ -267,28 +257,59 @@ namespace TranslationApp
             }
         }
 
-        private void TOPXToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void tsTORLoadNew_Click(object sender, EventArgs e)
+        private void LoadNewFolder(string gameName, string path)
         {
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
+            var loadedFolder = TryLoadFolder(GetFolderPath() + path);
+            gameConfig = config.GamesConfigList.Where(x => x.Game == gameName).FirstOrDefault();
 
-            var loadedFolder = TryLoadFolder(GetFolderPath() + "/Data/TOR");
-            config.LastProjectFolderPath = loadedFolder;
-            config.TORFolderPath = loadedFolder;
-            this.gameName = "TOR";
+            if (gameConfig == null)
+            {
+                GameConfig newConfig = new GameConfig();
+                newConfig.FolderPath = loadedFolder;
+                newConfig.LastFolderPath = loadedFolder;
+                newConfig.Game = gameName;
+                config.GamesConfigList.Add(newConfig);
+                gameConfig = config.GetGameConfig(gameName);
+            }
+            else
+            {
+                gameConfig.FolderPath = loadedFolder;
+                gameConfig.LastFolderPath = loadedFolder;
+                gameConfig.Game = gameName;
+            }
+
+            config.Save();
             UpdateOptionsVisibility();
         }
-
+        private void LoadLastFolder(string gameName)
+        {
+            var myConfig = config.GetGameConfig(gameName);
+            if (myConfig != null)
+            {
+                TryLoadFolder(config.GetGameConfig(gameName).FolderPath);
+                gameConfig = myConfig;
+                UpdateOptionsVisibility();
+            }
+            else
+                MessageBox.Show("The game you are trying to load is not inside the configuration file,\nplease load a new folder.");
+        }
+        private void tsTORLoadNew_Click(object sender, EventArgs e)
+        {
+            LoadNewFolder("TOR", "/Data/TOR");
+        }
+        private void tsNDXLoadNew_Click(object sender, EventArgs e)
+        {
+            LoadNewFolder("NDX", "/Data/NDX");
+        }
         private void tsTORLoadLast_Click(object sender, EventArgs e)
         {
-            TryLoadFolder(config.TORFolderPath);
-            this.gameName = "TOR";
-            UpdateOptionsVisibility();
+            LoadLastFolder("TOR");
         }
-
+        private void tsNDXLoadLast_Click(object sender, EventArgs e)
+        {
+            LoadLastFolder("NDX");
+        }
         public string TryLoadFolder(string path)
         {
             if (Directory.Exists(path))
@@ -369,13 +390,10 @@ namespace TranslationApp
 
         public void UpdateOptionsVisibility()
         {
-            bool TORFolder = !string.IsNullOrEmpty(config.TORFolderPath);
-            bool TORIso = !string.IsNullOrEmpty(config.TORIsoPath);
-            bool pythonFolder = !string.IsNullOrEmpty(config.PythonLocation);
-            bool pythonLib = !string.IsNullOrEmpty(config.PythonLib);
-            tsTORPacking.Enabled = TORFolder && TORIso && pythonFolder && pythonLib;
-            tsTORExtract.Enabled = TORFolder && TORIso && pythonFolder && pythonLib;
-            tsTORMakeIso.Enabled = TORFolder && TORIso && pythonFolder && pythonLib;
+            bool TORValid = config.IsPackingVisibility("TOR");
+            tsTORPacking.Enabled = tsTORMakeIso.Enabled = tsTORExtract.Enabled = TORValid;
+
+
 
 
 
@@ -415,7 +433,7 @@ namespace TranslationApp
             }
         }
 
-        private void tOPXToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void NDXToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
         }
 
@@ -517,7 +535,7 @@ namespace TranslationApp
         {
             MessageBox.Show("Extraction of Rebirth's files is in progress.\n You can still continue other work in the meantime");
             string successMessage = "Extraction of the files";
-            PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.LastProjectFolderPath, @"..\..\..\PythonLib"), this.gameName, "unpack", $"Init --iso \"{config.TORIsoPath}\"", successMessage);
+            PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.GetGameConfig("TOR").LastFolderPath, @"..\..\..\PythonLib"), this.gameName, "unpack", $"Init --iso \"{config.GetGameConfig("TOR").IsoPath}\"", successMessage);
         }
 
         private void cbToDo_CheckedChanged(object sender, EventArgs e)
@@ -687,5 +705,6 @@ namespace TranslationApp
             setupForm.Show();
         }
 
+        
     }
 }
