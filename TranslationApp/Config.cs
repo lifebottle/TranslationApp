@@ -118,5 +118,19 @@ namespace TranslationApp
                     Console.WriteLine($"{item}");
             }
         }
+        public bool IsPackingVisibility(string gameName)
+        {
+            var gameConfig = GetGameConfig(gameName);
+            if (gameConfig != null)
+            {
+                bool gameFolder = !string.IsNullOrEmpty(gameConfig.FolderPath);
+                bool gameIso = !string.IsNullOrEmpty(gameConfig.IsoPath);
+                bool pythonFolder = !string.IsNullOrEmpty(_pythonLocation);
+                bool pythonLib = !string.IsNullOrEmpty(_pythonLib);
+                return gameFolder && gameIso && pythonFolder && pythonLib;
+            }
+            else
+                return false;
+        }
     }
 }

@@ -31,15 +31,15 @@ namespace TranslationApp
         {
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.translationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TOPXTranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadLastFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadNewFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.NDXTranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsNDXLoadLast = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsNDXLoadNew = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORTranslation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadLast = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsLoadNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsTORLoadNew = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSetup = new System.Windows.Forms.ToolStripMenuItem();
-            this.TOPXPackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.NDXPackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORPacking = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORExtract = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORMakeIso = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,63 +118,63 @@ namespace TranslationApp
             // translationToolStripMenuItem
             // 
             this.translationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TOPXTranslationToolStripMenuItem,
+            this.NDXTranslationToolStripMenuItem,
             this.tsTORTranslation});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
             this.translationToolStripMenuItem.Size = new System.Drawing.Size(76, 22);
             this.translationToolStripMenuItem.Text = "Translation";
             // 
-            // TOPXTranslationToolStripMenuItem
+            // NDXTranslationToolStripMenuItem
             // 
-            this.TOPXTranslationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadLastFolderToolStripMenuItem1,
-            this.loadNewFolderToolStripMenuItem1});
-            this.TOPXTranslationToolStripMenuItem.Enabled = false;
-            this.TOPXTranslationToolStripMenuItem.Name = "TOPXTranslationToolStripMenuItem";
-            this.TOPXTranslationToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.TOPXTranslationToolStripMenuItem.Text = "TOPX";
-            this.TOPXTranslationToolStripMenuItem.Click += new System.EventHandler(this.TOPXToolStripMenuItem_Click);
+            this.NDXTranslationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsNDXLoadLast,
+            this.tsNDXLoadNew});
+            this.NDXTranslationToolStripMenuItem.Name = "NDXTranslationToolStripMenuItem";
+            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NDXTranslationToolStripMenuItem.Text = "NDX";
             // 
-            // loadLastFolderToolStripMenuItem1
+            // tsNDXLoadLast
             // 
-            this.loadLastFolderToolStripMenuItem1.Name = "loadLastFolderToolStripMenuItem1";
-            this.loadLastFolderToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
-            this.loadLastFolderToolStripMenuItem1.Text = "Load Last Folder";
+            this.tsNDXLoadLast.Name = "tsNDXLoadLast";
+            this.tsNDXLoadLast.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXLoadLast.Text = "Load Last Folder";
+            this.tsNDXLoadLast.Click += new System.EventHandler(this.tsNDXLoadLast_Click);
             // 
-            // loadNewFolderToolStripMenuItem1
+            // tsNDXLoadNew
             // 
-            this.loadNewFolderToolStripMenuItem1.Name = "loadNewFolderToolStripMenuItem1";
-            this.loadNewFolderToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
-            this.loadNewFolderToolStripMenuItem1.Text = "Load New Folder";
+            this.tsNDXLoadNew.Name = "tsNDXLoadNew";
+            this.tsNDXLoadNew.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXLoadNew.Text = "Load New Folder";
+            this.tsNDXLoadNew.Click += new System.EventHandler(this.tsNDXLoadNew_Click);
             // 
             // tsTORTranslation
             // 
             this.tsTORTranslation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsTORLoadLast,
-            this.tsLoadNew});
+            this.tsTORLoadNew});
             this.tsTORTranslation.Name = "tsTORTranslation";
-            this.tsTORTranslation.Size = new System.Drawing.Size(102, 22);
+            this.tsTORTranslation.Size = new System.Drawing.Size(180, 22);
             this.tsTORTranslation.Text = "TOR";
             // 
             // tsTORLoadLast
             // 
             this.tsTORLoadLast.Name = "tsTORLoadLast";
-            this.tsTORLoadLast.Size = new System.Drawing.Size(163, 22);
+            this.tsTORLoadLast.Size = new System.Drawing.Size(180, 22);
             this.tsTORLoadLast.Text = "Load Last Folder";
             this.tsTORLoadLast.Click += new System.EventHandler(this.tsTORLoadLast_Click);
             // 
-            // tsLoadNew
+            // tsTORLoadNew
             // 
-            this.tsLoadNew.Name = "tsLoadNew";
-            this.tsLoadNew.Size = new System.Drawing.Size(163, 22);
-            this.tsLoadNew.Text = "Load New Folder";
-            this.tsLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
+            this.tsTORLoadNew.Name = "tsTORLoadNew";
+            this.tsTORLoadNew.Size = new System.Drawing.Size(180, 22);
+            this.tsTORLoadNew.Text = "Load New Folder";
+            this.tsTORLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
             // 
             // packToolStripMenuItem
             // 
             this.packToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsSetup,
-            this.TOPXPackingToolStripMenuItem,
+            this.NDXPackingToolStripMenuItem,
             this.tsTORPacking});
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
             this.packToolStripMenuItem.Size = new System.Drawing.Size(61, 22);
@@ -187,12 +187,11 @@ namespace TranslationApp
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
-            // TOPXPackingToolStripMenuItem
+            // NDXPackingToolStripMenuItem
             // 
-            this.TOPXPackingToolStripMenuItem.Name = "TOPXPackingToolStripMenuItem";
-            this.TOPXPackingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.TOPXPackingToolStripMenuItem.Text = "TOPX";
-            this.TOPXPackingToolStripMenuItem.Click += new System.EventHandler(this.tOPXToolStripMenuItem_Click_1);
+            this.NDXPackingToolStripMenuItem.Name = "NDXPackingToolStripMenuItem";
+            this.NDXPackingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NDXPackingToolStripMenuItem.Text = "NDX";
             // 
             // tsTORPacking
             // 
@@ -206,14 +205,14 @@ namespace TranslationApp
             // tsTORExtract
             // 
             this.tsTORExtract.Name = "tsTORExtract";
-            this.tsTORExtract.Size = new System.Drawing.Size(180, 22);
+            this.tsTORExtract.Size = new System.Drawing.Size(128, 22);
             this.tsTORExtract.Text = "Extract Iso";
             this.tsTORExtract.Click += new System.EventHandler(this.menuToolStripMenuItem_Click_1);
             // 
             // tsTORMakeIso
             // 
             this.tsTORMakeIso.Name = "tsTORMakeIso";
-            this.tsTORMakeIso.Size = new System.Drawing.Size(180, 22);
+            this.tsTORMakeIso.Size = new System.Drawing.Size(128, 22);
             this.tsTORMakeIso.Text = "Make Iso";
             // 
             // toolsToolStripMenuItem
@@ -778,7 +777,7 @@ namespace TranslationApp
 
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem translationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TOPXTranslationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NDXTranslationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsTORTranslation;
         private System.Windows.Forms.ToolStripMenuItem packToolStripMenuItem;
         private System.Windows.Forms.TextBox tbJapaneseText;
@@ -799,7 +798,7 @@ namespace TranslationApp
         private System.Windows.Forms.ComboBox cbFileType;
         private System.Windows.Forms.Button bBrowse;
         private System.Windows.Forms.Button bMassReplace;
-        private System.Windows.Forms.ToolStripMenuItem TOPXPackingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NDXPackingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsTORPacking;
         private System.Windows.Forms.ComboBox cbStatus;
         private System.Windows.Forms.Label label1;
@@ -834,9 +833,9 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbToDoSect;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ToolStripMenuItem tsTORLoadLast;
-        private System.Windows.Forms.ToolStripMenuItem tsLoadNew;
-        private System.Windows.Forms.ToolStripMenuItem loadLastFolderToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem loadNewFolderToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsTORLoadNew;
+        private System.Windows.Forms.ToolStripMenuItem tsNDXLoadLast;
+        private System.Windows.Forms.ToolStripMenuItem tsNDXLoadNew;
         private System.Windows.Forms.ToolStripMenuItem tsSetup;
         private System.Windows.Forms.ToolStripMenuItem tsTORMakeIso;
     }
