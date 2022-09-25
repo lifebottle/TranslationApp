@@ -1,30 +1,53 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
 
 namespace TranslationApp
 {
+    public class GameConfig
+    {
+        private string _game;
+        private string _folderPath;
+        private string _isoPath;
+        private string _lastFolderPath;
+        private DateTime _lastTimeLoaded;
+
+        public string Game
+        {
+            get => _game;
+            set => _game = value;
+        }
+        public string FolderPath
+        {
+            get => _folderPath;
+            set => _folderPath = value;
+        }
+        public string IsoPath
+        {
+            get => _isoPath;
+            set => _isoPath = value;
+        }
+        public string LastFolderPath
+        {
+            get => _lastFolderPath;
+            set => _lastFolderPath = value;
+        }
+        public DateTime LastTimeLoaded
+        {
+            get => _lastTimeLoaded;
+            set => _lastTimeLoaded = value;
+        }
+
+    }
     public class Config
     {
         [JsonIgnore] private string FilePath { get; set; }
 
-        private string _lastProjectFolderPath;
-        private string _TORFolderPath;
-        private string _TORIsoPath;
-        private string _NDXFolderPath;
-        private string _NDXIsoPath;
+        private List<GameConfig> _gamesConfigList;
         private string _pythonLocation;
         private string _pythonLib;
-
-        public string LastProjectFolderPath
-        {
-            get => _lastProjectFolderPath;
-            set
-            {
-                _lastProjectFolderPath = value;
-                Save();
-            }
-        }
         public string PythonLib
         {
             get => _pythonLib;
@@ -43,47 +66,18 @@ namespace TranslationApp
                 Save();
             }
         }
-        public string TORFolderPath
+        public List<GameConfig> GamesConfigList
         {
-            get => _TORFolderPath;
-            set
-            {
-                _TORFolderPath = value;
-                Save();
-            }
+            get => _gamesConfigList;
+            set => _gamesConfigList = value;
         }
-        public string TORIsoPath
-        {
-            get => _TORIsoPath;
-            set
-            {
-                _TORIsoPath = value;
-                Save();
-            }
-        }
-        public string NDXFolderPath
-        {
-            get => _NDXFolderPath;
-            set
-            {
-                _NDXFolderPath = value;
-                Save();
-            }
-        }
-        public string NDXIsoPath
-        {
-            get => _NDXIsoPath;
-            set
-            {
-                _NDXIsoPath = value;
-                Save();
-            }
-        }
+
         public Config()
         {
             var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TranslationApp");
             Directory.CreateDirectory(appDataPath);
             FilePath = Path.Combine(appDataPath, "config.txt");
+            _gamesConfigList = new List<GameConfig>();
         }
 
         public void Load()
@@ -93,11 +87,7 @@ namespace TranslationApp
                 try
                 {
                     var savedConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(FilePath));
-                    _lastProjectFolderPath = savedConfig.LastProjectFolderPath;
-                    _TORFolderPath = savedConfig.TORFolderPath;
-                    _TORIsoPath = savedConfig.TORIsoPath;
-                    _NDXFolderPath = savedConfig.NDXFolderPath;
-                    _NDXIsoPath = savedConfig.NDXIsoPath;
+                    _gamesConfigList = savedConfig.GamesConfigList;
                     _pythonLocation = savedConfig.PythonLocation;
                     _pythonLib = savedConfig.PythonLib;
                 }
@@ -108,11 +98,15 @@ namespace TranslationApp
             }
         }
 
-        private void Save()
+        public void Save()
         {
-            File.WriteAllText(FilePath, JsonConvert.SerializeObject(this));
+            File.WriteAllText(FilePath, JsonConvert.SerializeObject(this, Formatting.Indented));
         }
 
+        public GameConfig GetGameConfig(string gameName)
+        {
+            return _gamesConfigList.Where(x => x.Game == gameName).FirstOrDefault();
+        }
         public void ReadConfigText()
         {
             if (File.Exists(FilePath))
