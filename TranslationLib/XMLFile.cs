@@ -12,6 +12,7 @@ namespace TranslationLib
         public string FileType { get; set; }
         public string FilePath { get; set; }
         public List<XMLSection> Sections = new List<XMLSection>();
+        public List<XMLEntry> Speakers = new List<XMLEntry>();
         public XMLSection CurrentSection { get; set; }
 
         public XMLFile()
@@ -21,6 +22,23 @@ namespace TranslationLib
         public void SetSection(string name)
         {
             CurrentSection = Sections.First(c => c.Name == name);
+        }
+
+        public void UpdateAllEntryText()
+        {
+            var keys = Speakers.Select(x => x.Id).ToList();
+            var values = Speakers.Select(x => !string.IsNullOrEmpty(x.EnglishText) ? x.EnglishText : x.JapaneseText).ToList();
+            var speakerDict = keys.Zip(values, (k, v) => new { k, v })
+              .ToDictionary(x => x.k, x => x.v);
+
+            foreach (var XMLSection in Sections.Where(x=>x.Entries.Where(y => y.SpeakerId != null).Count() > 0))
+            {
+                foreach (var XMLEntry in XMLSection.Entries)
+                {
+                    XMLEntry.SpeakerName = speakerDict[XMLEntry.SpeakerId];
+                }
+
+            }
         }
 
         public Dictionary<string, int> GetStatusData()
@@ -90,7 +108,9 @@ namespace TranslationLib
                 new XElement("EnglishText", entry.EnglishText),
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
                 elemenId,
-                new XElement("Status", entry.Status)
+                new XElement("Status", entry.Status),
+                new XElement("SpeakerId", entry.SpeakerId),
+                new XElement("UnknownPointer", entry.UnknownPointer)
             );
         }
     }

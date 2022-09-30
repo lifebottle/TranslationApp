@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 namespace TranslationLib
 {
     public class XMLEntry
@@ -8,5 +9,8 @@ namespace TranslationLib
         public string EnglishText { get; set; }
         public string Status { get; set; }
         public string Notes { get; set; }
+        public int? SpeakerId { get; set; }
+        public int? UnknownPointer { get; set; }
+        [JsonIgnore] public string SpeakerName { get; set; }
     }
 }
