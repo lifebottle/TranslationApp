@@ -14,6 +14,11 @@ namespace TranslationApp
         private string _lastFolderPath;
         private DateTime _lastTimeLoaded;
 
+        public GameConfig() { }
+        public GameConfig(string _Game)
+        {
+            _game = _Game;
+        }
         public string Game
         {
             get => _game;
@@ -87,6 +92,14 @@ namespace TranslationApp
                 {
                     var savedConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(FilePath));
                     _gamesConfigList = savedConfig.GamesConfigList;
+                    if (_gamesConfigList == null)
+                    {
+                        _gamesConfigList = new List<GameConfig>()
+                        {
+                            new GameConfig("TOR"),
+                            new GameConfig("NDX")
+                        };
+                    }
                     _pythonLocation = savedConfig.PythonLocation;
                     _pythonLib = savedConfig.PythonLib;
                 }
