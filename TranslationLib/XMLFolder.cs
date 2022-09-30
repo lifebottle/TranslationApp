@@ -55,6 +55,27 @@ namespace TranslationLib
                             }
                         }
                     }
+
+                    var XMLSpeaker = document.Root.Element("Speakers");
+
+                    if (XMLSpeaker != null)
+                    {
+                        foreach (var XMLEntry in XMLSpeaker.Elements("Entry"))
+                        {
+                            var entry = ExtractXMLEntry(XMLEntry);
+                            XMLFile.Speakers.Add(entry);
+
+                            if (!string.IsNullOrEmpty(entry.JapaneseText))
+                            {
+                                if (!Translations.ContainsKey(entry.JapaneseText))
+                                    AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                                else
+                                    AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                            }
+                        }
+                        XMLFile.UpdateAllEntryText();
+                    }
+
                     XMLFile.CurrentSection = XMLFile.Sections.First();
                 }
                 CurrentFile = XMLFiles.First();
@@ -70,7 +91,9 @@ namespace TranslationLib
                 EnglishText = ExtractNullableString(element.Element("EnglishText")),
                 JapaneseText = ExtractNullableString(element.Element("JapaneseText")),
                 Notes = ExtractNullableString(element.Element("Notes")),
-                Status = ExtractNullableString(element.Element("Status"))
+                Status = ExtractNullableString(element.Element("Status")),
+                SpeakerId = ExtractNullableInt(element.Element("SpeakerId")),
+                UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer"))
             };
         }
 
@@ -84,7 +107,10 @@ namespace TranslationLib
 
         private string ExtractNullableString(XElement element)
         {
-            return element.IsEmpty ? null : element.Value;
+            if (element == null)
+                return null;
+            else
+                return element.IsEmpty ? null : element.Value;
         }
 
         public List<string> FileList()
