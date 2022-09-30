@@ -77,7 +77,6 @@ namespace TranslationApp
             var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TranslationApp");
             Directory.CreateDirectory(appDataPath);
             FilePath = Path.Combine(appDataPath, "config.txt");
-            _gamesConfigList = new List<GameConfig>();
         }
 
         public void Load()
