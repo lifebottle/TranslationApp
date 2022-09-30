@@ -17,6 +17,7 @@ namespace TranslationApp
         private static TranslationProject Project;
         private static PackingProject PackingAssistant;
         private static List<XMLEntry> CurrentEntryList;
+        private static List<XMLEntry> CurrentSpeakerList;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
 
@@ -54,6 +55,7 @@ namespace TranslationApp
 
         private void InitialiseStatusText()
         {
+       
             lNbToDo.Text = "";
             lNbReview.Text = "";
             lNbProb.Text = "";
@@ -96,8 +98,7 @@ namespace TranslationApp
             panelNb2.Enabled = status;
         }
 
-        //Draw entries with multiline and font color changed
-        private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
+        private void DrawEntries(DrawItemEventArgs e, List<XMLEntry> EntryList)
         {
             bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
 
@@ -110,7 +111,7 @@ namespace TranslationApp
                 Size proposedSize = new Size(int.MaxValue, int.MaxValue);
 
                 //Grab the current entry to draw
-                XMLEntry entry = CurrentEntryList[e.Index];
+                XMLEntry entry = EntryList[e.Index];
 
                 // Background item brush
                 SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : ColorByStatus[entry.Status]);
@@ -129,8 +130,15 @@ namespace TranslationApp
                 Font normalFont = new Font("Arial", 8, FontStyle.Regular);
                 Font boldFont = new Font("Arial", 8, FontStyle.Bold);
 
-                string text = GetTextBasedLanguage(e.Index);
+                string text = GetTextBasedLanguage(e.Index, EntryList);
 
+                //0. Add Speaker name
+                Point startPoint = new Point(3, e.Bounds.Y + 3);
+                if (EntryList[e.Index].SpeakerId != null)
+                {
+                    TextRenderer.DrawText(e.Graphics, EntryList[e.Index].SpeakerName, boldFont, startPoint, tagColor, flags);
+                    startPoint.Y += 13;
+                }
 
                 //1. Split based on the line breaks
                 if (!string.IsNullOrEmpty(text))
@@ -139,7 +147,7 @@ namespace TranslationApp
 
                     //Starting point for drawing, a little offsetted
                     //in order to not touch the borders
-                    Point startPoint = new Point(3, e.Bounds.Y + 3);
+                    //Point startPoint = new Point(3, e.Bounds.Y + 3);
                     Size mySize;
 
                     foreach (string line in lines)
@@ -178,6 +186,17 @@ namespace TranslationApp
             }
 
             e.DrawFocusRectangle();
+        }
+
+        //Draw entries with multiline and font color changed
+        private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawEntries(e, CurrentEntryList);
+        }
+
+        private void lbSpeaker_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawEntries(e, CurrentSpeakerList);
         }
 
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
@@ -236,14 +255,13 @@ namespace TranslationApp
             Invalidate();
         }
 
-        private string GetTextBasedLanguage(int entryIndex)
+        private string GetTextBasedLanguage(int entryIndex, List<XMLEntry> EntryList)
         {
-            var myEntry = CurrentEntryList[entryIndex];
-
+            var myEntry = EntryList[entryIndex];
             if (cbLanguage.Text == "Japanese")
                 return myEntry.JapaneseText;
-
-            return string.IsNullOrEmpty(myEntry.EnglishText) ? myEntry.JapaneseText : myEntry.EnglishText;
+            else
+                return string.IsNullOrEmpty(myEntry.EnglishText) ? myEntry.JapaneseText : myEntry.EnglishText;
         }
 
         public string GetFolderPath()
@@ -332,8 +350,8 @@ namespace TranslationApp
             Project = new TranslationProject(path, folderIncluded);
 
             CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
-
-            cbFileType.DataSource = Project.GetFolderNames();
+            CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
+            cbFileType.DataSource = Project.GetFolderNames().OrderByDescending(x=>x).ToList();
             cbFileList.DataSource = Project.CurrentFolder.FileList();
             cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
             UpdateDisplayedEntries();
@@ -386,6 +404,8 @@ namespace TranslationApp
 
             CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
             lbEntries.DataSource = CurrentEntryList;
+            CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
+            lbSpeaker.DataSource = CurrentSpeakerList;
         }
 
         public void UpdateOptionsVisibility()
@@ -424,9 +444,9 @@ namespace TranslationApp
             if (cbFileList.SelectedIndex != -1)
             {
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
-                cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+                cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames().OrderByDescending(x=>x).ToList();
                 CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
-
+                CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
 
                 bSave.Enabled = true;
@@ -477,13 +497,15 @@ namespace TranslationApp
             if (e.Index >= CurrentEntryList.Count)
                 return;
             
-            string text = GetTextBasedLanguage(e.Index);
+            string text = GetTextBasedLanguage(e.Index, CurrentEntryList);
 
-            int nb;
-            if (string.IsNullOrEmpty(text))
-                nb = 0;
-            else
-                nb = Regex.Matches(text, "\\r*\\n").Count;
+            int nb = 0;
+            if (CurrentEntryList[e.Index].SpeakerId != null)
+            {
+                nb += 1;
+            }
+            
+            nb += Regex.Matches(text, "\\r*\\n").Count;
 
             var size = (int)((nb + 1) * 14) + 6;
 
@@ -693,6 +715,7 @@ namespace TranslationApp
             cbSections.Text = selectedSection;
             cbLanguage.Text = selectedLanguage;
             lbEntries.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+            lbSpeaker.DataSource = Project.CurrentFolder.CurrentFile.Speakers;
             EnableEventHandlers();
             
             UpdateDisplayedEntries();
@@ -705,6 +728,32 @@ namespace TranslationApp
             setupForm.Show();
         }
 
-        
+        private void lbSpeaker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadEntryData(CurrentSpeakerList[lbSpeaker.SelectedIndex]);
+        }
+
+        private void lbSpeaker_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index >= CurrentEntryList.Count)
+                return;
+
+            string text = GetTextBasedLanguage(e.Index, CurrentSpeakerList);
+
+            int nb;
+            if (string.IsNullOrEmpty(text))
+                nb = 0;
+            else
+                nb = Regex.Matches(text, "\\r*\\n").Count;
+
+            var size = (int)((nb + 1) * 14) + 6;
+
+            e.ItemHeight = size;
+        }
+
+        private void bBrowse_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

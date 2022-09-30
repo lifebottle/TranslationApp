@@ -53,8 +53,10 @@ namespace TranslationApp
             this.lblEnglish = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tcType = new System.Windows.Forms.TabControl();
-            this.tabType1 = new System.Windows.Forms.TabPage();
+            this.tabText = new System.Windows.Forms.TabPage();
             this.lbEntries = new System.Windows.Forms.ListBox();
+            this.tabSpeaker = new System.Windows.Forms.TabPage();
+            this.lbSpeaker = new System.Windows.Forms.ListBox();
             this.lFile = new System.Windows.Forms.Label();
             this.bSave = new System.Windows.Forms.Button();
             this.trackBarAlign = new System.Windows.Forms.TrackBar();
@@ -94,7 +96,8 @@ namespace TranslationApp
             this.btnRefresh = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
-            this.tabType1.SuspendLayout();
+            this.tabText.SuspendLayout();
+            this.tabSpeaker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAlign)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelNb1.SuspendLayout();
@@ -130,20 +133,20 @@ namespace TranslationApp
             this.tsNDXLoadLast,
             this.tsNDXLoadNew});
             this.NDXTranslationToolStripMenuItem.Name = "NDXTranslationToolStripMenuItem";
-            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.NDXTranslationToolStripMenuItem.Text = "NDX";
             // 
             // tsNDXLoadLast
             // 
             this.tsNDXLoadLast.Name = "tsNDXLoadLast";
-            this.tsNDXLoadLast.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXLoadLast.Size = new System.Drawing.Size(163, 22);
             this.tsNDXLoadLast.Text = "Load Last Folder";
             this.tsNDXLoadLast.Click += new System.EventHandler(this.tsNDXLoadLast_Click);
             // 
             // tsNDXLoadNew
             // 
             this.tsNDXLoadNew.Name = "tsNDXLoadNew";
-            this.tsNDXLoadNew.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXLoadNew.Size = new System.Drawing.Size(163, 22);
             this.tsNDXLoadNew.Text = "Load New Folder";
             this.tsNDXLoadNew.Click += new System.EventHandler(this.tsNDXLoadNew_Click);
             // 
@@ -153,20 +156,20 @@ namespace TranslationApp
             this.tsTORLoadLast,
             this.tsTORLoadNew});
             this.tsTORTranslation.Name = "tsTORTranslation";
-            this.tsTORTranslation.Size = new System.Drawing.Size(180, 22);
+            this.tsTORTranslation.Size = new System.Drawing.Size(98, 22);
             this.tsTORTranslation.Text = "TOR";
             // 
             // tsTORLoadLast
             // 
             this.tsTORLoadLast.Name = "tsTORLoadLast";
-            this.tsTORLoadLast.Size = new System.Drawing.Size(180, 22);
+            this.tsTORLoadLast.Size = new System.Drawing.Size(163, 22);
             this.tsTORLoadLast.Text = "Load Last Folder";
             this.tsTORLoadLast.Click += new System.EventHandler(this.tsTORLoadLast_Click);
             // 
             // tsTORLoadNew
             // 
             this.tsTORLoadNew.Name = "tsTORLoadNew";
-            this.tsTORLoadNew.Size = new System.Drawing.Size(180, 22);
+            this.tsTORLoadNew.Size = new System.Drawing.Size(163, 22);
             this.tsTORLoadNew.Text = "Load New Folder";
             this.tsTORLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
             // 
@@ -183,14 +186,14 @@ namespace TranslationApp
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(180, 22);
+            this.tsSetup.Size = new System.Drawing.Size(104, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
             // NDXPackingToolStripMenuItem
             // 
             this.NDXPackingToolStripMenuItem.Name = "NDXPackingToolStripMenuItem";
-            this.NDXPackingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NDXPackingToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.NDXPackingToolStripMenuItem.Text = "NDX";
             // 
             // tsTORPacking
@@ -199,7 +202,7 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(180, 22);
+            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
@@ -296,22 +299,24 @@ namespace TranslationApp
             // 
             // tcType
             // 
-            this.tcType.Controls.Add(this.tabType1);
+            this.tcType.Controls.Add(this.tabText);
+            this.tcType.Controls.Add(this.tabSpeaker);
             this.tcType.Location = new System.Drawing.Point(16, 234);
             this.tcType.Name = "tcType";
             this.tcType.SelectedIndex = 0;
             this.tcType.Size = new System.Drawing.Size(280, 500);
             this.tcType.TabIndex = 13;
             // 
-            // tabType1
+            // tabText
             // 
-            this.tabType1.Controls.Add(this.lbEntries);
-            this.tabType1.Location = new System.Drawing.Point(4, 22);
-            this.tabType1.Name = "tabType1";
-            this.tabType1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabType1.Size = new System.Drawing.Size(272, 474);
-            this.tabType1.TabIndex = 0;
-            this.tabType1.UseVisualStyleBackColor = true;
+            this.tabText.Controls.Add(this.lbEntries);
+            this.tabText.Location = new System.Drawing.Point(4, 22);
+            this.tabText.Name = "tabText";
+            this.tabText.Padding = new System.Windows.Forms.Padding(3);
+            this.tabText.Size = new System.Drawing.Size(272, 474);
+            this.tabText.TabIndex = 0;
+            this.tabText.Text = "Text";
+            this.tabText.UseVisualStyleBackColor = true;
             // 
             // lbEntries
             // 
@@ -325,6 +330,28 @@ namespace TranslationApp
             this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
             this.lbEntries.SelectedIndexChanged += new System.EventHandler(this.lbEntries_SelectedIndexChanged);
             this.lbEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbEntries_KeyDown);
+            // 
+            // tabSpeaker
+            // 
+            this.tabSpeaker.Controls.Add(this.lbSpeaker);
+            this.tabSpeaker.Location = new System.Drawing.Point(4, 22);
+            this.tabSpeaker.Name = "tabSpeaker";
+            this.tabSpeaker.Size = new System.Drawing.Size(272, 474);
+            this.tabSpeaker.TabIndex = 1;
+            this.tabSpeaker.Text = "Speaker";
+            this.tabSpeaker.UseVisualStyleBackColor = true;
+            // 
+            // lbSpeaker
+            // 
+            this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lbSpeaker.FormattingEnabled = true;
+            this.lbSpeaker.Location = new System.Drawing.Point(5, 8);
+            this.lbSpeaker.Name = "lbSpeaker";
+            this.lbSpeaker.Size = new System.Drawing.Size(262, 459);
+            this.lbSpeaker.TabIndex = 1;
+            this.lbSpeaker.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSpeaker_DrawItem);
+            this.lbSpeaker.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSpeaker_MeasureItem);
+            this.lbSpeaker.SelectedIndexChanged += new System.EventHandler(this.lbSpeaker_SelectedIndexChanged);
             // 
             // lFile
             // 
@@ -404,6 +431,7 @@ namespace TranslationApp
             this.bBrowse.TabIndex = 23;
             this.bBrowse.Text = "Browse File";
             this.bBrowse.UseVisualStyleBackColor = true;
+            this.bBrowse.Click += new System.EventHandler(this.bBrowse_Click);
             // 
             // bMassReplace
             // 
@@ -760,7 +788,8 @@ namespace TranslationApp
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.tcType.ResumeLayout(false);
-            this.tabType1.ResumeLayout(false);
+            this.tabText.ResumeLayout(false);
+            this.tabSpeaker.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAlign)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -787,7 +816,7 @@ namespace TranslationApp
         private System.Windows.Forms.Label lblEnglish;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabControl tcType;
-        private System.Windows.Forms.TabPage tabType1;
+        private System.Windows.Forms.TabPage tabText;
         private System.Windows.Forms.Label lFile;
         private System.Windows.Forms.ListBox lbEntries;
         private System.Windows.Forms.Button bSave;
@@ -838,6 +867,8 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem tsNDXLoadNew;
         private System.Windows.Forms.ToolStripMenuItem tsSetup;
         private System.Windows.Forms.ToolStripMenuItem tsTORMakeIso;
+        private System.Windows.Forms.TabPage tabSpeaker;
+        private System.Windows.Forms.ListBox lbSpeaker;
     }
 }
 
