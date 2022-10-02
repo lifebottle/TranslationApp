@@ -402,10 +402,16 @@ namespace TranslationApp
                 cbDone.Checked ? "Done" : string.Empty
             };
 
-            CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
-            lbEntries.DataSource = CurrentEntryList;
-            CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
-            lbSpeaker.DataSource = CurrentSpeakerList;
+            if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
+            {
+                CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                lbEntries.DataSource = CurrentEntryList;
+            }
+            else
+            {
+                CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                lbSpeaker.DataSource = CurrentSpeakerList;
+            }
         }
 
         public void UpdateOptionsVisibility()
@@ -758,10 +764,7 @@ namespace TranslationApp
 
         private void tcType_Selected(object sender, TabControlEventArgs e)
         {
-            if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
-                LoadEntryData(CurrentSpeakerList[lbSpeaker.SelectedIndex]);
-            else
-                LoadEntryData(CurrentEntryList[lbEntries.SelectedIndex]);
+            UpdateDisplayedEntries();
         }
 
         private void extractIsoToolStripMenuItem_Click(object sender, EventArgs e)
