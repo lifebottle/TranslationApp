@@ -29,8 +29,9 @@ namespace TranslationApp
         }
         private void ShowPythonLibOptions()
         {
-            DirectoryInfo infos = Directory.GetParent(this.config.GamesConfigList[0].LastFolderPath);
-            string option = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(this.config.GamesConfigList[0].LastFolderPath).FullName).FullName).FullName, "PythonLib");
+            var lastFolderPath = this.config.GamesConfigList.Where(x => x.LastFolderPath != null).FirstOrDefault().LastFolderPath;
+            DirectoryInfo infos = Directory.GetParent(lastFolderPath);
+            string option = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(lastFolderPath).FullName).FullName).FullName, "PythonLib");
             if (Directory.Exists(option))
                 lbPythonLib.DataSource = new List<string> { option };
   
@@ -38,7 +39,7 @@ namespace TranslationApp
 
         private void ShowIsoOptions()
         {
-            string basePath = config.GamesConfigList[0].FolderPath;
+            var basePath = config.GamesConfigList.Where(x => x.FolderPath != null).FirstOrDefault().FolderPath;
             if (!string.IsNullOrEmpty(basePath))
             {
                 var fileList = Directory.GetFiles(Directory.GetParent(Directory.GetParent(Directory.GetParent(basePath).FullName).FullName).FullName);

@@ -107,6 +107,7 @@ namespace TranslationApp
                 {
                     File.Delete(FilePath);
                 }
+                Save();
             }
         }
 

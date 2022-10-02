@@ -39,7 +39,7 @@ namespace TranslationApp
             this.tsTORLoadNew = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSetup = new System.Windows.Forms.ToolStripMenuItem();
-            this.NDXPackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsNDXExtract = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORPacking = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORExtract = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORMakeIso = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +94,8 @@ namespace TranslationApp
             this.lNbProofSect = new System.Windows.Forms.Label();
             this.lNbToDoSect = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.extractIsoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsNDXMakeIso = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -177,7 +179,7 @@ namespace TranslationApp
             // 
             this.packToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsSetup,
-            this.NDXPackingToolStripMenuItem,
+            this.tsNDXExtract,
             this.tsTORPacking});
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
             this.packToolStripMenuItem.Size = new System.Drawing.Size(61, 22);
@@ -186,15 +188,18 @@ namespace TranslationApp
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(104, 22);
+            this.tsSetup.Size = new System.Drawing.Size(180, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
-            // NDXPackingToolStripMenuItem
+            // tsNDXExtract
             // 
-            this.NDXPackingToolStripMenuItem.Name = "NDXPackingToolStripMenuItem";
-            this.NDXPackingToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.NDXPackingToolStripMenuItem.Text = "NDX";
+            this.tsNDXExtract.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.extractIsoToolStripMenuItem,
+            this.tsNDXMakeIso});
+            this.tsNDXExtract.Name = "tsNDXExtract";
+            this.tsNDXExtract.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXExtract.Text = "NDX";
             // 
             // tsTORPacking
             // 
@@ -202,20 +207,20 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
+            this.tsTORPacking.Size = new System.Drawing.Size(180, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
             // 
             this.tsTORExtract.Name = "tsTORExtract";
-            this.tsTORExtract.Size = new System.Drawing.Size(128, 22);
+            this.tsTORExtract.Size = new System.Drawing.Size(180, 22);
             this.tsTORExtract.Text = "Extract Iso";
             this.tsTORExtract.Click += new System.EventHandler(this.menuToolStripMenuItem_Click_1);
             // 
             // tsTORMakeIso
             // 
             this.tsTORMakeIso.Name = "tsTORMakeIso";
-            this.tsTORMakeIso.Size = new System.Drawing.Size(128, 22);
+            this.tsTORMakeIso.Size = new System.Drawing.Size(180, 22);
             this.tsTORMakeIso.Text = "Make Iso";
             // 
             // toolsToolStripMenuItem
@@ -306,6 +311,7 @@ namespace TranslationApp
             this.tcType.SelectedIndex = 0;
             this.tcType.Size = new System.Drawing.Size(280, 500);
             this.tcType.TabIndex = 13;
+            this.tcType.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcType_Selected);
             // 
             // tabText
             // 
@@ -743,11 +749,24 @@ namespace TranslationApp
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // extractIsoToolStripMenuItem
+            // 
+            this.extractIsoToolStripMenuItem.Name = "extractIsoToolStripMenuItem";
+            this.extractIsoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.extractIsoToolStripMenuItem.Text = "Extract Iso";
+            this.extractIsoToolStripMenuItem.Click += new System.EventHandler(this.extractIsoToolStripMenuItem_Click);
+            // 
+            // tsNDXMakeIso
+            // 
+            this.tsNDXMakeIso.Name = "tsNDXMakeIso";
+            this.tsNDXMakeIso.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXMakeIso.Text = "Make Iso";
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 690);
+            this.ClientSize = new System.Drawing.Size(751, 743);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.panelNb2);
             this.Controls.Add(this.panelNb1);
@@ -827,7 +846,7 @@ namespace TranslationApp
         private System.Windows.Forms.ComboBox cbFileType;
         private System.Windows.Forms.Button bBrowse;
         private System.Windows.Forms.Button bMassReplace;
-        private System.Windows.Forms.ToolStripMenuItem NDXPackingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsNDXExtract;
         private System.Windows.Forms.ToolStripMenuItem tsTORPacking;
         private System.Windows.Forms.ComboBox cbStatus;
         private System.Windows.Forms.Label label1;
@@ -869,6 +888,8 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem tsTORMakeIso;
         private System.Windows.Forms.TabPage tabSpeaker;
         private System.Windows.Forms.ListBox lbSpeaker;
+        private System.Windows.Forms.ToolStripMenuItem extractIsoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsNDXMakeIso;
     }
 }
 
