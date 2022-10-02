@@ -557,7 +557,7 @@ namespace TranslationApp
         {
             MessageBox.Show("Extraction of Rebirth's files is in progress.\n You can still continue other work in the meantime");
             string successMessage = "Extraction of the files";
-            PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.GetGameConfig("TOR").LastFolderPath, @"..\..\..\PythonLib"), this.gameName, "unpack", $"Init --iso \"{config.GetGameConfig("TOR").IsoPath}\"", successMessage);
+            PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.GetGameConfig("TOR").LastFolderPath, @"..\..\..\PythonLib"), "TOR", "unpack", $"Init --iso \"{config.GetGameConfig("TOR").IsoPath}\"", successMessage);
         }
 
         private void cbToDo_CheckedChanged(object sender, EventArgs e)
@@ -754,6 +754,21 @@ namespace TranslationApp
         private void bBrowse_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tcType_Selected(object sender, TabControlEventArgs e)
+        {
+            if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
+                LoadEntryData(CurrentSpeakerList[lbSpeaker.SelectedIndex]);
+            else
+                LoadEntryData(CurrentEntryList[lbEntries.SelectedIndex]);
+        }
+
+        private void extractIsoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Extraction of NDX's files is in progress.\n You can still continue other work in the meantime");
+            string successMessage = "Extraction of the files";
+            PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.GetGameConfig("NDX").LastFolderPath, @"..\..\..\PythonLib"), "NDX", "unpack", $"Init --iso \"{config.GetGameConfig("NDX").IsoPath}\"", successMessage);
         }
     }
 }
