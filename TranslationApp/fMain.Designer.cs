@@ -40,6 +40,8 @@ namespace TranslationApp
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsNDXExtract = new System.Windows.Forms.ToolStripMenuItem();
+            this.extractIsoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsNDXMakeIso = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORPacking = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORExtract = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORMakeIso = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,8 +96,7 @@ namespace TranslationApp
             this.lNbProofSect = new System.Windows.Forms.Label();
             this.lNbToDoSect = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.extractIsoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsNDXMakeIso = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbEmpty = new System.Windows.Forms.CheckBox();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -188,7 +189,7 @@ namespace TranslationApp
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(180, 22);
+            this.tsSetup.Size = new System.Drawing.Size(104, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
@@ -198,8 +199,21 @@ namespace TranslationApp
             this.extractIsoToolStripMenuItem,
             this.tsNDXMakeIso});
             this.tsNDXExtract.Name = "tsNDXExtract";
-            this.tsNDXExtract.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXExtract.Size = new System.Drawing.Size(104, 22);
             this.tsNDXExtract.Text = "NDX";
+            // 
+            // extractIsoToolStripMenuItem
+            // 
+            this.extractIsoToolStripMenuItem.Name = "extractIsoToolStripMenuItem";
+            this.extractIsoToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.extractIsoToolStripMenuItem.Text = "Extract Iso";
+            this.extractIsoToolStripMenuItem.Click += new System.EventHandler(this.extractIsoToolStripMenuItem_Click);
+            // 
+            // tsNDXMakeIso
+            // 
+            this.tsNDXMakeIso.Name = "tsNDXMakeIso";
+            this.tsNDXMakeIso.Size = new System.Drawing.Size(128, 22);
+            this.tsNDXMakeIso.Text = "Make Iso";
             // 
             // tsTORPacking
             // 
@@ -207,20 +221,20 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(180, 22);
+            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
             // 
             this.tsTORExtract.Name = "tsTORExtract";
-            this.tsTORExtract.Size = new System.Drawing.Size(180, 22);
+            this.tsTORExtract.Size = new System.Drawing.Size(128, 22);
             this.tsTORExtract.Text = "Extract Iso";
             this.tsTORExtract.Click += new System.EventHandler(this.menuToolStripMenuItem_Click_1);
             // 
             // tsTORMakeIso
             // 
             this.tsTORMakeIso.Name = "tsTORMakeIso";
-            this.tsTORMakeIso.Size = new System.Drawing.Size(180, 22);
+            this.tsTORMakeIso.Size = new System.Drawing.Size(128, 22);
             this.tsTORMakeIso.Text = "Make Iso";
             // 
             // toolsToolStripMenuItem
@@ -229,8 +243,8 @@ namespace TranslationApp
             this.hexToJapaneseToolStripMenuItem,
             this.searchJapaneseToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 22);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(28, 22);
+            this.toolsToolStripMenuItem.Text = "   ";
             // 
             // hexToJapaneseToolStripMenuItem
             // 
@@ -749,24 +763,22 @@ namespace TranslationApp
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // extractIsoToolStripMenuItem
+            // cbEmpty
             // 
-            this.extractIsoToolStripMenuItem.Name = "extractIsoToolStripMenuItem";
-            this.extractIsoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.extractIsoToolStripMenuItem.Text = "Extract Iso";
-            this.extractIsoToolStripMenuItem.Click += new System.EventHandler(this.extractIsoToolStripMenuItem_Click);
-            // 
-            // tsNDXMakeIso
-            // 
-            this.tsNDXMakeIso.Name = "tsNDXMakeIso";
-            this.tsNDXMakeIso.Size = new System.Drawing.Size(180, 22);
-            this.tsNDXMakeIso.Text = "Make Iso";
+            this.cbEmpty.AutoSize = true;
+            this.cbEmpty.Location = new System.Drawing.Point(626, 367);
+            this.cbEmpty.Name = "cbEmpty";
+            this.cbEmpty.Size = new System.Drawing.Size(61, 17);
+            this.cbEmpty.TabIndex = 37;
+            this.cbEmpty.Text = "Empty  ";
+            this.cbEmpty.UseVisualStyleBackColor = true;
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 743);
+            this.Controls.Add(this.cbEmpty);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.panelNb2);
             this.Controls.Add(this.panelNb1);
@@ -890,6 +902,7 @@ namespace TranslationApp
         private System.Windows.Forms.ListBox lbSpeaker;
         private System.Windows.Forms.ToolStripMenuItem extractIsoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsNDXMakeIso;
+        private System.Windows.Forms.CheckBox cbEmpty;
     }
 }
 
