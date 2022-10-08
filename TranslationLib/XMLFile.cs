@@ -82,9 +82,20 @@ namespace TranslationLib
 
         public void SaveToDisk()
         {
+            
             var sectionsElements = Sections.Select(GetXmlSectionElement);
+            List<XElement> allSections = new List<XElement>();
+
+            if (FileType != "Menu")
+            {
+                var speakerElements = GetXmlSpeakerElement(Speakers);
+                allSections.Add(speakerElements);
+            }
+           
+            
+            allSections.AddRange(sectionsElements);
             var document = new XDocument(
-                new XElement(GetXMLTextTagName(), sectionsElements)
+                new XElement(GetXMLTextTagName(), allSections)
             );
 
             File.WriteAllText(FilePath, document.ToString().Replace(" />", "/>") + Environment.NewLine);
@@ -97,7 +108,18 @@ namespace TranslationLib
 
             return "SceneText";
         }
+        
+        private XElement GetXmlSpeakerElement(List<XMLEntry> SpeakerList)
+        {
+            var speakerEntry = new List<XElement>
+            {
+                new XElement("Section", "Speaker"),
+            };
 
+            speakerEntry.AddRange( SpeakerList.Select(entry => GetXMLEntryElement(entry)).ToList());
+
+            return new XElement("Speakers", speakerEntry);
+        }
         private XElement GetXmlSectionElement(XMLSection section)
         {
             var sectionEntry = new List<XElement>
@@ -113,15 +135,22 @@ namespace TranslationLib
         private static XElement GetXMLEntryElement(XMLEntry entry)
         {
             var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
+            var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
+            var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", entry.SpeakerId);
+            var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
+            var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
             return new XElement("Entry",
                 new XElement("PointerOffset", entry.PointerOffset),
+                voiceId,
                 new XElement("JapaneseText", entry.JapaneseText),
-                new XElement("EnglishText", entry.EnglishText),
+                new XElement("EnglishText", string.IsNullOrEmpty(entry.EnglishText) ? null : entry.EnglishText),
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
                 elemenId,
-                new XElement("Status", entry.Status),
-                new XElement("SpeakerId", entry.SpeakerId),
-                new XElement("UnknownPointer", entry.UnknownPointer)
+                structId,
+                speakerId,
+                unknownPointer,
+                new XElement("Status", entry.Status)
+                
             );
         }
     }

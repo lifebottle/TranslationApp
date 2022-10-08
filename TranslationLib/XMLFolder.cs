@@ -88,11 +88,13 @@ namespace TranslationLib
             {
                 Id = ExtractNullableInt(element.Element("Id")),
                 PointerOffset = ExtractNullableString(element.Element("PointerOffset")),
+                VoiceId = ExtractNullableString(element.Element("VoiceId")),
                 EnglishText = ExtractNullableString(element.Element("EnglishText")),
                 JapaneseText = ExtractNullableString(element.Element("JapaneseText")),
                 Notes = ExtractNullableString(element.Element("Notes")),
                 Status = ExtractNullableString(element.Element("Status")),
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
+                StructId = ExtractNullableInt(element.Element("StructId")),
                 UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer"))
             };
         }

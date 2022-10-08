@@ -474,21 +474,34 @@ namespace TranslationApp
                 lErrors.ForeColor = Color.Red;
             }
 
-            string status;
+            string status = cbStatus.Text;
             if (tbEnglishText.Text == tbJapaneseText.Text)
                 status = "Done";
-            else if (tbEnglishText.Text == "")
-                status = "To Do";
-            else
+            else if (tbEnglishText.Text != "")
                 status = "Proofreading";
+            if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
+            {
+                CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null: tbEnglishText.Text;
+                CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = status;
+                int? speakerId = CurrentSpeakerList[lbSpeaker.SelectedIndex].Id;
+                Project.CurrentFolder.CurrentFile.CurrentSection.Entries.ForEach(x => x.SpeakerName = x.Id == speakerId ? x.SpeakerName = tbEnglishText.Text : x.SpeakerName);
+            }
+            else
+            {
+                CurrentTextList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
+                CurrentTextList[lbEntries.SelectedIndex].Status = status;
+            }
 
             cbStatus.Text = status;
         }
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
         {
-            if (cbStatus.Text != string.Empty)
-                CurrentEntryList[lbEntries.SelectedIndex].Status = cbStatus.Text;
+            if ((cbStatus.Text != string.Empty) && (tcType.Controls[tcType.SelectedIndex].Text == "Speaker"))
+                CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = cbStatus.Text;
+            else
+                CurrentTextList[lbEntries.SelectedIndex].Status = cbStatus.Text;
+
         }
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
