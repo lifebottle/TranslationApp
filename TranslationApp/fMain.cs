@@ -16,7 +16,7 @@ namespace TranslationApp
         private GameConfig gameConfig;
         private static TranslationProject Project;
         private static PackingProject PackingAssistant;
-        private static List<XMLEntry> CurrentEntryList;
+        private static List<XMLEntry> CurrentTextList;
         private static List<XMLEntry> CurrentSpeakerList;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
@@ -191,7 +191,7 @@ namespace TranslationApp
         //Draw entries with multiline and font color changed
         private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
         {
-            DrawEntries(e, CurrentEntryList);
+            DrawEntries(e, CurrentTextList);
         }
 
         private void lbSpeaker_DrawItem(object sender, DrawItemEventArgs e)
@@ -201,7 +201,7 @@ namespace TranslationApp
 
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadEntryData(CurrentEntryList[lbEntries.SelectedIndex]);
+            LoadEntryData(CurrentTextList[lbEntries.SelectedIndex]);
         }
 
         private void LoadEntryData(XMLEntry currentEntry)
@@ -349,7 +349,7 @@ namespace TranslationApp
             var folderIncluded = new List<string> { "Story", "Menu", "Skits" };
             Project = new TranslationProject(path, folderIncluded);
 
-            CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+            CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
             CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
             cbFileType.DataSource = Project.GetFolderNames().OrderByDescending(x=>x).ToList();
             cbFileList.DataSource = Project.CurrentFolder.FileList();
@@ -404,8 +404,8 @@ namespace TranslationApp
 
             if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
             {
-                CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
-                lbEntries.DataSource = CurrentEntryList;
+                CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                lbEntries.DataSource = CurrentTextList;
             }
             else
             {
@@ -451,7 +451,7 @@ namespace TranslationApp
             {
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames().OrderByDescending(x=>x).ToList();
-                CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+                CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
 
@@ -465,8 +465,7 @@ namespace TranslationApp
 
         private void tbEnglishText_TextChanged(object sender, EventArgs e)
         {
-            CurrentEntryList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
-
+            
             bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
             lErrors.Text = "";
             if (!error)
@@ -483,7 +482,6 @@ namespace TranslationApp
             else
                 status = "Proofreading";
 
-            CurrentEntryList[lbEntries.SelectedIndex].Status = status;
             cbStatus.Text = status;
         }
 
@@ -495,18 +493,18 @@ namespace TranslationApp
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
         {
-            CurrentEntryList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
+            CurrentTextList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
         }
 
         private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            if (e.Index >= CurrentEntryList.Count)
+            if (e.Index >= CurrentTextList.Count)
                 return;
             
-            string text = GetTextBasedLanguage(e.Index, CurrentEntryList);
+            string text = GetTextBasedLanguage(e.Index, CurrentTextList);
 
             int nb = 0;
-            if (CurrentEntryList[e.Index].SpeakerId != null)
+            if (CurrentTextList[e.Index].SpeakerId != null)
             {
                 nb += 1;
             }
@@ -530,8 +528,8 @@ namespace TranslationApp
                 }
                 else
                 {
-                    var count = CurrentEntryList.Count;
-                    if (CurrentEntryList.Count(x => x.Status == "Done") == count && count > 0)
+                    var count = CurrentTextList.Count;
+                    if (CurrentTextList.Count(x => x.Status == "Done") == count && count > 0)
                     {
                         SolidBrush backgroundBrush = new SolidBrush(Color.LightGreen);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
@@ -741,7 +739,7 @@ namespace TranslationApp
 
         private void lbSpeaker_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            if (e.Index >= CurrentEntryList.Count)
+            if (e.Index >= CurrentTextList.Count)
                 return;
 
             string text = GetTextBasedLanguage(e.Index, CurrentSpeakerList);
