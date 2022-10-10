@@ -46,8 +46,8 @@ namespace TranslationApp
             ColorByStatus = new Dictionary<string, Color>
             {
                 { "To Do", Color.White },
-                { "Proofreading", Color.FromArgb(162, 255, 255) }, // Light Cyan
-                { "In Review", Color.FromArgb(255, 102, 255) }, // Magenta
+                { "Editing", Color.FromArgb(162, 255, 255) }, // Light Cyan
+                { "Proofreading", Color.FromArgb(255, 102, 255) }, // Magenta
                 { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
                 { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
             };
@@ -57,14 +57,14 @@ namespace TranslationApp
         {
        
             lNbToDo.Text = "";
-            lNbReview.Text = "";
+            lNbEditing.Text = "";
             lNbProb.Text = "";
             lNbProof.Text = "";
             lNbDone.Text = "";
 
             lNbToDoSect.Text = "";
             lNbProbSect.Text = "";
-            lNbReviewSect.Text = "";
+            lNbEditingSect.Text = "";
             lNbProofSect.Text = "";
             lNbDoneSect.Text = "";
         }
@@ -83,7 +83,7 @@ namespace TranslationApp
 
             //Checked List
             cbToDo.Enabled = status;
-            cbInReview.Enabled = status;
+            cbEditing.Enabled = status;
             cbProof.Enabled = status;
             cbDone.Enabled = status;
             cbProblematic.Enabled = status;
@@ -397,7 +397,7 @@ namespace TranslationApp
             {
                 cbToDo.Checked ? "To Do" : string.Empty,
                 cbProof.Checked ? "Proofreading" : string.Empty,
-                cbInReview.Checked ? "In Review" : string.Empty,
+                cbEditing.Checked ? "Editing" : string.Empty,
                 cbProblematic.Checked ? "Problematic" : string.Empty,
                 cbDone.Checked ? "Done" : string.Empty
             };
@@ -428,20 +428,25 @@ namespace TranslationApp
 
         private void UpdateStatusData()
         {
+            var speakerStatusStats = Project.CurrentFolder.CurrentFile.SpeakersGetStatusData();
             var statusStats = Project.CurrentFolder.CurrentFile.GetStatusData();
             //File Count of status
-            lNbToDo.Text = statusStats["To Do"].ToString();
-            lNbProof.Text = statusStats["Proofreading"].ToString();
-            lNbProb.Text = statusStats["Problematic"].ToString();
-            lNbReview.Text = statusStats["In Review"].ToString();
-            lNbDone.Text = statusStats["Done"].ToString();
+            lNbToDo.Text = (statusStats["To Do"] + speakerStatusStats["To Do"]).ToString();
+            lNbProof.Text = (statusStats["Proofreading"] + speakerStatusStats["Proofreading"]).ToString();
+            lNbProb.Text = (statusStats["Problematic"] + speakerStatusStats["Problematic"]).ToString();
+            lNbEditing.Text = (statusStats["Editing"] + speakerStatusStats["Editing"]).ToString();
+            lNbDone.Text = (statusStats["Done"] + speakerStatusStats["Done"]).ToString();
 
-            var sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData();
+            Dictionary<string, int> sectionStatusStats= new Dictionary<string, int>();
+            if (tcType.SelectedTab.Text == "Speaker")
+                sectionStatusStats = speakerStatusStats;
+            else
+                sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData();
             //Section Count of status
             lNbToDoSect.Text = sectionStatusStats["To Do"].ToString();
             lNbProofSect.Text = sectionStatusStats["Proofreading"].ToString();
             lNbProbSect.Text = sectionStatusStats["Problematic"].ToString();
-            lNbReviewSect.Text = sectionStatusStats["In Review"].ToString();
+            lNbEditingSect.Text = sectionStatusStats["Editing"].ToString();
             lNbDoneSect.Text = sectionStatusStats["Done"].ToString();
         }
 
@@ -450,7 +455,10 @@ namespace TranslationApp
             if (cbFileList.SelectedIndex != -1)
             {
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
-                cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames().OrderByDescending(x=>x).ToList();
+
+                List<string> sections = Project.CurrentFolder.CurrentFile.GetSectionNames();
+                if (cbFileType.Text != "Menu")
+                    cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames().OrderByDescending(x=>x).ToList();
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
@@ -478,7 +486,7 @@ namespace TranslationApp
             if (tbEnglishText.Text == tbJapaneseText.Text)
                 status = "Done";
             else if (tbEnglishText.Text != "")
-                status = "Proofreading";
+                status = "Editing";
             if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
             {
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null: tbEnglishText.Text;
@@ -501,6 +509,7 @@ namespace TranslationApp
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = cbStatus.Text;
             else
                 CurrentTextList[lbEntries.SelectedIndex].Status = cbStatus.Text;
+            UpdateStatusData();
 
         }
 
@@ -776,6 +785,7 @@ namespace TranslationApp
         private void tcType_Selected(object sender, TabControlEventArgs e)
         {
             UpdateDisplayedEntries();
+            UpdateStatusData();
         }
 
         private void extractIsoToolStripMenuItem_Click(object sender, EventArgs e)

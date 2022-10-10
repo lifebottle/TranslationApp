@@ -57,22 +57,39 @@ namespace TranslationLib
             var dictionary = new Dictionary<string, int>()
             {
                 { "To Do", 0 },
+                { "Editing", 0 },
                 { "Proofreading", 0 },
-                { "In Review", 0 },
                 { "Problematic", 0 },
                 { "Done", 0 },
             };
 
             foreach (var section in Sections)
             {
-                var sectionDictionary = section.GetStatusData();
-                foreach (var key in sectionDictionary.Keys)
+                if (section.Name != "Other Strings")
                 {
-                    dictionary[key] += sectionDictionary[key];
+                    var sectionDictionary = section.GetStatusData();
+                    foreach (var key in sectionDictionary.Keys)
+                    {
+                        dictionary[key] += sectionDictionary[key];
+                    }
                 }
             }
 
             return dictionary;
+        }
+
+        public Dictionary<string, int> SpeakersGetStatusData()
+        {
+            Func<List<XMLEntry>, string, int> CountEntryByStatus = (entryList, status) => entryList.Count(e => e.Status == status);
+
+            return new Dictionary<string, int>
+            {
+                { "To Do",          CountEntryByStatus(Speakers,"To Do") },
+                { "Editing",        CountEntryByStatus(Speakers,"Editing") },
+                { "Proofreading",   CountEntryByStatus(Speakers,"Proofreading") },
+                { "Problematic",    CountEntryByStatus(Speakers,"Problematic") },
+                { "Done",           CountEntryByStatus(Speakers,"Done") },
+            };
         }
 
         public List<string> GetSectionNames()

@@ -78,7 +78,7 @@ namespace TranslationApp
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbDone = new System.Windows.Forms.CheckBox();
             this.cbProblematic = new System.Windows.Forms.CheckBox();
-            this.cbInReview = new System.Windows.Forms.CheckBox();
+            this.cbEditing = new System.Windows.Forms.CheckBox();
             this.cbProof = new System.Windows.Forms.CheckBox();
             this.cbToDo = new System.Windows.Forms.CheckBox();
             this.cbLanguage = new System.Windows.Forms.ComboBox();
@@ -86,13 +86,13 @@ namespace TranslationApp
             this.panelNb1 = new System.Windows.Forms.Panel();
             this.lNbDone = new System.Windows.Forms.Label();
             this.lNbProb = new System.Windows.Forms.Label();
-            this.lNbReview = new System.Windows.Forms.Label();
+            this.lNbEditing = new System.Windows.Forms.Label();
             this.lNbProof = new System.Windows.Forms.Label();
             this.lNbToDo = new System.Windows.Forms.Label();
             this.panelNb2 = new System.Windows.Forms.Panel();
             this.lNbDoneSect = new System.Windows.Forms.Label();
             this.lNbProbSect = new System.Windows.Forms.Label();
-            this.lNbReviewSect = new System.Windows.Forms.Label();
+            this.lNbEditingSect = new System.Windows.Forms.Label();
             this.lNbProofSect = new System.Windows.Forms.Label();
             this.lNbToDoSect = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -468,8 +468,8 @@ namespace TranslationApp
             this.cbStatus.FormattingEnabled = true;
             this.cbStatus.Items.AddRange(new object[] {
             "To Do",
+            "Editing",
             "Proofreading",
-            "In Review",
             "Problematic",
             "Done"});
             this.cbStatus.Location = new System.Drawing.Point(337, 135);
@@ -547,7 +547,7 @@ namespace TranslationApp
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.cbDone);
             this.panel1.Controls.Add(this.cbProblematic);
-            this.panel1.Controls.Add(this.cbInReview);
+            this.panel1.Controls.Add(this.cbEditing);
             this.panel1.Controls.Add(this.cbProof);
             this.panel1.Controls.Add(this.cbToDo);
             this.panel1.Location = new System.Drawing.Point(101, 85);
@@ -577,21 +577,21 @@ namespace TranslationApp
             this.cbProblematic.UseVisualStyleBackColor = true;
             this.cbProblematic.CheckedChanged += new System.EventHandler(this.cbProblematic_CheckedChanged);
             // 
-            // cbInReview
+            // cbEditing
             // 
-            this.cbInReview.AutoSize = true;
-            this.cbInReview.Location = new System.Drawing.Point(5, 33);
-            this.cbInReview.Name = "cbInReview";
-            this.cbInReview.Size = new System.Drawing.Size(74, 17);
-            this.cbInReview.TabIndex = 2;
-            this.cbInReview.Text = "In Review";
-            this.cbInReview.UseVisualStyleBackColor = true;
-            this.cbInReview.CheckedChanged += new System.EventHandler(this.cbInReview_CheckedChanged);
+            this.cbEditing.AutoSize = true;
+            this.cbEditing.Location = new System.Drawing.Point(5, 17);
+            this.cbEditing.Name = "cbEditing";
+            this.cbEditing.Size = new System.Drawing.Size(58, 17);
+            this.cbEditing.TabIndex = 2;
+            this.cbEditing.Text = "Editing";
+            this.cbEditing.UseVisualStyleBackColor = true;
+            this.cbEditing.CheckedChanged += new System.EventHandler(this.cbInReview_CheckedChanged);
             // 
             // cbProof
             // 
             this.cbProof.AutoSize = true;
-            this.cbProof.Location = new System.Drawing.Point(5, 18);
+            this.cbProof.Location = new System.Drawing.Point(5, 33);
             this.cbProof.Name = "cbProof";
             this.cbProof.Size = new System.Drawing.Size(86, 17);
             this.cbProof.TabIndex = 1;
@@ -604,7 +604,7 @@ namespace TranslationApp
             this.cbToDo.AutoSize = true;
             this.cbToDo.Checked = true;
             this.cbToDo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbToDo.Location = new System.Drawing.Point(5, 3);
+            this.cbToDo.Location = new System.Drawing.Point(5, 2);
             this.cbToDo.Name = "cbToDo";
             this.cbToDo.Size = new System.Drawing.Size(56, 17);
             this.cbToDo.TabIndex = 0;
@@ -641,7 +641,7 @@ namespace TranslationApp
             this.panelNb1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelNb1.Controls.Add(this.lNbDone);
             this.panelNb1.Controls.Add(this.lNbProb);
-            this.panelNb1.Controls.Add(this.lNbReview);
+            this.panelNb1.Controls.Add(this.lNbEditing);
             this.panelNb1.Controls.Add(this.lNbProof);
             this.panelNb1.Controls.Add(this.lNbToDo);
             this.panelNb1.Location = new System.Drawing.Point(249, 85);
@@ -667,19 +667,19 @@ namespace TranslationApp
             this.lNbProb.TabIndex = 3;
             this.lNbProb.Text = "label12";
             // 
-            // lNbReview
+            // lNbEditing
             // 
-            this.lNbReview.AutoSize = true;
-            this.lNbReview.Location = new System.Drawing.Point(5, 34);
-            this.lNbReview.Name = "lNbReview";
-            this.lNbReview.Size = new System.Drawing.Size(41, 13);
-            this.lNbReview.TabIndex = 2;
-            this.lNbReview.Text = "label11";
+            this.lNbEditing.AutoSize = true;
+            this.lNbEditing.Location = new System.Drawing.Point(5, 19);
+            this.lNbEditing.Name = "lNbEditing";
+            this.lNbEditing.Size = new System.Drawing.Size(41, 13);
+            this.lNbEditing.TabIndex = 2;
+            this.lNbEditing.Text = "label11";
             // 
             // lNbProof
             // 
             this.lNbProof.AutoSize = true;
-            this.lNbProof.Location = new System.Drawing.Point(5, 19);
+            this.lNbProof.Location = new System.Drawing.Point(5, 34);
             this.lNbProof.Name = "lNbProof";
             this.lNbProof.Size = new System.Drawing.Size(41, 13);
             this.lNbProof.TabIndex = 1;
@@ -700,7 +700,7 @@ namespace TranslationApp
             this.panelNb2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelNb2.Controls.Add(this.lNbDoneSect);
             this.panelNb2.Controls.Add(this.lNbProbSect);
-            this.panelNb2.Controls.Add(this.lNbReviewSect);
+            this.panelNb2.Controls.Add(this.lNbEditingSect);
             this.panelNb2.Controls.Add(this.lNbProofSect);
             this.panelNb2.Controls.Add(this.lNbToDoSect);
             this.panelNb2.Location = new System.Drawing.Point(199, 85);
@@ -726,19 +726,19 @@ namespace TranslationApp
             this.lNbProbSect.TabIndex = 3;
             this.lNbProbSect.Text = "label12";
             // 
-            // lNbReviewSect
+            // lNbEditingSect
             // 
-            this.lNbReviewSect.AutoSize = true;
-            this.lNbReviewSect.Location = new System.Drawing.Point(5, 34);
-            this.lNbReviewSect.Name = "lNbReviewSect";
-            this.lNbReviewSect.Size = new System.Drawing.Size(41, 13);
-            this.lNbReviewSect.TabIndex = 2;
-            this.lNbReviewSect.Text = "label11";
+            this.lNbEditingSect.AutoSize = true;
+            this.lNbEditingSect.Location = new System.Drawing.Point(5, 19);
+            this.lNbEditingSect.Name = "lNbEditingSect";
+            this.lNbEditingSect.Size = new System.Drawing.Size(41, 13);
+            this.lNbEditingSect.TabIndex = 2;
+            this.lNbEditingSect.Text = "label11";
             // 
             // lNbProofSect
             // 
             this.lNbProofSect.AutoSize = true;
-            this.lNbProofSect.Location = new System.Drawing.Point(5, 19);
+            this.lNbProofSect.Location = new System.Drawing.Point(5, 34);
             this.lNbProofSect.Name = "lNbProofSect";
             this.lNbProofSect.Size = new System.Drawing.Size(41, 13);
             this.lNbProofSect.TabIndex = 1;
@@ -876,19 +876,19 @@ namespace TranslationApp
         private System.Windows.Forms.CheckBox cbToDo;
         private System.Windows.Forms.CheckBox cbDone;
         private System.Windows.Forms.CheckBox cbProblematic;
-        private System.Windows.Forms.CheckBox cbInReview;
+        private System.Windows.Forms.CheckBox cbEditing;
         private System.Windows.Forms.ComboBox cbLanguage;
         private System.Windows.Forms.Label lLanguage;
         private System.Windows.Forms.Panel panelNb1;
         private System.Windows.Forms.Label lNbDone;
         private System.Windows.Forms.Label lNbProb;
-        private System.Windows.Forms.Label lNbReview;
+        private System.Windows.Forms.Label lNbEditing;
         private System.Windows.Forms.Label lNbProof;
         private System.Windows.Forms.Label lNbToDo;
         private System.Windows.Forms.Panel panelNb2;
         private System.Windows.Forms.Label lNbDoneSect;
         private System.Windows.Forms.Label lNbProbSect;
-        private System.Windows.Forms.Label lNbReviewSect;
+        private System.Windows.Forms.Label lNbEditingSect;
         private System.Windows.Forms.Label lNbProofSect;
         private System.Windows.Forms.Label lNbToDoSect;
         private System.Windows.Forms.Button btnRefresh;
