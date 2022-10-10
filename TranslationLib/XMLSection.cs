@@ -19,8 +19,8 @@ namespace TranslationLib
             return new Dictionary<string, int>
             {
                 { "To Do", GetEntryCountByStatus("To Do") },
+                { "Editing", GetEntryCountByStatus("Editing") },
                 { "Proofreading", GetEntryCountByStatus("Proofreading") },
-                { "In Review", GetEntryCountByStatus("In Review") },
                 { "Problematic", GetEntryCountByStatus("Problematic") },
                 { "Done", GetEntryCountByStatus("Done") },
             };
