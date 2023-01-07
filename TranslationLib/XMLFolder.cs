@@ -92,7 +92,7 @@ namespace TranslationLib
                 JapaneseText = ExtractNullableString(element.Element("JapaneseText")),
                 Notes = ExtractNullableString(element.Element("Notes")),
                 Status = ExtractNullableString(element.Element("Status")),
-                SpeakerId = ExtractNullableInt(element.Element("SpeakerId")),
+                SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
                 UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer"))
             };
         }
@@ -103,6 +103,14 @@ namespace TranslationLib
                 return null;
 
             return int.Parse(element.Value);
+        }
+
+        private int[] ExtractNullableIntArray(XElement element)
+        {
+            if (element == null)
+                return null;        
+
+            return element.Value.Split(',').Select(x => int.Parse(x)).ToArray();
         }
 
         private string ExtractNullableString(XElement element)
