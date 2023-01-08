@@ -153,7 +153,7 @@ namespace TranslationLib
         {
             var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
             var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
-            var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", entry.SpeakerId);
+            var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",",entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
             var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
             return new XElement("Entry",
@@ -162,9 +162,9 @@ namespace TranslationLib
                 new XElement("JapaneseText", entry.JapaneseText),
                 new XElement("EnglishText", string.IsNullOrEmpty(entry.EnglishText) ? null : entry.EnglishText),
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
+                speakerId,
                 elemenId,
                 structId,
-                speakerId,
                 unknownPointer,
                 new XElement("Status", entry.Status)
                 
