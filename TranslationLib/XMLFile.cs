@@ -36,14 +36,19 @@ namespace TranslationLib
                 foreach (var XMLEntry in XMLSection.Entries)
                 {
                     List<string> ls = new List<string>();
-                    foreach (var id in XMLEntry.SpeakerId)
+           
+                    if (XMLEntry.SpeakerId != null)
                     {
-                        ls.Add(speakerDict[id]);
+                        foreach (var id in XMLEntry.SpeakerId)
+                        {
+                            ls.Add(speakerDict[id]);
+                        }
+
+                        XMLEntry.SpeakerName = string.Join(" / ", ls);
                     }
-
-                    XMLEntry.SpeakerName = string.Join(" / ", ls);
+                    else             
+                        XMLEntry.SpeakerName = null;                  
                 }
-
             }
         }
 
