@@ -405,12 +405,16 @@ namespace TranslationApp
             if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
             {
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                var old_index = lbEntries.SelectedIndex;
                 lbEntries.DataSource = CurrentTextList;
+                lbEntries.SelectedIndex = old_index;
             }
             else
             {
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                var old_index = lbSpeaker.SelectedIndex;
                 lbSpeaker.DataSource = CurrentSpeakerList;
+                lbSpeaker.SelectedIndex = old_index;
             }
         }
 
