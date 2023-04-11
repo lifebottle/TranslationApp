@@ -201,7 +201,9 @@ namespace TranslationApp
 
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadEntryData(CurrentTextList[lbEntries.SelectedIndex]);
+            if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count) {
+                LoadEntryData(CurrentTextList[lbEntries.SelectedIndex]);
+            }
         }
 
         private void LoadEntryData(XMLEntry currentEntry)
@@ -407,14 +409,20 @@ namespace TranslationApp
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
                 var old_index = lbEntries.SelectedIndex;
                 lbEntries.DataSource = CurrentTextList;
-                lbEntries.SelectedIndex = old_index;
+                if (lbEntries.Items.Count > old_index)
+                {
+                    lbEntries.SelectedIndex = old_index;
+                }
             }
             else
             {
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
                 var old_index = lbSpeaker.SelectedIndex;
                 lbSpeaker.DataSource = CurrentSpeakerList;
-                lbSpeaker.SelectedIndex = old_index;
+                if (lbSpeaker.Items.Count > old_index)
+                {
+                    lbSpeaker.SelectedIndex = old_index;
+                }
             }
         }
 
@@ -522,7 +530,10 @@ namespace TranslationApp
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
         {
-            CurrentTextList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
+            if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
+            {
+                CurrentTextList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
+            }
         }
 
         private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
@@ -763,7 +774,10 @@ namespace TranslationApp
 
         private void lbSpeaker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadEntryData(CurrentSpeakerList[lbSpeaker.SelectedIndex]);
+            if (lbSpeaker.SelectedIndex > -1 && lbSpeaker.SelectedIndex < CurrentSpeakerList.Count)
+            {
+                LoadEntryData(CurrentSpeakerList[lbSpeaker.SelectedIndex]);
+            }
         }
 
         private void lbSpeaker_MeasureItem(object sender, MeasureItemEventArgs e)
