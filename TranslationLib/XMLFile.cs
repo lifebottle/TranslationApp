@@ -100,7 +100,7 @@ namespace TranslationLib
         public void SaveToDisk()
         {
             
-            var sectionsElements = Sections.Select(GetXmlSectionElement);
+            var sectionsElements = Sections.Where(s => s.Name != "All strings").Select(GetXmlSectionElement);
             List<XElement> allSections = new List<XElement>();
 
             if (FileType != "Menu")
