@@ -36,6 +36,10 @@ namespace TranslationLib
 
                     var XMLSections = document.Root.Elements("Strings");
 
+                    // Add a dummy "Everyting" section
+                    var everything_section = new XMLSection("All strings");
+                    XMLFile.Sections.Add(everything_section);
+
                     foreach (var XMLSection in XMLSections)
                     {
                         var section = new XMLSection(XMLSection.Element("Section").Value);
@@ -45,6 +49,7 @@ namespace TranslationLib
                         {
                             var entry = ExtractXMLEntry(XMLEntry);
                             section.Entries.Add(entry);
+                            everything_section.Entries.Add(entry);
 
                             if (!string.IsNullOrEmpty(entry.JapaneseText))
                             {
