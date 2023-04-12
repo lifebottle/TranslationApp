@@ -443,11 +443,11 @@ namespace TranslationApp
             var speakerStatusStats = Project.CurrentFolder.CurrentFile.SpeakersGetStatusData();
             var statusStats = Project.CurrentFolder.CurrentFile.GetStatusData();
             //File Count of status
-            lNbToDo.Text = (statusStats["To Do"] + speakerStatusStats["To Do"]).ToString();
-            lNbProof.Text = (statusStats["Proofreading"] + speakerStatusStats["Proofreading"]).ToString();
-            lNbProb.Text = (statusStats["Problematic"] + speakerStatusStats["Problematic"]).ToString();
-            lNbEditing.Text = (statusStats["Editing"] + speakerStatusStats["Editing"]).ToString();
-            lNbDone.Text = (statusStats["Done"] + speakerStatusStats["Done"]).ToString();
+            lNbToDo.Text = (statusStats["To Do"]).ToString();
+            lNbProof.Text = (statusStats["Proofreading"]).ToString();
+            lNbProb.Text = (statusStats["Problematic"]).ToString();
+            lNbEditing.Text = (statusStats["Editing"]).ToString();
+            lNbDone.Text = (statusStats["Done"]).ToString();
 
             Dictionary<string, int> sectionStatusStats= new Dictionary<string, int>();
             if (tcType.SelectedTab.Text == "Speaker")

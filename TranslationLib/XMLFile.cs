@@ -65,7 +65,7 @@ namespace TranslationLib
 
             foreach (var section in Sections)
             {
-                if (section.Name != "Other Strings")
+                if (section.Name != "Other Strings" && section.Name != "All strings")
                 {
                     var sectionDictionary = section.GetStatusData();
                     foreach (var key in sectionDictionary.Keys)
