@@ -468,11 +468,16 @@ namespace TranslationApp
             {
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
 
+                var old_section = cbSections.SelectedItem.ToString();
+
                 List<string> sections = Project.CurrentFolder.CurrentFile.GetSectionNames();
                 if (cbFileType.Text != "Menu")
-                    cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames().OrderByDescending(x=>x).ToList();
+                    cbSections.DataSource = sections.OrderBy(x=>x).ToList();
                 else
-                    cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames().OrderBy(x => x).ToList();
+                    cbSections.DataSource = sections.OrderBy(x => x).ToList();
+
+                if (cbSections.Items.Contains(old_section))
+                    cbSections.SelectedItem = old_section;
 
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
