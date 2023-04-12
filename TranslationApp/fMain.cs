@@ -782,7 +782,7 @@ namespace TranslationApp
 
         private void lbSpeaker_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            if (e.Index >= CurrentTextList.Count)
+            if (e.Index >= CurrentSpeakerList.Count)
                 return;
 
             string text = GetTextBasedLanguage(e.Index, CurrentSpeakerList);
