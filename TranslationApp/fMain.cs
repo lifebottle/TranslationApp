@@ -671,24 +671,37 @@ namespace TranslationApp
                         {
                             if (cbFileList.Items.Count - 1 != cbFileList.SelectedIndex)
                                 cbFileList.SelectedIndex += 1;
+                            break;
                         }
-                        else
+
+                        if (tcType.SelectedIndex == 0)
                         {
                             if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
                                 lbEntries.SelectedIndex += 1;
                         }
-
+                        else
+                        {
+                            if (lbSpeaker.Items.Count - 1 != lbSpeaker.SelectedIndex)
+                                lbSpeaker.SelectedIndex += 1;
+                        }
                         break;
                     case Keys.Up:
                         if (e.Alt)
                         {
                             if (cbFileList.SelectedIndex > 0)
                                 cbFileList.SelectedIndex -= 1;
+                            break;
+                        }
+
+                        if (tcType.SelectedIndex == 0)
+                        {
+                            if (lbEntries.Items.Count > 0)
+                                lbEntries.SelectedIndex -= 1;
                         }
                         else
                         {
-                            if (lbEntries.SelectedIndex > 0)
-                                lbEntries.SelectedIndex -= 1;
+                            if (lbSpeaker.Items.Count > 0)
+                                lbSpeaker.SelectedIndex -= 1;
                         }
 
                         break;
