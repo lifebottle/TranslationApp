@@ -231,10 +231,7 @@ namespace TranslationApp
             if (tbNoteText != null)
                 tbNoteText.Text = currentEntry.Notes;
 
-            if (currentEntry.EnglishText != null)
-            {
-                cbEmpty.Checked = currentEntry.EnglishText.Equals("");
-            }
+            cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
 
             cbStatus.Text = currentEntry.Status;
 
@@ -827,6 +824,17 @@ namespace TranslationApp
             MessageBox.Show("Extraction of NDX's files is in progress.\n You can still continue other work in the meantime");
             string successMessage = "Extraction of the files";
             PackingAssistant.CallPython(config.PythonLocation, Path.Combine(config.GetGameConfig("NDX").LastFolderPath, @"..\..\..\PythonLib"), "NDX", "unpack", $"Init --iso \"{config.GetGameConfig("NDX").IsoPath}\"", successMessage);
+        }
+
+        private void cbEmpty_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbEmpty.Checked)
+            {
+                if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
+                {
+                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = "";
+                }
+            }
         }
     }
 }

@@ -772,6 +772,7 @@ namespace TranslationApp
             this.cbEmpty.TabIndex = 37;
             this.cbEmpty.Text = "Empty  ";
             this.cbEmpty.UseVisualStyleBackColor = true;
+            this.cbEmpty.CheckedChanged += new System.EventHandler(this.cbEmpty_CheckedChanged);
             // 
             // fMain
             // 
