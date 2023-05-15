@@ -498,6 +498,9 @@ namespace TranslationApp
         {
             
             bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
+
+            cbEmpty.Checked = tbEnglishText.Text.Length == 0;
+
             lErrors.Text = "";
             if (!error)
             {
@@ -833,6 +836,14 @@ namespace TranslationApp
                 if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
                 {
                     CurrentTextList[lbEntries.SelectedIndex].EnglishText = "";
+                }
+            }
+            else
+            {
+                if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count
+                    && CurrentTextList[lbEntries.SelectedIndex].EnglishText.Length == 0)
+                {
+                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
                 }
             }
         }

@@ -160,7 +160,7 @@ namespace TranslationLib
                 new XElement("PointerOffset", entry.PointerOffset),
                 voiceId,
                 new XElement("JapaneseText", entry.JapaneseText),
-                new XElement("EnglishText", string.IsNullOrEmpty(entry.EnglishText) ? null : entry.EnglishText),
+                new XElement("EnglishText", entry.EnglishText),
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
                 speakerId,
                 elemenId,
