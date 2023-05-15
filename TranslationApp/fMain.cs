@@ -557,6 +557,8 @@ namespace TranslationApp
             
             string text = GetTextBasedLanguage(e.Index, CurrentTextList);
 
+            text = text == null ? "" : text;
+
             int nb = 0;
             if (CurrentTextList[e.Index].SpeakerId != null)
             {
