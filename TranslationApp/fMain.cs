@@ -231,7 +231,10 @@ namespace TranslationApp
             if (tbNoteText != null)
                 tbNoteText.Text = currentEntry.Notes;
 
-            cbEmpty.Checked = currentEntry.EnglishText == null;
+            if (currentEntry.EnglishText != null)
+            {
+                cbEmpty.Checked = currentEntry.EnglishText.Equals("");
+            }
 
             cbStatus.Text = currentEntry.Status;
 
@@ -498,12 +501,6 @@ namespace TranslationApp
         {
             
             bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
-            
-            if (tbEnglishText.Text.Length != 0)
-            {
-                cbEmpty.Checked = false;
-            }
-
             lErrors.Text = "";
             if (!error)
             {
