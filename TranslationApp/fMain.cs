@@ -854,6 +854,7 @@ namespace TranslationApp
             else
             {
                 if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count
+                    && CurrentTextList[lbEntries.SelectedIndex].EnglishText != null
                     && CurrentTextList[lbEntries.SelectedIndex].EnglishText.Length == 0)
                 {
                     CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
