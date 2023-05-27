@@ -695,12 +695,12 @@ namespace TranslationApp
 
                         if (tcType.SelectedIndex == 0)
                         {
-                            if (lbEntries.Items.Count > 0)
+                            if (lbEntries.SelectedIndex > 0)
                                 lbEntries.SelectedIndex -= 1;
                         }
                         else
                         {
-                            if (lbSpeaker.Items.Count > 0)
+                            if (lbSpeaker.SelectedIndex > 0)
                                 lbSpeaker.SelectedIndex -= 1;
                         }
 
