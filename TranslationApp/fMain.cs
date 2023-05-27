@@ -496,10 +496,8 @@ namespace TranslationApp
 
         private void tbEnglishText_TextChanged(object sender, EventArgs e)
         {
-            
-            bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
 
-            cbEmpty.Checked = tbEnglishText.Text.Length == 0;
+            bool error = (tbEnglishText.Text.Count(x => x == '<') == tbEnglishText.Text.Count(x => x == '>'));
 
             lErrors.Text = "";
             if (!error)
@@ -510,9 +508,10 @@ namespace TranslationApp
 
             string status = cbStatus.Text;
             if (tbEnglishText.Text == tbJapaneseText.Text)
-                status = "Done";
+                status = "Editing";
             else if (tbEnglishText.Text != "")
                 status = "Editing";
+
             if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
             {
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null: tbEnglishText.Text;
@@ -522,7 +521,14 @@ namespace TranslationApp
             }
             else
             {
-                CurrentTextList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
+                if (tbEnglishText.Text.Length == 0)
+                {
+                    status = "To Do";
+                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
+                } else
+                {
+                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
+                }
                 CurrentTextList[lbEntries.SelectedIndex].Status = status;
             }
 
@@ -849,6 +855,8 @@ namespace TranslationApp
                 if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
                 {
                     CurrentTextList[lbEntries.SelectedIndex].EnglishText = "";
+                    CurrentTextList[lbEntries.SelectedIndex].Status = "Done";
+                    cbStatus.Text = "Done";
                 }
             }
             else
@@ -858,6 +866,8 @@ namespace TranslationApp
                     && CurrentTextList[lbEntries.SelectedIndex].EnglishText.Length == 0)
                 {
                     CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
+                    CurrentTextList[lbEntries.SelectedIndex].Status = "To Do";
+                    cbStatus.Text = "To Do";
                 }
             }
         }
