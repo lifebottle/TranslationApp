@@ -16,7 +16,7 @@ namespace TranslationLib
             XmlFolders = new List<XMLFolder>();
 
             foreach (var folder in folderIncluded)
-                XmlFolders.Add(new XMLFolder(folder, Path.Combine(basePath, folder, "XML")));
+                XmlFolders.Add(new XMLFolder(folder, Path.Combine(basePath, folder, "")));
 
             foreach (var xmlFolder in XmlFolders)
                 xmlFolder.LoadXMLs();

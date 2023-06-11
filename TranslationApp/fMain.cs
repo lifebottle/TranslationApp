@@ -319,7 +319,7 @@ namespace TranslationApp
         }
         private void tsTORLoadNew_Click(object sender, EventArgs e)
         {
-            LoadNewFolder("TOR", "/Data/TOR");
+            LoadNewFolder("TOR", "/2_translated");
         }
         private void tsNDXLoadNew_Click(object sender, EventArgs e)
         {
