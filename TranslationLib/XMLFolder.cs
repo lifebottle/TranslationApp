@@ -32,7 +32,7 @@ namespace TranslationLib
                 {
                     var XMLFile = new XMLFile { Name = Path.GetFileName(file), FilePath = file, FileType = Name };
                     XMLFiles.Add(XMLFile);
-                    var document = XDocument.Load(file);
+                    var document = XDocument.Load(file, LoadOptions.PreserveWhitespace);
 
                     var XMLSections = document.Root.Elements("Strings");
 
