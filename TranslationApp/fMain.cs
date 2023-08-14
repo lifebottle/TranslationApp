@@ -718,6 +718,9 @@ namespace TranslationApp
                     case Keys.S:
                         bSave.PerformClick();
                         break;
+                    case Keys.E:
+                        cbEmpty.Checked = !cbEmpty.Checked;
+                        break;
                     default:
                         e.Handled = false;
                         return;
