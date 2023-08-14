@@ -156,8 +156,25 @@ namespace TranslationLib
             var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",",entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
             var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
+            var maxLength = entry.MaxLength == null ? null : new XElement("MaxLength", entry.MaxLength);
+            XElement embedOffset;
+
+            if (entry.EmbedOffset)
+            {
+                var sectionEntry = new List<XElement>
+                {
+                    new XElement("hi", entry.hi),
+                    new XElement("lo", entry.lo),
+                };
+                embedOffset = new XElement("EmbedOffset", sectionEntry);
+            } else
+            {
+                embedOffset = null;
+            }
             return new XElement("Entry",
                 new XElement("PointerOffset", entry.PointerOffset),
+                embedOffset,
+                maxLength,
                 voiceId,
                 new XElement("JapaneseText", entry.JapaneseText),
                 new XElement("EnglishText", entry.EnglishText),
@@ -167,7 +184,7 @@ namespace TranslationLib
                 structId,
                 unknownPointer,
                 new XElement("Status", entry.Status)
-                
+
             );
         }
     }

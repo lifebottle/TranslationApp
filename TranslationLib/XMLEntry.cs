@@ -13,6 +13,10 @@ namespace TranslationLib
         public int? StructId { get; set; }
         public int[] SpeakerId { get; set; }
         public int? UnknownPointer { get; set; }
+        public int? MaxLength { get; set; }
+        public bool EmbedOffset { get; set; }
+        public string hi { get; set; }
+        public string lo { get; set; }
         public string Status { get; set; }
         
         

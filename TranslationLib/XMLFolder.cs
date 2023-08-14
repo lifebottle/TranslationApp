@@ -89,7 +89,7 @@ namespace TranslationLib
 
         private XMLEntry ExtractXMLEntry(XElement element)
         {
-            return new XMLEntry
+            var e = new XMLEntry
             {
                 Id = ExtractNullableInt(element.Element("Id")),
                 PointerOffset = ExtractNullableString(element.Element("PointerOffset")),
@@ -100,8 +100,21 @@ namespace TranslationLib
                 Status = ExtractNullableString(element.Element("Status")),
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
                 StructId = ExtractNullableInt(element.Element("StructId")),
-                UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer"))
+                UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer")),
+                MaxLength = ExtractNullableInt(element.Element("MaxLength"))
             };
+
+            if (element.Element("EmbedOffset") != null)
+            {
+                e.EmbedOffset = true;
+                e.hi = ExtractNullableString(element.Element("EmbedOffset").Element("hi"));
+                e.lo = ExtractNullableString(element.Element("EmbedOffset").Element("lo"));
+            } else
+            {
+                e.EmbedOffset = false;
+            }
+
+            return e;
         }
 
         private int? ExtractNullableInt(XElement element)
