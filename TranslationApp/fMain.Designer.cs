@@ -396,6 +396,7 @@ namespace TranslationApp
             // 
             this.trackBarAlign.AutoSize = false;
             this.trackBarAlign.Location = new System.Drawing.Point(481, 142);
+            this.trackBarAlign.Maximum = 30;
             this.trackBarAlign.Name = "trackBarAlign";
             this.trackBarAlign.Size = new System.Drawing.Size(115, 26);
             this.trackBarAlign.TabIndex = 18;
