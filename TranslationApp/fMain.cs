@@ -20,6 +20,7 @@ namespace TranslationApp
         private static List<XMLEntry> CurrentSpeakerList;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
+        Bitmap fontAtlasImage;
 
         public fMain()
         {
@@ -36,9 +37,19 @@ namespace TranslationApp
             config = new Config();
             config.Load();
             PackingAssistant = new PackingProject();
+            InitializeFontAtlas();
+        }
 
-          
-        
+        private void InitializeFontAtlas()
+        {
+            try
+            {
+                fontAtlasImage = new Bitmap("./res/font_atlas.png");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading font atlas image: " + ex.Message);
+            }
         }
 
         private void CreateColorByStatusDictionnary()
@@ -234,7 +245,7 @@ namespace TranslationApp
             cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
 
             cbStatus.Text = currentEntry.Status;
-
+            pictureBox1.Invalidate();
             tbEnglishText.TextChanged += tbEnglishText_TextChanged;
         }
 
@@ -873,6 +884,62 @@ namespace TranslationApp
                     cbStatus.Text = "To Do";
                 }
             }
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            pictureBox1.BackColor = Color.Transparent;
+            if (fontAtlasImage != null)
+            {
+                Graphics graphics = e.Graphics;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                PointF location = new PointF(0.0f, 0.0f);
+
+                // handle null text
+                string text = (tbEnglishText.Text == null) ? "" : tbEnglishText.Text;
+
+                foreach (char character in text)
+                {
+                    Rectangle characterRectangleFromAtlas = GetCharacterRectangleFromAtlas(character);
+                    RectangleF destRect = new RectangleF(location, new SizeF(characterRectangleFromAtlas.Width, characterRectangleFromAtlas.Height));
+                    graphics.DrawImage(fontAtlasImage, destRect, characterRectangleFromAtlas, GraphicsUnit.Pixel);
+                    location.X += characterRectangleFromAtlas.Width;
+                }
+                graphics.ResetTransform();
+            }
+        }
+
+        private Rectangle GetCharacterRectangleFromAtlas(int character)
+        {
+            int charWidth = 24;
+            int charHeight = 24;
+
+            // Calculate the index of the character in the font atlas
+            int index;
+            if (character >= 0x30 && character <= 0x39)
+            {
+                index = character - 0x30;
+            }
+            else if (character >= 0x41 && character <= 0x5A)
+            {
+                index = character - 0x38;
+            }
+            else if (character >= 0x61 && character <= 0x7A)
+            {
+                index = character - 0x3D;
+            }
+            else
+            {
+                index = 64;
+            }
+
+            // Calculate the position of the character in the atlas based on its index
+            int x = (index % 10) * charWidth;
+            int y = (index / 10) * charHeight;
+
+            return new Rectangle(x, y, charWidth, charHeight);
         }
     }
 }
