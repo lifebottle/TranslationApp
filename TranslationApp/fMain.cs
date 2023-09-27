@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TranslationLib;
 using PackingLib;
+using System.Reflection;
 
 namespace TranslationApp
 {
@@ -40,16 +41,29 @@ namespace TranslationApp
             InitializeFontAtlas();
         }
 
-        private void InitializeFontAtlas()
+        private Bitmap LoadEmbeddedImage(string resourceName)
         {
             try
             {
-                fontAtlasImage = new Bitmap("./res/font_atlas.png");
+                using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    if (manifestResourceStream != null)
+                    {
+                        return new Bitmap(manifestResourceStream);
+                    }
+                    MessageBox.Show("Failed to load embedded image.");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading font atlas image: " + ex.Message);
+                MessageBox.Show("Error loading embedded image: " + ex.Message);
             }
+            return null;
+        }
+
+        private void InitializeFontAtlas()
+        {
+            fontAtlasImage = LoadEmbeddedImage("TranslationApp.res.font_atlas.png");
         }
 
         private void CreateColorByStatusDictionnary()
@@ -920,24 +934,24 @@ namespace TranslationApp
             int index;
             if (character >= 0x30 && character <= 0x39)
             {
-                index = character - 0x30;
+                index = character - 0x2F;
             }
             else if (character >= 0x41 && character <= 0x5A)
             {
-                index = character - 0x38;
+                index = character - 0x36;
             }
             else if (character >= 0x61 && character <= 0x7A)
             {
-                index = character - 0x3D;
+                index = character - 0x3C;
             }
             else
             {
-                index = 64;
+                index = 0;
             }
 
             // Calculate the position of the character in the atlas based on its index
-            int x = (index % 10) * charWidth;
-            int y = (index / 10) * charHeight;
+            int y = index * charHeight;
+            int x = 0;
 
             return new Rectangle(x, y, charWidth, charHeight);
         }
