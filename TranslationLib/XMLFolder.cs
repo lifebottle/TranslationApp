@@ -145,10 +145,10 @@ namespace TranslationLib
         {
             return XMLFiles.Select(x => x.Name).ToList();
         }
-        
-        public void SetCurrentFile(string name)
+
+        public void SetCurrentFile(int index)
         {
-            CurrentFile = XMLFiles.First(x => x.Name == name);
+            CurrentFile = XMLFiles[index];
             CurrentFile.CurrentSection = CurrentFile.Sections.First();
         }
 

@@ -1237,5 +1237,47 @@ namespace TranslationApp
             }
             UpdateStatusData();
         }
+        private void saveCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+        private void reloadCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Project.CurrentFolder.CurrentFile.SaveToDisk();
+            UpdateDisplayedEntries();
+            UpdateStatusData();
+        }
+        private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Project.XmlFolders.ForEach(f => f.XMLFiles.ForEach(x => x.SaveToDisk()));
+            MessageBox.Show("Text has been written to the XML files");
+            UpdateDisplayedEntries();
+            UpdateStatusData();
+        }
+        private void reloadAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedFileType = cbFileType.Text;
+            var selectedFile = cbFileList.Text;
+            var selectedSection = cbSections.Text;
+            var selectedLanguage = cbLanguage.Text;
+            LoadFolder(Project.ProjectPath);
+            DisableEventHandlers();
+            Project.SetCurrentFolder(selectedFileType);
+            cbFileType.Text = selectedFileType;
+            if (cbFileList.SelectedIndex > -1)
+            {
+                Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedIndex);
+            }
+            cbFileList.DataSource = Project.CurrentFolder.FileList();
+            cbFileList.Text = selectedFile;
+            Project.CurrentFolder.CurrentFile.SetSection(selectedSection);
+            cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+            cbSections.Text = selectedSection;
+            cbLanguage.Text = selectedLanguage;
+            lbEntries.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+            lbSpeaker.DataSource = Project.CurrentFolder.CurrentFile.Speakers;
+            EnableEventHandlers();
+            UpdateDisplayedEntries();
+            UpdateStatusData();
+        }
     }
 }
