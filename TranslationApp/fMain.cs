@@ -218,6 +218,8 @@ namespace TranslationApp
             cbStatus.Enabled = status;
             tbEnglishText.Enabled = status;
             tbJapaneseText.Enabled = status;
+            tbFriendlyName.Enabled = status;
+            tbSectionName.Enabled = status;
             tbNoteText.Enabled = status;
 
             lbEntries.Enabled = status;
@@ -233,6 +235,7 @@ namespace TranslationApp
             //Button
             bSaveAll.Enabled = status;
             btnRefresh.Enabled = status;
+            btnSaveFile.Enabled = status;
 
             //Panel
             panelNb1.Enabled = status;
@@ -376,6 +379,7 @@ namespace TranslationApp
                 {
                     cbStatus.Items.Remove(MULTIPLE_STATUS);
                 }
+
                 tbJapaneseText.Text = string.Empty;
                 tbEnglishText.Text = string.Empty;
 
