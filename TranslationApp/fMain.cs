@@ -292,7 +292,7 @@ namespace TranslationApp
                     {
                         //2. Split based on the different tags
                         //Split the text based on the Tags < xxx >
-                        string pattern = @"(<\w+:?\w+>)";
+                        string pattern = @"(<[\w/]+:?\w+>)";
                         string[] result = Regex.Split(line, pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
 
                         //We need to loop over each element to adjust the color
@@ -871,7 +871,7 @@ namespace TranslationApp
         private string stripTags(string input)
         {
             string output = "";
-            string pattern = @"(<\w+:?\w+>)";
+            string pattern = @"(<[\w/]+:?\w+>)";
             string[] result = Regex.Split(input.Replace("\r", "").Replace("\n", ""), pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
 
             string[] names = { "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>" };
