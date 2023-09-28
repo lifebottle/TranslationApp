@@ -646,10 +646,10 @@ namespace TranslationApp
             if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
             {
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                var old_index = lbEntries.SelectedIndex;
                 lbEntries.DataSource = CurrentTextList;
                 if (lbEntries.SelectedIndices.Count == 1)
                 {
-                    var old_index = lbEntries.SelectedIndex;
                     if (lbEntries.Items.Count > old_index)
                     {
                         lbEntries.SelectedIndices.Clear();
@@ -661,10 +661,10 @@ namespace TranslationApp
             else
             {
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                var old_index = lbSpeaker.SelectedIndex;
                 lbSpeaker.DataSource = CurrentSpeakerList;
                 if (lbSpeaker.SelectedIndices.Count == 1)
                 {
-                    var old_index = lbSpeaker.SelectedIndex;
                     if (lbSpeaker.Items.Count > old_index)
                     {
                         lbSpeaker.SelectedIndices.Clear();
