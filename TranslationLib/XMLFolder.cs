@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,60 +31,102 @@ namespace TranslationLib
             {
                 foreach (var file in fileList)
                 {
-                    var XMLFile = new XMLFile { Name = Path.GetFileName(file), FilePath = file, FileType = Name };
-                    XMLFiles.Add(XMLFile);
-                    var document = XDocument.Load(file, LoadOptions.PreserveWhitespace);
-
-                    var XMLSections = document.Root.Elements("Strings");
-
-                    // Add a dummy "Everyting" section
-                    var everything_section = new XMLSection("All strings");
-                    XMLFile.Sections.Add(everything_section);
-
-                    foreach (var XMLSection in XMLSections)
-                    {
-                        var section = new XMLSection(XMLSection.Element("Section").Value);
-                        XMLFile.Sections.Add(section);
-
-                        foreach (var XMLEntry in XMLSection.Elements("Entry"))
-                        {
-                            var entry = ExtractXMLEntry(XMLEntry);
-                            section.Entries.Add(entry);
-                            everything_section.Entries.Add(entry);
-
-                            if (!string.IsNullOrEmpty(entry.JapaneseText))
-                            {
-                                if (!Translations.ContainsKey(entry.JapaneseText))
-                                    AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
-                                else
-                                    AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
-                            }
-                        }
-                    }
-
-                    var XMLSpeaker = document.Root.Element("Speakers");
-
-                    if (XMLSpeaker != null)
-                    {
-                        foreach (var XMLEntry in XMLSpeaker.Elements("Entry"))
-                        {
-                            var entry = ExtractXMLEntry(XMLEntry);
-                            XMLFile.Speakers.Add(entry);
-
-                            if (!string.IsNullOrEmpty(entry.JapaneseText))
-                            {
-                                if (!Translations.ContainsKey(entry.JapaneseText))
-                                    AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
-                                else
-                                    AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
-                            }
-                        }
-                        XMLFile.UpdateAllEntryText();
-                    }
-
-                    XMLFile.CurrentSection = XMLFile.Sections.First();
+                    XMLFiles.Add(LoadXML(file));
                 }
                 CurrentFile = XMLFiles.First();
+            }
+        }
+
+        public XMLFile LoadXML(string xmlpath)
+        {
+
+            var XMLFile = new XMLFile { Name = Path.GetFileNameWithoutExtension(xmlpath), FilePath = xmlpath, FileType = Name };
+            var document = XDocument.Load(xmlpath, LoadOptions.PreserveWhitespace);
+            XMLFile.FriendlyName = document.Root.Element("FriendlyName")?.Value;
+            var XMLSections = document.Root.Elements("Strings");
+
+            // Add a dummy "Everyting" section
+            var everything_section = new XMLSection("All strings");
+            XMLFile.Sections.Add(everything_section);
+
+            foreach (var XMLSection in XMLSections)
+            {
+                var section = new XMLSection(XMLSection.Element("Section").Value);
+                XMLFile.Sections.Add(section);
+
+                foreach (var XMLEntry in XMLSection.Elements("Entry"))
+                {
+                    var entry = ExtractXMLEntry(XMLEntry);
+                    section.Entries.Add(entry);
+                    everything_section.Entries.Add(entry);
+
+                    if (!string.IsNullOrEmpty(entry.JapaneseText))
+                    {
+                        if (!Translations.ContainsKey(entry.JapaneseText))
+                            AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                        else
+                            AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                    }
+                }
+            }
+
+            var XMLSpeaker = document.Root.Element("Speakers");
+
+            if (XMLSpeaker != null)
+            {
+                foreach (var XMLEntry in XMLSpeaker.Elements("Entry"))
+                {
+                    var entry = ExtractXMLEntry(XMLEntry);
+                    XMLFile.Speakers.Add(entry);
+
+                    if (!string.IsNullOrEmpty(entry.JapaneseText))
+                    {
+                        if (!Translations.ContainsKey(entry.JapaneseText))
+                            AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                        else
+                            AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                    }
+                }
+                XMLFile.UpdateAllEntryText();
+            }
+
+            XMLFile.CurrentSection = XMLFile.Sections.First();
+            return XMLFile;
+        }
+
+        public void InvalidateTranslations()
+        {
+            Translations = new Dictionary<string, TranslationEntry>();
+            foreach (XMLFile file in XMLFiles)
+            {
+
+                foreach (var section in file.Sections.Where(x => x.Name != "All strings"))
+                {
+                    foreach (var entry in section.Entries)
+                    {
+                        if (!string.IsNullOrEmpty(entry.JapaneseText))
+                        {
+                            if (!Translations.ContainsKey(entry.JapaneseText))
+                                AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                            else
+                                AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                        }
+                    }
+                }
+
+                if (file.Speakers != null)
+                {
+                    foreach (var entry in file.Speakers)
+                    {
+                        if (!string.IsNullOrEmpty(entry.JapaneseText))
+                        {
+                            if (!Translations.ContainsKey(entry.JapaneseText))
+                                AddNewDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                            else
+                                AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
+                        }
+                    }
+                }
             }
         }
 
@@ -109,7 +152,8 @@ namespace TranslationLib
                 e.EmbedOffset = true;
                 e.hi = ExtractNullableString(element.Element("EmbedOffset").Element("hi"));
                 e.lo = ExtractNullableString(element.Element("EmbedOffset").Element("lo"));
-            } else
+            }
+            else
             {
                 e.EmbedOffset = false;
             }
@@ -128,7 +172,7 @@ namespace TranslationLib
         private int[] ExtractNullableIntArray(XElement element)
         {
             if (element == null)
-                return null;        
+                return null;
 
             return element.Value.Split(',').Select(x => int.Parse(x)).ToArray();
         }

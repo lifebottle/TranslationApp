@@ -229,7 +229,7 @@ namespace TranslationApp
             cbDone.Enabled = status;
 
             //Button
-            bSave.Enabled = status;
+            bSaveAll.Enabled = status;
             btnRefresh.Enabled = status;
 
             //Panel
@@ -620,12 +620,6 @@ namespace TranslationApp
         {
             bool TORValid = config.IsPackingVisibility("TOR");
             tsTORPacking.Enabled = tsTORMakeIso.Enabled = tsTORExtract.Enabled = TORValid;
-
-
-
-
-
-
         }
 
         private void UpdateStatusData()
@@ -672,8 +666,7 @@ namespace TranslationApp
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
-
-                bSave.Enabled = true;
+                bSaveAll.Enabled = true;
             }
         }
 
@@ -689,7 +682,7 @@ namespace TranslationApp
             lErrors.Text = "";
             if (!error)
             {
-                lErrors.Text = "Warning: You might be missing a </> for your tags.\nIf you are using </> as a symbol, you can continue.";
+                lErrors.Text = "Warning: Missing '<' or '>' in tag.";
                 lErrors.ForeColor = Color.Red;
             }
 
@@ -897,7 +890,7 @@ namespace TranslationApp
                             tbEnglishText.Text = tbJapaneseText.Text;
                         break;
                     case Keys.S:
-                        bSave.PerformClick();
+                        bSaveAll.PerformClick();
                         break;
                     case Keys.E:
                         if (cbEmpty.Enabled)
@@ -959,24 +952,11 @@ namespace TranslationApp
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            var selectedFileType = cbFileType.Text;
-            var selectedFile = cbFileList.Text;
-            var selectedSection = cbSections.Text;
-            var selectedLanguage = cbLanguage.Text;
             LoadFolder(Project.ProjectPath);
 
             DisableEventHandlers();
-            Project.SetCurrentFolder(selectedFileType);
-            cbFileType.Text = selectedFileType;
-            Project.CurrentFolder.SetCurrentFile(selectedFile);
-            cbFileList.DataSource = Project.CurrentFolder.FileList();
-            cbFileList.Text = selectedFile;
-            Project.CurrentFolder.CurrentFile.SetSection(selectedSection);
-            cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
-            cbSections.Text = selectedSection;
-            cbLanguage.Text = selectedLanguage;
-            lbEntries.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
-            lbSpeaker.DataSource = Project.CurrentFolder.CurrentFile.Speakers;
+            Project.CurrentFolder.XMLFiles[cbFileList.SelectedIndex] = Project.CurrentFolder.LoadXML(Project.CurrentFolder.CurrentFile.FilePath);
+            Project.CurrentFolder.InvalidateTranslations(); 
             EnableEventHandlers();
             
             UpdateDisplayedEntries();
@@ -1235,6 +1215,12 @@ namespace TranslationApp
             {
                 entry.Status = cbStatus.Text;
             }
+            UpdateStatusData();
+        }
+        private void btnSaveFile_Click(object sender, EventArgs e)
+        {
+            Project.CurrentFolder.CurrentFile.SaveToDisk();
+            UpdateDisplayedEntries();
             UpdateStatusData();
         }
         private void saveCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
