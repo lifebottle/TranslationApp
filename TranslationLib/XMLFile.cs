@@ -94,7 +94,9 @@ namespace TranslationLib
 
         public List<string> GetSectionNames()
         {
-            return Sections.Select(s => s.Name).OrderBy(s => s).ToList();
+            List<string> l = Sections.Select(s => s.Name).Where(s => s != "All strings").ToList();
+            l.Insert(0, "All strings");
+            return l;
         }
 
         public void SaveToDisk()
