@@ -125,6 +125,48 @@ namespace TranslationLib
             File.WriteAllText(FilePath, document.ToString().Replace(" />", "/>") + Environment.NewLine);
         }
 
+        public void SaveAsCsv(string path)
+        {
+            using (StreamWriter writer = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write)))
+            {
+                writer.WriteLine("File,Line Number,Section,Status,Speaker JP,Text JP,Speaker EN,Text EN,Comment");
+                foreach (XMLSection section in Sections.Where(s => s.Name != "All strings"))
+                {
+                    foreach (XMLEntry entry in section.Entries)
+                    {
+                        List<string> en = new List<string>();
+                        List<string> jp = new List<string>();
+
+                        if (entry.SpeakerId != null)
+                        {
+                            foreach (var id in entry.SpeakerId)
+                            { 
+                                if (!string.IsNullOrEmpty(Speakers[id].EnglishText))
+                                    en.Add(Speakers[id].EnglishText);
+                                if (!string.IsNullOrEmpty(Speakers[id].JapaneseText))
+                                    jp.Add(Speakers[id].JapaneseText);
+                            }
+                        }
+
+                        string en_text = entry.EnglishText ?? "";
+                        string jp_text = entry.JapaneseText ?? "";
+
+                        writer.WriteLine(
+                            Name + ".xml" + "," +
+                            entry.Id + "," +
+                            "\"" + section.Name.Replace("\"", "\"\"") + "\"" + "," +
+                            entry.Status + "," +
+                            "\""+ string.Join(" / ", jp).Replace("\"", "\"\"") + "\"" + "," +
+                            "\""+ jp_text.Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + string.Join(" / ", en).Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + en_text.Replace("\"", "\"\"") + "\""  + "," +
+                            "\"" + entry.Notes + "\""
+                            );
+                    }
+                }
+            }
+        }
+
         private string GetXMLTextTagName()
         {
             if (FileType == "Menu")

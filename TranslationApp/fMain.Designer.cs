@@ -37,6 +37,11 @@ namespace TranslationApp
             this.tsTORTranslation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadLast = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsNDXExtract = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,11 +108,7 @@ namespace TranslationApp
             this.lblSectionName = new System.Windows.Forms.Label();
             this.tbSectionName = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportFileToCsvToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -149,7 +150,7 @@ namespace TranslationApp
             this.tsNDXLoadLast,
             this.tsNDXLoadNew});
             this.NDXTranslationToolStripMenuItem.Name = "NDXTranslationToolStripMenuItem";
-            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.NDXTranslationToolStripMenuItem.Text = "NDX";
             // 
             // tsNDXLoadLast
@@ -172,7 +173,7 @@ namespace TranslationApp
             this.tsTORLoadLast,
             this.tsTORLoadNew});
             this.tsTORTranslation.Name = "tsTORTranslation";
-            this.tsTORTranslation.Size = new System.Drawing.Size(180, 22);
+            this.tsTORTranslation.Size = new System.Drawing.Size(98, 22);
             this.tsTORTranslation.Text = "TOR";
             // 
             // tsTORLoadLast
@@ -189,6 +190,46 @@ namespace TranslationApp
             this.tsTORLoadNew.Text = "Load New Folder";
             this.tsTORLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveCurrentFileToolStripMenuItem,
+            this.reloadCurrentFileToolStripMenuItem,
+            this.saveAllToolStripMenuItem,
+            this.reloadAllToolStripMenuItem,
+            this.exportFileToCsvToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveCurrentFileToolStripMenuItem
+            // 
+            this.saveCurrentFileToolStripMenuItem.Name = "saveCurrentFileToolStripMenuItem";
+            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveCurrentFileToolStripMenuItem.Text = "Save Current File";
+            this.saveCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFileToolStripMenuItem_Click);
+            // 
+            // reloadCurrentFileToolStripMenuItem
+            // 
+            this.reloadCurrentFileToolStripMenuItem.Name = "reloadCurrentFileToolStripMenuItem";
+            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadCurrentFileToolStripMenuItem.Text = "Reload Current File";
+            this.reloadCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.reloadCurrentFileToolStripMenuItem_Click);
+            // 
+            // saveAllToolStripMenuItem
+            // 
+            this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAllToolStripMenuItem.Text = "Save All";
+            this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
+            // 
+            // reloadAllToolStripMenuItem
+            // 
+            this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
+            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadAllToolStripMenuItem.Text = "Reload All";
+            this.reloadAllToolStripMenuItem.Click += new System.EventHandler(this.reloadAllToolStripMenuItem_Click);
+            // 
             // packToolStripMenuItem
             // 
             this.packToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -202,7 +243,7 @@ namespace TranslationApp
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(180, 22);
+            this.tsSetup.Size = new System.Drawing.Size(104, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
@@ -212,7 +253,7 @@ namespace TranslationApp
             this.extractIsoToolStripMenuItem,
             this.tsNDXMakeIso});
             this.tsNDXExtract.Name = "tsNDXExtract";
-            this.tsNDXExtract.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXExtract.Size = new System.Drawing.Size(104, 22);
             this.tsNDXExtract.Text = "NDX";
             // 
             // extractIsoToolStripMenuItem
@@ -234,7 +275,7 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(180, 22);
+            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
@@ -850,44 +891,12 @@ namespace TranslationApp
             this.btnSaveFile.UseVisualStyleBackColor = true;
             this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
-            // fileToolStripMenuItem
+            // exportFileToCsvToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveCurrentFileToolStripMenuItem,
-            this.reloadCurrentFileToolStripMenuItem,
-            this.saveAllToolStripMenuItem,
-            this.reloadAllToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // saveAllToolStripMenuItem
-            // 
-            this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveAllToolStripMenuItem.Text = "Save All";
-            this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
-            // 
-            // reloadAllToolStripMenuItem
-            // 
-            this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
-            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reloadAllToolStripMenuItem.Text = "Reload All";
-            this.reloadAllToolStripMenuItem.Click += new System.EventHandler(this.reloadAllToolStripMenuItem_Click);
-            // 
-            // saveCurrentFileToolStripMenuItem
-            // 
-            this.saveCurrentFileToolStripMenuItem.Name = "saveCurrentFileToolStripMenuItem";
-            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveCurrentFileToolStripMenuItem.Text = "Save Current File";
-            this.saveCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFileToolStripMenuItem_Click);
-            // 
-            // reloadCurrentFileToolStripMenuItem
-            // 
-            this.reloadCurrentFileToolStripMenuItem.Name = "reloadCurrentFileToolStripMenuItem";
-            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reloadCurrentFileToolStripMenuItem.Text = "Reload Current File";
-            this.reloadCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.reloadCurrentFileToolStripMenuItem_Click);
+            this.exportFileToCsvToolStripMenuItem.Name = "exportFileToCsvToolStripMenuItem";
+            this.exportFileToCsvToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportFileToCsvToolStripMenuItem.Text = "Export file to csv";
+            this.exportFileToCsvToolStripMenuItem.Click += new System.EventHandler(this.exportFileToCsvToolStripMenuItem_Click);
             // 
             // fMain
             // 
@@ -1037,6 +1046,7 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem saveAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadAllToolStripMenuItem;
         private System.Windows.Forms.Button btnSaveFile;
+        private System.Windows.Forms.ToolStripMenuItem exportFileToCsvToolStripMenuItem;
     }
 }
 

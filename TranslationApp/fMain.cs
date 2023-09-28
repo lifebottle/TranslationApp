@@ -1469,5 +1469,16 @@ namespace TranslationApp
                 e.Handled = true;
             }
         }
+
+        private void exportFileToCsvToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fname = saveDialog.FileName;
+                Project.CurrentFolder.CurrentFile.SaveAsCsv(fname);
+                MessageBox.Show("File exported");
+            }
+        }
     }
 }
