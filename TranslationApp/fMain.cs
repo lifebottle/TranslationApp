@@ -455,7 +455,7 @@ namespace TranslationApp
             if (cbLanguage.Text == "Japanese")
                 return myEntry.JapaneseText;
             else
-                return string.IsNullOrEmpty(myEntry.EnglishText) ? myEntry.JapaneseText : myEntry.EnglishText;
+                return myEntry.EnglishText == null ? myEntry.JapaneseText : myEntry.EnglishText;
         }
 
         public string GetFolderPath()
@@ -545,14 +545,17 @@ namespace TranslationApp
 
             CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
             CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
-            cbFileType.DataSource = Project.GetFolderNames().OrderByDescending(x=>x).ToList();
+            cbFileType.DataSource = Project.GetFolderNames().OrderByDescending(x => x).ToList();
             cbFileList.DataSource = Project.CurrentFolder.FileList();
             cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+            cbFileList.SelectedIndex = 0;
+
             UpdateDisplayedEntries();
             UpdateStatusData();
 
             ChangeEnabledProp(true);
             EnableEventHandlers();
+            cbFileType.Text = "___";
         }
 
         private void DisableEventHandlers()
@@ -777,6 +780,7 @@ namespace TranslationApp
             }
 
             cbStatus.Text = status;
+            pictureBox1.Invalidate();
         }
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
@@ -899,7 +903,19 @@ namespace TranslationApp
 
         private void cbSections_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Project.CurrentFolder.CurrentFile.SetSection(cbSections.SelectedItem.ToString());
+            string item = cbSections.SelectedItem.ToString();
+            Project.CurrentFolder.CurrentFile.SetSection(item);
+
+            if (cbSections.SelectedIndex < 1)
+            {
+                tbSectionName.Enabled = false;
+            } 
+            else
+            {
+                tbSectionName.Enabled = true;
+            }
+            tbSectionName.Text = cbSections.Text;
+
             UpdateDisplayedEntries();
             UpdateStatusData();
         }
@@ -986,14 +1002,14 @@ namespace TranslationApp
                         output += element.Substring(1, element.Length - 2);
                     }
 
-                    if (element.Contains("Unk") || element.Contains("04"))
+                    if (element.Contains("unk") || element.Contains("var"))
                     {
-                        output += "〇〇〇";
+                        output += "***";
                     }
 
                     if (element.Contains("nmb"))
                     {
-                        string el = element.Substring(5, element.Length - 7);
+                        string el = element.Substring(5, element.Length - 6);
                         output += Convert.ToInt32(el, 16);
                     }
                 }
@@ -1016,11 +1032,9 @@ namespace TranslationApp
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadFolder(Project.ProjectPath);
-
             DisableEventHandlers();
             Project.CurrentFolder.XMLFiles[cbFileList.SelectedIndex] = Project.CurrentFolder.LoadXML(Project.CurrentFolder.CurrentFile.FilePath);
-            Project.CurrentFolder.InvalidateTranslations(); 
+            Project.CurrentFolder.InvalidateTranslations();
             EnableEventHandlers();
             
             UpdateDisplayedEntries();
