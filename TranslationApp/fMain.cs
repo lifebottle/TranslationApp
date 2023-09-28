@@ -339,14 +339,30 @@ namespace TranslationApp
 
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count) {
-                LoadEntryData(CurrentTextList[lbEntries.SelectedIndex]);
-            }
+            LoadEntryData(lbEntries);
         }
 
-        private void LoadEntryData(XMLEntry currentEntry)
+        private void LoadEntryData(ListBox lb)
         {
             tbEnglishText.TextChanged -= tbEnglishText_TextChanged;
+
+            XMLEntry currentEntry = (XMLEntry)lb.SelectedItem;
+
+            if (currentEntry == null)
+            {
+                tbJapaneseText.Enabled = false;
+                tbEnglishText.Enabled = false;
+                cbStatus.Enabled = false;
+                cbEmpty.Enabled = false;
+                return;
+            }
+            else
+            {
+                tbJapaneseText.Enabled = true;
+                tbEnglishText.Enabled = true;
+                cbStatus.Enabled = true;
+                cbEmpty.Enabled = true;
+            }
 
             tbJapaneseText.Text = string.Empty;
             tbEnglishText.Text = string.Empty;
@@ -948,10 +964,7 @@ namespace TranslationApp
 
         private void lbSpeaker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbSpeaker.SelectedIndex > -1 && lbSpeaker.SelectedIndex < CurrentSpeakerList.Count)
-            {
-                LoadEntryData(CurrentSpeakerList[lbSpeaker.SelectedIndex]);
-            }
+            LoadEntryData(lbSpeaker);
         }
 
         private void lbSpeaker_MeasureItem(object sender, MeasureItemEventArgs e)
