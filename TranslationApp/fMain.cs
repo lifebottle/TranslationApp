@@ -857,7 +857,8 @@ namespace TranslationApp
                         bSave.PerformClick();
                         break;
                     case Keys.E:
-                        cbEmpty.Checked = !cbEmpty.Checked;
+                        if (cbEmpty.Enabled)
+                            cbEmpty.Checked = !cbEmpty.Checked;
                         break;
                     default:
                         e.Handled = false;
@@ -993,23 +994,32 @@ namespace TranslationApp
 
         private void cbEmpty_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbEmpty.Checked)
+            if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
             {
-                if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
-                {
-                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = "";
-                    CurrentTextList[lbEntries.SelectedIndex].Status = "Done";
-                    cbStatus.Text = "Done";
-                }
+                setEmpty(lbEntries);
             }
             else
             {
-                if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count
-                    && CurrentTextList[lbEntries.SelectedIndex].EnglishText != null
-                    && CurrentTextList[lbEntries.SelectedIndex].EnglishText.Length == 0)
+                setEmpty(lbSpeaker);
+            }
+
+        }
+
+        private void setEmpty(ListBox lb)
+        {
+            XMLEntry e = (XMLEntry)lb.SelectedItem;
+            if (cbEmpty.Checked)
+            {
+                e.EnglishText = "";
+                e.Status = "Done";
+                cbStatus.Text = "Done";
+            }
+            else
+            {
+                if (e.EnglishText != null && e.EnglishText.Length == 0)
                 {
-                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
-                    CurrentTextList[lbEntries.SelectedIndex].Status = "To Do";
+                    e.EnglishText = null;
+                    e.Status = "To Do";
                     cbStatus.Text = "To Do";
                 }
             }
