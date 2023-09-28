@@ -71,8 +71,6 @@ namespace TranslationApp
             this.verticalLine = new System.Windows.Forms.Panel();
             this.cbFileList = new System.Windows.Forms.ComboBox();
             this.cbFileType = new System.Windows.Forms.ComboBox();
-            this.bBrowse = new System.Windows.Forms.Button();
-            this.bMassReplace = new System.Windows.Forms.Button();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -506,25 +504,6 @@ namespace TranslationApp
             this.cbFileType.TabIndex = 22;
             this.cbFileType.TextChanged += new System.EventHandler(this.cbFileType_TextChanged);
             // 
-            // bBrowse
-            // 
-            this.bBrowse.Location = new System.Drawing.Point(337, 56);
-            this.bBrowse.Name = "bBrowse";
-            this.bBrowse.Size = new System.Drawing.Size(75, 23);
-            this.bBrowse.TabIndex = 23;
-            this.bBrowse.Text = "Browse File";
-            this.bBrowse.UseVisualStyleBackColor = true;
-            this.bBrowse.Click += new System.EventHandler(this.bBrowse_Click);
-            // 
-            // bMassReplace
-            // 
-            this.bMassReplace.Location = new System.Drawing.Point(418, 56);
-            this.bMassReplace.Name = "bMassReplace";
-            this.bMassReplace.Size = new System.Drawing.Size(144, 23);
-            this.bMassReplace.TabIndex = 24;
-            this.bMassReplace.Text = "Mass Replace";
-            this.bMassReplace.UseVisualStyleBackColor = true;
-            // 
             // cbStatus
             // 
             this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -896,8 +875,6 @@ namespace TranslationApp
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbStatus);
-            this.Controls.Add(this.bMassReplace);
-            this.Controls.Add(this.bBrowse);
             this.Controls.Add(this.cbFileType);
             this.Controls.Add(this.cbFileList);
             this.Controls.Add(this.verticalLine);
@@ -962,8 +939,6 @@ namespace TranslationApp
         private System.Windows.Forms.Panel verticalLine;
         private System.Windows.Forms.ComboBox cbFileList;
         private System.Windows.Forms.ComboBox cbFileType;
-        private System.Windows.Forms.Button bBrowse;
-        private System.Windows.Forms.Button bMassReplace;
         private System.Windows.Forms.ToolStripMenuItem tsNDXExtract;
         private System.Windows.Forms.ToolStripMenuItem tsTORPacking;
         private System.Windows.Forms.ComboBox cbStatus;
