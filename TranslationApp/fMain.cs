@@ -978,6 +978,8 @@ namespace TranslationApp
 
         private void tcType_Selected(object sender, TabControlEventArgs e)
         {
+            if (Project == null)
+                return;
             UpdateDisplayedEntries();
             UpdateStatusData();
         }
