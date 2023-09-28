@@ -24,6 +24,11 @@ namespace TranslationLib
             CurrentFolder = XmlFolders.First();
         }
 
+        public XMLFolder GetFolderByName(string name)
+        {
+            return XmlFolders.First(x => x.Name == name);
+        }
+
         public List<string> GetFolderNames()
         {
             return XmlFolders.Select(x => x.Name).ToList();

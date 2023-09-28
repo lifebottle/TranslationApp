@@ -9,6 +9,7 @@ namespace TranslationLib
     public class XMLFile
     {
         public string Name { get; set; }
+        public string FriendlyName { get; set; }
         public string FileType { get; set; }
         public string FilePath { get; set; }
         public List<XMLSection> Sections = new List<XMLSection>();
@@ -105,13 +106,17 @@ namespace TranslationLib
             var sectionsElements = Sections.Where(s => s.Name != "All strings").Select(GetXmlSectionElement);
             List<XElement> allSections = new List<XElement>();
 
+            if (FriendlyName != null)
+            {
+                allSections.Add(new XElement("FriendlyName", FriendlyName));
+            }
+
             if (FileType != "Menu")
             {
                 var speakerElements = GetXmlSpeakerElement(Speakers);
                 allSections.Add(speakerElements);
             }
            
-            
             allSections.AddRange(sectionsElements);
             var document = new XDocument(
                 new XElement(GetXMLTextTagName(), allSections)

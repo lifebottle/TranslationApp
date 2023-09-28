@@ -37,11 +37,6 @@ namespace TranslationApp
             this.tsTORTranslation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadLast = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsNDXExtract = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,7 +98,16 @@ namespace TranslationApp
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.lblFileInfo = new System.Windows.Forms.Label();
+            this.tbFriendlyName = new System.Windows.Forms.TextBox();
+            this.lblSectionName = new System.Windows.Forms.Label();
+            this.tbSectionName = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -145,7 +149,7 @@ namespace TranslationApp
             this.tsNDXLoadLast,
             this.tsNDXLoadNew});
             this.NDXTranslationToolStripMenuItem.Name = "NDXTranslationToolStripMenuItem";
-            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.NDXTranslationToolStripMenuItem.Text = "NDX";
             // 
             // tsNDXLoadLast
@@ -168,7 +172,7 @@ namespace TranslationApp
             this.tsTORLoadLast,
             this.tsTORLoadNew});
             this.tsTORTranslation.Name = "tsTORTranslation";
-            this.tsTORTranslation.Size = new System.Drawing.Size(98, 22);
+            this.tsTORTranslation.Size = new System.Drawing.Size(180, 22);
             this.tsTORTranslation.Text = "TOR";
             // 
             // tsTORLoadLast
@@ -185,45 +189,6 @@ namespace TranslationApp
             this.tsTORLoadNew.Text = "Load New Folder";
             this.tsTORLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveCurrentFileToolStripMenuItem,
-            this.reloadCurrentFileToolStripMenuItem,
-            this.saveAllToolStripMenuItem,
-            this.reloadAllToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // saveCurrentFileToolStripMenuItem
-            // 
-            this.saveCurrentFileToolStripMenuItem.Name = "saveCurrentFileToolStripMenuItem";
-            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.saveCurrentFileToolStripMenuItem.Text = "Save Current File";
-            this.saveCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFileToolStripMenuItem_Click);
-            // 
-            // reloadCurrentFileToolStripMenuItem
-            // 
-            this.reloadCurrentFileToolStripMenuItem.Name = "reloadCurrentFileToolStripMenuItem";
-            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.reloadCurrentFileToolStripMenuItem.Text = "Reload Current File";
-            this.reloadCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.reloadCurrentFileToolStripMenuItem_Click);
-            // 
-            // saveAllToolStripMenuItem
-            // 
-            this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.saveAllToolStripMenuItem.Text = "Save All";
-            this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
-            // 
-            // reloadAllToolStripMenuItem
-            // 
-            this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
-            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.reloadAllToolStripMenuItem.Text = "Reload All";
-            this.reloadAllToolStripMenuItem.Click += new System.EventHandler(this.reloadAllToolStripMenuItem_Click);
-            // 
             // packToolStripMenuItem
             // 
             this.packToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -237,7 +202,7 @@ namespace TranslationApp
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(104, 22);
+            this.tsSetup.Size = new System.Drawing.Size(180, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
@@ -247,7 +212,7 @@ namespace TranslationApp
             this.extractIsoToolStripMenuItem,
             this.tsNDXMakeIso});
             this.tsNDXExtract.Name = "tsNDXExtract";
-            this.tsNDXExtract.Size = new System.Drawing.Size(104, 22);
+            this.tsNDXExtract.Size = new System.Drawing.Size(180, 22);
             this.tsNDXExtract.Text = "NDX";
             // 
             // extractIsoToolStripMenuItem
@@ -269,7 +234,7 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
+            this.tsTORPacking.Size = new System.Drawing.Size(180, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
@@ -366,14 +331,14 @@ namespace TranslationApp
             // 
             // tcType
             // 
-            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tcType.Controls.Add(this.tabText);
             this.tcType.Controls.Add(this.tabSpeaker);
             this.tcType.Location = new System.Drawing.Point(16, 241);
             this.tcType.Name = "tcType";
             this.tcType.SelectedIndex = 0;
-            this.tcType.Size = new System.Drawing.Size(300, 488);
+            this.tcType.Size = new System.Drawing.Size(300, 451);
             this.tcType.TabIndex = 13;
             this.tcType.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcType_Selected);
             // 
@@ -383,22 +348,22 @@ namespace TranslationApp
             this.tabText.Location = new System.Drawing.Point(4, 22);
             this.tabText.Name = "tabText";
             this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(292, 462);
+            this.tabText.Size = new System.Drawing.Size(292, 425);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
             // 
             // lbEntries
             // 
-            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbEntries.FormattingEnabled = true;
             this.lbEntries.Location = new System.Drawing.Point(4, 3);
             this.lbEntries.Name = "lbEntries";
             this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbEntries.Size = new System.Drawing.Size(285, 454);
+            this.lbEntries.Size = new System.Drawing.Size(285, 417);
             this.lbEntries.TabIndex = 0;
             this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
             this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
@@ -417,8 +382,8 @@ namespace TranslationApp
             // 
             // lbSpeaker
             // 
-            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSpeaker.FormattingEnabled = true;
@@ -842,6 +807,39 @@ namespace TranslationApp
             this.label9.TabIndex = 41;
             this.label9.Text = "File Name";
             // 
+            // lblFileInfo
+            // 
+            this.lblFileInfo.Location = new System.Drawing.Point(335, 33);
+            this.lblFileInfo.Name = "lblFileInfo";
+            this.lblFileInfo.Size = new System.Drawing.Size(136, 13);
+            this.lblFileInfo.TabIndex = 44;
+            this.lblFileInfo.Text = "File Friendly Name";
+            // 
+            // tbFriendlyName
+            // 
+            this.tbFriendlyName.Location = new System.Drawing.Point(338, 50);
+            this.tbFriendlyName.Name = "tbFriendlyName";
+            this.tbFriendlyName.Size = new System.Drawing.Size(222, 20);
+            this.tbFriendlyName.TabIndex = 45;
+            this.tbFriendlyName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFriendlyName_KeyDown);
+            // 
+            // lblSectionName
+            // 
+            this.lblSectionName.AutoSize = true;
+            this.lblSectionName.Location = new System.Drawing.Point(565, 33);
+            this.lblSectionName.Name = "lblSectionName";
+            this.lblSectionName.Size = new System.Drawing.Size(74, 13);
+            this.lblSectionName.TabIndex = 46;
+            this.lblSectionName.Text = "Section Name";
+            // 
+            // tbSectionName
+            // 
+            this.tbSectionName.Location = new System.Drawing.Point(566, 50);
+            this.tbSectionName.Name = "tbSectionName";
+            this.tbSectionName.Size = new System.Drawing.Size(143, 20);
+            this.tbSectionName.TabIndex = 47;
+            this.tbSectionName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSectionName_KeyDown);
+            // 
             // btnSaveFile
             // 
             this.btnSaveFile.Location = new System.Drawing.Point(217, 127);
@@ -852,13 +850,55 @@ namespace TranslationApp
             this.btnSaveFile.UseVisualStyleBackColor = true;
             this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveCurrentFileToolStripMenuItem,
+            this.reloadCurrentFileToolStripMenuItem,
+            this.saveAllToolStripMenuItem,
+            this.reloadAllToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveAllToolStripMenuItem
+            // 
+            this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAllToolStripMenuItem.Text = "Save All";
+            this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
+            // 
+            // reloadAllToolStripMenuItem
+            // 
+            this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
+            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadAllToolStripMenuItem.Text = "Reload All";
+            this.reloadAllToolStripMenuItem.Click += new System.EventHandler(this.reloadAllToolStripMenuItem_Click);
+            // 
+            // saveCurrentFileToolStripMenuItem
+            // 
+            this.saveCurrentFileToolStripMenuItem.Name = "saveCurrentFileToolStripMenuItem";
+            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveCurrentFileToolStripMenuItem.Text = "Save Current File";
+            this.saveCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFileToolStripMenuItem_Click);
+            // 
+            // reloadCurrentFileToolStripMenuItem
+            // 
+            this.reloadCurrentFileToolStripMenuItem.Name = "reloadCurrentFileToolStripMenuItem";
+            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadCurrentFileToolStripMenuItem.Text = "Reload Current File";
+            this.reloadCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.reloadCurrentFileToolStripMenuItem_Click);
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 743);
-            this.ClientSize = new System.Drawing.Size(722, 738);
+            this.ClientSize = new System.Drawing.Size(722, 701);
             this.Controls.Add(this.btnSaveFile);
+            this.Controls.Add(this.tbSectionName);
+            this.Controls.Add(this.lblSectionName);
+            this.Controls.Add(this.tbFriendlyName);
+            this.Controls.Add(this.lblFileInfo);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -987,6 +1027,10 @@ namespace TranslationApp
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblFileInfo;
+        private System.Windows.Forms.TextBox tbFriendlyName;
+        private System.Windows.Forms.Label lblSectionName;
+        private System.Windows.Forms.TextBox tbSectionName;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveCurrentFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadCurrentFileToolStripMenuItem;

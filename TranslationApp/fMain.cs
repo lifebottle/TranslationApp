@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using TranslationLib;
 using PackingLib;
 using System.Reflection;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace TranslationApp
 {
@@ -562,12 +564,54 @@ namespace TranslationApp
             cbSections.SelectedIndexChanged += cbSections_SelectedIndexChanged;
         }
 
+        private List<XMLEntry> getSkitNameList()
+        {
+            XMLFile slps = Project.XmlFolders[1].XMLFiles.FirstOrDefault(x => x.Name == "SLPS");
+            XMLSection section = slps?.Sections.FirstOrDefault(x => x.Name.StartsWith("Skit"));
+            List<XMLEntry> r = section?.Entries;
+            return r ?? new List<XMLEntry>();
+        }
         private void cbFileType_TextChanged(object sender, EventArgs e)
         {
             if (cbFileType.SelectedItem.ToString() != string.Empty)
             {
                 Project.SetCurrentFolder(cbFileType.SelectedItem.ToString());
-                cbFileList.DataSource = Project.CurrentFolder.FileList();
+                List<string> filelist = Project.CurrentFolder.FileList();
+                if (cbFileType.SelectedItem.ToString() == "Menu")
+                {
+                    cbFileList.DataSource = filelist;
+                }
+                else if (cbFileType.SelectedItem.ToString() == "Skits")
+                {
+                    List<XMLEntry> names = getSkitNameList();
+                    if (names.Count != 1157)
+                    {
+                        cbFileList.DataSource = filelist.Select(x => x + ".xml").ToList();
+                    }
+                    else
+                    {
+                        for (int i = 0, j = 0; i < filelist.Count; i++)
+                        {
+                            if (((i > 1072) && (i < 1082)) || ((i > 1092) && (i < 1099)))
+                            {
+                                j++;
+                                filelist[i] += " | NO NAME";
+                                continue;
+                            }
+                            filelist[i] = filelist[i] + " | " + (names[i - j].EnglishText ?? names[i - j].JapaneseText);
+                        }
+                        cbFileList.DataSource = filelist;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < filelist.Count; i++)
+                    {
+                        string fname = Project.CurrentFolder.XMLFiles[i].FriendlyName ?? "NO NAME";
+                        filelist[i] = filelist[i] + " | " + fname;
+                    }
+                    cbFileList.DataSource = filelist;
+                }
 
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
                 UpdateStatusData();
@@ -650,19 +694,22 @@ namespace TranslationApp
         {
             if (cbFileList.SelectedIndex != -1)
             {
-                Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedItem.ToString());
-
-                var old_section = cbSections.SelectedItem.ToString();
-
-                List<string> sections = Project.CurrentFolder.CurrentFile.GetSectionNames();
-                if (cbFileType.Text != "Menu")
-                    cbSections.DataSource = sections.OrderBy(x=>x).ToList();
+                Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedIndex);
+                string filetype = cbFileType.SelectedItem.ToString();
+                if (filetype == "Menu" || filetype == "Skits")
+                {
+                    tbFriendlyName.Enabled = false;
+                    tbFriendlyName.Text = cbFileList.Text;
+                }
                 else
-                    cbSections.DataSource = sections.OrderBy(x => x).ToList();
-
+                {
+                    tbFriendlyName.Enabled = true;
+                    tbFriendlyName.Text = Project.CurrentFolder.CurrentFile.FriendlyName ?? "";
+                }
+                var old_section = cbSections.SelectedItem.ToString();
+                cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
                 if (cbSections.Items.Contains(old_section))
                     cbSections.SelectedItem = old_section;
-
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
@@ -1171,6 +1218,7 @@ namespace TranslationApp
                         }
                     }
                 }
+                g.ResetTransform();
             }
         }
 
@@ -1307,6 +1355,12 @@ namespace TranslationApp
             }
             UpdateStatusData();
         }
+
+
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            // Project.CurrentFolder.CurrentFile.Sections[]
+        }
         private void btnSaveFile_Click(object sender, EventArgs e)
         {
             Project.CurrentFolder.CurrentFile.SaveToDisk();
@@ -1354,6 +1408,35 @@ namespace TranslationApp
             EnableEventHandlers();
             UpdateDisplayedEntries();
             UpdateStatusData();
+        }
+
+        private void tbFriendlyName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int sindex = cbSections.SelectedIndex;
+                int tindex = lbEntries.SelectedIndex;
+                Project.CurrentFolder.CurrentFile.FriendlyName = tbFriendlyName.Text;
+                cbFileType.Text = "___";
+                cbSections.SelectedIndex = sindex;
+                lbEntries.SelectedIndices.Clear();
+                lbEntries.SelectedIndex = tindex;
+                e.Handled = true;
+            }
+        }
+        private void tbSectionName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int sindex = cbSections.SelectedIndex;
+                int tindex = lbEntries.SelectedIndex;
+                Project.CurrentFolder.CurrentFile.Sections[cbSections.SelectedIndex].Name = tbSectionName.Text;
+                cbFileType.Text = "___";
+                cbSections.SelectedIndex = sindex;
+                lbEntries.SelectedIndices.Clear();
+                lbEntries.SelectedIndex = tindex;
+                e.Handled = true;
+            }
         }
     }
 }
