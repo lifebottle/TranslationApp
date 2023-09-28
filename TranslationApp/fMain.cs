@@ -22,6 +22,8 @@ namespace TranslationApp
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
         Bitmap fontAtlasImage;
+        private readonly string MULTIPLE_STATUS = "<Multiple Status>";
+        private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
 
         struct font_glyph
         {
@@ -193,7 +195,6 @@ namespace TranslationApp
 
         private void InitialiseStatusText()
         {
-       
             lNbToDo.Text = "";
             lNbEditing.Text = "";
             lNbProb.Text = "";
@@ -346,48 +347,71 @@ namespace TranslationApp
         {
             tbEnglishText.TextChanged -= tbEnglishText_TextChanged;
 
-            XMLEntry currentEntry = (XMLEntry)lb.SelectedItem;
-
-            if (currentEntry == null)
+            if (lb.SelectedIndices.Count > 1)
             {
+                tbJapaneseText.Text = MULTIPLE_SELECT;
                 tbJapaneseText.Enabled = false;
+                tbEnglishText.Text = MULTIPLE_SELECT;
                 tbEnglishText.Enabled = false;
-                cbStatus.Enabled = false;
-                cbEmpty.Enabled = false;
-                return;
+                string st = ((XMLEntry)lb.SelectedItems[0]).Status;
+                foreach (XMLEntry e in lb.SelectedItems)
+                {
+                    if (st != e.Status)
+                    {
+                        if (!cbStatus.Items.Contains(MULTIPLE_STATUS))
+                        {
+                            cbStatus.Items.Add(MULTIPLE_STATUS);
+                        }
+                        cbStatus.Text = MULTIPLE_STATUS;
+                        return;
+                    }
+                }
+                cbStatus.Text = st;
             }
             else
             {
-                tbJapaneseText.Enabled = true;
-                tbEnglishText.Enabled = true;
-                cbStatus.Enabled = true;
-                cbEmpty.Enabled = true;
+                if (cbStatus.Items.Contains(MULTIPLE_STATUS))
+                {
+                    cbStatus.Items.Remove(MULTIPLE_STATUS);
+                }
+                tbJapaneseText.Text = string.Empty;
+                tbEnglishText.Text = string.Empty;
+
+                XMLEntry currentEntry = (XMLEntry)lb.SelectedItem;
+                if (currentEntry == null)
+                {
+                    tbJapaneseText.Enabled = false;
+                    tbEnglishText.Enabled = false;
+                    cbStatus.Enabled = false;
+                    cbEmpty.Enabled = false;
+                    return;
+                } 
+                else
+                {
+                    tbJapaneseText.Enabled = true;
+                    tbEnglishText.Enabled = true;
+                    cbStatus.Enabled = true;
+                    cbEmpty.Enabled = true;
+                }
+
+                TranslationEntry TranslationEntry;
+                if (currentEntry.JapaneseText == null)
+                    TranslationEntry = new TranslationEntry { EnglishTranslation = "" };
+                else
+                    Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
+                if (TranslationEntry != null && TranslationEntry.Count > 1)
+                    lblJapanese.Text = $@"Japanese ({TranslationEntry.Count - 1} duplicate(s) found)";
+                else
+                    lblJapanese.Text = $@"Japanese";
+                if (currentEntry.JapaneseText != null)
+                    tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r", "").Replace("\n", Environment.NewLine);
+                if (currentEntry.EnglishText != null)
+                    tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
+                if (tbNoteText != null)
+                    tbNoteText.Text = currentEntry.Notes;
+                cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
+                cbStatus.Text = currentEntry.Status;
             }
-
-            tbJapaneseText.Text = string.Empty;
-            tbEnglishText.Text = string.Empty;
-
-            TranslationEntry TranslationEntry;
-            if (currentEntry.JapaneseText == null)
-                TranslationEntry = new TranslationEntry { EnglishTranslation = "" };
-            else
-                Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
-
-            if (TranslationEntry != null && TranslationEntry.Count > 1)
-                lblJapanese.Text = $@"Japanese ({TranslationEntry.Count - 1} duplicate(s) found)";
-            else
-                lblJapanese.Text = $@"Japanese";
-
-            if (currentEntry.JapaneseText != null)
-                tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r", "").Replace("\n", Environment.NewLine);
-            if (currentEntry.EnglishText != null)
-                tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
-            if (tbNoteText != null)
-                tbNoteText.Text = currentEntry.Notes;
-
-            cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
-
-            cbStatus.Text = currentEntry.Status;
             pictureBox1.Invalidate();
             tbEnglishText.TextChanged += tbEnglishText_TextChanged;
         }
@@ -560,26 +584,35 @@ namespace TranslationApp
                 cbProblematic.Checked ? "Problematic" : string.Empty,
                 cbDone.Checked ? "Done" : string.Empty
             };
-
             if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
             {
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
-                var old_index = lbEntries.SelectedIndex;
                 lbEntries.DataSource = CurrentTextList;
-                if (lbEntries.Items.Count > old_index)
+                if (lbEntries.SelectedIndices.Count == 1)
                 {
-                    lbEntries.SelectedIndex = old_index;
+                    var old_index = lbEntries.SelectedIndex;
+                    if (lbEntries.Items.Count > old_index)
+                    {
+                        lbEntries.SelectedIndices.Clear();
+                        lbEntries.SelectedIndices.Add(old_index);
+                    }
                 }
+                LoadEntryData(lbEntries);
             }
             else
             {
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
-                var old_index = lbSpeaker.SelectedIndex;
                 lbSpeaker.DataSource = CurrentSpeakerList;
-                if (lbSpeaker.Items.Count > old_index)
+                if (lbSpeaker.SelectedIndices.Count == 1)
                 {
-                    lbSpeaker.SelectedIndex = old_index;
+                    var old_index = lbSpeaker.SelectedIndex;
+                    if (lbSpeaker.Items.Count > old_index)
+                    {
+                        lbSpeaker.SelectedIndices.Clear();
+                        lbSpeaker.SelectedIndices.Add(old_index);
+                    }
                 }
+                LoadEntryData(lbSpeaker);
             }
         }
 
@@ -691,12 +724,6 @@ namespace TranslationApp
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
         {
-            if ((cbStatus.Text != string.Empty) && (tcType.Controls[tcType.SelectedIndex].Text == "Speaker"))
-                CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = cbStatus.Text;
-            else
-                CurrentTextList[lbEntries.SelectedIndex].Status = cbStatus.Text;
-            UpdateStatusData();
-
         }
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
@@ -1180,6 +1207,30 @@ namespace TranslationApp
             s = glyphs[index].rskip;
             return new Rectangle(x, y, charWidth, charHeight);
 
+        }
+
+        private void cbStatus_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if ((cbStatus.Text == string.Empty) || (cbStatus.Text == MULTIPLE_STATUS))
+                return;
+            if (cbStatus.Items.Contains(MULTIPLE_STATUS))
+            {
+                cbStatus.Items.Remove(MULTIPLE_STATUS);
+            }
+            ListBox lb;
+            if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
+            {
+                lb = lbEntries;
+            }
+            else
+            {
+                lb = lbSpeaker;
+            }
+            foreach (XMLEntry entry in lb.SelectedItems)
+            {
+                entry.Status = cbStatus.Text;
+            }
+            UpdateStatusData();
         }
     }
 }

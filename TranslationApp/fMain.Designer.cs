@@ -347,6 +347,7 @@ namespace TranslationApp
             this.lbEntries.FormattingEnabled = true;
             this.lbEntries.Location = new System.Drawing.Point(5, 4);
             this.lbEntries.Name = "lbEntries";
+            this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbEntries.Size = new System.Drawing.Size(262, 459);
             this.lbEntries.TabIndex = 0;
             this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
@@ -370,6 +371,7 @@ namespace TranslationApp
             this.lbSpeaker.FormattingEnabled = true;
             this.lbSpeaker.Location = new System.Drawing.Point(5, 8);
             this.lbSpeaker.Name = "lbSpeaker";
+            this.lbSpeaker.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbSpeaker.Size = new System.Drawing.Size(262, 459);
             this.lbSpeaker.TabIndex = 1;
             this.lbSpeaker.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSpeaker_DrawItem);
@@ -480,6 +482,7 @@ namespace TranslationApp
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(121, 21);
             this.cbStatus.TabIndex = 25;
+            this.cbStatus.SelectionChangeCommitted += new System.EventHandler(this.cbStatus_SelectionChangeCommitted);
             this.cbStatus.TextChanged += new System.EventHandler(this.cbStatus_TextChanged);
             // 
             // label1
