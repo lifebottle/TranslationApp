@@ -1047,20 +1047,25 @@ namespace TranslationApp
 
         private void setEmpty(ListBox lb)
         {
-            XMLEntry e = (XMLEntry)lb.SelectedItem;
             if (cbEmpty.Checked)
             {
-                e.EnglishText = "";
-                e.Status = "Done";
-                cbStatus.Text = "Done";
+                foreach (XMLEntry e in lb.SelectedItems)
+                {
+                    e.EnglishText = "";
+                    e.Status = "Done";
+                    cbStatus.Text = "Done";
+                }
             }
             else
             {
-                if (e.EnglishText != null && e.EnglishText.Length == 0)
+                foreach (XMLEntry e in lb.SelectedItems)
                 {
-                    e.EnglishText = null;
-                    e.Status = "To Do";
-                    cbStatus.Text = "To Do";
+                    if (e.EnglishText != null && e.EnglishText.Length == 0)
+                    {
+                        e.EnglishText = null;
+                        e.Status = "To Do";
+                        cbStatus.Text = "To Do";
+                    }
                 }
             }
         }
