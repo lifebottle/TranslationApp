@@ -162,7 +162,6 @@
       <Name>TranslationLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="res\font_atlas.png" />
   </ItemGroup>

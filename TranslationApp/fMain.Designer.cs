@@ -331,7 +331,7 @@ namespace TranslationApp
             // 
             // tcType
             // 
-            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tcType.Controls.Add(this.tabText);
             this.tcType.Controls.Add(this.tabSpeaker);
@@ -355,8 +355,8 @@ namespace TranslationApp
             // 
             // lbEntries
             // 
-            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbEntries.FormattingEnabled = true;
@@ -382,8 +382,8 @@ namespace TranslationApp
             // 
             // lbSpeaker
             // 
-            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSpeaker.FormattingEnabled = true;

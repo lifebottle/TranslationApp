@@ -116,7 +116,7 @@ namespace TranslationLib
                 var speakerElements = GetXmlSpeakerElement(Speakers);
                 allSections.Add(speakerElements);
             }
-           
+
             allSections.AddRange(sectionsElements);
             var document = new XDocument(
                 new XElement(GetXMLTextTagName(), allSections)

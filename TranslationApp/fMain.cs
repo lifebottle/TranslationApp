@@ -151,7 +151,7 @@ namespace TranslationApp
             CreateColorByStatusDictionnary();
             InitialiseStatusText();
             ChangeEnabledProp(false);
-            
+
             config = new Config();
             config.Load();
             PackingAssistant = new PackingProject();
@@ -356,6 +356,7 @@ namespace TranslationApp
             {
                 tbJapaneseText.Text = MULTIPLE_SELECT;
                 tbJapaneseText.Enabled = false;
+
                 tbEnglishText.Text = MULTIPLE_SELECT;
                 tbEnglishText.Enabled = false;
                 string st = ((XMLEntry)lb.SelectedItems[0]).Status;
@@ -405,17 +406,21 @@ namespace TranslationApp
                     TranslationEntry = new TranslationEntry { EnglishTranslation = "" };
                 else
                     Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
+
                 if (TranslationEntry != null && TranslationEntry.Count > 1)
                     lblJapanese.Text = $@"Japanese ({TranslationEntry.Count - 1} duplicate(s) found)";
                 else
                     lblJapanese.Text = $@"Japanese";
+
                 if (currentEntry.JapaneseText != null)
                     tbJapaneseText.Text = currentEntry.JapaneseText.Replace("\r", "").Replace("\n", Environment.NewLine);
                 if (currentEntry.EnglishText != null)
                     tbEnglishText.Text = currentEntry.EnglishText.Replace("\r", "").Replace("\n", Environment.NewLine);
                 if (tbNoteText != null)
                     tbNoteText.Text = currentEntry.Notes;
+
                 cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
+
                 cbStatus.Text = currentEntry.Status;
             }
             pictureBox1.Invalidate();
@@ -575,12 +580,14 @@ namespace TranslationApp
             List<XMLEntry> r = section?.Entries;
             return r ?? new List<XMLEntry>();
         }
+
         private void cbFileType_TextChanged(object sender, EventArgs e)
         {
             if (cbFileType.SelectedItem.ToString() != string.Empty)
             {
                 Project.SetCurrentFolder(cbFileType.SelectedItem.ToString());
                 List<string> filelist = Project.CurrentFolder.FileList();
+
                 if (cbFileType.SelectedItem.ToString() == "Menu")
                 {
                     cbFileList.DataSource = filelist;
@@ -591,7 +598,7 @@ namespace TranslationApp
                     if (names.Count != 1157)
                     {
                         cbFileList.DataSource = filelist.Select(x => x + ".xml").ToList();
-                    }
+                    } 
                     else
                     {
                         for (int i = 0, j = 0; i < filelist.Count; i++)
@@ -616,6 +623,7 @@ namespace TranslationApp
                     }
                     cbFileList.DataSource = filelist;
                 }
+                
 
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
                 UpdateStatusData();
@@ -681,7 +689,7 @@ namespace TranslationApp
             lNbEditing.Text = (statusStats["Editing"]).ToString();
             lNbDone.Text = (statusStats["Done"]).ToString();
 
-            Dictionary<string, int> sectionStatusStats= new Dictionary<string, int>();
+            Dictionary<string, int> sectionStatusStats = new Dictionary<string, int>();
             if (tcType.SelectedTab.Text == "Speaker")
                 sectionStatusStats = speakerStatusStats;
             else
@@ -699,6 +707,7 @@ namespace TranslationApp
             if (cbFileList.SelectedIndex != -1)
             {
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedIndex);
+
                 string filetype = cbFileType.SelectedItem.ToString();
                 if (filetype == "Menu" || filetype == "Skits")
                 {
@@ -710,13 +719,17 @@ namespace TranslationApp
                     tbFriendlyName.Enabled = true;
                     tbFriendlyName.Text = Project.CurrentFolder.CurrentFile.FriendlyName ?? "";
                 }
+
                 var old_section = cbSections.SelectedItem.ToString();
+
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+
                 if (cbSections.Items.Contains(old_section))
                     cbSections.SelectedItem = old_section;
                 CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
+
                 bSaveAll.Enabled = true;
             }
         }
@@ -745,7 +758,7 @@ namespace TranslationApp
 
             if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
             {
-                CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null: tbEnglishText.Text;
+                CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null : tbEnglishText.Text;
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = status;
                 int? speakerId = CurrentSpeakerList[lbSpeaker.SelectedIndex].Id;
                 Project.CurrentFolder.CurrentFile.CurrentSection.Entries.ForEach(x => x.SpeakerName = x.Id == speakerId ? x.SpeakerName = tbEnglishText.Text : x.SpeakerName);
@@ -782,7 +795,7 @@ namespace TranslationApp
         {
             if (e.Index >= CurrentTextList.Count)
                 return;
-            
+
             string text = GetTextBasedLanguage(e.Index, CurrentTextList);
 
             text = text == null ? "" : text;
@@ -792,7 +805,7 @@ namespace TranslationApp
             {
                 nb += 1;
             }
-            
+
             nb += Regex.Matches(text, "\\r*\\n").Count;
 
             var size = (int)((nb + 1) * 14) + 6;
