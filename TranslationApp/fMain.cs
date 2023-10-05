@@ -133,7 +133,7 @@ namespace TranslationApp
             {
                 //Regardless of text, draw elements close together
                 //and use the intmax size as per the docs
-                TextFormatFlags flags = TextFormatFlags.NoPadding;
+                TextFormatFlags flags = TextFormatFlags.NoPadding | TextFormatFlags.NoPrefix;
                 Size proposedSize = new Size(int.MaxValue, int.MaxValue);
 
                 //Grab the current entry to draw
