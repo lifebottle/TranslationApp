@@ -182,6 +182,8 @@ namespace TranslationApp
             ImageAttributes imageAttributes = new ImageAttributes();
             string[] result = Regex.Split(textToRender.Replace("\r", ""), @"(<[\w/]+:?\w+>)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
 
+            bool shear = false;
+
             foreach (string element in result)
             {
                 // Only parse actual potential tags
@@ -202,16 +204,12 @@ namespace TranslationApp
                     }
                     else if (element == "<Italic>")
                     {
-                        Matrix sheer = new Matrix();
-                        sheer.Scale(0.75f, 0.75f);
-                        sheer.Shear(-0.2f, 0);
-                        g.Transform = sheer;
+                        shear = true;
                         continue;
                     }
                     else if (element == "</Italic>")
                     {
-                        g.ResetTransform();
-                        g.ScaleTransform(0.75f, 0.75f);
+                        shear = false;
                         continue;
                     }
                     else if (element.Contains("nmb"))
@@ -244,6 +242,21 @@ namespace TranslationApp
                     // Create a destination rectangle using the currentPosition
                     RectangleF destinationRect = new RectangleF(currentPosition, new SizeF(charRect.Width, charRect.Height));
 
+                    if (shear)
+                    {
+                        g.ScaleTransform(0.75f, 0.75f);
+                        g.TranslateTransform(currentPosition.X, currentPosition.Y);
+                        Matrix shearMatrix = new Matrix();
+                        shearMatrix.Shear(-0.2f, 0.0f);
+                        g.MultiplyTransform(shearMatrix);
+                        g.TranslateTransform(-currentPosition.X, -currentPosition.Y);
+                    }
+                    else
+                    {
+                        g.ResetTransform();
+                        g.ScaleTransform(0.75f, 0.75f);
+                    }
+
                     // Draw the character onto the surface
                     g.DrawImage(
                         fontAtlasImage,
@@ -255,6 +268,8 @@ namespace TranslationApp
                         GraphicsUnit.Pixel,
                         imageAttributes
                         );
+
+                    g.ResetTransform();
 
                     // Update the current position for the next character
                     if (line)

@@ -904,7 +904,6 @@ namespace TranslationApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 701);
-            this.Controls.Add(this.textPreview1);
             this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.tbSectionName);
             this.Controls.Add(this.lblSectionName);
@@ -941,6 +940,7 @@ namespace TranslationApp
             this.Controls.Add(this.tbEnglishText);
             this.Controls.Add(this.menuStripMain);
             this.Controls.Add(this.tbJapaneseText);
+            this.Controls.Add(this.textPreview1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "fMain";
