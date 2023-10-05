@@ -1101,12 +1101,15 @@ namespace TranslationApp
             {
                 int sindex = cbSections.SelectedIndex;
                 int tindex = lbEntries.SelectedIndex;
+                int findex = cbFileList.SelectedIndex;
                 Project.CurrentFolder.CurrentFile.FriendlyName = tbFriendlyName.Text;
                 cbFileType.Text = "___";
+                cbFileList.SelectedIndex = findex;
                 cbSections.SelectedIndex = sindex;
                 lbEntries.SelectedIndices.Clear();
                 lbEntries.SelectedIndex = tindex;
                 e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
         private void tbSectionName_KeyDown(object sender, KeyEventArgs e)
@@ -1116,11 +1119,12 @@ namespace TranslationApp
                 int sindex = cbSections.SelectedIndex;
                 int tindex = lbEntries.SelectedIndex;
                 Project.CurrentFolder.CurrentFile.Sections[cbSections.SelectedIndex].Name = tbSectionName.Text;
-                cbFileType.Text = "___";
+                cbFileList.Text = "___";
                 cbSections.SelectedIndex = sindex;
                 lbEntries.SelectedIndices.Clear();
                 lbEntries.SelectedIndex = tindex;
                 e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
 
