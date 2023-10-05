@@ -127,15 +127,44 @@ namespace TranslationLib
 
         public void SaveAsCsv(string path)
         {
-            using (StreamWriter writer = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write)))
+            using (StreamWriter writer = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write), new System.Text.UTF8Encoding(true)))
             {
                 writer.WriteLine("File,Line Number,Section,Status,Speaker JP,Text JP,Speaker EN,Text EN,Comment");
+                writer.WriteLine(
+                            Name + ".xml" + "," +
+                            "," +
+                            "Friendly Name" + "," +
+                            "," +
+                            "," +
+                            "\"" + (FriendlyName ?? "").Replace("\"", "\"\"") + "\"" + "," +
+                            "," +
+                            "\"" + (FriendlyName ?? "").Replace("\"", "\"\"") + "\"" + ","
+                            );
+
+                foreach (XMLEntry entry in Speakers)
+                {
+                    writer.WriteLine(
+                            Name + ".xml" + "," +
+                            entry.Id + "," +
+                            "Speaker" + "," +
+                            "," +
+                            "," +
+                            "\"" + (entry.JapaneseText ?? "").Replace("\"", "\"\"") + "\"" + "," +
+                            "" + "," +
+                            "\"" + (entry.EnglishText ?? "").Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + entry.Notes + "\""
+                            );
+                }
+
                 foreach (XMLSection section in Sections.Where(s => s.Name != "All strings"))
                 {
                     foreach (XMLEntry entry in section.Entries)
                     {
                         List<string> en = new List<string>();
                         List<string> jp = new List<string>();
+
+                        string en_name = "";
+                        string jp_name = "";
 
                         if (entry.SpeakerId != null)
                         {
@@ -146,6 +175,10 @@ namespace TranslationLib
                                 if (!string.IsNullOrEmpty(Speakers[id].JapaneseText))
                                     jp.Add(Speakers[id].JapaneseText);
                             }
+                            en_name = string.Join(",", entry.SpeakerId);
+                            en_name += "[" + string.Join(" / ", en).Replace("\"", "\"\"") + "]";
+                            jp_name = string.Join(",", entry.SpeakerId);
+                            jp_name += "[" + string.Join(" / ", jp).Replace("\"", "\"\"") + "]";
                         }
 
                         string en_text = entry.EnglishText ?? "";
@@ -156,9 +189,9 @@ namespace TranslationLib
                             entry.Id + "," +
                             "\"" + section.Name.Replace("\"", "\"\"") + "\"" + "," +
                             entry.Status + "," +
-                            "\""+ string.Join(" / ", jp).Replace("\"", "\"\"") + "\"" + "," +
-                            "\""+ jp_text.Replace("\"", "\"\"") + "\"" + "," +
-                            "\"" + string.Join(" / ", en).Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + jp_name + "\"" + "," +
+                            "\"" + jp_text.Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + en_name + "\"" + "," +
                             "\"" + en_text.Replace("\"", "\"\"") + "\""  + "," +
                             "\"" + entry.Notes + "\""
                             );
