@@ -523,8 +523,8 @@ namespace TranslationApp
             this.cbStatus.FormattingEnabled = true;
             this.cbStatus.Items.AddRange(new object[] {
             "To Do",
-            "Editing",
-            "Proofreading",
+            "Edited",
+            "Proofread",
             "Problematic",
             "Done"});
             this.cbStatus.Location = new System.Drawing.Point(377, 184);
@@ -626,9 +626,9 @@ namespace TranslationApp
             this.cbEditing.AutoSize = true;
             this.cbEditing.Location = new System.Drawing.Point(5, 17);
             this.cbEditing.Name = "cbEditing";
-            this.cbEditing.Size = new System.Drawing.Size(58, 17);
+            this.cbEditing.Size = new System.Drawing.Size(56, 17);
             this.cbEditing.TabIndex = 2;
-            this.cbEditing.Text = "Editing";
+            this.cbEditing.Text = "Edited";
             this.cbEditing.UseVisualStyleBackColor = true;
             this.cbEditing.CheckedChanged += new System.EventHandler(this.cbInReview_CheckedChanged);
             // 
@@ -637,9 +637,9 @@ namespace TranslationApp
             this.cbProof.AutoSize = true;
             this.cbProof.Location = new System.Drawing.Point(5, 33);
             this.cbProof.Name = "cbProof";
-            this.cbProof.Size = new System.Drawing.Size(86, 17);
+            this.cbProof.Size = new System.Drawing.Size(72, 17);
             this.cbProof.TabIndex = 1;
-            this.cbProof.Text = "Proofreading";
+            this.cbProof.Text = "Proofread";
             this.cbProof.UseVisualStyleBackColor = true;
             this.cbProof.CheckedChanged += new System.EventHandler(this.cbProof_CheckedChanged);
             // 

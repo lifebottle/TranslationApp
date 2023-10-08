@@ -58,8 +58,8 @@ namespace TranslationLib
             var dictionary = new Dictionary<string, int>()
             {
                 { "To Do", 0 },
-                { "Editing", 0 },
-                { "Proofreading", 0 },
+                { "Edited", 0 },
+                { "Proofread", 0 },
                 { "Problematic", 0 },
                 { "Done", 0 },
             };
@@ -86,8 +86,8 @@ namespace TranslationLib
             return new Dictionary<string, int>
             {
                 { "To Do",          CountEntryByStatus(Speakers,"To Do") },
-                { "Editing",        CountEntryByStatus(Speakers,"Editing") },
-                { "Proofreading",   CountEntryByStatus(Speakers,"Proofreading") },
+                { "Edited",         CountEntryByStatus(Speakers,"Edited") },
+                { "Proofread",      CountEntryByStatus(Speakers,"Proofread") },
                 { "Problematic",    CountEntryByStatus(Speakers,"Problematic") },
                 { "Done",           CountEntryByStatus(Speakers,"Done") },
             };

@@ -569,9 +569,9 @@ namespace TranslationApp
             var statusStats = Project.CurrentFolder.CurrentFile.GetStatusData();
             //File Count of status
             lNbToDo.Text = (statusStats["To Do"]).ToString();
-            lNbProof.Text = (statusStats["Proofreading"]).ToString();
+            lNbProof.Text = (statusStats["Proofread"]).ToString();
             lNbProb.Text = (statusStats["Problematic"]).ToString();
-            lNbEditing.Text = (statusStats["Editing"]).ToString();
+            lNbEditing.Text = (statusStats["Edited"]).ToString();
             lNbDone.Text = (statusStats["Done"]).ToString();
 
             Dictionary<string, int> sectionStatusStats = new Dictionary<string, int>();
@@ -581,9 +581,9 @@ namespace TranslationApp
                 sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData();
             //Section Count of status
             lNbToDoSect.Text = sectionStatusStats["To Do"].ToString();
-            lNbProofSect.Text = sectionStatusStats["Proofreading"].ToString();
+            lNbProofSect.Text = sectionStatusStats["Proofread"].ToString();
             lNbProbSect.Text = sectionStatusStats["Problematic"].ToString();
-            lNbEditingSect.Text = sectionStatusStats["Editing"].ToString();
+            lNbEditingSect.Text = sectionStatusStats["Edited"].ToString();
             lNbDoneSect.Text = sectionStatusStats["Done"].ToString();
         }
 
@@ -637,9 +637,9 @@ namespace TranslationApp
 
             string status = cbStatus.Text;
             if (tbEnglishText.Text == tbJapaneseText.Text)
-                status = "Editing";
+                status = "Edited";
             else if (tbEnglishText.Text != "")
-                status = "Editing";
+                status = "Edited";
 
             if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
             {
