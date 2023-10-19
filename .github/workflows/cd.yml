@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  release:
  
     runs-on: windows-latest
  
@@ -20,33 +20,21 @@ jobs:
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.1
  
-    - name: Build Translation App
+    - name: Build TranslationApp
       run: msbuild TranslationApp.sln /p:Configuration=Release /p:DebugType=None /p:DebugSymbols=false
  
     # Archive the package
     - name: Create archive
       run: Compress-Archive -Path TranslationApp\bin\Release\* -DestinationPath TranslationApp_${{ github.ref_name }}.zip
 
-    # Create the release:  https://github.com/actions/create-release
+    # Create the release
     - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: v${{ github.ref_name }}
-        release_name:  TranslationApp v${{ github.ref_name }}
-        draft: false
-        prerelease: false
-
-    # Upload release asset:   https://github.com/actions/upload-release-asset
-    - name: Update release asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: TranslationApp_${{ github.ref_name }}.zip
-        asset_name: TranslationApp_${{ github.ref_name }}.zip
-        asset_content_type: application/zip
+        tag: ${{ github.ref_name }}
+      run: |
+        gh release create "$env:tag" \
+            --repo="$env:GITHUB_REPOSITORY" \
+            --title="TranslationApp v$env:tag" \
+            --generate-notes \
+            TranslationApp_${{ github.ref_name }}.zip
