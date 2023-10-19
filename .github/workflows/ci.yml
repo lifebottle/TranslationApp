@@ -1,21 +1,25 @@
-name: Build App
+name: TranslationApp CI
  
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
  
 jobs:
   build:
- 
     runs-on: windows-latest
  
     steps:
-    - uses: actions/checkout@v2
-      name: Checkout Code
+    - name: Checkout Code
+      uses: actions/checkout@v2
 
-    # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.1
  
-    - name: Build and Publish App
+    - name: Build and Translation App
       run: msbuild TranslationApp.sln /p:Configuration=Release
  
     - name: Upload Artifact
