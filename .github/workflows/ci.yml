@@ -14,12 +14,6 @@ jobs:
     # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.1
-       
-    # Install .NET workload
-    - name: Install .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '4.7'
  
     - name: Build and Publish App
       run: msbuild TranslationApp.sln /p:Configuration=Release
