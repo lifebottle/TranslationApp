@@ -19,11 +19,11 @@ jobs:
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.1
  
-    - name: Build and Translation App
-      run: msbuild TranslationApp.sln /p:Configuration=Release
+    - name: Build TranslationApp
+      run: msbuild TranslationApp.sln /p:Configuration=Debug
  
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: published_app
+        name: TranslationApp_$env:GITHUB_SHA.Substring(0, 7)
         path: TranslationApp\bin\Release\
