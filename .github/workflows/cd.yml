@@ -1,4 +1,4 @@
-name:  Release Translation App
+name: Release Translation App
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
 
 jobs:
   release:
- 
     runs-on: windows-latest
  
     steps:
@@ -21,7 +20,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
  
     - name: Build TranslationApp
-      run: msbuild TranslationApp.sln /p:Configuration=Release /p:DebugType=None /p:DebugSymbols=false
+      run: msbuild TranslationApp.sln /t:restore,build /p:RestorePackagesConfig=True /p:Configuration=Release /p:DebugType=None /p:DebugSymbols=false
  
     # Archive the package
     - name: Create archive
