@@ -20,10 +20,10 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
  
     - name: Build TranslationApp
-      run: msbuild TranslationApp.sln /p:Configuration=Debug
+      run: msbuild TranslationApp.sln  /t:restore,build /p:RestorePackagesConfig=True /p:Configuration=Debug
  
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         name: TranslationApp_$env:GITHUB_SHA.Substring(0, 7)
-        path: TranslationApp\bin\Release\
+        path: TranslationApp\bin\Debug\
