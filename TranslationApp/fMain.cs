@@ -30,6 +30,14 @@ namespace TranslationApp
         public fMain()
         {
             InitializeComponent();
+            var gitInfo = Assembly.GetExecutingAssembly().GetType("GitVersionInformation");
+            var ver = gitInfo.GetField("FullSemVer").GetValue(null);
+            var sha = gitInfo.GetField("ShortSha").GetValue(null);
+#if DEBUG
+            Text = "Translation App v" + ver + " (commit: " + sha + ")";
+#else
+            Text = "Translation App v" + ver;
+#endif
         }
 
         private void fMain_Load(object sender, EventArgs e)
