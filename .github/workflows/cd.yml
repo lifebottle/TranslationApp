@@ -32,8 +32,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.ref_name }}
       run: |
-        gh release create "$env:tag" \
-            --repo="$env:GITHUB_REPOSITORY" \
-            --title="TranslationApp v$env:tag" \
-            --generate-notes \
+        gh release create "$env:tag" `
+            --repo="$env:GITHUB_REPOSITORY" `
+            --title="TranslationApp v$env:tag" `
+            --generate-notes `
             TranslationApp_${{ github.ref_name }}.zip
