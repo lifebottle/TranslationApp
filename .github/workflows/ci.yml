@@ -15,12 +15,14 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.1
  
     - name: Build TranslationApp
-      run: msbuild TranslationApp.sln  /t:restore,build /p:RestorePackagesConfig=True /p:Configuration=Debug
+      run: msbuild TranslationApp.sln /t:restore,build /p:RestorePackagesConfig=True /p:Configuration=Debug
  
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
