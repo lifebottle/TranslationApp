@@ -3,7 +3,7 @@ namespace TranslationLib
 {
     public class XMLEntry
     {
-        
+
         public string PointerOffset { get; set; }
         public string VoiceId { get; set; }
         public string JapaneseText { get; set; }
@@ -17,7 +17,7 @@ namespace TranslationLib
         public bool EmbedOffset { get; set; }
         public string hi { get; set; }
         public string lo { get; set; }
-        private string _Status;
+        public string _Status { get; set; }
         public string Status
         {
             get

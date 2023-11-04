@@ -311,7 +311,7 @@ namespace TranslationApp
 
                 cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
 
-                cbStatus.Text = currentEntry.Status;
+                cbStatus.Text = currentEntry._Status; // Need the modified name (bandaid)
             }
             textPreview1.ReDraw(tbEnglishText.Text);
             tbEnglishText.TextChanged += tbEnglishText_TextChanged;
