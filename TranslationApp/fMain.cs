@@ -933,7 +933,21 @@ namespace TranslationApp
         {
             if (e.Control && e.KeyCode == Keys.C)
             {
-                Clipboard.SetText(stripTags(tbJapaneseText.Text));
+                List<string> st = new List<string>();
+                ListBox curr_lb = (tcType.SelectedIndex == 0) ? lbEntries : lbSpeaker;
+
+                if (curr_lb.SelectedIndices.Count > 1)
+                {
+                    foreach (XMLEntry et in curr_lb.SelectedItems)
+                    {
+                        st.Add(stripTags(et.JapaneseText));
+                    }
+                    Clipboard.SetText(string.Join("\n", st));
+                } 
+                else
+                {
+                    Clipboard.SetText(stripTags(tbJapaneseText.Text));
+                }
             }
         }
 
