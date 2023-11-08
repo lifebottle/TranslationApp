@@ -141,25 +141,34 @@ namespace TranslationLib
                             "\"" + (FriendlyName ?? "").Replace("\"", "\"\"") + "\"" + ","
                             );
 
+                Dictionary<int, string> en_names = new Dictionary<int, string>();
+                Dictionary<int, string> jp_names = new Dictionary<int, string>();
                 foreach (XMLEntry entry in Speakers)
                 {
+                    string en_name = (entry.EnglishText ?? "").Replace("\"", "\"\"");
+                    string jp_name = (entry.JapaneseText ?? "").Replace("\"", "\"\"");
                     writer.WriteLine(
                             Name + ".xml" + "," +
                             entry.Id + "," +
                             "Speaker" + "," +
                             "," +
                             "," +
-                            "\"" + (entry.JapaneseText ?? "").Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + jp_name + "\"" + "," +
                             "" + "," +
-                            "\"" + (entry.EnglishText ?? "").Replace("\"", "\"\"") + "\"" + "," +
+                            "\"" + en_name + "\"" + "," +
                             "\"" + entry.Notes + "\""
                             );
+
+                    en_names.Add(entry.Id.Value, en_name);
+                    jp_names.Add(entry.Id.Value, jp_name);
                 }
+
 
                 foreach (XMLSection section in Sections.Where(s => s.Name != "All strings"))
                 {
                     foreach (XMLEntry entry in section.Entries)
                     {
+
                         List<string> en = new List<string>();
                         List<string> jp = new List<string>();
 
@@ -170,10 +179,10 @@ namespace TranslationLib
                         {
                             foreach (var id in entry.SpeakerId)
                             { 
-                                if (!string.IsNullOrEmpty(Speakers[id].EnglishText))
-                                    en.Add(Speakers[id].EnglishText);
-                                if (!string.IsNullOrEmpty(Speakers[id].JapaneseText))
-                                    jp.Add(Speakers[id].JapaneseText);
+                                if (!string.IsNullOrEmpty(en_names[id]))
+                                    en.Add(en_names[id]);
+                                if (!string.IsNullOrEmpty(jp_names[id]))
+                                    jp.Add(jp_names[id]);
                             }
                             en_name = string.Join(",", entry.SpeakerId);
                             en_name += "[" + string.Join(" / ", en).Replace("\"", "\"\"") + "]";
