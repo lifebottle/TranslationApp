@@ -109,6 +109,9 @@ namespace TranslationApp
             this.tbSectionName = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
             this.textPreview1 = new TranslationApp.TextPreview();
+            this.importFromCsvToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setFileAsDoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setSectionAsDoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -197,7 +200,10 @@ namespace TranslationApp
             this.reloadCurrentFileToolStripMenuItem,
             this.saveAllToolStripMenuItem,
             this.reloadAllToolStripMenuItem,
-            this.exportFileToCsvToolStripMenuItem});
+            this.exportFileToCsvToolStripMenuItem,
+            this.importFromCsvToolStripMenuItem,
+            this.setFileAsDoneToolStripMenuItem,
+            this.setSectionAsDoneToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
             this.fileToolStripMenuItem.Text = "File";
@@ -205,35 +211,35 @@ namespace TranslationApp
             // saveCurrentFileToolStripMenuItem
             // 
             this.saveCurrentFileToolStripMenuItem.Name = "saveCurrentFileToolStripMenuItem";
-            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveCurrentFileToolStripMenuItem.Text = "Save Current File";
             this.saveCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFileToolStripMenuItem_Click);
             // 
             // reloadCurrentFileToolStripMenuItem
             // 
             this.reloadCurrentFileToolStripMenuItem.Name = "reloadCurrentFileToolStripMenuItem";
-            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadCurrentFileToolStripMenuItem.Text = "Reload Current File";
             this.reloadCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.reloadCurrentFileToolStripMenuItem_Click);
             // 
             // saveAllToolStripMenuItem
             // 
             this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAllToolStripMenuItem.Text = "Save All";
             this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
             // 
             // reloadAllToolStripMenuItem
             // 
             this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
-            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadAllToolStripMenuItem.Text = "Reload All";
             this.reloadAllToolStripMenuItem.Click += new System.EventHandler(this.reloadAllToolStripMenuItem_Click);
             // 
             // exportFileToCsvToolStripMenuItem
             // 
             this.exportFileToCsvToolStripMenuItem.Name = "exportFileToCsvToolStripMenuItem";
-            this.exportFileToCsvToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exportFileToCsvToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportFileToCsvToolStripMenuItem.Text = "Export file to csv";
             this.exportFileToCsvToolStripMenuItem.Click += new System.EventHandler(this.exportFileToCsvToolStripMenuItem_Click);
             // 
@@ -899,6 +905,27 @@ namespace TranslationApp
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
             // 
+            // importFromCsvToolStripMenuItem
+            // 
+            this.importFromCsvToolStripMenuItem.Name = "importFromCsvToolStripMenuItem";
+            this.importFromCsvToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importFromCsvToolStripMenuItem.Text = "Import from csv";
+            this.importFromCsvToolStripMenuItem.Click += new System.EventHandler(this.importFromCsvToolStripMenuItem_Click);
+            // 
+            // setFileAsDoneToolStripMenuItem
+            // 
+            this.setFileAsDoneToolStripMenuItem.Name = "setFileAsDoneToolStripMenuItem";
+            this.setFileAsDoneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setFileAsDoneToolStripMenuItem.Text = "Set file as Done";
+            this.setFileAsDoneToolStripMenuItem.Click += new System.EventHandler(this.setFileAsDoneToolStripMenuItem_Click);
+            // 
+            // setSectionAsDoneToolStripMenuItem
+            // 
+            this.setSectionAsDoneToolStripMenuItem.Name = "setSectionAsDoneToolStripMenuItem";
+            this.setSectionAsDoneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setSectionAsDoneToolStripMenuItem.Text = "Set section as Done";
+            this.setSectionAsDoneToolStripMenuItem.Click += new System.EventHandler(this.setSectionAsDoneToolStripMenuItem_Click);
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1048,6 +1075,9 @@ namespace TranslationApp
         private System.Windows.Forms.Button btnSaveFile;
         private System.Windows.Forms.ToolStripMenuItem exportFileToCsvToolStripMenuItem;
         private TextPreview textPreview1;
+        private System.Windows.Forms.ToolStripMenuItem importFromCsvToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setFileAsDoneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setSectionAsDoneToolStripMenuItem;
     }
 }
 

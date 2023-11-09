@@ -1177,5 +1177,36 @@ namespace TranslationApp
                 MessageBox.Show("File exported");
             }
         }
+
+        private void importFromCsvToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented yet");
+        }
+
+        private void setFileAsDoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (XMLSection s in Project.CurrentFolder.CurrentFile.Sections.Where(s => s.Name != "All strings"))
+            {
+                foreach (XMLEntry entry in s.Entries)
+                { 
+                    entry.Status = "Done";
+                }
+            }
+            cbFileList.Text = "___";
+        }
+
+        private void setSectionAsDoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cbSections.SelectedIndex == 0)
+            {
+                return;
+            }
+
+            foreach (XMLEntry entry in Project.CurrentFolder.CurrentFile.Sections[cbSections.SelectedIndex].Entries)
+            {
+                entry.Status = "Done";
+            }
+            cbFileList.Text = "___";
+        }
     }
 }
