@@ -1208,5 +1208,15 @@ namespace TranslationApp
             }
             cbFileList.Text = "___";
         }
+
+        private void loadLastFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadLastFolder("TOH");
+        }
+
+        private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadNewFolder("TOH", "/2_translated");
+        }
     }
 }

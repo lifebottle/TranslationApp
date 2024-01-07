@@ -243,10 +243,10 @@ namespace TranslationLib
         private static XElement GetXMLEntryElement(XMLEntry entry)
         {
             var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
-            var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
+            var bubbleId = entry.BubbleId == null ? null : new XElement("BubbleId", entry.BubbleId);
+            var subId = entry.BubbleId == null ? null : new XElement("SubId", entry.SubId);
             var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",",entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
-            var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
             var maxLength = entry.MaxLength == null ? null : new XElement("MaxLength", entry.MaxLength);
             XElement embedOffset;
 
@@ -272,8 +272,8 @@ namespace TranslationLib
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
                 speakerId,
                 elemenId,
-                structId,
-                unknownPointer,
+                bubbleId,
+                subId,
                 new XElement("Status", entry.Status)
 
             );

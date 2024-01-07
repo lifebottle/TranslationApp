@@ -12,6 +12,8 @@ namespace TranslationLib
         public int? Id { get; set; }
         public int? StructId { get; set; }
         public int[] SpeakerId { get; set; }
+        public int? BubbleId { get; set; }
+        public int? SubId { get; set; }
         public int? UnknownPointer { get; set; }
         public int? MaxLength { get; set; }
         public bool EmbedOffset { get; set; }

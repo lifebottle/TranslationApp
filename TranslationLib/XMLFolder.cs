@@ -142,7 +142,8 @@ namespace TranslationLib
                 Notes = ExtractNullableString(element.Element("Notes")),
                 Status = ExtractNullableString(element.Element("Status")),
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
-                StructId = ExtractNullableInt(element.Element("StructId")),
+                BubbleId = ExtractNullableInt(element.Element("BubbleId")),
+                SubId = ExtractNullableInt(element.Element("SubId")),
                 UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer")),
                 MaxLength = ExtractNullableInt(element.Element("MaxLength"))
             };
