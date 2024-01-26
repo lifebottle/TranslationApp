@@ -21,6 +21,7 @@ namespace TranslationApp
         private static PackingProject PackingAssistant;
         private static List<XMLEntry> CurrentTextList;
         private static List<XMLEntry> CurrentSpeakerList;
+        private static List<Dictionary<string, string>> ListSearch;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
         
@@ -111,6 +112,7 @@ namespace TranslationApp
             tbFriendlyName.Enabled = status;
             tbSectionName.Enabled = status;
             tbNoteText.Enabled = status;
+            tabSearchMass.Enabled = status;
 
             lbEntries.Enabled = status;
 
@@ -1217,6 +1219,68 @@ namespace TranslationApp
         private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadNewFolder("TOH", "/2_translated");
+        }
+
+        private void bSearch_Click(object sender, EventArgs e)
+        {
+            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            string textToFind = tbSearch.Text.Replace("\r\n", "\n");
+            if (cbFileKindSearch.Text != "All")
+            {
+                XMLFolder folder = Project.XmlFolders.Where(x => x.Name == cbFileKindSearch.Text).FirstOrDefault();
+                if (folder != null){
+                    res = folder.SearchJapanese(textToFind, cbExact.Checked, cbLangSearch.Text);
+                }
+            }
+            else
+            {
+                foreach (XMLFolder folder in Project.XmlFolders)
+                {
+                    res.AddRange(folder.SearchJapanese(textToFind, cbExact.Checked, cbLangSearch.Text));
+                }
+            }
+            ListSearch = res;
+            lbSearch.DataSource = res.Select(x => $"{x["Folder"]} - " +
+            $"{Project.GetFolderByName(x["Folder"]).XMLFiles[Convert.ToInt32(x["FileId"])].Name} - " +
+            $"{x["Section"]} - {x["Id"]}").ToList();
+        }
+
+        private void lbSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!(cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked))
+            {
+                cbToDo.Checked = true;
+                cbProof.Checked = true;
+                cbEditing.Checked = true;
+                cbProblematic.Checked = true;
+                cbDone.Checked = true;
+            }
+
+            if (lbSearch.SelectedIndex > -1)
+            {
+                Dictionary<string, string> eleSelected = ListSearch[lbSearch.SelectedIndex];
+                cbFileType.Text = eleSelected["Folder"];
+                cbFileList.SelectedIndex = Convert.ToInt32(eleSelected["FileId"]);
+
+
+                if (eleSelected["Section"] == "Speaker")
+                {
+                    lbSpeaker.ClearSelected();
+                    tcType.SelectedIndex = 1;
+                    lbSpeaker.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
+                }
+                else
+                {
+
+                    cbSections.Text = eleSelected["Section"];
+
+                    lbEntries.ClearSelected();
+                    tcType.SelectedIndex = 0;
+                    lbEntries.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
+                }
+
+            }
+     
         }
     }
 }
