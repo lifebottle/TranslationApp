@@ -152,7 +152,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1184, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1246, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -972,7 +972,7 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(869, 33);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(311, 623);
+            this.tabSearchMass.Size = new System.Drawing.Size(352, 623);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearchJap
@@ -989,7 +989,7 @@ namespace TranslationApp
             this.tpSearchJap.Location = new System.Drawing.Point(4, 22);
             this.tpSearchJap.Name = "tpSearchJap";
             this.tpSearchJap.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearchJap.Size = new System.Drawing.Size(303, 597);
+            this.tpSearchJap.Size = new System.Drawing.Size(344, 597);
             this.tpSearchJap.TabIndex = 0;
             this.tpSearchJap.Text = "Search Japanese";
             this.tpSearchJap.UseVisualStyleBackColor = true;
@@ -1054,7 +1054,7 @@ namespace TranslationApp
             // 
             // bSearch
             // 
-            this.bSearch.Location = new System.Drawing.Point(198, 63);
+            this.bSearch.Location = new System.Drawing.Point(198, 106);
             this.bSearch.Name = "bSearch";
             this.bSearch.Size = new System.Drawing.Size(95, 23);
             this.bSearch.TabIndex = 50;
@@ -1076,7 +1076,7 @@ namespace TranslationApp
             this.tbSearch.Location = new System.Drawing.Point(30, 107);
             this.tbSearch.Multiline = true;
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(263, 66);
+            this.tbSearch.Size = new System.Drawing.Size(143, 66);
             this.tbSearch.TabIndex = 48;
             // 
             // lbSearch
@@ -1113,7 +1113,7 @@ namespace TranslationApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 701);
+            this.ClientSize = new System.Drawing.Size(1246, 701);
             this.Controls.Add(this.tabSearchMass);
             this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.tbSectionName);
