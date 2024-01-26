@@ -30,5 +30,33 @@ namespace TranslationLib
         {
             return Entries.Count(e => e.Status == status);
         }
+
+        public List<Dictionary<string, string>> SearchJapanese(string folder, int fileId, string sectionName, string text, bool exactMatch, string language)
+        {
+            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            List<int> foundIndexes;
+            foundIndexes = Enumerable.Range(0, Entries.Count)
+                    .Where(e => Entries[e].IsFound(text, exactMatch, language))
+                    .ToList();
+    
+            if (foundIndexes.Count > 0)
+            {
+              
+                foreach (int index in foundIndexes)
+                {
+                    Dictionary<string, string> foundEntries = new Dictionary<string, string>();
+                    foundEntries["Folder"] = folder;
+                    foundEntries["FileId"] = fileId.ToString();
+                    foundEntries["Section"] = sectionName;
+                    foundEntries["Id"] = index.ToString();
+                    foundEntries["JapaneseText"] = Entries[index].JapaneseText;
+                    foundEntries["EnglishText"] = Entries[index].EnglishText;
+                    foundEntries["Status"] = Entries[index].Status;
+                    res.Add(foundEntries);
+                }
+                
+            }
+            return res;
+        }
     }
 }

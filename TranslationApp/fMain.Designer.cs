@@ -37,6 +37,10 @@ namespace TranslationApp
             this.tsTORTranslation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadLast = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTORLoadNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.tOHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadLastFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDesmumeLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,11 +115,19 @@ namespace TranslationApp
             this.lblSectionName = new System.Windows.Forms.Label();
             this.tbSectionName = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
+            this.tabSearchMass = new System.Windows.Forms.TabControl();
+            this.tpSearchJap = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cbLangSearch = new System.Windows.Forms.ComboBox();
+            this.cbExact = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cbFileKindSearch = new System.Windows.Forms.ComboBox();
+            this.bSearch = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            this.lbSearch = new System.Windows.Forms.ListBox();
+            this.tpMassReplace = new System.Windows.Forms.TabPage();
             this.textPreview1 = new TranslationApp.TextPreview();
-            this.tOHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadLastFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadDesmumeLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -124,6 +136,8 @@ namespace TranslationApp
             this.panel1.SuspendLayout();
             this.panelNb1.SuspendLayout();
             this.panelNb2.SuspendLayout();
+            this.tabSearchMass.SuspendLayout();
+            this.tpSearchJap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,7 +152,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(722, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1184, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -158,7 +172,7 @@ namespace TranslationApp
             this.tsNDXLoadLast,
             this.tsNDXLoadNew});
             this.NDXTranslationToolStripMenuItem.Name = "NDXTranslationToolStripMenuItem";
-            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.NDXTranslationToolStripMenuItem.Text = "NDX";
             // 
             // tsNDXLoadLast
@@ -181,22 +195,52 @@ namespace TranslationApp
             this.tsTORLoadLast,
             this.tsTORLoadNew});
             this.tsTORTranslation.Name = "tsTORTranslation";
-            this.tsTORTranslation.Size = new System.Drawing.Size(180, 22);
+            this.tsTORTranslation.Size = new System.Drawing.Size(98, 22);
             this.tsTORTranslation.Text = "TOR";
             // 
             // tsTORLoadLast
             // 
             this.tsTORLoadLast.Name = "tsTORLoadLast";
-            this.tsTORLoadLast.Size = new System.Drawing.Size(180, 22);
+            this.tsTORLoadLast.Size = new System.Drawing.Size(163, 22);
             this.tsTORLoadLast.Text = "Load Last Folder";
             this.tsTORLoadLast.Click += new System.EventHandler(this.tsTORLoadLast_Click);
             // 
             // tsTORLoadNew
             // 
             this.tsTORLoadNew.Name = "tsTORLoadNew";
-            this.tsTORLoadNew.Size = new System.Drawing.Size(180, 22);
+            this.tsTORLoadNew.Size = new System.Drawing.Size(163, 22);
             this.tsTORLoadNew.Text = "Load New Folder";
             this.tsTORLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
+            // 
+            // tOHToolStripMenuItem
+            // 
+            this.tOHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadLastFolderToolStripMenuItem,
+            this.loadNewFolderToolStripMenuItem,
+            this.loadDesmumeLocationToolStripMenuItem});
+            this.tOHToolStripMenuItem.Name = "tOHToolStripMenuItem";
+            this.tOHToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.tOHToolStripMenuItem.Text = "TOH";
+            // 
+            // loadLastFolderToolStripMenuItem
+            // 
+            this.loadLastFolderToolStripMenuItem.Name = "loadLastFolderToolStripMenuItem";
+            this.loadLastFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.loadLastFolderToolStripMenuItem.Text = "Load Last Folder";
+            this.loadLastFolderToolStripMenuItem.Click += new System.EventHandler(this.loadLastFolderToolStripMenuItem_Click);
+            // 
+            // loadNewFolderToolStripMenuItem
+            // 
+            this.loadNewFolderToolStripMenuItem.Name = "loadNewFolderToolStripMenuItem";
+            this.loadNewFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.loadNewFolderToolStripMenuItem.Text = "Load New Folder";
+            this.loadNewFolderToolStripMenuItem.Click += new System.EventHandler(this.loadNewFolderToolStripMenuItem_Click);
+            // 
+            // loadDesmumeLocationToolStripMenuItem
+            // 
+            this.loadDesmumeLocationToolStripMenuItem.Name = "loadDesmumeLocationToolStripMenuItem";
+            this.loadDesmumeLocationToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.loadDesmumeLocationToolStripMenuItem.Text = "Load Desmume Location";
             // 
             // fileToolStripMenuItem
             // 
@@ -282,7 +326,7 @@ namespace TranslationApp
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(180, 22);
+            this.tsSetup.Size = new System.Drawing.Size(104, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
@@ -292,7 +336,7 @@ namespace TranslationApp
             this.extractIsoToolStripMenuItem,
             this.tsNDXMakeIso});
             this.tsNDXExtract.Name = "tsNDXExtract";
-            this.tsNDXExtract.Size = new System.Drawing.Size(180, 22);
+            this.tsNDXExtract.Size = new System.Drawing.Size(104, 22);
             this.tsNDXExtract.Text = "NDX";
             // 
             // extractIsoToolStripMenuItem
@@ -314,7 +358,7 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(180, 22);
+            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
@@ -920,6 +964,140 @@ namespace TranslationApp
             this.btnSaveFile.UseVisualStyleBackColor = true;
             this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
+            // tabSearchMass
+            // 
+            this.tabSearchMass.Controls.Add(this.tpSearchJap);
+            this.tabSearchMass.Controls.Add(this.tpMassReplace);
+            this.tabSearchMass.Enabled = false;
+            this.tabSearchMass.Location = new System.Drawing.Point(869, 33);
+            this.tabSearchMass.Name = "tabSearchMass";
+            this.tabSearchMass.SelectedIndex = 0;
+            this.tabSearchMass.Size = new System.Drawing.Size(311, 623);
+            this.tabSearchMass.TabIndex = 50;
+            // 
+            // tpSearchJap
+            // 
+            this.tpSearchJap.Controls.Add(this.label11);
+            this.tpSearchJap.Controls.Add(this.cbLangSearch);
+            this.tpSearchJap.Controls.Add(this.cbExact);
+            this.tpSearchJap.Controls.Add(this.label10);
+            this.tpSearchJap.Controls.Add(this.cbFileKindSearch);
+            this.tpSearchJap.Controls.Add(this.bSearch);
+            this.tpSearchJap.Controls.Add(this.label6);
+            this.tpSearchJap.Controls.Add(this.tbSearch);
+            this.tpSearchJap.Controls.Add(this.lbSearch);
+            this.tpSearchJap.Location = new System.Drawing.Point(4, 22);
+            this.tpSearchJap.Name = "tpSearchJap";
+            this.tpSearchJap.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSearchJap.Size = new System.Drawing.Size(303, 597);
+            this.tpSearchJap.TabIndex = 0;
+            this.tpSearchJap.Text = "Search Japanese";
+            this.tpSearchJap.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(27, 49);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(55, 13);
+            this.label11.TabIndex = 55;
+            this.label11.Text = "Language";
+            // 
+            // cbLangSearch
+            // 
+            this.cbLangSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbLangSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbLangSearch.FormattingEnabled = true;
+            this.cbLangSearch.Items.AddRange(new object[] {
+            "Japanese",
+            "English"});
+            this.cbLangSearch.Location = new System.Drawing.Point(30, 65);
+            this.cbLangSearch.Name = "cbLangSearch";
+            this.cbLangSearch.Size = new System.Drawing.Size(93, 21);
+            this.cbLangSearch.TabIndex = 54;
+            this.cbLangSearch.Text = "Japanese";
+            // 
+            // cbExact
+            // 
+            this.cbExact.AutoSize = true;
+            this.cbExact.Location = new System.Drawing.Point(198, 25);
+            this.cbExact.Name = "cbExact";
+            this.cbExact.Size = new System.Drawing.Size(86, 17);
+            this.cbExact.TabIndex = 53;
+            this.cbExact.Text = "Exact Match";
+            this.cbExact.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(27, 9);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(47, 13);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "File Kind";
+            // 
+            // cbFileKindSearch
+            // 
+            this.cbFileKindSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbFileKindSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbFileKindSearch.FormattingEnabled = true;
+            this.cbFileKindSearch.Items.AddRange(new object[] {
+            "All",
+            "Story",
+            "Skits",
+            "Menu"});
+            this.cbFileKindSearch.Location = new System.Drawing.Point(30, 25);
+            this.cbFileKindSearch.Name = "cbFileKindSearch";
+            this.cbFileKindSearch.Size = new System.Drawing.Size(93, 21);
+            this.cbFileKindSearch.TabIndex = 51;
+            this.cbFileKindSearch.Text = "All";
+            // 
+            // bSearch
+            // 
+            this.bSearch.Location = new System.Drawing.Point(198, 63);
+            this.bSearch.Name = "bSearch";
+            this.bSearch.Size = new System.Drawing.Size(95, 23);
+            this.bSearch.TabIndex = 50;
+            this.bSearch.Text = "Search";
+            this.bSearch.UseVisualStyleBackColor = true;
+            this.bSearch.Click += new System.EventHandler(this.bSearch_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 90);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 13);
+            this.label6.TabIndex = 49;
+            this.label6.Text = "Text to search";
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(30, 107);
+            this.tbSearch.Multiline = true;
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(263, 66);
+            this.tbSearch.TabIndex = 48;
+            // 
+            // lbSearch
+            // 
+            this.lbSearch.FormattingEnabled = true;
+            this.lbSearch.Location = new System.Drawing.Point(30, 186);
+            this.lbSearch.Name = "lbSearch";
+            this.lbSearch.Size = new System.Drawing.Size(263, 186);
+            this.lbSearch.TabIndex = 0;
+            this.lbSearch.SelectedIndexChanged += new System.EventHandler(this.lbSearch_SelectedIndexChanged);
+            // 
+            // tpMassReplace
+            // 
+            this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
+            this.tpMassReplace.Name = "tpMassReplace";
+            this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMassReplace.Size = new System.Drawing.Size(344, 597);
+            this.tpMassReplace.TabIndex = 1;
+            this.tpMassReplace.Text = "Not used";
+            this.tpMassReplace.UseVisualStyleBackColor = true;
+            // 
             // textPreview1
             // 
             this.textPreview1.BackColor = System.Drawing.Color.Transparent;
@@ -931,41 +1109,12 @@ namespace TranslationApp
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
             // 
-            // tOHToolStripMenuItem
-            // 
-            this.tOHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadLastFolderToolStripMenuItem,
-            this.loadNewFolderToolStripMenuItem,
-            this.loadDesmumeLocationToolStripMenuItem});
-            this.tOHToolStripMenuItem.Name = "tOHToolStripMenuItem";
-            this.tOHToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tOHToolStripMenuItem.Text = "TOH";
-            // 
-            // loadLastFolderToolStripMenuItem
-            // 
-            this.loadLastFolderToolStripMenuItem.Name = "loadLastFolderToolStripMenuItem";
-            this.loadLastFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.loadLastFolderToolStripMenuItem.Text = "Load Last Folder";
-            this.loadLastFolderToolStripMenuItem.Click += new System.EventHandler(this.loadLastFolderToolStripMenuItem_Click);
-            // 
-            // loadNewFolderToolStripMenuItem
-            // 
-            this.loadNewFolderToolStripMenuItem.Name = "loadNewFolderToolStripMenuItem";
-            this.loadNewFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.loadNewFolderToolStripMenuItem.Text = "Load New Folder";
-            this.loadNewFolderToolStripMenuItem.Click += new System.EventHandler(this.loadNewFolderToolStripMenuItem_Click);
-            // 
-            // loadDesmumeLocationToolStripMenuItem
-            // 
-            this.loadDesmumeLocationToolStripMenuItem.Name = "loadDesmumeLocationToolStripMenuItem";
-            this.loadDesmumeLocationToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.loadDesmumeLocationToolStripMenuItem.Text = "Load Desmume Location";
-            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 701);
+            this.ClientSize = new System.Drawing.Size(1184, 701);
+            this.Controls.Add(this.tabSearchMass);
             this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.tbSectionName);
             this.Controls.Add(this.lblSectionName);
@@ -1022,6 +1171,9 @@ namespace TranslationApp
             this.panelNb1.PerformLayout();
             this.panelNb2.ResumeLayout(false);
             this.panelNb2.PerformLayout();
+            this.tabSearchMass.ResumeLayout(false);
+            this.tpSearchJap.ResumeLayout(false);
+            this.tpSearchJap.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1117,6 +1269,18 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem loadLastFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadNewFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadDesmumeLocationToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabSearchMass;
+        private System.Windows.Forms.TabPage tpSearchJap;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cbFileKindSearch;
+        private System.Windows.Forms.Button bSearch;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbSearch;
+        private System.Windows.Forms.ListBox lbSearch;
+        private System.Windows.Forms.TabPage tpMassReplace;
+        private System.Windows.Forms.CheckBox cbExact;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbLangSearch;
     }
 }
 
