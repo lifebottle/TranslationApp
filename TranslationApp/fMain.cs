@@ -1247,7 +1247,35 @@ namespace TranslationApp
 
         private void lbSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!(cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked))
+            if (cbDone.Checked && cbDone.Checked == cbProblematic.Checked == cbEditing.Checked == cbToDo.Checked == cbProof.Checked)
+            {
+
+                if (lbSearch.SelectedIndex > -1)
+                {
+                    Dictionary<string, string> eleSelected = ListSearch[lbSearch.SelectedIndex];
+                    cbFileType.Text = eleSelected["Folder"];
+                    cbFileList.SelectedIndex = Convert.ToInt32(eleSelected["FileId"]);
+
+
+                    if (eleSelected["Section"] == "Speaker")
+                    {
+                        lbSpeaker.ClearSelected();
+                        tcType.SelectedIndex = 1;
+                        lbSpeaker.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
+                    }
+                    else
+                    {
+
+                        cbSections.Text = eleSelected["Section"];
+
+                        lbEntries.ClearSelected();
+                        tcType.SelectedIndex = 0;
+                        lbEntries.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
+                    }
+
+                }
+            }
+            else
             {
                 cbToDo.Checked = true;
                 cbProof.Checked = true;
@@ -1255,32 +1283,6 @@ namespace TranslationApp
                 cbProblematic.Checked = true;
                 cbDone.Checked = true;
             }
-
-            if (lbSearch.SelectedIndex > -1)
-            {
-                Dictionary<string, string> eleSelected = ListSearch[lbSearch.SelectedIndex];
-                cbFileType.Text = eleSelected["Folder"];
-                cbFileList.SelectedIndex = Convert.ToInt32(eleSelected["FileId"]);
-
-
-                if (eleSelected["Section"] == "Speaker")
-                {
-                    lbSpeaker.ClearSelected();
-                    tcType.SelectedIndex = 1;
-                    lbSpeaker.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
-                }
-                else
-                {
-
-                    cbSections.Text = eleSelected["Section"];
-
-                    lbEntries.ClearSelected();
-                    tcType.SelectedIndex = 0;
-                    lbEntries.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
-                }
-
-            }
-     
         }
     }
 }
