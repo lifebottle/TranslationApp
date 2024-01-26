@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 namespace TranslationLib
 {
     public class XMLEntry
@@ -53,5 +54,27 @@ namespace TranslationLib
 
 
         [JsonIgnore] public string SpeakerName { get; set; }
+
+        public bool IsFound(string text, bool exactMatch, string language)
+        {
+           
+            if(exactMatch)
+            {
+                if (language == "Japanese" && JapaneseText != null)
+                    return JapaneseText != null ? JapaneseText == text: false;
+                else
+                    return EnglishText != null ? EnglishText == text : false;
+
+            }
+            else
+            {
+                if (language == "Japanese" && JapaneseText != null)
+                    return JapaneseText != null ? JapaneseText.Contains(text) : false;
+                else
+                    return EnglishText != null ? EnglishText.Contains(text) : false;
+            }
+
+ 
+        }
     }
 }

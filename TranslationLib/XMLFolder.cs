@@ -209,5 +209,18 @@ namespace TranslationLib
 
             Translations[entryJapaneseText].Count++;
         }
+
+        public List<Dictionary<string, string>> SearchJapanese(string japText, bool exactMatch, string language)
+        {
+            List<Dictionary<string, string>> dict = new List<Dictionary<string, string>>();
+
+            for(int i=0; i<XMLFiles.Count; i++)
+            {
+                var res = XMLFiles[i].SearchJapanese(Name, i, japText, exactMatch, language);
+                if(res.Count() > 0)
+                    dict.AddRange(res);
+            }
+            return dict;
+        }
     }
 }

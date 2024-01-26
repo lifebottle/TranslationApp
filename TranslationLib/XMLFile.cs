@@ -278,5 +278,56 @@ namespace TranslationLib
 
             );
         }
+
+
+        public List<Dictionary<string, string>> SearchJapanese(string folder, int fileId, string text, bool exactMatch, string language)
+        {
+            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            foreach( XMLSection section in Sections)
+            {
+                if (section.Name != "All strings")
+                {
+                    var temp = section.SearchJapanese(folder, fileId, section.Name, text, exactMatch, language);
+
+                    if (temp.Count > 0)
+                        res.AddRange(temp);
+                }
+            }
+
+            var speakerFound = SearchSpeaker(folder, fileId, text, exactMatch, language);
+            if (speakerFound.Count > 0)
+                res.AddRange(speakerFound);
+
+            return res;
+        }
+
+        private List<Dictionary<string, string>> SearchSpeaker(string folder, int fileId, string text, bool exactMatch, string language)
+        {
+            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            List<int> foundIndexes;
+                foundIndexes = Enumerable.Range(0, Speakers.Count)
+                     .Where(e => Speakers[e].IsFound(text, exactMatch, language))
+                     .ToList();
+
+            if (foundIndexes.Count > 0)
+            {
+
+                foreach (int index in foundIndexes)
+                {
+                    Dictionary<string, string> foundEntries = new Dictionary<string, string>();
+                    foundEntries["Folder"] = folder;
+                    foundEntries["FileId"] = fileId.ToString();
+                    foundEntries["Section"] = "Speaker";
+                    foundEntries["Id"] = index.ToString();
+                    foundEntries["JapaneseText"] = Speakers[index].JapaneseText;
+                    foundEntries["EnglishText"] = Speakers[index].EnglishText;
+                    foundEntries["Status"] = Speakers[index].Status;
+                    foundEntries["Display"] = $"{folder} - {Name} - Speaker - {index.ToString()}";
+                    res.Add(foundEntries);
+                }
+            }
+            return res;
+        }
+
     }
 }
