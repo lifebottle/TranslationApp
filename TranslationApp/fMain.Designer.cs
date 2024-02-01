@@ -127,7 +127,10 @@ namespace TranslationApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.tpMassReplace = new System.Windows.Forms.TabPage();
+            this.lbMassReplace = new System.Windows.Forms.ListBox();
             this.textPreview1 = new TranslationApp.TextPreview();
+            this.lNbOtherTranslations = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -138,6 +141,7 @@ namespace TranslationApp
             this.panelNb2.SuspendLayout();
             this.tabSearchMass.SuspendLayout();
             this.tpSearchJap.SuspendLayout();
+            this.tpMassReplace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -152,7 +156,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1246, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1191, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -440,7 +444,7 @@ namespace TranslationApp
             // 
             this.lblEnglish.Location = new System.Drawing.Point(334, 361);
             this.lblEnglish.Name = "lblEnglish";
-            this.lblEnglish.Size = new System.Drawing.Size(218, 13);
+            this.lblEnglish.Size = new System.Drawing.Size(47, 13);
             this.lblEnglish.TabIndex = 10;
             this.lblEnglish.Text = "English";
             // 
@@ -972,11 +976,12 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(869, 33);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(352, 623);
+            this.tabSearchMass.Size = new System.Drawing.Size(315, 623);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearchJap
             // 
+            this.tpSearchJap.Controls.Add(this.label12);
             this.tpSearchJap.Controls.Add(this.label11);
             this.tpSearchJap.Controls.Add(this.cbLangSearch);
             this.tpSearchJap.Controls.Add(this.cbExact);
@@ -989,7 +994,7 @@ namespace TranslationApp
             this.tpSearchJap.Location = new System.Drawing.Point(4, 22);
             this.tpSearchJap.Name = "tpSearchJap";
             this.tpSearchJap.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearchJap.Size = new System.Drawing.Size(344, 597);
+            this.tpSearchJap.Size = new System.Drawing.Size(307, 597);
             this.tpSearchJap.TabIndex = 0;
             this.tpSearchJap.Text = "Search Japanese";
             this.tpSearchJap.UseVisualStyleBackColor = true;
@@ -1054,7 +1059,7 @@ namespace TranslationApp
             // 
             // bSearch
             // 
-            this.bSearch.Location = new System.Drawing.Point(198, 106);
+            this.bSearch.Location = new System.Drawing.Point(198, 62);
             this.bSearch.Name = "bSearch";
             this.bSearch.Size = new System.Drawing.Size(95, 23);
             this.bSearch.TabIndex = 50;
@@ -1076,13 +1081,13 @@ namespace TranslationApp
             this.tbSearch.Location = new System.Drawing.Point(30, 107);
             this.tbSearch.Multiline = true;
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(143, 66);
+            this.tbSearch.Size = new System.Drawing.Size(263, 66);
             this.tbSearch.TabIndex = 48;
             // 
             // lbSearch
             // 
             this.lbSearch.FormattingEnabled = true;
-            this.lbSearch.Location = new System.Drawing.Point(30, 186);
+            this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.Size = new System.Drawing.Size(263, 186);
             this.lbSearch.TabIndex = 0;
@@ -1090,13 +1095,23 @@ namespace TranslationApp
             // 
             // tpMassReplace
             // 
+            this.tpMassReplace.Controls.Add(this.lbMassReplace);
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(344, 597);
+            this.tpMassReplace.Size = new System.Drawing.Size(307, 597);
             this.tpMassReplace.TabIndex = 1;
-            this.tpMassReplace.Text = "Not used";
+            this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
+            // 
+            // lbMassReplace
+            // 
+            this.lbMassReplace.FormattingEnabled = true;
+            this.lbMassReplace.Location = new System.Drawing.Point(30, 24);
+            this.lbMassReplace.Name = "lbMassReplace";
+            this.lbMassReplace.Size = new System.Drawing.Size(263, 186);
+            this.lbMassReplace.TabIndex = 1;
+            this.lbMassReplace.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbMassReplace_DrawItem);
             // 
             // textPreview1
             // 
@@ -1109,11 +1124,30 @@ namespace TranslationApp
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
             // 
+            // lNbOtherTranslations
+            // 
+            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
+            this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
+            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(186, 13);
+            this.lNbOtherTranslations.TabIndex = 51;
+            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(27, 195);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(69, 13);
+            this.label12.TabIndex = 56;
+            this.label12.Text = "Entries found";
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1246, 701);
+            this.ClientSize = new System.Drawing.Size(1191, 701);
+            this.Controls.Add(this.lNbOtherTranslations);
             this.Controls.Add(this.tabSearchMass);
             this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.tbSectionName);
@@ -1174,6 +1208,7 @@ namespace TranslationApp
             this.tabSearchMass.ResumeLayout(false);
             this.tpSearchJap.ResumeLayout(false);
             this.tpSearchJap.PerformLayout();
+            this.tpMassReplace.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1281,6 +1316,9 @@ namespace TranslationApp
         private System.Windows.Forms.CheckBox cbExact;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbLangSearch;
+        private System.Windows.Forms.Label lNbOtherTranslations;
+        private System.Windows.Forms.ListBox lbMassReplace;
+        private System.Windows.Forms.Label label12;
     }
 }
 
