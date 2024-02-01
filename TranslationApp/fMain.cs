@@ -22,6 +22,7 @@ namespace TranslationApp
         private static List<XMLEntry> CurrentTextList;
         private static List<XMLEntry> CurrentSpeakerList;
         private static List<Dictionary<string, string>> ListSearch;
+        private static List<Dictionary<string, string>> OtherTranslations;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
         
@@ -235,9 +236,50 @@ namespace TranslationApp
             DrawEntries(e, CurrentSpeakerList);
         }
 
+        private void ShowOtherTranslations()
+        {
+            OtherTranslations = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text, "Japanese", true);
+            OtherTranslations = OtherTranslations.Where(x => x["JapaneseText"] == tbJapaneseText.Text && x["EnglishText"] != tbEnglishText.Text.Replace("\r\n","\n")).ToList();
+
+            if (OtherTranslations.Count > 0)
+                lNbOtherTranslations.ForeColor = Color.Red;
+            else
+                lNbOtherTranslations.ForeColor = Color.Green;
+
+            int distinctCount = OtherTranslations.Select(x => x["EnglishText"]).Distinct().Count();
+            lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
+
+            lbMassReplace.DataSource = OtherTranslations.Select(x => $"{x["Folder"]} - " +
+            $"{Project.GetFolderByName(x["Folder"]).XMLFiles[Convert.ToInt32(x["FileId"])].Name} - " +
+            $"{x["Section"]} - {x["EnglishText"]}").ToList();
+        }
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadEntryData(lbEntries);
+            ShowOtherTranslations();
+
+
+        }
+
+        private List<Dictionary<string, string>> FindOtherTranslations(string folderSearch, string textToFind, string language, bool exact)
+        {
+            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            if (folderSearch != "All")
+            {
+                XMLFolder folder = Project.XmlFolders.Where(x => x.Name == folderSearch).FirstOrDefault();
+                if (folder != null)
+                {
+                    res = folder.SearchJapanese(textToFind, exact, language);
+                }
+            }
+            else
+            {
+                foreach (XMLFolder folder in Project.XmlFolders)
+                {
+                    res.AddRange(folder.SearchJapanese(textToFind, cbExact.Checked, language));
+                }
+            }
+            return res;
         }
 
         private void LoadEntryData(ListBox lb)
@@ -1223,31 +1265,16 @@ namespace TranslationApp
 
         private void bSearch_Click(object sender, EventArgs e)
         {
-            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
             string textToFind = tbSearch.Text.Replace("\r\n", "\n");
-            if (cbFileKindSearch.Text != "All")
-            {
-                XMLFolder folder = Project.XmlFolders.Where(x => x.Name == cbFileKindSearch.Text).FirstOrDefault();
-                if (folder != null){
-                    res = folder.SearchJapanese(textToFind, cbExact.Checked, cbLangSearch.Text);
-                }
-            }
-            else
-            {
-                foreach (XMLFolder folder in Project.XmlFolders)
-                {
-                    res.AddRange(folder.SearchJapanese(textToFind, cbExact.Checked, cbLangSearch.Text));
-                }
-            }
-            ListSearch = res;
-            lbSearch.DataSource = res.Select(x => $"{x["Folder"]} - " +
+            ListSearch = FindOtherTranslations(cbFileKindSearch.Text, textToFind, cbLangSearch.Text, cbExact.Checked);
+            lbSearch.DataSource = ListSearch.Select(x => $"{x["Folder"]} - " +
             $"{Project.GetFolderByName(x["Folder"]).XMLFiles[Convert.ToInt32(x["FileId"])].Name} - " +
             $"{x["Section"]} - {x["Id"]}").ToList();
         }
 
         private void lbSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbDone.Checked && cbDone.Checked == cbProblematic.Checked == cbEditing.Checked == cbToDo.Checked == cbProof.Checked)
+            if (cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked)
             {
 
                 if (lbSearch.SelectedIndex > -1)
@@ -1283,6 +1310,93 @@ namespace TranslationApp
                 cbProblematic.Checked = true;
                 cbDone.Checked = true;
             }
+        }
+
+        private void lNbOtherTranslations_Click(object sender, EventArgs e)
+        {
+            tabSearchMass.SelectedIndex = 1;
+        }
+
+
+        private void lbMassReplace_DrawItem(object sender, DrawItemEventArgs e)
+        {
+    
+            bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+
+            //Draw only if elements are present in the listbox
+            if (e.Index > -1)
+            {
+                //Regardless of text, draw elements close together
+                //and use the intmax size as per the docs
+                TextFormatFlags flags = TextFormatFlags.NoPadding | TextFormatFlags.NoPrefix;
+                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
+
+                // Background item brush
+                SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : Color.White);
+
+                // Text colors
+                Color regularColor = e.ForeColor;
+                Color tagColor = isSelected ? Color.Orange : Color.Blue;
+
+                // Draw the background
+                e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+
+                // Add separators for each entry
+                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Bottom - 1), new Point(e.Bounds.Width, e.Bounds.Bottom - 1));
+                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Top - 1), new Point(e.Bounds.Width, e.Bounds.Top - 1));
+
+                Font normalFont = new Font("Arial", 8, FontStyle.Regular);
+                Font boldFont = new Font("Arial", 8, FontStyle.Bold);
+
+                string text = ListSearch[e.Index]["EnglishText"];
+                Point startPoint = new Point(3, e.Bounds.Y + 3);
+
+                //1. Split based on the line breaks
+                if (!string.IsNullOrEmpty(text))
+                {
+                    string[] lines = Regex.Split(text, "\\r*\\n", RegexOptions.IgnoreCase);
+
+                    //Starting point for drawing, a little offsetted
+                    //in order to not touch the borders
+                    //Point startPoint = new Point(3, e.Bounds.Y + 3);
+                    Size mySize;
+
+                    foreach (string line in lines)
+                    {
+                        //2. Split based on the different tags
+                        //Split the text based on the Tags < xxx >
+                        string pattern = @"(<[\w/]+:?\w+>)";
+                        string[] result = Regex.Split(line, pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+
+                        //We need to loop over each element to adjust the color
+                        foreach (string element in result)
+                        {
+                            if (element[0] == '<')
+                            {
+                                mySize = TextRenderer.MeasureText(e.Graphics, element, boldFont, proposedSize, flags);
+
+                                TextRenderer.DrawText(e.Graphics, element, boldFont, startPoint, tagColor, flags);
+                                startPoint.X += mySize.Width;
+                            }
+                            else
+                            {
+                                mySize = TextRenderer.MeasureText(e.Graphics, element, normalFont, proposedSize, flags);
+
+                                TextRenderer.DrawText(e.Graphics, element, normalFont, startPoint, regularColor, flags);
+                                startPoint.X += mySize.Width;
+                            }
+                        }
+
+                        startPoint.Y += 13;
+                        startPoint.X = 3;
+                    }
+                }
+
+                // Clean up
+                backgroundBrush.Dispose();
+            }
+
+            e.DrawFocusRectangle();
         }
     }
 }
