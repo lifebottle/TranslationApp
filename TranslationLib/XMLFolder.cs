@@ -210,13 +210,13 @@ namespace TranslationLib
             Translations[entryJapaneseText].Count++;
         }
 
-        public List<Dictionary<string, string>> SearchJapanese(string japText, bool exactMatch, string language)
+        public List<EntryFound> SearchJapanese(string japText, bool matchWholeEntry, bool matchCase, bool matchWholeWord, string language)
         {
-            List<Dictionary<string, string>> dict = new List<Dictionary<string, string>>();
+            List<EntryFound> dict = new List<EntryFound>();
 
             for(int i=0; i<XMLFiles.Count; i++)
             {
-                var res = XMLFiles[i].SearchJapanese(Name, i, japText, exactMatch, language);
+                var res = XMLFiles[i].SearchJapanese(Name, i, japText, matchWholeEntry, matchCase, matchWholeWord, language);
                 if(res.Count() > 0)
                     dict.AddRange(res);
             }

@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 namespace TranslationLib
 {
     public class XMLEntry
@@ -55,26 +57,27 @@ namespace TranslationLib
 
         [JsonIgnore] public string SpeakerName { get; set; }
 
-        public bool IsFound(string text, bool exactMatch, string language)
+        public bool IsFound(string text, bool matchWholeEntry, bool matchCase, bool matchWholeWord, string language)
         {
-           
-            if(exactMatch)
-            {
-                if (language == "Japanese" && JapaneseText != null)
-                    return JapaneseText != null ? JapaneseText == text: false;
-                else
-                    return EnglishText != null ? EnglishText == text : false;
-
-            }
+            string textCompare = "";
+            if (language == "Japanese")
+                textCompare = JapaneseText;
             else
+                textCompare = EnglishText;
+                
+            if (matchWholeEntry)            
+                return textCompare != null ? textCompare == text : false;
+            
+            if (matchCase)
+                return textCompare != null ? textCompare.Contains(text) : false;
+
+            if (matchWholeWord)
             {
-                if (language == "Japanese" && JapaneseText != null)
-                    return JapaneseText != null ? JapaneseText.Contains(text) : false;
-                else
-                    return EnglishText != null ? EnglishText.Contains(text) : false;
+                string keywords = $@"\b{text}\b";
+                return textCompare != null ? Regex.Match(textCompare, keywords).Success : false;
             }
 
- 
+            return textCompare != null ? textCompare.IndexOf(text, System.StringComparison.OrdinalIgnoreCase) > 0 : false;
         }
     }
 }
