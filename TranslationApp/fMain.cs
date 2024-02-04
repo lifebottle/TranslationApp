@@ -21,8 +21,8 @@ namespace TranslationApp
         private static PackingProject PackingAssistant;
         private static List<XMLEntry> CurrentTextList;
         private static List<XMLEntry> CurrentSpeakerList;
-        private static List<Dictionary<string, string>> ListSearch;
-        private static List<Dictionary<string, string>> OtherTranslations;
+        private static List<EntryFound> ListSearch;
+        private static List<EntryFound> OtherTranslations;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
         
@@ -135,7 +135,7 @@ namespace TranslationApp
             panelNb2.Enabled = status;
         }
 
-        private void DrawEntries(DrawItemEventArgs e, List<XMLEntry> EntryList)
+        private void DrawEntries(DrawItemEventArgs e, List<XMLEntry> EntryList, bool displaySection)
         {
             bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
 
@@ -168,16 +168,37 @@ namespace TranslationApp
                 Font boldFont = new Font("Arial", 8, FontStyle.Bold);
 
                 string text = GetTextBasedLanguage(e.Index, EntryList);
-
-                //0. Add Speaker name
                 Point startPoint = new Point(3, e.Bounds.Y + 3);
+
+                //0. Add Section if needed
+                if (displaySection)
+                {
+                    
+                    EntryFound entryFound = ListSearch[e.Index];
+                    string sectionDetail = $"{entryFound.Folder} - " +
+                $"{Project.GetFolderByName(entryFound.Folder).XMLFiles[entryFound.FileId].Name} - " +
+                $"{entryFound.Section} - {entry.Id}";
+
+                    SolidBrush backgroundBrushSection = new SolidBrush(Color.LightGray);
+                    Size mySize = TextRenderer.MeasureText(e.Graphics, sectionDetail, normalFont, proposedSize, flags);
+                    e.Graphics.FillRectangle(backgroundBrushSection, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, 19);
+                    TextRenderer.DrawText(e.Graphics, sectionDetail, boldFont, startPoint, Color.Black, flags);
+                    startPoint.Y += 16;
+                
+
+                    e.Graphics.DrawLine(new Pen(Color.LightGray, 1.5f), new Point(0, startPoint.Y), new Point(e.Bounds.Width, startPoint.Y));
+                    startPoint.Y += 3;
+                }
+
+                
+                //1. Add Speaker name
                 if (EntryList[e.Index].SpeakerId != null)
                 {
                     TextRenderer.DrawText(e.Graphics, EntryList[e.Index].SpeakerName, boldFont, startPoint, tagColor, flags);
                     startPoint.Y += 13;
                 }
 
-                //1. Split based on the line breaks
+                //2. Split based on the line breaks
                 if (!string.IsNullOrEmpty(text))
                 {
                     string[] lines = Regex.Split(text, "\\r*\\n", RegexOptions.IgnoreCase);
@@ -189,7 +210,7 @@ namespace TranslationApp
 
                     foreach (string line in lines)
                     {
-                        //2. Split based on the different tags
+                        //3. Split based on the different tags
                         //Split the text based on the Tags < xxx >
                         string pattern = @"(<[\w/]+:?\w+>)";
                         string[] result = Regex.Split(line, pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
@@ -225,33 +246,140 @@ namespace TranslationApp
             e.DrawFocusRectangle();
         }
 
+        private void DrawSearchEntries(DrawItemEventArgs e)
+        {
+            bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+
+            //Draw only if elements are present in the listbox
+            if (e.Index > -1)
+            {
+
+                //Regardless of text, draw elements close together
+                //and use the intmax size as per the docs
+                TextFormatFlags flags = TextFormatFlags.NoPadding | TextFormatFlags.NoPrefix;
+                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
+                
+
+                //Grab the current entry to draw
+                EntryFound entry = ListSearch[e.Index];
+
+
+                // Text colors
+                Color regularColor = e.ForeColor;
+                Color tagColor = isSelected ? Color.Orange : Color.Blue;
+
+                // Add separators for each entry
+                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Bottom - 1), new Point(e.Bounds.Width, e.Bounds.Bottom - 1));
+                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Top - 1), new Point(e.Bounds.Width, e.Bounds.Top - 1));
+
+                Font normalFont = new Font("Arial", 8, FontStyle.Regular);
+                Font boldFont = new Font("Arial", 8, FontStyle.Bold);
+
+                string text = GetTextBasedLanguage(e.Index, ListSearch.Select(x => x.Entry).ToList());
+
+
+                Point startPoint = new Point(3, e.Bounds.Y + 3);
+                //0. Add Section
+                string sectionDetail = $"{entry.Folder} - " +
+            $"{Project.GetFolderByName(entry.Folder).XMLFiles[entry.FileId].Name} - " +
+            $"{entry.Section} - {entry.Id}";
+
+                SolidBrush backgroundBrushSection = new SolidBrush(Color.LightGray);
+                Size mySize = TextRenderer.MeasureText(e.Graphics, sectionDetail, normalFont, proposedSize, flags);
+                e.Graphics.FillRectangle(backgroundBrushSection, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, 19);
+                TextRenderer.DrawText(e.Graphics, sectionDetail, boldFont, startPoint, Color.Black, flags);
+                startPoint.Y += 16;
+
+                e.Graphics.DrawLine(new Pen(Color.LightGray, 1.5f), new Point(0, startPoint.Y), new Point(e.Bounds.Width, startPoint.Y));
+                startPoint.Y += 3;
+
+                //0. Add Speaker name
+                if (entry.Entry.SpeakerId != null)
+                {
+                    TextRenderer.DrawText(e.Graphics, entry.Entry.SpeakerName, boldFont, startPoint, tagColor, flags);
+                    startPoint.Y += 13;
+                }
+
+                //1. Split based on the line breaks
+                if (!string.IsNullOrEmpty(text))
+                {
+                    SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["To Do"]);
+                    e.Graphics.FillRectangle(backgroundBrush, e.Bounds.X, e.Bounds.Y+19, e.Bounds.X, e.Bounds.Height - 19);
+
+                    string[] lines = Regex.Split(text, "\\r*\\n", RegexOptions.IgnoreCase);
+
+                    //Starting point for drawing, a little offsetted
+                    //in order to not touch the borders
+                    //Point startPoint = new Point(3, e.Bounds.Y + 3);
+
+                    foreach (string line in lines)
+                    {
+                        //2. Split based on the different tags
+                        //Split the text based on the Tags < xxx >
+                        string pattern = @"(<[\w/]+:?\w+>)";
+                        string[] result = Regex.Split(line, pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+
+                        //We need to loop over each element to adjust the color
+                        foreach (string element in result)
+                        {
+                            if (element[0] == '<')
+                            {
+                                mySize = TextRenderer.MeasureText(e.Graphics, element, boldFont, proposedSize, flags);
+
+                                TextRenderer.DrawText(e.Graphics, element, boldFont, startPoint, tagColor, flags);
+                                startPoint.X += mySize.Width;
+                            }
+                            else
+                            {
+                                mySize = TextRenderer.MeasureText(e.Graphics, element, normalFont, proposedSize, flags);
+
+                                TextRenderer.DrawText(e.Graphics, element, normalFont, startPoint, regularColor, flags);
+                                startPoint.X += mySize.Width;
+                            }
+                        }
+
+                        startPoint.Y += 13;
+                        startPoint.X = 3;
+                    }
+
+                    backgroundBrush.Dispose();
+                }
+
+                // Clean up
+                backgroundBrushSection.Dispose();
+            }
+
+            e.DrawFocusRectangle();
+
+        }
+
         //Draw entries with multiline and font color changed
         private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
         {
-            DrawEntries(e, CurrentTextList);
+            DrawEntries(e, CurrentTextList, false);
         }
 
         private void lbSpeaker_DrawItem(object sender, DrawItemEventArgs e)
         {
-            DrawEntries(e, CurrentSpeakerList);
+            DrawEntries(e, CurrentSpeakerList, false);
         }
 
         private void ShowOtherTranslations()
         {
-            OtherTranslations = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text, "Japanese", true);
-            OtherTranslations = OtherTranslations.Where(x => x["JapaneseText"] == tbJapaneseText.Text && x["EnglishText"] != tbEnglishText.Text.Replace("\r\n","\n")).ToList();
+            OtherTranslations = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text, "Japanese", true, false, false);
+            OtherTranslations = OtherTranslations.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text && x.Entry.EnglishText != tbEnglishText.Text.Replace("\r\n","\n")).ToList();
 
             if (OtherTranslations.Count > 0)
                 lNbOtherTranslations.ForeColor = Color.Red;
             else
                 lNbOtherTranslations.ForeColor = Color.Green;
 
-            int distinctCount = OtherTranslations.Select(x => x["EnglishText"]).Distinct().Count();
+            int distinctCount = OtherTranslations.Select(x => x.Entry.EnglishText).Distinct().Count();
             lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
 
-            lbMassReplace.DataSource = OtherTranslations.Select(x => $"{x["Folder"]} - " +
-            $"{Project.GetFolderByName(x["Folder"]).XMLFiles[Convert.ToInt32(x["FileId"])].Name} - " +
-            $"{x["Section"]} - {x["EnglishText"]}").ToList();
+            lbMassReplace.DataSource = OtherTranslations.Select(x => $"{x.Folder} - " +
+            $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
+            $"{x.Section} - {x.Entry.EnglishText}").ToList();
         }
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -261,22 +389,22 @@ namespace TranslationApp
 
         }
 
-        private List<Dictionary<string, string>> FindOtherTranslations(string folderSearch, string textToFind, string language, bool exact)
+        private List<EntryFound> FindOtherTranslations(string folderSearch, string textToFind, string language, bool matchWholeEntry, bool matchCase, bool matchWholeWord)
         {
-            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            List<EntryFound> res = new List<EntryFound>();
             if (folderSearch != "All")
             {
                 XMLFolder folder = Project.XmlFolders.Where(x => x.Name == folderSearch).FirstOrDefault();
                 if (folder != null)
                 {
-                    res = folder.SearchJapanese(textToFind, exact, language);
+                    res = folder.SearchJapanese(textToFind, matchWholeEntry, matchCase, matchWholeWord, language);
                 }
             }
             else
             {
                 foreach (XMLFolder folder in Project.XmlFolders)
                 {
-                    res.AddRange(folder.SearchJapanese(textToFind, cbExact.Checked, language));
+                    res.AddRange(folder.SearchJapanese(textToFind, matchWholeEntry, matchCase, matchWholeWord, language));
                 }
             }
             return res;
@@ -1261,15 +1389,16 @@ namespace TranslationApp
         private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadNewFolder("TOH", "/2_translated");
+            
         }
 
         private void bSearch_Click(object sender, EventArgs e)
         {
             string textToFind = tbSearch.Text.Replace("\r\n", "\n");
-            ListSearch = FindOtherTranslations(cbFileKindSearch.Text, textToFind, cbLangSearch.Text, cbExact.Checked);
-            lbSearch.DataSource = ListSearch.Select(x => $"{x["Folder"]} - " +
-            $"{Project.GetFolderByName(x["Folder"]).XMLFiles[Convert.ToInt32(x["FileId"])].Name} - " +
-            $"{x["Section"]} - {x["Id"]}").ToList();
+            ListSearch = FindOtherTranslations(cbFileKindSearch.Text, textToFind, cbLangSearch.Text, cbExact.Checked, cbCase.Checked, cbMatchWhole.Checked);
+            lbSearch.DataSource = ListSearch.Select(x => $"{x.Folder} - " +
+            $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
+            $"{x.Section} - {x.Id}").ToList();
         }
 
         private void lbSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -1279,25 +1408,25 @@ namespace TranslationApp
 
                 if (lbSearch.SelectedIndex > -1)
                 {
-                    Dictionary<string, string> eleSelected = ListSearch[lbSearch.SelectedIndex];
-                    cbFileType.Text = eleSelected["Folder"];
-                    cbFileList.SelectedIndex = Convert.ToInt32(eleSelected["FileId"]);
+                    EntryFound eleSelected = ListSearch[lbSearch.SelectedIndex];
+                    cbFileType.Text = eleSelected.Folder;
+                    cbFileList.SelectedIndex = eleSelected.FileId;
 
 
-                    if (eleSelected["Section"] == "Speaker")
+                    if (eleSelected.Section == "Speaker")
                     {
                         lbSpeaker.ClearSelected();
                         tcType.SelectedIndex = 1;
-                        lbSpeaker.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
+                        lbSpeaker.SelectedIndex = eleSelected.Id;
                     }
                     else
                     {
 
-                        cbSections.Text = eleSelected["Section"];
+                        cbSections.Text = eleSelected.Section;
 
                         lbEntries.ClearSelected();
                         tcType.SelectedIndex = 0;
-                        lbEntries.SelectedIndex = Convert.ToInt32(eleSelected["Id"]);
+                        lbEntries.SelectedIndex = eleSelected.Id;
                     }
 
                 }
@@ -1320,83 +1449,34 @@ namespace TranslationApp
 
         private void lbMassReplace_DrawItem(object sender, DrawItemEventArgs e)
         {
-    
-            bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            DrawEntries(e, OtherTranslations.Select(x => x.Entry).ToList(), false);
+        }
 
-            //Draw only if elements are present in the listbox
-            if (e.Index > -1)
+        private void lbSearch_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index >= ListSearch.Count)
+                return;
+
+            string text = GetTextBasedLanguage(e.Index, ListSearch.Select(x => x.Entry).ToList());
+
+            text = text == null ? "" : text;
+
+            int nb = 2;
+            if (ListSearch[e.Index].Entry.SpeakerId != null)
             {
-                //Regardless of text, draw elements close together
-                //and use the intmax size as per the docs
-                TextFormatFlags flags = TextFormatFlags.NoPadding | TextFormatFlags.NoPrefix;
-                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
-
-                // Background item brush
-                SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : Color.White);
-
-                // Text colors
-                Color regularColor = e.ForeColor;
-                Color tagColor = isSelected ? Color.Orange : Color.Blue;
-
-                // Draw the background
-                e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
-
-                // Add separators for each entry
-                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Bottom - 1), new Point(e.Bounds.Width, e.Bounds.Bottom - 1));
-                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Top - 1), new Point(e.Bounds.Width, e.Bounds.Top - 1));
-
-                Font normalFont = new Font("Arial", 8, FontStyle.Regular);
-                Font boldFont = new Font("Arial", 8, FontStyle.Bold);
-
-                string text = ListSearch[e.Index]["EnglishText"];
-                Point startPoint = new Point(3, e.Bounds.Y + 3);
-
-                //1. Split based on the line breaks
-                if (!string.IsNullOrEmpty(text))
-                {
-                    string[] lines = Regex.Split(text, "\\r*\\n", RegexOptions.IgnoreCase);
-
-                    //Starting point for drawing, a little offsetted
-                    //in order to not touch the borders
-                    //Point startPoint = new Point(3, e.Bounds.Y + 3);
-                    Size mySize;
-
-                    foreach (string line in lines)
-                    {
-                        //2. Split based on the different tags
-                        //Split the text based on the Tags < xxx >
-                        string pattern = @"(<[\w/]+:?\w+>)";
-                        string[] result = Regex.Split(line, pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-
-                        //We need to loop over each element to adjust the color
-                        foreach (string element in result)
-                        {
-                            if (element[0] == '<')
-                            {
-                                mySize = TextRenderer.MeasureText(e.Graphics, element, boldFont, proposedSize, flags);
-
-                                TextRenderer.DrawText(e.Graphics, element, boldFont, startPoint, tagColor, flags);
-                                startPoint.X += mySize.Width;
-                            }
-                            else
-                            {
-                                mySize = TextRenderer.MeasureText(e.Graphics, element, normalFont, proposedSize, flags);
-
-                                TextRenderer.DrawText(e.Graphics, element, normalFont, startPoint, regularColor, flags);
-                                startPoint.X += mySize.Width;
-                            }
-                        }
-
-                        startPoint.Y += 13;
-                        startPoint.X = 3;
-                    }
-                }
-
-                // Clean up
-                backgroundBrush.Dispose();
+                nb += 1;
             }
 
-            e.DrawFocusRectangle();
+            nb += Regex.Matches(text, "\\r*\\n").Count;
+
+            var size = (int)((nb + 1) * 14) + 6;
+
+            e.ItemHeight = size;
+        }
+
+        private void lbSearch_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawEntries(e, ListSearch.Select(x => x.Entry).ToList(), true);
         }
     }
 }

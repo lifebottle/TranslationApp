@@ -116,7 +116,9 @@ namespace TranslationApp
             this.tbSectionName = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
             this.tabSearchMass = new System.Windows.Forms.TabControl();
-            this.tpSearchJap = new System.Windows.Forms.TabPage();
+            this.tpSearch = new System.Windows.Forms.TabPage();
+            this.cbCase = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.cbLangSearch = new System.Windows.Forms.ComboBox();
             this.cbExact = new System.Windows.Forms.CheckBox();
@@ -128,9 +130,9 @@ namespace TranslationApp
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.tpMassReplace = new System.Windows.Forms.TabPage();
             this.lbMassReplace = new System.Windows.Forms.ListBox();
-            this.textPreview1 = new TranslationApp.TextPreview();
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.cbMatchWhole = new System.Windows.Forms.CheckBox();
+            this.textPreview1 = new TranslationApp.TextPreview();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -140,7 +142,7 @@ namespace TranslationApp
             this.panelNb1.SuspendLayout();
             this.panelNb2.SuspendLayout();
             this.tabSearchMass.SuspendLayout();
-            this.tpSearchJap.SuspendLayout();
+            this.tpSearch.SuspendLayout();
             this.tpMassReplace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.SuspendLayout();
@@ -156,7 +158,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1191, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1074, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -970,34 +972,55 @@ namespace TranslationApp
             // 
             // tabSearchMass
             // 
-            this.tabSearchMass.Controls.Add(this.tpSearchJap);
+            this.tabSearchMass.Controls.Add(this.tpSearch);
             this.tabSearchMass.Controls.Add(this.tpMassReplace);
             this.tabSearchMass.Enabled = false;
-            this.tabSearchMass.Location = new System.Drawing.Point(869, 33);
+            this.tabSearchMass.Location = new System.Drawing.Point(732, 33);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(315, 623);
+            this.tabSearchMass.Size = new System.Drawing.Size(330, 623);
             this.tabSearchMass.TabIndex = 50;
             // 
-            // tpSearchJap
+            // tpSearch
             // 
-            this.tpSearchJap.Controls.Add(this.label12);
-            this.tpSearchJap.Controls.Add(this.label11);
-            this.tpSearchJap.Controls.Add(this.cbLangSearch);
-            this.tpSearchJap.Controls.Add(this.cbExact);
-            this.tpSearchJap.Controls.Add(this.label10);
-            this.tpSearchJap.Controls.Add(this.cbFileKindSearch);
-            this.tpSearchJap.Controls.Add(this.bSearch);
-            this.tpSearchJap.Controls.Add(this.label6);
-            this.tpSearchJap.Controls.Add(this.tbSearch);
-            this.tpSearchJap.Controls.Add(this.lbSearch);
-            this.tpSearchJap.Location = new System.Drawing.Point(4, 22);
-            this.tpSearchJap.Name = "tpSearchJap";
-            this.tpSearchJap.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearchJap.Size = new System.Drawing.Size(307, 597);
-            this.tpSearchJap.TabIndex = 0;
-            this.tpSearchJap.Text = "Search Japanese";
-            this.tpSearchJap.UseVisualStyleBackColor = true;
+            this.tpSearch.Controls.Add(this.cbMatchWhole);
+            this.tpSearch.Controls.Add(this.cbCase);
+            this.tpSearch.Controls.Add(this.label12);
+            this.tpSearch.Controls.Add(this.label11);
+            this.tpSearch.Controls.Add(this.cbLangSearch);
+            this.tpSearch.Controls.Add(this.cbExact);
+            this.tpSearch.Controls.Add(this.label10);
+            this.tpSearch.Controls.Add(this.cbFileKindSearch);
+            this.tpSearch.Controls.Add(this.bSearch);
+            this.tpSearch.Controls.Add(this.label6);
+            this.tpSearch.Controls.Add(this.tbSearch);
+            this.tpSearch.Controls.Add(this.lbSearch);
+            this.tpSearch.Location = new System.Drawing.Point(4, 22);
+            this.tpSearch.Name = "tpSearch";
+            this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSearch.Size = new System.Drawing.Size(322, 597);
+            this.tpSearch.TabIndex = 0;
+            this.tpSearch.Text = "Search";
+            this.tpSearch.UseVisualStyleBackColor = true;
+            // 
+            // cbCase
+            // 
+            this.cbCase.AutoSize = true;
+            this.cbCase.Location = new System.Drawing.Point(198, 27);
+            this.cbCase.Name = "cbCase";
+            this.cbCase.Size = new System.Drawing.Size(83, 17);
+            this.cbCase.TabIndex = 57;
+            this.cbCase.Text = "Match Case";
+            this.cbCase.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(27, 195);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(69, 13);
+            this.label12.TabIndex = 56;
+            this.label12.Text = "Entries found";
             // 
             // label11
             // 
@@ -1025,11 +1048,11 @@ namespace TranslationApp
             // cbExact
             // 
             this.cbExact.AutoSize = true;
-            this.cbExact.Location = new System.Drawing.Point(198, 25);
+            this.cbExact.Location = new System.Drawing.Point(198, 9);
             this.cbExact.Name = "cbExact";
-            this.cbExact.Size = new System.Drawing.Size(86, 17);
+            this.cbExact.Size = new System.Drawing.Size(83, 17);
             this.cbExact.TabIndex = 53;
-            this.cbExact.Text = "Exact Match";
+            this.cbExact.Text = "Match Entry";
             this.cbExact.UseVisualStyleBackColor = true;
             // 
             // label10
@@ -1059,7 +1082,7 @@ namespace TranslationApp
             // 
             // bSearch
             // 
-            this.bSearch.Location = new System.Drawing.Point(198, 62);
+            this.bSearch.Location = new System.Drawing.Point(198, 65);
             this.bSearch.Name = "bSearch";
             this.bSearch.Size = new System.Drawing.Size(95, 23);
             this.bSearch.TabIndex = 50;
@@ -1086,11 +1109,18 @@ namespace TranslationApp
             // 
             // lbSearch
             // 
+            this.lbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbSearch.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSearch.FormattingEnabled = true;
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
-            this.lbSearch.Size = new System.Drawing.Size(263, 186);
+            this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbSearch.Size = new System.Drawing.Size(263, 368);
             this.lbSearch.TabIndex = 0;
+            this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
+            this.lbSearch.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSearch_MeasureItem);
             this.lbSearch.SelectedIndexChanged += new System.EventHandler(this.lbSearch_SelectedIndexChanged);
             // 
             // tpMassReplace
@@ -1113,6 +1143,25 @@ namespace TranslationApp
             this.lbMassReplace.TabIndex = 1;
             this.lbMassReplace.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbMassReplace_DrawItem);
             // 
+            // lNbOtherTranslations
+            // 
+            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
+            this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
+            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(186, 13);
+            this.lNbOtherTranslations.TabIndex = 51;
+            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
+            // 
+            // cbMatchWhole
+            // 
+            this.cbMatchWhole.AutoSize = true;
+            this.cbMatchWhole.Location = new System.Drawing.Point(198, 44);
+            this.cbMatchWhole.Name = "cbMatchWhole";
+            this.cbMatchWhole.Size = new System.Drawing.Size(90, 17);
+            this.cbMatchWhole.TabIndex = 58;
+            this.cbMatchWhole.Text = "Match Whole";
+            this.cbMatchWhole.UseVisualStyleBackColor = true;
+            // 
             // textPreview1
             // 
             this.textPreview1.BackColor = System.Drawing.Color.Transparent;
@@ -1124,29 +1173,11 @@ namespace TranslationApp
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
             // 
-            // lNbOtherTranslations
-            // 
-            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
-            this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
-            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
-            this.lNbOtherTranslations.Size = new System.Drawing.Size(186, 13);
-            this.lNbOtherTranslations.TabIndex = 51;
-            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(27, 195);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 13);
-            this.label12.TabIndex = 56;
-            this.label12.Text = "Entries found";
-            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1191, 701);
+            this.ClientSize = new System.Drawing.Size(1074, 701);
             this.Controls.Add(this.lNbOtherTranslations);
             this.Controls.Add(this.tabSearchMass);
             this.Controls.Add(this.btnSaveFile);
@@ -1206,8 +1237,8 @@ namespace TranslationApp
             this.panelNb2.ResumeLayout(false);
             this.panelNb2.PerformLayout();
             this.tabSearchMass.ResumeLayout(false);
-            this.tpSearchJap.ResumeLayout(false);
-            this.tpSearchJap.PerformLayout();
+            this.tpSearch.ResumeLayout(false);
+            this.tpSearch.PerformLayout();
             this.tpMassReplace.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.ResumeLayout(false);
@@ -1305,7 +1336,7 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem loadNewFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadDesmumeLocationToolStripMenuItem;
         private System.Windows.Forms.TabControl tabSearchMass;
-        private System.Windows.Forms.TabPage tpSearchJap;
+        private System.Windows.Forms.TabPage tpSearch;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cbFileKindSearch;
         private System.Windows.Forms.Button bSearch;
@@ -1319,6 +1350,8 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbOtherTranslations;
         private System.Windows.Forms.ListBox lbMassReplace;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox cbCase;
+        private System.Windows.Forms.CheckBox cbMatchWhole;
     }
 }
 
