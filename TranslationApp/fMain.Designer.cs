@@ -118,7 +118,7 @@ namespace TranslationApp
             this.tabSearchMass = new System.Windows.Forms.TabControl();
             this.tpSearch = new System.Windows.Forms.TabPage();
             this.cbCase = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lEntriesFound = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.cbLangSearch = new System.Windows.Forms.ComboBox();
             this.cbExact = new System.Windows.Forms.CheckBox();
@@ -129,9 +129,10 @@ namespace TranslationApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.tpMassReplace = new System.Windows.Forms.TabPage();
-            this.lbMassReplace = new System.Windows.Forms.ListBox();
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
             this.cbMatchWhole = new System.Windows.Forms.CheckBox();
+            this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.textPreview1 = new TranslationApp.TextPreview();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
@@ -985,7 +986,7 @@ namespace TranslationApp
             // 
             this.tpSearch.Controls.Add(this.cbMatchWhole);
             this.tpSearch.Controls.Add(this.cbCase);
-            this.tpSearch.Controls.Add(this.label12);
+            this.tpSearch.Controls.Add(this.lEntriesFound);
             this.tpSearch.Controls.Add(this.label11);
             this.tpSearch.Controls.Add(this.cbLangSearch);
             this.tpSearch.Controls.Add(this.cbExact);
@@ -1013,14 +1014,14 @@ namespace TranslationApp
             this.cbCase.Text = "Match Case";
             this.cbCase.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // lEntriesFound
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(27, 195);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 13);
-            this.label12.TabIndex = 56;
-            this.label12.Text = "Entries found";
+            this.lEntriesFound.AutoSize = true;
+            this.lEntriesFound.Location = new System.Drawing.Point(27, 195);
+            this.lEntriesFound.Name = "lEntriesFound";
+            this.lEntriesFound.Size = new System.Drawing.Size(69, 13);
+            this.lEntriesFound.TabIndex = 56;
+            this.lEntriesFound.Text = "Entries found";
             // 
             // label11
             // 
@@ -1125,23 +1126,15 @@ namespace TranslationApp
             // 
             // tpMassReplace
             // 
-            this.tpMassReplace.Controls.Add(this.lbMassReplace);
+            this.tpMassReplace.Controls.Add(this.label13);
+            this.tpMassReplace.Controls.Add(this.lbDistinctTranslations);
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(307, 597);
+            this.tpMassReplace.Size = new System.Drawing.Size(322, 597);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
-            // 
-            // lbMassReplace
-            // 
-            this.lbMassReplace.FormattingEnabled = true;
-            this.lbMassReplace.Location = new System.Drawing.Point(30, 24);
-            this.lbMassReplace.Name = "lbMassReplace";
-            this.lbMassReplace.Size = new System.Drawing.Size(263, 186);
-            this.lbMassReplace.TabIndex = 1;
-            this.lbMassReplace.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbMassReplace_DrawItem);
             // 
             // lNbOtherTranslations
             // 
@@ -1161,6 +1154,29 @@ namespace TranslationApp
             this.cbMatchWhole.TabIndex = 58;
             this.cbMatchWhole.Text = "Match Whole";
             this.cbMatchWhole.UseVisualStyleBackColor = true;
+            // 
+            // lbDistinctTranslations
+            // 
+            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbDistinctTranslations.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lbDistinctTranslations.FormattingEnabled = true;
+            this.lbDistinctTranslations.Location = new System.Drawing.Point(30, 26);
+            this.lbDistinctTranslations.Name = "lbDistinctTranslations";
+            this.lbDistinctTranslations.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbDistinctTranslations.Size = new System.Drawing.Size(263, 173);
+            this.lbDistinctTranslations.TabIndex = 1;
+            this.lbDistinctTranslations.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbDistinctTranslations_DrawItem);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(27, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(102, 13);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Distinct Translations";
             // 
             // textPreview1
             // 
@@ -1240,6 +1256,7 @@ namespace TranslationApp
             this.tpSearch.ResumeLayout(false);
             this.tpSearch.PerformLayout();
             this.tpMassReplace.ResumeLayout(false);
+            this.tpMassReplace.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1348,10 +1365,11 @@ namespace TranslationApp
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbLangSearch;
         private System.Windows.Forms.Label lNbOtherTranslations;
-        private System.Windows.Forms.ListBox lbMassReplace;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lEntriesFound;
         private System.Windows.Forms.CheckBox cbCase;
         private System.Windows.Forms.CheckBox cbMatchWhole;
+        private System.Windows.Forms.ListBox lbDistinctTranslations;
+        private System.Windows.Forms.Label label13;
     }
 }
 
