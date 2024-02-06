@@ -77,7 +77,8 @@ namespace TranslationLib
                 return textCompare != null ? Regex.Match(textCompare, keywords).Success : false;
             }
 
-            return textCompare != null ? textCompare.IndexOf(text, System.StringComparison.OrdinalIgnoreCase) > 0 : false;
+            string keywords2 = $@"(?i){text}(?-i)";
+            return textCompare != null ? Regex.Match(textCompare, keywords2).Success : false;
         }
     }
 }

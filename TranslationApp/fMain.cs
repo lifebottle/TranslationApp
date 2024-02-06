@@ -363,7 +363,11 @@ namespace TranslationApp
                 lNbOtherTranslations.ForeColor = Color.Green;
 
             int distinctCount = OtherTranslations.Select(x => x.Entry.EnglishText).Distinct().Count();
-            lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
+
+            if (distinctCount > 0)
+                lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
+            else
+                lNbOtherTranslations.Text = "";
 
             lbDistinctTranslations.DataSource = OtherTranslations.Select(x => $"{x.Folder} - " +
             $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
