@@ -117,6 +117,7 @@ namespace TranslationApp
             this.btnSaveFile = new System.Windows.Forms.Button();
             this.tabSearchMass = new System.Windows.Forms.TabControl();
             this.tpSearch = new System.Windows.Forms.TabPage();
+            this.cbMatchWhole = new System.Windows.Forms.CheckBox();
             this.cbCase = new System.Windows.Forms.CheckBox();
             this.lEntriesFound = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -129,10 +130,9 @@ namespace TranslationApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.tpMassReplace = new System.Windows.Forms.TabPage();
-            this.lNbOtherTranslations = new System.Windows.Forms.Label();
-            this.cbMatchWhole = new System.Windows.Forms.CheckBox();
-            this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
+            this.lNbOtherTranslations = new System.Windows.Forms.Label();
             this.textPreview1 = new TranslationApp.TextPreview();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
@@ -1004,6 +1004,16 @@ namespace TranslationApp
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
             // 
+            // cbMatchWhole
+            // 
+            this.cbMatchWhole.AutoSize = true;
+            this.cbMatchWhole.Location = new System.Drawing.Point(198, 44);
+            this.cbMatchWhole.Name = "cbMatchWhole";
+            this.cbMatchWhole.Size = new System.Drawing.Size(90, 17);
+            this.cbMatchWhole.TabIndex = 58;
+            this.cbMatchWhole.Text = "Match Whole";
+            this.cbMatchWhole.UseVisualStyleBackColor = true;
+            // 
             // cbCase
             // 
             this.cbCase.AutoSize = true;
@@ -1136,39 +1146,6 @@ namespace TranslationApp
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
             // 
-            // lNbOtherTranslations
-            // 
-            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
-            this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
-            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
-            this.lNbOtherTranslations.Size = new System.Drawing.Size(186, 13);
-            this.lNbOtherTranslations.TabIndex = 51;
-            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
-            // 
-            // cbMatchWhole
-            // 
-            this.cbMatchWhole.AutoSize = true;
-            this.cbMatchWhole.Location = new System.Drawing.Point(198, 44);
-            this.cbMatchWhole.Name = "cbMatchWhole";
-            this.cbMatchWhole.Size = new System.Drawing.Size(90, 17);
-            this.cbMatchWhole.TabIndex = 58;
-            this.cbMatchWhole.Text = "Match Whole";
-            this.cbMatchWhole.UseVisualStyleBackColor = true;
-            // 
-            // lbDistinctTranslations
-            // 
-            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbDistinctTranslations.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lbDistinctTranslations.FormattingEnabled = true;
-            this.lbDistinctTranslations.Location = new System.Drawing.Point(30, 26);
-            this.lbDistinctTranslations.Name = "lbDistinctTranslations";
-            this.lbDistinctTranslations.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbDistinctTranslations.Size = new System.Drawing.Size(263, 173);
-            this.lbDistinctTranslations.TabIndex = 1;
-            this.lbDistinctTranslations.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbDistinctTranslations_DrawItem);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -1177,6 +1154,28 @@ namespace TranslationApp
             this.label13.Size = new System.Drawing.Size(102, 13);
             this.label13.TabIndex = 2;
             this.label13.Text = "Distinct Translations";
+            // 
+            // lbDistinctTranslations
+            // 
+            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbDistinctTranslations.FormattingEnabled = true;
+            this.lbDistinctTranslations.Location = new System.Drawing.Point(30, 26);
+            this.lbDistinctTranslations.Name = "lbDistinctTranslations";
+            this.lbDistinctTranslations.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbDistinctTranslations.Size = new System.Drawing.Size(263, 173);
+            this.lbDistinctTranslations.TabIndex = 1;
+            this.lbDistinctTranslations.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbDistinctTranslations_DrawItem);
+            // 
+            // lNbOtherTranslations
+            // 
+            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
+            this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
+            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(186, 13);
+            this.lNbOtherTranslations.TabIndex = 51;
+            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
             // 
             // textPreview1
             // 
