@@ -73,7 +73,7 @@ namespace TranslationLib
 
             if (matchWholeWord)
             {
-                string keywords = $@"\b{text}\b";
+                string keywords = $@"\b(?i){text}(?-i)\b";
                 return textCompare != null ? Regex.Match(textCompare, keywords).Success : false;
             }
 
