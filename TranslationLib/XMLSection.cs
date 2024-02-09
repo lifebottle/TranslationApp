@@ -31,12 +31,12 @@ namespace TranslationLib
             return Entries.Count(e => e.Status == status);
         }
 
-        public List<Dictionary<string, string>> SearchJapanese(string folder, int fileId, string sectionName, string text, bool exactMatch, string language)
+        public List<EntryFound> SearchJapanese(string folder, int fileId, string sectionName, string text, bool matchWholeEntry, bool matchCase, bool matchWholeWord, string language)
         {
-            List<Dictionary<string, string>> res = new List<Dictionary<string, string>>();
+            List<EntryFound> res = new List<EntryFound>();
             List<int> foundIndexes;
             foundIndexes = Enumerable.Range(0, Entries.Count)
-                    .Where(e => Entries[e].IsFound(text, exactMatch, language))
+                    .Where(e => Entries[e].IsFound(text, matchWholeEntry, matchCase, matchWholeWord, language))
                     .ToList();
     
             if (foundIndexes.Count > 0)
@@ -44,15 +44,18 @@ namespace TranslationLib
               
                 foreach (int index in foundIndexes)
                 {
-                    Dictionary<string, string> foundEntries = new Dictionary<string, string>();
-                    foundEntries["Folder"] = folder;
-                    foundEntries["FileId"] = fileId.ToString();
-                    foundEntries["Section"] = sectionName;
-                    foundEntries["Id"] = index.ToString();
-                    foundEntries["JapaneseText"] = Entries[index].JapaneseText;
-                    foundEntries["EnglishText"] = Entries[index].EnglishText;
-                    foundEntries["Status"] = Entries[index].Status;
-                    res.Add(foundEntries);
+                    EntryFound entry = new EntryFound();
+                    entry.Folder = folder;
+                    entry.FileId = fileId;
+                    entry.Section = sectionName;
+                    entry.Id = index;
+                    entry.Entry = new XMLEntry();
+                    entry.Entry.JapaneseText = Entries[index].JapaneseText;
+                    entry.Entry.EnglishText = Entries[index].EnglishText;
+                    entry.Entry.SpeakerId = Entries[index].SpeakerId;
+                    entry.Entry.SpeakerName = Entries[index].SpeakerName;
+                    entry.Entry.Status = "To Do";
+                    res.Add(entry);
                 }
                 
             }
