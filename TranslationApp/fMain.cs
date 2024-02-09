@@ -25,6 +25,7 @@ namespace TranslationApp
         private static List<EntryFound> OtherTranslations;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
+        private int nbJapaneseDuplicate;
         
         private readonly string MULTIPLE_STATUS = "<Multiple Status>";
         private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
@@ -364,7 +365,7 @@ namespace TranslationApp
 
             int distinctCount = OtherTranslations.Select(x => x.Entry.EnglishText).Distinct().Count();
 
-            if (distinctCount > 0)
+            if (nbJapaneseDuplicate > 0)
                 lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
             else
                 lNbOtherTranslations.Text = "";
@@ -461,8 +462,12 @@ namespace TranslationApp
                 else
                     Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
 
+                nbJapaneseDuplicate = 0;
                 if (TranslationEntry != null && TranslationEntry.Count > 1)
-                    lblJapanese.Text = $@"Japanese ({TranslationEntry.Count - 1} duplicate(s) found)";
+                {
+                    nbJapaneseDuplicate = TranslationEntry.Count - 1;
+                    lblJapanese.Text = $@"Japanese ({nbJapaneseDuplicate} duplicate(s) found)";
+                }
                 else
                     lblJapanese.Text = $@"Japanese";
 
