@@ -139,6 +139,7 @@ namespace TranslationApp
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
             this.textPreview1 = new TranslationApp.TextPreview();
+            this.lLineBreak = new System.Windows.Forms.Label();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -1240,7 +1241,7 @@ namespace TranslationApp
             this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
             this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
             this.lNbOtherTranslations.Name = "lNbOtherTranslations";
-            this.lNbOtherTranslations.Size = new System.Drawing.Size(186, 13);
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(143, 13);
             this.lNbOtherTranslations.TabIndex = 51;
             this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
             // 
@@ -1255,11 +1256,20 @@ namespace TranslationApp
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
             // 
+            // lLineBreak
+            // 
+            this.lLineBreak.ForeColor = System.Drawing.Color.Red;
+            this.lLineBreak.Location = new System.Drawing.Point(517, 361);
+            this.lLineBreak.Name = "lLineBreak";
+            this.lLineBreak.Size = new System.Drawing.Size(143, 13);
+            this.lLineBreak.TabIndex = 52;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 701);
+            this.Controls.Add(this.lLineBreak);
             this.Controls.Add(this.lNbOtherTranslations);
             this.Controls.Add(this.tabSearchMass);
             this.Controls.Add(this.btnSaveFile);
@@ -1441,6 +1451,7 @@ namespace TranslationApp
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button bDoNotReplace;
         private System.Windows.Forms.Button bTake;
+        private System.Windows.Forms.Label lLineBreak;
     }
 }
 
