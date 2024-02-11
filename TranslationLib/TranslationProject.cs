@@ -38,5 +38,11 @@ namespace TranslationLib
         {
             CurrentFolder = XmlFolders.First(x => x.Name == name);
         }
+
+        public int GetFolderId(string name)
+        {
+            return XmlFolders.FindIndex(x => x.Name == name);
+        }
+
     }
 }

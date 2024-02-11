@@ -23,10 +23,11 @@ namespace TranslationApp
         private static List<XMLEntry> CurrentSpeakerList;
         private static List<EntryFound> ListSearch;
         private static List<EntryFound> OtherTranslations;
+        private static List<XMLEntry> ContextTranslations;
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
         private int nbJapaneseDuplicate;
-        
+
         private readonly string MULTIPLE_STATUS = "<Multiple Status>";
         private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
 
@@ -174,7 +175,7 @@ namespace TranslationApp
                 //0. Add Section if needed
                 if (displaySection)
                 {
-                    
+
                     EntryFound entryFound = ListSearch[e.Index];
                     string sectionDetail = $"{entryFound.Folder} - " +
                 $"{Project.GetFolderByName(entryFound.Folder).XMLFiles[entryFound.FileId].Name} - " +
@@ -185,13 +186,13 @@ namespace TranslationApp
                     e.Graphics.FillRectangle(backgroundBrushSection, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, 19);
                     TextRenderer.DrawText(e.Graphics, sectionDetail, boldFont, startPoint, Color.Black, flags);
                     startPoint.Y += 16;
-                
+
 
                     e.Graphics.DrawLine(new Pen(Color.LightGray, 1.5f), new Point(0, startPoint.Y), new Point(e.Bounds.Width, startPoint.Y));
                     startPoint.Y += 3;
                 }
 
-                
+
                 //1. Add Speaker name
                 if (EntryList[e.Index].SpeakerId != null)
                 {
@@ -202,7 +203,7 @@ namespace TranslationApp
                 //2. Split based on the line breaks
                 if (!string.IsNullOrEmpty(text))
                     DrawLines(e, text, ref startPoint, boldFont, tagColor, normalFont, regularColor, proposedSize, flags);
-                           
+
 
                 // Clean up
                 backgroundBrush.Dispose();
@@ -261,7 +262,7 @@ namespace TranslationApp
 
                 e.Graphics.DrawLine(new Pen(Color.LightGray, 1.5f), new Point(0, startPoint.Y), new Point(e.Bounds.Width, startPoint.Y));
                 startPoint.Y += 3;
-                
+
 
 
                 //1. Add Speaker name
@@ -281,7 +282,7 @@ namespace TranslationApp
                     List<Color> textColors = result.Select(x => x.Equals(tbSearch.Text, StringComparison.OrdinalIgnoreCase) ? Color.OrangeRed : e.ForeColor).ToList();
                     List<Font> textFont = result.Select(x => x.Equals(tbSearch.Text, StringComparison.OrdinalIgnoreCase) ? boldFont : normalFont).ToList();
 
-                    for (int i=0; i<result.Count; i++)
+                    for (int i = 0; i < result.Count; i++)
                     {
                         DrawLines(e, result[i], ref startPoint, normalFont, tagColor, textFont[i], textColors[i], proposedSize, flags);
                     }
@@ -306,7 +307,7 @@ namespace TranslationApp
             //in order to not touch the borders
             //Point startPoint = new Point(3, e.Bounds.Y + 3);
 
-            for(int i=0; i<lines.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
 
                 //3. Split based on the different tags
@@ -333,14 +334,14 @@ namespace TranslationApp
                     }
                 }
 
-                if (i < lines.Length-1)
+                if (i < lines.Length - 1)
                 {
                     startPoint.Y += 13;
                     startPoint.X = 3;
                 }
             }
         }
-        
+
 
         //Draw entries with multiline and font color changed
         private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
@@ -356,7 +357,7 @@ namespace TranslationApp
         private void ShowOtherTranslations()
         {
             OtherTranslations = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text, "Japanese", true, false, false);
-            OtherTranslations = OtherTranslations.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text && x.Entry.EnglishText != tbEnglishText.Text.Replace("\r\n","\n")).ToList();
+            OtherTranslations = OtherTranslations.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text).OrderBy(x => x.Entry.EnglishText).ToList();
 
             if (OtherTranslations.Count > 0)
                 lNbOtherTranslations.ForeColor = Color.Red;
@@ -447,7 +448,7 @@ namespace TranslationApp
                     cbStatus.Enabled = false;
                     cbEmpty.Enabled = false;
                     return;
-                } 
+                }
                 else
                 {
                     tbJapaneseText.Enabled = true;
@@ -660,7 +661,7 @@ namespace TranslationApp
                     if (names.Count != 1157)
                     {
                         cbFileList.DataSource = filelist.Select(x => x + ".xml").ToList();
-                    } 
+                    }
                     else
                     {
                         for (int i = 0, j = 0; i < filelist.Count; i++)
@@ -685,7 +686,7 @@ namespace TranslationApp
                     }
                     cbFileList.DataSource = filelist;
                 }
-                
+
 
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
                 UpdateStatusData();
@@ -831,7 +832,8 @@ namespace TranslationApp
                 {
                     status = "To Do";
                     CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
-                } else
+                }
+                else
                 {
                     CurrentTextList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
                 }
@@ -968,7 +970,7 @@ namespace TranslationApp
             if (cbSections.SelectedIndex < 1)
             {
                 tbSectionName.Enabled = false;
-            } 
+            }
             else
             {
                 tbSectionName.Enabled = true;
@@ -1112,7 +1114,7 @@ namespace TranslationApp
                         st.Add(stripTags(et.JapaneseText));
                     }
                     Clipboard.SetText(string.Join("\n", st));
-                } 
+                }
                 else
                 {
                     Clipboard.SetText(stripTags(tbJapaneseText.Text));
@@ -1126,14 +1128,14 @@ namespace TranslationApp
             Project.CurrentFolder.XMLFiles[cbFileList.SelectedIndex] = Project.CurrentFolder.LoadXML(Project.CurrentFolder.CurrentFile.FilePath);
             Project.CurrentFolder.InvalidateTranslations();
             EnableEventHandlers();
-            
+
             UpdateDisplayedEntries();
             UpdateStatusData();
         }
 
         private void tsSetup_Click(object sender, EventArgs e)
         {
-            fSetup setupForm = new fSetup( this, config, PackingAssistant);
+            fSetup setupForm = new fSetup(this, config, PackingAssistant);
             setupForm.Show();
         }
 
@@ -1220,10 +1222,10 @@ namespace TranslationApp
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
-        
+
 
         private void cbStatus_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -1357,7 +1359,7 @@ namespace TranslationApp
             foreach (XMLSection s in Project.CurrentFolder.CurrentFile.Sections.Where(s => s.Name != "All strings"))
             {
                 foreach (XMLEntry entry in s.Entries)
-                { 
+                {
                     entry.Status = "Done";
                 }
             }
@@ -1386,7 +1388,7 @@ namespace TranslationApp
         private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadNewFolder("TOH", "/2_translated");
-            
+
         }
 
         private void bSearch_Click(object sender, EventArgs e)
@@ -1402,42 +1404,7 @@ namespace TranslationApp
 
         private void lbSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked)
-            {
 
-                if (lbSearch.SelectedIndex > -1)
-                {
-                    EntryFound eleSelected = ListSearch[lbSearch.SelectedIndex];
-                    cbFileType.Text = eleSelected.Folder;
-                    cbFileList.SelectedIndex = eleSelected.FileId;
-
-
-                    if (eleSelected.Section == "Speaker")
-                    {
-                        lbSpeaker.ClearSelected();
-                        tcType.SelectedIndex = 1;
-                        lbSpeaker.SelectedIndex = eleSelected.Id;
-                    }
-                    else
-                    {
-
-                        cbSections.Text = eleSelected.Section;
-
-                        lbEntries.ClearSelected();
-                        tcType.SelectedIndex = 0;
-                        lbEntries.SelectedIndex = eleSelected.Id;
-                    }
-
-                }
-            }
-            else
-            {
-                cbToDo.Checked = true;
-                cbProof.Checked = true;
-                cbEditing.Checked = true;
-                cbProblematic.Checked = true;
-                cbDone.Checked = true;
-            }
         }
 
         private void lNbOtherTranslations_Click(object sender, EventArgs e)
@@ -1481,6 +1448,119 @@ namespace TranslationApp
         private void lbDistinctTranslations_DrawItem(object sender, DrawItemEventArgs e)
         {
             DrawSearchEntries(e, OtherTranslations, false);
+        }
+
+        private void lbDistinctTranslations_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index >= OtherTranslations.Count)
+                return;
+
+            string text = GetTextBasedLanguage(e.Index, OtherTranslations.Select(x => x.Entry).ToList());
+
+            text = text == null ? "" : text;
+
+            int nb = 2;
+            if (OtherTranslations[e.Index].Entry.SpeakerId != null)
+            {
+                nb += 1;
+            }
+
+            nb += Regex.Matches(text, "\\r*\\n").Count;
+
+            var size = (int)((nb + 1) * 14) + 6;
+
+            e.ItemHeight = size;
+        }
+
+        private void lbDistinctTranslations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //OtherTranslations[0].
+            EntryFound entry = OtherTranslations[lbDistinctTranslations.SelectedIndex];
+            int folderId = Project.GetFolderId(entry.Folder);
+            List<XMLEntry> entries = Project.XmlFolders[folderId].XMLFiles[entry.FileId].Sections.Where(x => x.Name == entry.Section).First().Entries;
+
+            List<int?> idList = new List<int?>();
+            if (entry.Id > 0)
+                idList.Add(entry.Id - 1);
+
+            idList.Add(entry.Id);
+
+            if (entry.Id < entries.Count - 1)
+                idList.Add(entry.Id + 1);
+
+            entries = entries.Where(x => idList.Contains(x.Id)).ToList();
+
+            ContextTranslations = entries;
+            lbContext.DataSource = ContextTranslations;
+        }
+
+        private void lbContext_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawEntries(e, ContextTranslations, false);
+        }
+
+        private void lbContext_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index >= ContextTranslations.Count)
+                return;
+
+            string text = GetTextBasedLanguage(e.Index, ContextTranslations);
+
+            text = text == null ? "" : text;
+
+            int nb = 2;
+            if (ContextTranslations[e.Index].SpeakerId != null)
+            {
+                nb += 1;
+            }
+
+            nb += Regex.Matches(text, "\\r*\\n").Count;
+
+            var size = (int)((nb + 1) * 14) + 6;
+
+            e.ItemHeight = size;
+        }
+
+        private void lbSearch_Click(object sender, EventArgs e)
+        {
+            if (lbSearch.SelectedIndex > -1)
+            {
+                if (cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked)
+                {
+
+
+                    EntryFound eleSelected = ListSearch[lbSearch.SelectedIndex];
+                    cbFileType.Text = eleSelected.Folder;
+                    cbFileList.SelectedIndex = eleSelected.FileId;
+
+
+                    if (eleSelected.Section == "Speaker")
+                    {
+                        lbSpeaker.ClearSelected();
+                        tcType.SelectedIndex = 1;
+                        lbSpeaker.SelectedIndex = eleSelected.Id;
+                    }
+                    else
+                    {
+
+                        cbSections.Text = eleSelected.Section;
+
+                        lbEntries.ClearSelected();
+                        tcType.SelectedIndex = 0;
+                        lbEntries.SelectedIndex = eleSelected.Id;
+                    }
+
+
+                }
+                else
+                {
+                    cbToDo.Checked = true;
+                    cbProof.Checked = true;
+                    cbEditing.Checked = true;
+                    cbProblematic.Checked = true;
+                    cbDone.Checked = true;
+                }
+            }
         }
     }
 }

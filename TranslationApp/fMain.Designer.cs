@@ -130,6 +130,11 @@ namespace TranslationApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.tpMassReplace = new System.Windows.Forms.TabPage();
+            this.bDoNotReplace = new System.Windows.Forms.Button();
+            this.bTake = new System.Windows.Forms.Button();
+            this.lbContext = new System.Windows.Forms.ListBox();
+            this.bReplace = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
@@ -979,7 +984,7 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(732, 33);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(330, 623);
+            this.tabSearchMass.Size = new System.Drawing.Size(330, 659);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
@@ -999,7 +1004,7 @@ namespace TranslationApp
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(322, 597);
+            this.tpSearch.Size = new System.Drawing.Size(322, 633);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
@@ -1128,45 +1133,107 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(263, 368);
+            this.lbSearch.Size = new System.Drawing.Size(263, 404);
             this.lbSearch.TabIndex = 0;
+            this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
             this.lbSearch.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSearch_MeasureItem);
-            this.lbSearch.SelectedIndexChanged += new System.EventHandler(this.lbSearch_SelectedIndexChanged);
             // 
             // tpMassReplace
             // 
+            this.tpMassReplace.Controls.Add(this.bDoNotReplace);
+            this.tpMassReplace.Controls.Add(this.bTake);
+            this.tpMassReplace.Controls.Add(this.lbContext);
+            this.tpMassReplace.Controls.Add(this.bReplace);
+            this.tpMassReplace.Controls.Add(this.label12);
             this.tpMassReplace.Controls.Add(this.label13);
             this.tpMassReplace.Controls.Add(this.lbDistinctTranslations);
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(322, 597);
+            this.tpMassReplace.Size = new System.Drawing.Size(322, 633);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
+            // 
+            // bDoNotReplace
+            // 
+            this.bDoNotReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bDoNotReplace.Location = new System.Drawing.Point(154, 569);
+            this.bDoNotReplace.Name = "bDoNotReplace";
+            this.bDoNotReplace.Size = new System.Drawing.Size(139, 47);
+            this.bDoNotReplace.TabIndex = 9;
+            this.bDoNotReplace.Text = "Mark as do not replace";
+            this.bDoNotReplace.UseVisualStyleBackColor = true;
+            // 
+            // bTake
+            // 
+            this.bTake.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bTake.Location = new System.Drawing.Point(30, 569);
+            this.bTake.Name = "bTake";
+            this.bTake.Size = new System.Drawing.Size(92, 23);
+            this.bTake.TabIndex = 8;
+            this.bTake.Text = "← Take";
+            this.bTake.UseVisualStyleBackColor = true;
+            // 
+            // lbContext
+            // 
+            this.lbContext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lbContext.FormattingEnabled = true;
+            this.lbContext.Location = new System.Drawing.Point(30, 260);
+            this.lbContext.Name = "lbContext";
+            this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbContext.Size = new System.Drawing.Size(263, 303);
+            this.lbContext.TabIndex = 7;
+            this.lbContext.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbContext_DrawItem);
+            this.lbContext.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbContext_MeasureItem);
+            // 
+            // bReplace
+            // 
+            this.bReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bReplace.Location = new System.Drawing.Point(30, 598);
+            this.bReplace.Name = "bReplace";
+            this.bReplace.Size = new System.Drawing.Size(92, 23);
+            this.bReplace.TabIndex = 6;
+            this.bReplace.Text = "Replace →";
+            this.bReplace.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(27, 244);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Context";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(27, 9);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(102, 13);
+            this.label13.Size = new System.Drawing.Size(129, 13);
             this.label13.TabIndex = 2;
-            this.label13.Text = "Distinct Translations";
+            this.label13.Text = "Distinct Translations ( 1M)";
             // 
             // lbDistinctTranslations
             // 
             this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbDistinctTranslations.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbDistinctTranslations.FormattingEnabled = true;
-            this.lbDistinctTranslations.Location = new System.Drawing.Point(30, 26);
+            this.lbDistinctTranslations.Location = new System.Drawing.Point(30, 24);
             this.lbDistinctTranslations.Name = "lbDistinctTranslations";
             this.lbDistinctTranslations.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbDistinctTranslations.Size = new System.Drawing.Size(263, 173);
+            this.lbDistinctTranslations.Size = new System.Drawing.Size(263, 212);
             this.lbDistinctTranslations.TabIndex = 1;
             this.lbDistinctTranslations.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbDistinctTranslations_DrawItem);
+            this.lbDistinctTranslations.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbDistinctTranslations_MeasureItem);
+            this.lbDistinctTranslations.SelectedIndexChanged += new System.EventHandler(this.lbDistinctTranslations_SelectedIndexChanged);
             // 
             // lNbOtherTranslations
             // 
@@ -1369,6 +1436,11 @@ namespace TranslationApp
         private System.Windows.Forms.CheckBox cbMatchWhole;
         private System.Windows.Forms.ListBox lbDistinctTranslations;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button bReplace;
+        private System.Windows.Forms.ListBox lbContext;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button bDoNotReplace;
+        private System.Windows.Forms.Button bTake;
     }
 }
 
