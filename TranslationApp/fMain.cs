@@ -356,24 +356,36 @@ namespace TranslationApp
 
         private void ShowOtherTranslations()
         {
-            OtherTranslations = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text, "Japanese", true, false, false);
-            OtherTranslations = OtherTranslations.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text).OrderBy(x => x.Entry.EnglishText).ToList();
+            if (tbJapaneseText.Text != "")
+            {
+                string englishText = tbEnglishText.Text.Replace("\r\n", "\n");
+                List<EntryFound> Entryfound = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text.Replace("\r\n", "\n"), "Japanese", true, false, false);
+                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text && x.Entry.EnglishText != englishText).ToList();
 
-            if (OtherTranslations.Count > 0)
-                lNbOtherTranslations.ForeColor = Color.Red;
-            else
-                lNbOtherTranslations.ForeColor = Color.Green;
+                string cleanedString = tbEnglishText.Text.Replace("\r\n", "").Replace(" ", "");
+                List<EntryFound> DifferentLineBreak = Entryfound.Where(x => x.Entry.EnglishText != null).
+                    Where(x => x.Entry.EnglishText.Replace("\n", "").Replace(" ", "") == cleanedString && x.Entry.EnglishText != englishText).ToList();
 
-            int distinctCount = OtherTranslations.Select(x => x.Entry.EnglishText).Distinct().Count();
+                OtherTranslations.AddRange(DifferentLineBreak);
+                lNbOtherTranslations.ForeColor = OtherTranslations.Count > 0 ? Color.Red : Color.Green;
+                lLineBreak.ForeColor = DifferentLineBreak.Count > 0 ? Color.Red : Color.Green;
+                int distinctCount = OtherTranslations.Select(x => x.Entry.EnglishText).Distinct().Count();
 
-            if (nbJapaneseDuplicate > 0)
-                lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
-            else
-                lNbOtherTranslations.Text = "";
+                if (nbJapaneseDuplicate > 0)
+                {
+                    lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
+                    lLineBreak.Text = $"({DifferentLineBreak.Count} linebreak(s) different found)";
+                }
+                else
+                {
+                    lNbOtherTranslations.Text = "";
+                    lLineBreak.Text = "";
+                }
 
-            lbDistinctTranslations.DataSource = OtherTranslations.Select(x => $"{x.Folder} - " +
-            $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
-            $"{x.Section} - {x.Entry.EnglishText}").ToList();
+                lbDistinctTranslations.DataSource = OtherTranslations.Select(x => $"{x.Folder} - " +
+                $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
+                $"{x.Section} - {x.Entry.EnglishText}").ToList();
+            }
         }
         private void lbEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
