@@ -358,13 +358,15 @@ namespace TranslationApp
         {
             if (tbJapaneseText.Text != "")
             {
-                string englishText = tbEnglishText.Text.Replace("\r\n", "\n");
-                List<EntryFound> Entryfound = FindOtherTranslations(cbFileType.Text, tbJapaneseText.Text.Replace("\r\n", "\n"), "Japanese", true, false, false);
-                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text && x.Entry.EnglishText != englishText).ToList();
+                string translation = string.IsNullOrEmpty(tbEnglishText.Text) ? tbJapaneseText.Text : tbEnglishText.Text;
+                translation = translation.Replace("\r\n", "\n");
+                List<EntryFound> Entryfound = FindOtherTranslations("All", tbJapaneseText.Text.Replace("\r\n", "\n"), "Japanese", true, false, false);
+                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text && x.Entry.EnglishText != translation).ToList();
 
                 string cleanedString = tbEnglishText.Text.Replace("\r\n", "").Replace(" ", "");
                 List<EntryFound> DifferentLineBreak = Entryfound.Where(x => x.Entry.EnglishText != null).
-                    Where(x => x.Entry.EnglishText.Replace("\n", "").Replace(" ", "") == cleanedString && x.Entry.EnglishText != englishText).ToList();
+                    Where(x => x.Entry.EnglishText.Replace("\n", "").Replace(" ", "") == cleanedString && x.Entry.EnglishText != translation).ToList();
+                DifferentLineBreak.ForEach(x => x.Category = "Linebreak");
 
                 OtherTranslations.AddRange(DifferentLineBreak);
                 lNbOtherTranslations.ForeColor = OtherTranslations.Count > 0 ? Color.Red : Color.Green;
@@ -373,7 +375,7 @@ namespace TranslationApp
 
                 if (nbJapaneseDuplicate > 0)
                 {
-                    lNbOtherTranslations.Text = $"({distinctCount} other translation(s) found)";
+                    lNbOtherTranslations.Text = $"({distinctCount} other/missing translation(s) found)";
                     lLineBreak.Text = $"({DifferentLineBreak.Count} linebreak(s) different found)";
                 }
                 else
@@ -470,17 +472,25 @@ namespace TranslationApp
                 }
 
                 TranslationEntry TranslationEntry;
+                nbJapaneseDuplicate = 0;
                 if (currentEntry.JapaneseText == null)
+
                     TranslationEntry = new TranslationEntry { EnglishTranslation = "" };
                 else
-                    Project.CurrentFolder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
-
-                nbJapaneseDuplicate = 0;
-                if (TranslationEntry != null && TranslationEntry.Count > 1)
                 {
-                    nbJapaneseDuplicate = TranslationEntry.Count - 1;
-                    lblJapanese.Text = $@"Japanese ({nbJapaneseDuplicate} duplicate(s) found)";
+                    foreach (XMLFolder folder in Project.XmlFolders)
+                    {
+                        folder.Translations.TryGetValue(currentEntry.JapaneseText, out TranslationEntry);
+
+                        if (TranslationEntry != null)
+                            nbJapaneseDuplicate += TranslationEntry.Count;
+                    }
+                    nbJapaneseDuplicate -= 1;
                 }
+                    
+                
+                if (nbJapaneseDuplicate > 0)
+                    lblJapanese.Text = $@"Japanese ({nbJapaneseDuplicate} duplicate(s) found)";
                 else
                     lblJapanese.Text = $@"Japanese";
 
@@ -1535,7 +1545,16 @@ namespace TranslationApp
 
         private void lbSearch_Click(object sender, EventArgs e)
         {
-            if (lbSearch.SelectedIndex > -1)
+            if (!(cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked))
+            {
+                cbToDo.Checked = true;
+                cbProof.Checked = true;
+                cbEditing.Checked = true;
+                cbProblematic.Checked = true;
+                cbDone.Checked = true;
+            }
+
+            if (ListSearch != null)
             {
                 if (cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked)
                 {
@@ -1555,24 +1574,18 @@ namespace TranslationApp
                     else
                     {
 
-                        cbSections.Text = eleSelected.Section;
 
                         lbEntries.ClearSelected();
+                        cbSections.Text = "All strings";
                         tcType.SelectedIndex = 0;
-                        lbEntries.SelectedIndex = eleSelected.Id;
+                        lbEntries.SelectedIndex = CurrentTextList.FindIndex(x => x.Id == eleSelected.Id);
+
                     }
 
 
                 }
-                else
-                {
-                    cbToDo.Checked = true;
-                    cbProof.Checked = true;
-                    cbEditing.Checked = true;
-                    cbProblematic.Checked = true;
-                    cbDone.Checked = true;
-                }
             }
         }
     }
+    
 }

@@ -138,8 +138,8 @@ namespace TranslationApp
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
-            this.textPreview1 = new TranslationApp.TextPreview();
             this.lLineBreak = new System.Windows.Forms.Label();
+            this.textPreview1 = new TranslationApp.TextPreview();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -1241,9 +1241,17 @@ namespace TranslationApp
             this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
             this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
             this.lNbOtherTranslations.Name = "lNbOtherTranslations";
-            this.lNbOtherTranslations.Size = new System.Drawing.Size(143, 13);
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(207, 13);
             this.lNbOtherTranslations.TabIndex = 51;
             this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
+            // 
+            // lLineBreak
+            // 
+            this.lLineBreak.ForeColor = System.Drawing.Color.Red;
+            this.lLineBreak.Location = new System.Drawing.Point(551, 361);
+            this.lLineBreak.Name = "lLineBreak";
+            this.lLineBreak.Size = new System.Drawing.Size(143, 13);
+            this.lLineBreak.TabIndex = 52;
             // 
             // textPreview1
             // 
@@ -1255,14 +1263,6 @@ namespace TranslationApp
             this.textPreview1.TabIndex = 49;
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
-            // 
-            // lLineBreak
-            // 
-            this.lLineBreak.ForeColor = System.Drawing.Color.Red;
-            this.lLineBreak.Location = new System.Drawing.Point(517, 361);
-            this.lLineBreak.Name = "lLineBreak";
-            this.lLineBreak.Size = new System.Drawing.Size(143, 13);
-            this.lLineBreak.TabIndex = 52;
             // 
             // fMain
             // 

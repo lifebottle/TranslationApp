@@ -48,7 +48,7 @@ namespace TranslationLib
                     entry.Folder = folder;
                     entry.FileId = fileId;
                     entry.Section = sectionName;
-                    entry.Id = index;
+                    entry.Id = Entries[index].Id ?? default(int);
                     entry.Entry = new XMLEntry();
                     entry.Entry.JapaneseText = Entries[index].JapaneseText;
                     entry.Entry.EnglishText = Entries[index].EnglishText;
