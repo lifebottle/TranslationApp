@@ -571,7 +571,7 @@ namespace TranslationApp
         }
         private void tsNDXLoadNew_Click(object sender, EventArgs e)
         {
-            LoadNewFolder("NDX", "/Data/NDX");
+            LoadNewFolder("NDX", "/2_translated");
         }
         private void tsTORLoadLast_Click(object sender, EventArgs e)
         {
