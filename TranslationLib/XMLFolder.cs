@@ -31,7 +31,7 @@ namespace TranslationLib
             {
                 foreach (var file in fileList)
                 {
-                    if (file.EndsWith(".xml")) {
+                    if (file.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)) {
                         XMLFiles.Add(LoadXML(file));
                     }
                 }

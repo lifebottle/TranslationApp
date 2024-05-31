@@ -19,7 +19,8 @@ namespace TranslationLib
             foreach (var folder in folderIncluded)
             {
                 string fullPath = Path.Combine(basePath, folder, "");
-                if (Directory.GetFiles(fullPath).Count() != 0)
+                var files = Directory.GetFiles(fullPath);
+                if (files.Count() != 0 && files.Any(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)))
                 {
                     XmlFolders.Add(new XMLFolder(folder, fullPath));
                 }
