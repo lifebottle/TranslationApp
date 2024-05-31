@@ -27,9 +27,29 @@ namespace TranslationApp
         private Dictionary<string, Color> ColorByStatus;
         private string gameName;
         private int nbJapaneseDuplicate;
+        private static string windowName;
 
         private readonly string MULTIPLE_STATUS = "<Multiple Status>";
         private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
+
+        struct ProjectEntry
+        {
+            public  string shortName, fullName, folder;
+            public ProjectEntry(string sname, string fname, string dir)
+            {
+                shortName = sname;
+                fullName = fname;
+                folder = dir;
+            }
+        }
+
+        private static readonly ProjectEntry[] Projects = new ProjectEntry[]
+        {
+            new ProjectEntry("NDX", "Narikiri Dungeon X", "2_translated"),
+            new ProjectEntry("TOR", "Tales of Rebirth", "2_translated"),
+            new ProjectEntry("TOH", "Tales of Hearts (DS)", "2_translated"),
+            new ProjectEntry("RM2", "Tales of the World: Radiant Mythology 2", "2_translated"),
+        };
 
         public fMain()
         {
@@ -42,12 +62,14 @@ namespace TranslationApp
 #else
             Text = "Translation App v" + ver;
 #endif
+            windowName = Text;
         }
 
         private void fMain_Load(object sender, EventArgs e)
         {
             cbLanguage.Text = "English (if available)";
             CreateColorByStatusDictionnary();
+            PopulateProjectTypes();
             InitialiseStatusText();
             ChangeEnabledProp(false);
 
@@ -55,6 +77,51 @@ namespace TranslationApp
             config.Load();
             PackingAssistant = new PackingProject();
             textPreview1.fontAtlasImage = LoadEmbeddedImage("TranslationApp.res.font_atlas.png");
+        }
+
+        private void PopulateProjectTypes()
+        {
+            List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
+            foreach (ProjectEntry pe in Projects)
+            {
+                var item = new ToolStripMenuItem();
+                item.Name = "tsi" + pe.shortName;
+                item.Text = pe.shortName;
+                item.DropDownItems.Add(new ToolStripMenuItem("Open Last Folder") { Tag = pe });
+                item.DropDownItems[0].Click += new EventHandler(LoadLastFolder_Click);
+                item.DropDownItems.Add(new ToolStripMenuItem("Open New Folder") { Tag = pe });
+                item.DropDownItems[1].Click += new EventHandler(LoadNewFolder_Click);
+                items.Add(item);
+            }
+            translationToolStripMenuItem.DropDownItems.AddRange(items.ToArray());
+        }
+
+        private void LoadNewFolder_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
+            LoadNewFolder(pe.shortName, pe.folder);
+            UpdateTitle(pe.fullName);
+        }
+
+        private void LoadLastFolder_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
+            LoadLastFolder(pe.shortName);
+            UpdateTitle(pe.fullName);
+        }
+
+        private void UpdateTitle(string name)
+        {
+            if (Project.CurrentFolder == null || name == null)
+            {
+                Text = windowName;
+            }
+            else
+            {
+                Text = windowName + " | " + name;
+            }
         }
 
         private Bitmap LoadEmbeddedImage(string resourceName)
@@ -393,8 +460,6 @@ namespace TranslationApp
         {
             LoadEntryData(lbEntries);
             ShowOtherTranslations();
-
-
         }
 
         private List<EntryFound> FindOtherTranslations(string folderSearch, string textToFind, string language, bool matchWholeEntry, bool matchCase, bool matchWholeWord)
@@ -554,7 +619,7 @@ namespace TranslationApp
         private void LoadNewFolder(string gameName, string path)
         {
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
-            var loadedFolder = TryLoadFolder(GetFolderPath() + path);
+            var loadedFolder = TryLoadFolder(Path.Combine(GetFolderPath(), path));
             gameConfig = config.GamesConfigList.Where(x => x.Game == gameName).FirstOrDefault();
 
             if (gameConfig == null)
@@ -588,22 +653,7 @@ namespace TranslationApp
             else
                 MessageBox.Show("The game you are trying to load is not inside the configuration file,\nplease load a new folder.");
         }
-        private void tsTORLoadNew_Click(object sender, EventArgs e)
-        {
-            LoadNewFolder("TOR", "/2_translated");
-        }
-        private void tsNDXLoadNew_Click(object sender, EventArgs e)
-        {
-            LoadNewFolder("NDX", "/2_translated");
-        }
-        private void tsTORLoadLast_Click(object sender, EventArgs e)
-        {
-            LoadLastFolder("TOR");
-        }
-        private void tsNDXLoadLast_Click(object sender, EventArgs e)
-        {
-            LoadLastFolder("NDX");
-        }
+
         public string TryLoadFolder(string path)
         {
             if (Directory.Exists(path))

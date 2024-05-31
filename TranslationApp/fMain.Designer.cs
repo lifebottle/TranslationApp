@@ -31,16 +31,6 @@ namespace TranslationApp
         {
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.translationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.NDXTranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsNDXLoadLast = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsNDXLoadNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsTORTranslation = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsTORLoadLast = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsTORLoadNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.tOHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadLastFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadDesmumeLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,89 +161,9 @@ namespace TranslationApp
             // 
             // translationToolStripMenuItem
             // 
-            this.translationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.NDXTranslationToolStripMenuItem,
-            this.tsTORTranslation,
-            this.tOHToolStripMenuItem});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
-            this.translationToolStripMenuItem.Size = new System.Drawing.Size(76, 22);
-            this.translationToolStripMenuItem.Text = "Translation";
-            // 
-            // NDXTranslationToolStripMenuItem
-            // 
-            this.NDXTranslationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsNDXLoadLast,
-            this.tsNDXLoadNew});
-            this.NDXTranslationToolStripMenuItem.Name = "NDXTranslationToolStripMenuItem";
-            this.NDXTranslationToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.NDXTranslationToolStripMenuItem.Text = "NDX";
-            // 
-            // tsNDXLoadLast
-            // 
-            this.tsNDXLoadLast.Name = "tsNDXLoadLast";
-            this.tsNDXLoadLast.Size = new System.Drawing.Size(163, 22);
-            this.tsNDXLoadLast.Text = "Load Last Folder";
-            this.tsNDXLoadLast.Click += new System.EventHandler(this.tsNDXLoadLast_Click);
-            // 
-            // tsNDXLoadNew
-            // 
-            this.tsNDXLoadNew.Name = "tsNDXLoadNew";
-            this.tsNDXLoadNew.Size = new System.Drawing.Size(163, 22);
-            this.tsNDXLoadNew.Text = "Load New Folder";
-            this.tsNDXLoadNew.Click += new System.EventHandler(this.tsNDXLoadNew_Click);
-            // 
-            // tsTORTranslation
-            // 
-            this.tsTORTranslation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsTORLoadLast,
-            this.tsTORLoadNew});
-            this.tsTORTranslation.Name = "tsTORTranslation";
-            this.tsTORTranslation.Size = new System.Drawing.Size(98, 22);
-            this.tsTORTranslation.Text = "TOR";
-            // 
-            // tsTORLoadLast
-            // 
-            this.tsTORLoadLast.Name = "tsTORLoadLast";
-            this.tsTORLoadLast.Size = new System.Drawing.Size(163, 22);
-            this.tsTORLoadLast.Text = "Load Last Folder";
-            this.tsTORLoadLast.Click += new System.EventHandler(this.tsTORLoadLast_Click);
-            // 
-            // tsTORLoadNew
-            // 
-            this.tsTORLoadNew.Name = "tsTORLoadNew";
-            this.tsTORLoadNew.Size = new System.Drawing.Size(163, 22);
-            this.tsTORLoadNew.Text = "Load New Folder";
-            this.tsTORLoadNew.Click += new System.EventHandler(this.tsTORLoadNew_Click);
-            // 
-            // tOHToolStripMenuItem
-            // 
-            this.tOHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadLastFolderToolStripMenuItem,
-            this.loadNewFolderToolStripMenuItem,
-            this.loadDesmumeLocationToolStripMenuItem});
-            this.tOHToolStripMenuItem.Name = "tOHToolStripMenuItem";
-            this.tOHToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.tOHToolStripMenuItem.Text = "TOH";
-            // 
-            // loadLastFolderToolStripMenuItem
-            // 
-            this.loadLastFolderToolStripMenuItem.Name = "loadLastFolderToolStripMenuItem";
-            this.loadLastFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.loadLastFolderToolStripMenuItem.Text = "Load Last Folder";
-            this.loadLastFolderToolStripMenuItem.Click += new System.EventHandler(this.loadLastFolderToolStripMenuItem_Click);
-            // 
-            // loadNewFolderToolStripMenuItem
-            // 
-            this.loadNewFolderToolStripMenuItem.Name = "loadNewFolderToolStripMenuItem";
-            this.loadNewFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.loadNewFolderToolStripMenuItem.Text = "Load New Folder";
-            this.loadNewFolderToolStripMenuItem.Click += new System.EventHandler(this.loadNewFolderToolStripMenuItem_Click);
-            // 
-            // loadDesmumeLocationToolStripMenuItem
-            // 
-            this.loadDesmumeLocationToolStripMenuItem.Name = "loadDesmumeLocationToolStripMenuItem";
-            this.loadDesmumeLocationToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.loadDesmumeLocationToolStripMenuItem.Text = "Load Desmume Location";
+            this.translationToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
+            this.translationToolStripMenuItem.Text = "Project";
             // 
             // fileToolStripMenuItem
             // 
@@ -1343,8 +1253,6 @@ namespace TranslationApp
 
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem translationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem NDXTranslationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsTORTranslation;
         private System.Windows.Forms.ToolStripMenuItem packToolStripMenuItem;
         private System.Windows.Forms.TextBox tbJapaneseText;
         private System.Windows.Forms.TextBox tbEnglishText;
@@ -1395,10 +1303,6 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbProofSect;
         private System.Windows.Forms.Label lNbToDoSect;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.ToolStripMenuItem tsTORLoadLast;
-        private System.Windows.Forms.ToolStripMenuItem tsTORLoadNew;
-        private System.Windows.Forms.ToolStripMenuItem tsNDXLoadLast;
-        private System.Windows.Forms.ToolStripMenuItem tsNDXLoadNew;
         private System.Windows.Forms.ToolStripMenuItem tsSetup;
         private System.Windows.Forms.ToolStripMenuItem tsTORMakeIso;
         private System.Windows.Forms.TabPage tabSpeaker;
@@ -1424,10 +1328,6 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem importFromCsvToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setFileAsDoneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setSectionAsDoneToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tOHToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadLastFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadNewFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadDesmumeLocationToolStripMenuItem;
         private System.Windows.Forms.TabControl tabSearchMass;
         private System.Windows.Forms.TabPage tpSearch;
         private System.Windows.Forms.Label label10;
