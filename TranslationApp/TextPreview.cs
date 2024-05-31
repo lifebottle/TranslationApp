@@ -5,7 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -17,6 +19,8 @@ namespace TranslationApp
     {
         public Bitmap fontAtlasImage { get; set; }
         public string text { get; set; }
+
+        private font_glyph[] glyphs;
 
         private static readonly Dictionary<string, Color> colors = new Dictionary<string, Color> {
                     { "<Blue>", Color.FromArgb(0x50,0x50,0x80) },
@@ -45,7 +49,7 @@ namespace TranslationApp
         }
 
         #region Glyph width data
-        private readonly font_glyph[] glyphs = new font_glyph[97]
+        private readonly font_glyph[] tor_glyphs = new font_glyph[97]
         {
             /*    */ new font_glyph(10, 00),
             /* ０ */ new font_glyph(05, 05),
@@ -145,11 +149,161 @@ namespace TranslationApp
             /* 、 */ new font_glyph(00, 13),
             /* 。 */ new font_glyph(01, 12),
         };
+
+        private readonly font_glyph[] ndx_glyphs = new font_glyph[97]
+        {
+            /*    */ new font_glyph(10, 00),
+            /* ０ */ new font_glyph(06, 06),
+            /* １ */ new font_glyph(08, 10),
+            /* ２ */ new font_glyph(06, 06),
+            /* ３ */ new font_glyph(06, 06),
+            /* ４ */ new font_glyph(06, 06),
+            /* ５ */ new font_glyph(06, 06),
+            /* ６ */ new font_glyph(06, 06),
+            /* ７ */ new font_glyph(06, 06),
+            /* ８ */ new font_glyph(06, 06),
+            /* ９ */ new font_glyph(06, 06),
+            /* Ａ */ new font_glyph(03, 03),
+            /* Ｂ */ new font_glyph(06, 05),
+            /* Ｃ */ new font_glyph(05, 04),
+            /* Ｄ */ new font_glyph(05, 04),
+            /* Ｅ */ new font_glyph(06, 05),
+            /* Ｆ */ new font_glyph(06, 05),
+            /* Ｇ */ new font_glyph(05, 04),
+            /* Ｈ */ new font_glyph(05, 05),
+            /* Ｉ */ new font_glyph(10, 10),
+            /* Ｊ */ new font_glyph(07, 06),
+            /* Ｋ */ new font_glyph(05, 04),
+            /* Ｌ */ new font_glyph(06, 06),
+            /* Ｍ */ new font_glyph(04, 04),
+            /* Ｎ */ new font_glyph(05, 04),
+            /* Ｏ */ new font_glyph(05, 04),
+            /* Ｐ */ new font_glyph(06, 05),
+            /* Ｑ */ new font_glyph(04, 03),
+            /* Ｒ */ new font_glyph(06, 05),
+            /* Ｓ */ new font_glyph(06, 05),
+            /* Ｔ */ new font_glyph(04, 04),
+            /* Ｕ */ new font_glyph(05, 05),
+            /* Ｖ */ new font_glyph(04, 04),
+            /* Ｗ */ new font_glyph(02, 02),
+            /* Ｘ */ new font_glyph(04, 04),
+            /* Ｙ */ new font_glyph(05, 05),
+            /* Ｚ */ new font_glyph(05, 05),
+            /* ａ */ new font_glyph(06, 06),
+            /* ｂ */ new font_glyph(06, 05),
+            /* ｃ */ new font_glyph(07, 06),
+            /* ｄ */ new font_glyph(07, 05),
+            /* ｅ */ new font_glyph(07, 07),
+            /* ｆ */ new font_glyph(08, 07),
+            /* ｇ */ new font_glyph(06, 05),
+            /* ｈ */ new font_glyph(06, 06),
+            /* ｉ */ new font_glyph(10, 10),
+            /* ｊ */ new font_glyph(08, 09),
+            /* ｋ */ new font_glyph(06, 05),
+            /* ｌ */ new font_glyph(10, 09),
+            /* ｍ */ new font_glyph(04, 02),
+            /* ｎ */ new font_glyph(06, 06),
+            /* ｏ */ new font_glyph(06, 06),
+            /* ｐ */ new font_glyph(06, 05),
+            /* ｑ */ new font_glyph(06, 05),
+            /* ｒ */ new font_glyph(08, 07),
+            /* ｓ */ new font_glyph(08, 07),
+            /* ｔ */ new font_glyph(08, 07),
+            /* ｕ */ new font_glyph(06, 07),
+            /* ｖ */ new font_glyph(06, 06),
+            /* ｗ */ new font_glyph(03, 03),
+            /* ｘ */ new font_glyph(06, 08),
+            /* ｙ */ new font_glyph(05, 07),
+            /* ｚ */ new font_glyph(06, 07),
+            /* ， */ new font_glyph(09, 09),
+            /* ． */ new font_glyph(09, 09),
+            /* ・ */ new font_glyph(09, 09),
+            /* ： */ new font_glyph(09, 09),
+            /* ； */ new font_glyph(09, 09),
+            /* ？ */ new font_glyph(06, 05),
+            /* ！ */ new font_glyph(09, 09),
+            /* ／ */ new font_glyph(06, 06),
+            /* （ */ new font_glyph(09, 08),
+            /* ） */ new font_glyph(09, 08),
+            /* ［ */ new font_glyph(09, 08),
+            /* ］ */ new font_glyph(09, 08),
+            /* ｛ */ new font_glyph(09, 08),
+            /* ｝ */ new font_glyph(09, 08),
+            /* ＋ */ new font_glyph(04, 03),
+            /* － */ new font_glyph(08, 08),
+            /* ＝ */ new font_glyph(04, 03),
+            /* ＜ */ new font_glyph(06, 06),
+            /* ＞ */ new font_glyph(06, 06),
+            /* ％ */ new font_glyph(04, 03),
+            /* ＃ */ new font_glyph(04, 04),
+            /* ＆ */ new font_glyph(04, 03),
+            /* ＊ */ new font_glyph(04, 04),
+            /* ＠ */ new font_glyph(00, 01),
+            /* ｜ */ new font_glyph(08, 08),
+            /*  ” */ new font_glyph(01, 15),
+            /*  ’ */ new font_glyph(01, 18),
+            /* ＾ */ new font_glyph(07, 06),
+            /* 「 */ new font_glyph(10, 01),
+            /* 」 */ new font_glyph(01, 11),
+            /* 〜 */ new font_glyph(05, 06),
+            /* ＿ */ new font_glyph(06, 05),
+            /* 、 */ new font_glyph(00, 13),
+            /* 。 */ new font_glyph(01, 12),
+        };
         #endregion
 
         public TextPreview()
         {
             InitializeComponent();
+        }
+
+        public void ChangeImage(string id)
+        {
+            string res;
+            switch (id)
+            {
+                case "TOR":
+                    res = "TranslationApp.res.tor_font_atlas.png";
+                    BackColor = Color.FromArgb(0);
+                    glyphs = tor_glyphs;
+                    break;
+                case "NDX":
+                    res = "TranslationApp.res.ndx_font_atlas.png";
+                    BackColor = Color.FromArgb(0x14, 0x3F, 0x60);
+                    glyphs = ndx_glyphs;
+                    break;
+                default:
+                    fontAtlasImage = null;
+                    glyphs = null;
+                    return;
+            }
+
+            if (fontAtlasImage != null)
+            {
+                fontAtlasImage.Dispose();
+            }
+
+            fontAtlasImage = LoadEmbeddedImage(res);
+        }
+
+        private Bitmap LoadEmbeddedImage(string resourceName)
+        {
+            try
+            {
+                using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    if (manifestResourceStream != null)
+                    {
+                        return new Bitmap(manifestResourceStream);
+                    }
+                    MessageBox.Show("Failed to load embedded image.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading embedded image: " + ex.Message);
+            }
+            return null;
         }
 
         public void ReDraw(string text)
@@ -173,7 +327,7 @@ namespace TranslationApp
             g.SmoothingMode = SmoothingMode.HighQuality;
 
             // Initial state
-            PointF currentPosition = new PointF(0, 0);  // Starting position
+            PointF currentPosition = new PointF(10, 10);  // Starting position
             g.ScaleTransform(0.75f, 0.75f); // Scale down the size
             string textToRender = text == null ? "" : text; // Avoid null text
             Color tintColor = colors["<White>"]; // Start as white text
@@ -274,7 +428,7 @@ namespace TranslationApp
                     // Update the current position for the next character
                     if (line)
                     {
-                        currentPosition.X = 0;
+                        currentPosition.X = 10;
                         currentPosition.Y += 24;
                     }
                     else
@@ -330,6 +484,9 @@ namespace TranslationApp
                     case '+':
                         index = 77;
                         break;
+                    case '&':
+                        index = 84;
+                        break;
                     case '*':
                         index = 85;
                         break;
@@ -380,6 +537,9 @@ namespace TranslationApp
                         break;
                     case '>':
                         index = 81;
+                        break;
+                    case '%':
+                        index = 82;
                         break;
                     default:
                         index = 0;

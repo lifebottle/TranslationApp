@@ -76,7 +76,6 @@ namespace TranslationApp
             config = new Config();
             config.Load();
             PackingAssistant = new PackingProject();
-            textPreview1.fontAtlasImage = LoadEmbeddedImage("TranslationApp.res.font_atlas.png");
         }
 
         private void PopulateProjectTypes()
@@ -101,6 +100,7 @@ namespace TranslationApp
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
             LoadNewFolder(pe.shortName, pe.folder);
+            textPreview1.ChangeImage(pe.shortName);
             UpdateTitle(pe.fullName);
         }
 
@@ -109,6 +109,7 @@ namespace TranslationApp
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
             LoadLastFolder(pe.shortName);
+            textPreview1.ChangeImage(pe.shortName);
             UpdateTitle(pe.fullName);
         }
 
@@ -122,26 +123,6 @@ namespace TranslationApp
             {
                 Text = windowName + " | " + name;
             }
-        }
-
-        private Bitmap LoadEmbeddedImage(string resourceName)
-        {
-            try
-            {
-                using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-                {
-                    if (manifestResourceStream != null)
-                    {
-                        return new Bitmap(manifestResourceStream);
-                    }
-                    MessageBox.Show("Failed to load embedded image.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading embedded image: " + ex.Message);
-            }
-            return null;
         }
 
         private void CreateColorByStatusDictionnary()
@@ -1304,12 +1285,6 @@ namespace TranslationApp
             }
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
 
         private void cbStatus_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -1464,17 +1439,6 @@ namespace TranslationApp
             cbFileList.Text = "___";
         }
 
-        private void loadLastFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadLastFolder("TOH");
-        }
-
-        private void loadNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadNewFolder("TOH", "/2_translated");
-
-        }
-
         private void bSearch_Click(object sender, EventArgs e)
         {
             string textToFind = tbSearch.Text.Replace("\r\n", "\n");
@@ -1484,11 +1448,6 @@ namespace TranslationApp
             lbSearch.DataSource = ListSearch.Select(x => $"{x.Folder} - " +
             $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
             $"{x.Section} - {x.Id}").ToList();
-        }
-
-        private void lbSearch_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void lNbOtherTranslations_Click(object sender, EventArgs e)

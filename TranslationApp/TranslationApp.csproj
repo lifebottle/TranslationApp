@@ -175,7 +175,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="res\font_atlas.png" />
+    <EmbeddedResource Include="res\tor_font_atlas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\ndx_font_atlas.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
