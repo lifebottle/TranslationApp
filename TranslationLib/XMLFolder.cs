@@ -31,7 +31,9 @@ namespace TranslationLib
             {
                 foreach (var file in fileList)
                 {
-                    XMLFiles.Add(LoadXML(file));
+                    if (file.EndsWith(".xml")) {
+                        XMLFiles.Add(LoadXML(file));
+                    }
                 }
                 CurrentFile = XMLFiles.First();
             }

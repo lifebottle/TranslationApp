@@ -622,8 +622,21 @@ namespace TranslationApp
         {
             DisableEventHandlers();
 
-            var folderIncluded = new List<string> { "Story", "Menu", "Skits" };
+            var folderIncluded = new List<string>();
+            foreach (string p in Directory.GetDirectories(path))
+            {
+                folderIncluded.Add(new DirectoryInfo(p).Name);
+            }
+
             Project = new TranslationProject(path, folderIncluded);
+
+            if (Project.CurrentFolder == null)
+            {
+                MessageBox.Show("Are you sure you selected the right folder?\n" +
+                            "The folder you have chosen doesn't contain any subfolders\n"+
+                            "or they are empty, please try again.");
+                return;
+            }
 
             CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
             CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
@@ -998,7 +1011,6 @@ namespace TranslationApp
                 tbSectionName.Enabled = true;
             }
             tbSectionName.Text = cbSections.Text;
-
             UpdateDisplayedEntries();
             UpdateStatusData();
         }

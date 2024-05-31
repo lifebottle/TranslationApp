@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,19 @@ namespace TranslationLib
             XmlFolders = new List<XMLFolder>();
 
             foreach (var folder in folderIncluded)
-                XmlFolders.Add(new XMLFolder(folder, Path.Combine(basePath, folder, "")));
+            {
+                string fullPath = Path.Combine(basePath, folder, "");
+                if (Directory.GetFiles(fullPath).Count() != 0)
+                {
+                    XmlFolders.Add(new XMLFolder(folder, fullPath));
+                }
+            }
+
+            if (XmlFolders.Count == 0)
+            {
+                CurrentFolder = null;
+                return;
+            }
 
             foreach (var xmlFolder in XmlFolders)
                 xmlFolder.LoadXMLs();
