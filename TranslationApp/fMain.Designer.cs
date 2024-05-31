@@ -385,7 +385,7 @@ namespace TranslationApp
             this.tcType.Location = new System.Drawing.Point(16, 241);
             this.tcType.Name = "tcType";
             this.tcType.SelectedIndex = 0;
-            this.tcType.Size = new System.Drawing.Size(300, 451);
+            this.tcType.Size = new System.Drawing.Size(300, 487);
             this.tcType.TabIndex = 13;
             this.tcType.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcType_Selected);
             // 
@@ -395,7 +395,7 @@ namespace TranslationApp
             this.tabText.Location = new System.Drawing.Point(4, 22);
             this.tabText.Name = "tabText";
             this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(292, 425);
+            this.tabText.Size = new System.Drawing.Size(292, 461);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
@@ -410,7 +410,7 @@ namespace TranslationApp
             this.lbEntries.Location = new System.Drawing.Point(4, 3);
             this.lbEntries.Name = "lbEntries";
             this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbEntries.Size = new System.Drawing.Size(285, 417);
+            this.lbEntries.Size = new System.Drawing.Size(285, 453);
             this.lbEntries.TabIndex = 0;
             this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
             this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
@@ -889,13 +889,15 @@ namespace TranslationApp
             // 
             // tabSearchMass
             // 
+            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.tabSearchMass.Controls.Add(this.tpSearch);
             this.tabSearchMass.Controls.Add(this.tpMassReplace);
             this.tabSearchMass.Enabled = false;
             this.tabSearchMass.Location = new System.Drawing.Point(732, 33);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(330, 659);
+            this.tabSearchMass.Size = new System.Drawing.Size(330, 692);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
@@ -915,7 +917,7 @@ namespace TranslationApp
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(322, 633);
+            this.tpSearch.Size = new System.Drawing.Size(322, 666);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
@@ -1044,7 +1046,7 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(263, 404);
+            this.lbSearch.Size = new System.Drawing.Size(263, 437);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1178,7 +1180,7 @@ namespace TranslationApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 701);
+            this.ClientSize = new System.Drawing.Size(1074, 737);
             this.Controls.Add(this.lLineBreak);
             this.Controls.Add(this.lNbOtherTranslations);
             this.Controls.Add(this.tabSearchMass);
