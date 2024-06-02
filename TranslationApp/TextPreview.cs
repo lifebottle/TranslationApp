@@ -426,7 +426,7 @@ namespace TranslationApp
                 return;
             }
 
-            Bitmap canvas = new Bitmap(Width + 200, Height);
+            Bitmap canvas = new Bitmap(Width + 200, Height + 200);
             using (Graphics canvas_g = Graphics.FromImage(canvas))
             {
                 canvas_g.CompositingMode = CompositingMode.SourceOver;
