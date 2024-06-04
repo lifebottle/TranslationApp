@@ -99,7 +99,7 @@ namespace TranslationApp
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
-            LoadNewFolder(pe.shortName, pe.folder);
+            LoadProjectFolder(pe.shortName, pe.folder);
             textPreview1.ChangeImage(pe.shortName);
             UpdateTitle(pe.fullName);
         }
@@ -113,9 +113,18 @@ namespace TranslationApp
             UpdateTitle(pe.fullName);
         }
 
+        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string p = TryLoadFolder(GetFolderPath());
+            if (p != null)
+            {
+                UpdateTitle($"Single folder {Path.GetDirectoryName(p)}");
+            }
+        }
+
         private void UpdateTitle(string name)
         {
-            if (Project.CurrentFolder == null || name == null)
+            if (Project.CurrentFolder == null || string.IsNullOrWhiteSpace(name))
             {
                 Text = windowName;
             }
@@ -597,7 +606,7 @@ namespace TranslationApp
             }
         }
 
-        private void LoadNewFolder(string gameName, string path)
+        private void LoadProjectFolder(string gameName, string path)
         {
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
             var loadedFolder = TryLoadFolder(Path.Combine(GetFolderPath(), path));

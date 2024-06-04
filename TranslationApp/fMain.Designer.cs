@@ -130,6 +130,7 @@ namespace TranslationApp
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
             this.lLineBreak = new System.Windows.Forms.Label();
             this.textPreview1 = new TranslationApp.TextPreview();
+            this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -161,6 +162,8 @@ namespace TranslationApp
             // 
             // translationToolStripMenuItem
             // 
+            this.translationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openFolderToolStripMenuItem});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
             this.translationToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
             this.translationToolStripMenuItem.Text = "Project";
@@ -422,7 +425,7 @@ namespace TranslationApp
             this.tabSpeaker.Controls.Add(this.lbSpeaker);
             this.tabSpeaker.Location = new System.Drawing.Point(4, 22);
             this.tabSpeaker.Name = "tabSpeaker";
-            this.tabSpeaker.Size = new System.Drawing.Size(292, 425);
+            this.tabSpeaker.Size = new System.Drawing.Size(292, 461);
             this.tabSpeaker.TabIndex = 1;
             this.tabSpeaker.Text = "Speaker";
             this.tabSpeaker.UseVisualStyleBackColor = true;
@@ -1064,7 +1067,7 @@ namespace TranslationApp
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(322, 633);
+            this.tpMassReplace.Size = new System.Drawing.Size(322, 666);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1175,6 +1178,13 @@ namespace TranslationApp
             this.textPreview1.TabIndex = 49;
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
+            // 
+            // openFolderToolStripMenuItem
+            // 
+            this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFolderToolStripMenuItem.Text = "Open Folder";
+            this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // fMain
             // 
@@ -1354,6 +1364,7 @@ namespace TranslationApp
         private System.Windows.Forms.Button bDoNotReplace;
         private System.Windows.Forms.Button bTake;
         private System.Windows.Forms.Label lLineBreak;
+        private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
     }
 }
 
