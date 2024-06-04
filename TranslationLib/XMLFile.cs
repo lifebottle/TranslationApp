@@ -111,7 +111,7 @@ namespace TranslationLib
                 allSections.Add(new XElement("FriendlyName", FriendlyName));
             }
 
-            if (FileType != "Menu")
+            if (!FileType.Equals("Menu", StringComparison.OrdinalIgnoreCase))
             {
                 var speakerElements = GetXmlSpeakerElement(Speakers);
                 allSections.Add(speakerElements);
@@ -211,7 +211,7 @@ namespace TranslationLib
 
         private string GetXMLTextTagName()
         {
-            if (FileType == "Menu")
+            if (FileType.Equals("Menu", StringComparison.OrdinalIgnoreCase))
                 return "MenuText";
 
             return "SceneText";
