@@ -876,6 +876,11 @@ namespace TranslationApp
         {
         }
 
+        private void tbEnglishText_TextPasted(object sender, ClipboardEventArgs e)
+        {
+            tbEnglishText.Text = e.ClipboardText.Replace("\r", "").Replace("\n", Environment.NewLine);
+        }
+
         private void tbEnglishText_TextChanged(object sender, EventArgs e)
         {
 

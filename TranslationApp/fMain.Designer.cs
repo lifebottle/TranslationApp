@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace TranslationApp
 {
     partial class fMain
@@ -52,7 +54,7 @@ namespace TranslationApp
             this.hexToJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbJapaneseText = new System.Windows.Forms.TextBox();
-            this.tbEnglishText = new System.Windows.Forms.TextBox();
+            this.tbEnglishText = new ExtendedTextBox();
             this.tbNoteText = new System.Windows.Forms.TextBox();
             this.lblJapanese = new System.Windows.Forms.Label();
             this.lblEnglish = new System.Windows.Forms.Label();
@@ -344,6 +346,7 @@ namespace TranslationApp
             this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
             this.tbEnglishText.TabIndex = 6;
             this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
+            this.tbEnglishText.TextPasted += new System.EventHandler<ClipboardEventArgs>(this.tbEnglishText_TextPasted);
             // 
             // tbNoteText
             // 
@@ -1267,7 +1270,7 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem translationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem packToolStripMenuItem;
         private System.Windows.Forms.TextBox tbJapaneseText;
-        private System.Windows.Forms.TextBox tbEnglishText;
+        private ExtendedTextBox tbEnglishText;
         private System.Windows.Forms.TextBox tbNoteText;
         private System.Windows.Forms.Label lblJapanese;
         private System.Windows.Forms.Label lblEnglish;
