@@ -33,6 +33,7 @@ namespace TranslationApp
         {
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.translationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,7 @@ namespace TranslationApp
             this.hexToJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbJapaneseText = new System.Windows.Forms.TextBox();
-            this.tbEnglishText = new ExtendedTextBox();
+            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.tbNoteText = new System.Windows.Forms.TextBox();
             this.lblJapanese = new System.Windows.Forms.Label();
             this.lblEnglish = new System.Windows.Forms.Label();
@@ -132,7 +133,6 @@ namespace TranslationApp
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
             this.lLineBreak = new System.Windows.Forms.Label();
             this.textPreview1 = new TranslationApp.TextPreview();
-            this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -169,6 +169,13 @@ namespace TranslationApp
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
             this.translationToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
             this.translationToolStripMenuItem.Text = "Project";
+            // 
+            // openFolderToolStripMenuItem
+            // 
+            this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openFolderToolStripMenuItem.Text = "Open Folder";
+            this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -345,8 +352,8 @@ namespace TranslationApp
             this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
             this.tbEnglishText.TabIndex = 6;
+            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
             this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
-            this.tbEnglishText.TextPasted += new System.EventHandler<ClipboardEventArgs>(this.tbEnglishText_TextPasted);
             // 
             // tbNoteText
             // 
@@ -1077,8 +1084,9 @@ namespace TranslationApp
             // 
             // bDoNotReplace
             // 
+            this.bDoNotReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bDoNotReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bDoNotReplace.Location = new System.Drawing.Point(154, 569);
+            this.bDoNotReplace.Location = new System.Drawing.Point(154, 572);
             this.bDoNotReplace.Name = "bDoNotReplace";
             this.bDoNotReplace.Size = new System.Drawing.Size(139, 47);
             this.bDoNotReplace.TabIndex = 9;
@@ -1087,6 +1095,7 @@ namespace TranslationApp
             // 
             // bTake
             // 
+            this.bTake.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bTake.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bTake.Location = new System.Drawing.Point(30, 569);
             this.bTake.Name = "bTake";
@@ -1112,6 +1121,7 @@ namespace TranslationApp
             // 
             // bReplace
             // 
+            this.bReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bReplace.Location = new System.Drawing.Point(30, 598);
             this.bReplace.Name = "bReplace";
@@ -1140,8 +1150,7 @@ namespace TranslationApp
             // 
             // lbDistinctTranslations
             // 
-            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDistinctTranslations.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbDistinctTranslations.FormattingEnabled = true;
@@ -1181,13 +1190,6 @@ namespace TranslationApp
             this.textPreview1.TabIndex = 49;
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
-            // 
-            // openFolderToolStripMenuItem
-            // 
-            this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
-            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.openFolderToolStripMenuItem.Text = "Open Folder";
-            this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // fMain
             // 
