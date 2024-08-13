@@ -248,6 +248,9 @@ namespace TranslationLib
             var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",",entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
             var maxLength = entry.MaxLength == null ? null : new XElement("MaxLength", entry.MaxLength);
+            var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
+            var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
+
             XElement embedOffset;
 
             if (entry.EmbedOffset)
@@ -270,12 +273,13 @@ namespace TranslationLib
                 new XElement("JapaneseText", entry.JapaneseText),
                 new XElement("EnglishText", entry.EnglishText),
                 new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
-                speakerId,
                 elemenId,
+                structId,
+                speakerId,
+                unknownPointer,
                 bubbleId,
                 subId,
                 new XElement("Status", entry.Status)
-
             );
         }
 
