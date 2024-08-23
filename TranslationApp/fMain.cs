@@ -457,7 +457,7 @@ namespace TranslationApp
             List<EntryFound> res = new List<EntryFound>();
             if (folderSearch != "All")
             {
-                XMLFolder folder = Project.XmlFolders.Where(x => x.Name == folderSearch).FirstOrDefault();
+                XMLFolder folder = Project.XmlFolders.Where(x => String.Equals(x.Name, folderSearch, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                 if (folder != null)
                 {
                     res = folder.SearchJapanese(textToFind, matchWholeEntry, matchCase, matchWholeWord, language);
