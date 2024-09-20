@@ -795,7 +795,15 @@ namespace TranslationApp
             }
             else
             {
-                CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                var speakers = Project.CurrentFolder.CurrentFile.Speakers;
+                if (speakers != null)
+                {
+                    CurrentSpeakerList = speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                }
+                else
+                {
+                    CurrentSpeakerList = new List<XMLEntry>();
+                }
                 var old_index = lbSpeaker.SelectedIndex;
                 lbSpeaker.DataSource = CurrentSpeakerList;
                 if (lbSpeaker.SelectedIndices.Count == 1)

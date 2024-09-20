@@ -42,8 +42,9 @@ namespace TranslationLib
         public XMLFile LoadXML(string xmlpath)
         {
 
-            var XMLFile = new XMLFile { Name = Path.GetFileNameWithoutExtension(xmlpath), FilePath = xmlpath, FileType = Name };
+            var XMLFile = new XMLFile { Name = Path.GetFileNameWithoutExtension(xmlpath), FilePath = xmlpath };
             var document = XDocument.Load(xmlpath, LoadOptions.PreserveWhitespace);
+            XMLFile.FileType = document.Root.Name.ToString();
             XMLFile.FriendlyName = document.Root.Element("FriendlyName")?.Value;
             var XMLSections = document.Root.Elements("Strings");
 
@@ -76,6 +77,7 @@ namespace TranslationLib
 
             if (XMLSpeaker != null)
             {
+                XMLFile.Speakers = new List<XMLEntry>();
                 foreach (var XMLEntry in XMLSpeaker.Elements("Entry"))
                 {
                     var entry = ExtractXMLEntry(XMLEntry);

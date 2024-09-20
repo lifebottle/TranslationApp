@@ -13,7 +13,7 @@ namespace TranslationLib
         public string FileType { get; set; }
         public string FilePath { get; set; }
         public List<XMLSection> Sections = new List<XMLSection>();
-        public List<XMLEntry> Speakers = new List<XMLEntry>();
+        public List<XMLEntry> Speakers = null;
         public XMLSection CurrentSection { get; set; }
 
         public XMLFile()
@@ -83,13 +83,15 @@ namespace TranslationLib
         {
             Func<List<XMLEntry>, string, int> CountEntryByStatus = (entryList, status) => entryList.Count(e => e.Status == status);
 
+            List<XMLEntry> t = Speakers ?? new List<XMLEntry>();
+
             return new Dictionary<string, int>
             {
-                { "To Do",          CountEntryByStatus(Speakers,"To Do") },
-                { "Edited",         CountEntryByStatus(Speakers,"Edited") },
-                { "Proofread",      CountEntryByStatus(Speakers,"Proofread") },
-                { "Problematic",    CountEntryByStatus(Speakers,"Problematic") },
-                { "Done",           CountEntryByStatus(Speakers,"Done") },
+                { "To Do",          CountEntryByStatus(t,"To Do") },
+                { "Edited",         CountEntryByStatus(t,"Edited") },
+                { "Proofread",      CountEntryByStatus(t,"Proofread") },
+                { "Problematic",    CountEntryByStatus(t,"Problematic") },
+                { "Done",           CountEntryByStatus(t,"Done") },
             };
         }
 
@@ -111,7 +113,7 @@ namespace TranslationLib
                 allSections.Add(new XElement("FriendlyName", FriendlyName));
             }
 
-            if (!FileType.Equals("Menu", StringComparison.OrdinalIgnoreCase))
+            if (Speakers != null)
             {
                 var speakerElements = GetXmlSpeakerElement(Speakers);
                 allSections.Add(speakerElements);
@@ -119,7 +121,7 @@ namespace TranslationLib
 
             allSections.AddRange(sectionsElements);
             var document = new XDocument(
-                new XElement(GetXMLTextTagName(), allSections)
+                new XElement(FileType, allSections)
             );
 
             File.WriteAllText(FilePath, document.ToString().Replace(" />", "/>") + Environment.NewLine);
@@ -208,14 +210,6 @@ namespace TranslationLib
                 }
             }
         }
-
-        private string GetXMLTextTagName()
-        {
-            if (FileType.Equals("Menu", StringComparison.OrdinalIgnoreCase))
-                return "MenuText";
-
-            return "SceneText";
-        }
         
         private XElement GetXmlSpeakerElement(List<XMLEntry> SpeakerList)
         {
@@ -294,9 +288,12 @@ namespace TranslationLib
                 }
             }
 
-            var speakerFound = SearchSpeaker(folder, fileId, text, matchWholeentry, matchCase, matchWholeWord, language);
-            if (speakerFound.Count > 0)
-                res.AddRange(speakerFound);
+            if (Speakers != null)
+            {
+                var speakerFound = SearchSpeaker(folder, fileId, text, matchWholeentry, matchCase, matchWholeWord, language);
+                if (speakerFound.Count > 0)
+                    res.AddRange(speakerFound);
+            }
 
             return res;
         }
