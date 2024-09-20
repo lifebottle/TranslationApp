@@ -15,6 +15,7 @@ namespace TranslationLib
         public List<XMLSection> Sections = new List<XMLSection>();
         public List<XMLEntry> Speakers = null;
         public XMLSection CurrentSection { get; set; }
+        public bool isLegacy { get; set; }
 
         public XMLFile()
         {
@@ -218,7 +219,7 @@ namespace TranslationLib
                 new XElement("Section", "Speaker"),
             };
 
-            speakerEntry.AddRange( SpeakerList.Select(entry => GetXMLEntryElement(entry)).ToList());
+            speakerEntry.AddRange(SpeakerList.Select(entry => GetXMLEntryElement(entry, isLegacy)).ToList());
 
             return new XElement("Speakers", speakerEntry);
         }
@@ -229,19 +230,21 @@ namespace TranslationLib
                 new XElement("Section", section.Name),
             };
 
-            sectionEntry.AddRange(section.Entries.Select(entry => GetXMLEntryElement(entry)).ToList());
+            sectionEntry.AddRange(section.Entries.Select(entry => GetXMLEntryElement(entry, isLegacy)).ToList());
 
             return new XElement("Strings", sectionEntry);
         }
 
-        private static XElement GetXMLEntryElement(XMLEntry entry)
+        private static XElement GetXMLEntryElement(XMLEntry entry, bool isLegacy)
         {
             var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
             var bubbleId = entry.BubbleId == null ? null : new XElement("BubbleId", entry.BubbleId);
             var subId = entry.BubbleId == null ? null : new XElement("SubId", entry.SubId);
-            var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",",entry.SpeakerId));
+            var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",", entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
             var maxLength = entry.MaxLength == null ? null : new XElement("MaxLength", entry.MaxLength);
+            var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
+            var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
             XElement embedOffset;
 
             if (entry.EmbedOffset)
@@ -252,25 +255,50 @@ namespace TranslationLib
                     new XElement("lo", entry.lo),
                 };
                 embedOffset = new XElement("EmbedOffset", sectionEntry);
-            } else
+            }
+            else
             {
                 embedOffset = null;
             }
-            return new XElement("Entry",
-                new XElement("PointerOffset", entry.PointerOffset),
-                embedOffset,
-                maxLength,
-                voiceId,
-                new XElement("JapaneseText", entry.JapaneseText),
-                new XElement("EnglishText", entry.EnglishText),
-                new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
-                speakerId,
-                elemenId,
-                bubbleId,
-                subId,
-                new XElement("Status", entry.Status)
 
-            );
+            if (isLegacy)
+            {
+                return new XElement("Entry",
+                    new XElement("PointerOffset", entry.PointerOffset),
+                    embedOffset,
+                    maxLength,
+                    voiceId,
+                    new XElement("JapaneseText", entry.JapaneseText),
+                    new XElement("EnglishText", entry.EnglishText),
+                    new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
+                    elemenId,
+                    structId,
+                    speakerId,
+                    unknownPointer,
+                    bubbleId,
+                    subId,
+                    new XElement("Status", entry.Status)
+                );
+            }
+            else
+            {
+
+                return new XElement("Entry",
+                    new XElement("PointerOffset", entry.PointerOffset),
+                    embedOffset,
+                    maxLength,
+                    voiceId,
+                    new XElement("JapaneseText", entry.JapaneseText),
+                    new XElement("EnglishText", entry.EnglishText),
+                    new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
+                    speakerId,
+                    elemenId,
+                    bubbleId,
+                    subId,
+                    new XElement("Status", entry.Status)
+
+                );
+            }
         }
 
 

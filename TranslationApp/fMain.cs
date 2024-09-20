@@ -115,7 +115,7 @@ namespace TranslationApp
 
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string p = TryLoadFolder(GetFolderPath());
+            string p = TryLoadFolder(GetFolderPath(), false);
             if (p != null)
             {
                 UpdateTitle($"Single folder {Path.GetDirectoryName(p)}");
@@ -609,7 +609,7 @@ namespace TranslationApp
         private void LoadProjectFolder(string gameName, string path)
         {
             lbEntries.BorderStyle = BorderStyle.FixedSingle;
-            var loadedFolder = TryLoadFolder(Path.Combine(GetFolderPath(), path));
+            var loadedFolder = TryLoadFolder(Path.Combine(GetFolderPath(), path), gameName.Equals("NDX"));
             gameConfig = config.GamesConfigList.Where(x => x.Game == gameName).FirstOrDefault();
 
             if (gameConfig == null)
@@ -636,7 +636,7 @@ namespace TranslationApp
             var myConfig = config.GetGameConfig(gameName);
             if (myConfig != null)
             {
-                TryLoadFolder(config.GetGameConfig(gameName).FolderPath);
+                TryLoadFolder(config.GetGameConfig(gameName).FolderPath, gameName.Equals("NDX"));
                 gameConfig = myConfig;
                 UpdateOptionsVisibility();
             }
@@ -644,11 +644,11 @@ namespace TranslationApp
                 MessageBox.Show("The game you are trying to load is not inside the configuration file,\nplease load a new folder.");
         }
 
-        public string TryLoadFolder(string path)
+        public string TryLoadFolder(string path, bool legacy)
         {
             if (Directory.Exists(path))
             {
-                LoadFolder(path);
+                LoadFolder(path, legacy);
                 return path;
             }
 
@@ -658,7 +658,7 @@ namespace TranslationApp
             return null;
         }
 
-        private void LoadFolder(string path)
+        private void LoadFolder(string path, bool legacy)
         {
             DisableEventHandlers();
 
@@ -668,7 +668,7 @@ namespace TranslationApp
                 folderIncluded.Add(new DirectoryInfo(p).Name);
             }
 
-            Project = new TranslationProject(path, folderIncluded);
+            Project = new TranslationProject(path, folderIncluded, legacy);
 
             if (Project.CurrentFolder == null)
             {
@@ -1365,7 +1365,7 @@ namespace TranslationApp
             var selectedFile = cbFileList.Text;
             var selectedSection = cbSections.Text;
             var selectedLanguage = cbLanguage.Text;
-            LoadFolder(Project.ProjectPath);
+            LoadFolder(Project.ProjectPath, Project.isLegacy);
             DisableEventHandlers();
             Project.SetCurrentFolder(selectedFileType);
             cbFileType.Text = selectedFileType;

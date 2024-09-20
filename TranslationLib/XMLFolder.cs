@@ -13,14 +13,16 @@ namespace TranslationLib
         public List<XMLFile> XMLFiles { get; set; }
         public Dictionary<string, TranslationEntry> Translations { get; set; }
         public XMLFile CurrentFile { get; set; }
+        public bool isLegacy { get; set; }
 
-        public XMLFolder(string name, string path)
+        public XMLFolder(string name, string path, bool legacy)
         {
             Name = name;
             FolderPath = path;
             Translations = new Dictionary<string, TranslationEntry>();
             XMLFiles = new List<XMLFile>();
             CurrentFile = new XMLFile();
+            isLegacy = legacy;
         }
 
         public void LoadXMLs()
@@ -46,6 +48,7 @@ namespace TranslationLib
             var document = XDocument.Load(xmlpath, LoadOptions.PreserveWhitespace);
             XMLFile.FileType = document.Root.Name.ToString();
             XMLFile.FriendlyName = document.Root.Element("FriendlyName")?.Value;
+            XMLFile.isLegacy = isLegacy;
             var XMLSections = document.Root.Elements("Strings");
 
             // Add a dummy "Everyting" section
@@ -148,6 +151,7 @@ namespace TranslationLib
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
                 BubbleId = ExtractNullableInt(element.Element("BubbleId")),
                 SubId = ExtractNullableInt(element.Element("SubId")),
+                StructId = ExtractNullableInt(element.Element("StructId")),
                 UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer")),
                 MaxLength = ExtractNullableInt(element.Element("MaxLength"))
             };
