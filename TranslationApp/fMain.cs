@@ -726,7 +726,7 @@ namespace TranslationApp
                 Project.SetCurrentFolder(cbFileType.SelectedItem.ToString());
                 List<string> filelist = Project.CurrentFolder.FileList();
 
-                if (cbFileType.SelectedItem.ToString() == "Menu")
+                if (cbFileType.SelectedItem.ToString().Equals("Menu", StringComparison.InvariantCultureIgnoreCase))
                 {
                     cbFileList.DataSource = filelist;
                 }
@@ -855,7 +855,7 @@ namespace TranslationApp
                 Project.CurrentFolder.SetCurrentFile(cbFileList.SelectedIndex);
 
                 string filetype = cbFileType.SelectedItem.ToString();
-                if (filetype == "Menu" || filetype == "Skits")
+                if (filetype.Equals("Menu", StringComparison.InvariantCultureIgnoreCase))
                 {
                     tbFriendlyName.Enabled = false;
                     tbFriendlyName.Text = cbFileList.Text;
