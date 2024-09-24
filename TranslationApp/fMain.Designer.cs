@@ -580,9 +580,9 @@ namespace TranslationApp
             // 
             this.cbSections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSections.FormattingEnabled = true;
-            this.cbSections.Location = new System.Drawing.Point(163, 187);
+            this.cbSections.Location = new System.Drawing.Point(127, 187);
             this.cbSections.Name = "cbSections";
-            this.cbSections.Size = new System.Drawing.Size(149, 21);
+            this.cbSections.Size = new System.Drawing.Size(185, 21);
             this.cbSections.TabIndex = 30;
             this.cbSections.SelectedIndexChanged += new System.EventHandler(this.cbSections_SelectedIndexChanged);
             this.cbSections.TextChanged += new System.EventHandler(this.cbSections_TextChanged);
@@ -675,9 +675,9 @@ namespace TranslationApp
             this.cbLanguage.Items.AddRange(new object[] {
             "English (if available)",
             "Japanese"});
-            this.cbLanguage.Location = new System.Drawing.Point(163, 214);
+            this.cbLanguage.Location = new System.Drawing.Point(127, 214);
             this.cbLanguage.Name = "cbLanguage";
-            this.cbLanguage.Size = new System.Drawing.Size(149, 21);
+            this.cbLanguage.Size = new System.Drawing.Size(185, 21);
             this.cbLanguage.TabIndex = 1;
             this.cbLanguage.SelectedIndexChanged += new System.EventHandler(this.cbLanguage_SelectedIndexChanged);
             // 
