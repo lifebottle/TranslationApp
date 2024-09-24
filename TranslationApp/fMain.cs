@@ -969,7 +969,7 @@ namespace TranslationApp
         private void cbFileList_DrawItem(object sender, DrawItemEventArgs e)
         {
             //Get the file selected
-            if (Project.CurrentFolder.FileList().Count > 0)
+            if (Project?.CurrentFolder.FileList().Count > 0)
             {
                 string text = ((ComboBox)sender).Items[e.Index].ToString();
                 if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
@@ -979,14 +979,29 @@ namespace TranslationApp
                 else
                 {
                     var count = CurrentTextList.Count;
-                    if (CurrentTextList.Count(x => x.Status == "Done") == count && count > 0)
+                    var sdata = Project.CurrentFolder.XMLFiles[e.Index].GetStatusData();
+                    if (sdata["Problematic"] != 0)
                     {
-                        SolidBrush backgroundBrush = new SolidBrush(Color.LightGreen);
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Problematic"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                     }
-                    else
+                    else if (sdata["To Do"] > 0)
                     {
                         e.Graphics.FillRectangle(new SolidBrush(((Control)sender).BackColor), e.Bounds);
+                    }
+                    else if (sdata["Edited"] > 0)
+                    {
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Editing"]);
+                        e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                    }
+                    else if (sdata["Proofread"] > 0)
+                    {
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Proofreading"]);
+                        e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                    } else
+                    {
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Done"]);
+                        e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                     }
                 }
 

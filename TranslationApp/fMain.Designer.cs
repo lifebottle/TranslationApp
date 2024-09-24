@@ -508,6 +508,7 @@ namespace TranslationApp
             // 
             this.cbFileList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbFileList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbFileList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbFileList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFileList.FormattingEnabled = true;
             this.cbFileList.Location = new System.Drawing.Point(118, 49);
