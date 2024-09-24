@@ -1116,6 +1116,9 @@ namespace TranslationApp
 
                             }
                         }
+                        tbEnglishText.Select();
+                        tbEnglishText.SelectionStart = tbEnglishText.Text.Length;
+                        tbEnglishText.SelectionLength = 0;
                         break;
                     case Keys.Up:
                         if (e.Alt)
@@ -1143,7 +1146,9 @@ namespace TranslationApp
                                 lbSpeaker.SelectedIndex = idx - 1;
                             }
                         }
-
+                        tbEnglishText.Select();
+                        tbEnglishText.SelectionStart = tbEnglishText.Text.Length;
+                        tbEnglishText.SelectionLength = 0;
                         break;
                     case Keys.L:
                         if (string.IsNullOrWhiteSpace(tbEnglishText.Text))
