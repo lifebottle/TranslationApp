@@ -54,6 +54,9 @@ namespace TranslationApp
         public fMain()
         {
             InitializeComponent();
+            // Use reflection to allow spliters to ignore the Form size
+            typeof(Splitter).GetField("minExtra", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(splitter1, -10000);
+            typeof(Splitter).GetField("minExtra", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(splitter2, -10000);
             var gitInfo = Assembly.GetExecutingAssembly().GetType("GitVersionInformation");
             var ver = gitInfo.GetField("FullSemVer").GetValue(null);
             var sha = gitInfo.GetField("ShortSha").GetValue(null);
