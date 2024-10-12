@@ -18,6 +18,7 @@ namespace TranslationApp
     public partial class TextPreview : PictureBox
     {
         public Bitmap fontAtlasImage { get; set; }
+        private Bitmap currentImage;
         public string text { get; set; }
 
         private font_glyph[] glyphs;
@@ -356,6 +357,8 @@ namespace TranslationApp
         public TextPreview()
         {
             InitializeComponent();
+            SizeMode = PictureBoxSizeMode.AutoSize;
+            Dock = DockStyle.None;
         }
 
         public void ChangeImage(string id)
@@ -415,10 +418,11 @@ namespace TranslationApp
         public void ReDraw(string text)
         {
             this.text = text;
+            Raster();
             Invalidate();
         }
 
-        private void TextPreview_Paint(object sender, PaintEventArgs e)
+        private void Raster()
         {
             // No image, no fun
             if (fontAtlasImage == null)
@@ -426,129 +430,153 @@ namespace TranslationApp
                 return;
             }
 
-            Bitmap canvas = new Bitmap(Width + 200, Height + 200);
-            using (Graphics canvas_g = Graphics.FromImage(canvas))
+            if (currentImage != null)
             {
-                canvas_g.CompositingMode = CompositingMode.SourceOver;
-                canvas_g.InterpolationMode = InterpolationMode.HighQualityBilinear;
-                canvas_g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                canvas_g.SmoothingMode = SmoothingMode.HighQuality;
-
-                // Initial state
-                PointF currentPosition = new PointF(10, 10);  // Starting position
-                string textToRender = text ?? ""; // Avoid null text
-                Color tintColor = colors["<White>"]; // Start as white text
-
-                ColorMatrix colorMatrix = new ColorMatrix();
-                ImageAttributes imageAttributes = new ImageAttributes();
-                string[] result = Regex.Split(textToRender.Replace("\r", ""), @"(<[\w/]+:?\w+>)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-
-                bool shear = false;
-
-                foreach (string element in result)
-                {
-                    // Only parse actual potential tags
-                    if (element[0] == '<' && element[element.Length - 1] == '>')
-                    {
-                        if (colors.ContainsKey(element))
-                        {
-                            tintColor = colors[element];
-                            continue;
-                        }
-                        else if (names.Contains(element))
-                        {
-                            textToRender = element.Substring(1, element.Length - 2);
-                        }
-                        else if (element.StartsWith("<unk") || element.StartsWith("<var") || element.StartsWith("<icon"))
-                        {
-                            textToRender = "***";
-                        }
-                        else if (element == "<Italic>")
-                        {
-                            shear = true;
-                            continue;
-                        }
-                        else if (element == "</Italic>")
-                        {
-                            shear = false;
-                            continue;
-                        }
-                        else if (element.Contains("nmb"))
-                        {
-                            string el = element.Substring(5, element.Length - 6);
-                            textToRender = Convert.ToInt32(el, 16).ToString();
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        textToRender = element;
-                    }
-
-                    // Apply colors
-                    colorMatrix.Matrix00 = tintColor.R / 128f;
-                    colorMatrix.Matrix11 = tintColor.G / 128f;
-                    colorMatrix.Matrix22 = tintColor.B / 128f;
-                    colorMatrix.Matrix33 = 1.8f;
-                    imageAttributes.SetColorMatrix(colorMatrix);
-
-                    foreach (char c in textToRender)
-                    {
-                        // Get the rectangle for the current character in the atlas
-                        Rectangle charRect = GetCharacterRectangleFromAtlas(c, out int shift, out bool line);
-
-                        // Create a destination rectangle using the currentPosition
-                        RectangleF destinationRect = new RectangleF(currentPosition, new SizeF(charRect.Width, charRect.Height));
-
-                        if (shear)
-                        {
-                            canvas_g.TranslateTransform(currentPosition.X, currentPosition.Y);
-                            Matrix shearMatrix = new Matrix();
-                            shearMatrix.Shear(-0.2f, 0.0f);
-                            canvas_g.MultiplyTransform(shearMatrix);
-                            canvas_g.TranslateTransform(-currentPosition.X, -currentPosition.Y);
-                        }
-                        else
-                        {
-                            canvas_g.ResetTransform();
-                        }
-
-                        // Draw the character onto the surface
-                        canvas_g.DrawImage(
-                            fontAtlasImage,
-                            Rectangle.Round(destinationRect),
-                            charRect.X,
-                            charRect.Y,
-                            charRect.Width,
-                            charRect.Height,
-                            GraphicsUnit.Pixel,
-                            imageAttributes
-                            );
-
-                        canvas_g.ResetTransform();
-
-                        // Update the current position for the next character
-                        if (line)
-                        {
-                            currentPosition.X = 10;
-                            currentPosition.Y += 24;
-                        }
-                        else
-                        {
-                            currentPosition.X += charRect.Width - shift;
-                        }
-                    }
-                }
-                
+                currentImage.Dispose();
             }
 
-            // Draw the final image scaled down
-            Graphics g = e.Graphics;
-            g.ScaleTransform(0.75f, 0.75f);
-            g.DrawImage(canvas, 0, 0);
+            using (Bitmap canvas = new Bitmap(1000, 1000))
+            {
+                using (Graphics canvas_g = Graphics.FromImage(canvas))
+                {
+                    canvas_g.CompositingMode = CompositingMode.SourceOver;
+                    canvas_g.InterpolationMode = InterpolationMode.HighQualityBilinear;
+                    canvas_g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    canvas_g.SmoothingMode = SmoothingMode.HighQuality;
+
+                    // Initial state
+                    PointF currentPosition = new PointF(10, 10);  // Starting position
+                    float finalWidth = 0;
+                    string textToRender = text ?? ""; // Avoid null text
+                    Color tintColor = colors["<White>"]; // Start as white text
+
+                    ColorMatrix colorMatrix = new ColorMatrix();
+                    ImageAttributes imageAttributes = new ImageAttributes();
+                    string[] result = Regex.Split(textToRender.Replace("\r", ""), @"(<[\w/]+:?\w+>)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+
+                    bool shear = false;
+
+                    foreach (string element in result)
+                    {
+                        // Only parse actual potential tags
+                        if (element[0] == '<' && element[element.Length - 1] == '>')
+                        {
+                            if (colors.ContainsKey(element))
+                            {
+                                tintColor = colors[element];
+                                continue;
+                            }
+                            else if (names.Contains(element))
+                            {
+                                textToRender = element.Substring(1, element.Length - 2);
+                            }
+                            else if (element.StartsWith("<unk") || element.StartsWith("<var") || element.StartsWith("<icon"))
+                            {
+                                textToRender = "***";
+                            }
+                            else if (element == "<Italic>")
+                            {
+                                shear = true;
+                                continue;
+                            }
+                            else if (element == "</Italic>")
+                            {
+                                shear = false;
+                                continue;
+                            }
+                            else if (element.Contains("nmb"))
+                            {
+                                string el = element.Substring(5, element.Length - 6);
+                                textToRender = Convert.ToInt32(el, 16).ToString();
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            textToRender = element;
+                        }
+
+                        // Apply colors
+                        colorMatrix.Matrix00 = tintColor.R / 128f;
+                        colorMatrix.Matrix11 = tintColor.G / 128f;
+                        colorMatrix.Matrix22 = tintColor.B / 128f;
+                        colorMatrix.Matrix33 = 1.8f;
+                        imageAttributes.SetColorMatrix(colorMatrix);
+
+                        foreach (char c in textToRender)
+                        {
+                            // Get the rectangle for the current character in the atlas
+                            Rectangle charRect = GetCharacterRectangleFromAtlas(c, out int shift, out bool line);
+
+                            // Create a destination rectangle using the currentPosition
+                            RectangleF destinationRect = new RectangleF(currentPosition, new SizeF(charRect.Width, charRect.Height));
+
+                            if (shear)
+                            {
+                                canvas_g.TranslateTransform(currentPosition.X, currentPosition.Y);
+                                Matrix shearMatrix = new Matrix();
+                                shearMatrix.Shear(-0.2f, 0.0f);
+                                canvas_g.MultiplyTransform(shearMatrix);
+                                canvas_g.TranslateTransform(-currentPosition.X, -currentPosition.Y);
+                            }
+                            else
+                            {
+                                canvas_g.ResetTransform();
+                            }
+
+                            // Draw the character onto the surface
+                            canvas_g.DrawImage(
+                                fontAtlasImage,
+                                Rectangle.Round(destinationRect),
+                                charRect.X,
+                                charRect.Y,
+                                charRect.Width,
+                                charRect.Height,
+                                GraphicsUnit.Pixel,
+                                imageAttributes
+                                );
+
+                            canvas_g.ResetTransform();
+
+                            // Update the current position for the next character
+                            if (line)
+                            {
+                                if (finalWidth < currentPosition.X) {
+                                    finalWidth = currentPosition.X;
+                                }
+                                currentPosition.X = 10;
+                                currentPosition.Y += 24;
+                            }
+                            else
+                            {
+                                currentPosition.X += charRect.Width - shift;
+                            }
+                        }
+                    }
+
+                    currentImage = new Bitmap((int)((finalWidth + 10) * 0.75f), (int)((currentPosition.Y + 34) * 0.75f));
+
+                    // Draw the final image scaled down
+                    using (Graphics canvas_f = Graphics.FromImage(currentImage))
+                    {
+                        canvas_f.ScaleTransform(0.75f, 0.75f);
+                        canvas_f.DrawImage(canvas, 0, 0);
+                    }
+                    //Graphics g = e.Graphics;
+                    //g.ScaleTransform(0.75f, 0.75f);
+                    //g.DrawImage(currentImage, 0, 0);
+                    Image = currentImage;
+                }
+            }
+        }
+
+        private void TextPreview_Paint(object sender, PaintEventArgs e)
+        {
+            
+
         }
 
         private Rectangle GetCharacterRectangleFromAtlas(int character, out int s, out bool addline)
