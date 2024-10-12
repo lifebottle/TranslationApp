@@ -579,7 +579,7 @@ namespace TranslationApp
         private void fMain_Paint(object sender, PaintEventArgs e)
         {
             Point p = new Point();
-            p.X = tbJapaneseText.Location.X + tbJapaneseText.Size.Width - trackBarAlign.Value * 10;
+            p.X = tbJapaneseText.Location.X + ((tbJapaneseText.Size.Width / trackBarAlign.Maximum) * trackBarAlign.Value);
             p.Y = tbJapaneseText.Location.Y;
             verticalLine.Location = p;
         }

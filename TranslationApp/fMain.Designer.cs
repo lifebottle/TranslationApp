@@ -501,10 +501,9 @@ namespace TranslationApp
             // 
             // verticalLine
             // 
-            this.verticalLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.verticalLine.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.verticalLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.verticalLine.Location = new System.Drawing.Point(378, 202);
+            this.verticalLine.Location = new System.Drawing.Point(10, 202);
             this.verticalLine.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.verticalLine.Name = "verticalLine";
             this.verticalLine.Size = new System.Drawing.Size(2, 500);
@@ -967,7 +966,7 @@ namespace TranslationApp
             // 
             this.panel2.Controls.Add(this.tabSearchMass);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(708, 24);
+            this.panel2.Location = new System.Drawing.Point(712, 24);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(347, 709);
             this.panel2.TabIndex = 53;
