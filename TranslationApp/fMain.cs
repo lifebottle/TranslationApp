@@ -28,6 +28,7 @@ namespace TranslationApp
         private string gameName;
         private int nbJapaneseDuplicate;
         private static string windowName;
+        FormWindowState LastWindowState = FormWindowState.Minimized;
 
         private readonly string MULTIPLE_STATUS = "<Multiple Status>";
         private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
@@ -1652,6 +1653,31 @@ namespace TranslationApp
                 }
             }
         }
+
+        private void splitter2_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void fMain_Resize(object sender, EventArgs e)
+        {
+            if (WindowState != LastWindowState)
+            {
+                if (WindowState == FormWindowState.Maximized)
+                {
+                    leftColumn.Size = new Size((int)(ClientSize.Width * 0.3f), leftColumn.Height);
+                    middleColumn.Size = new Size((int)(ClientSize.Width * 0.4f), middleColumn.Height);
+                    //rightColumn.Size = new Size((int)(ClientSize.Width * 0.3f), rightColumn.Height);
+                }
+                else if(WindowState == FormWindowState.Normal)
+                {
+                    leftColumn.Size = new Size((int)(ClientSize.Width * 0.3f), leftColumn.Height);
+                    middleColumn.Size = new Size((int)(ClientSize.Width * 0.35f), middleColumn.Height);
+                    //rightColumn.Size = new Size((int)(ClientSize.Width * 0.3f), rightColumn.Height);
+                }
+                LastWindowState = WindowState;
+            }
+        }
     }
-    
+
 }

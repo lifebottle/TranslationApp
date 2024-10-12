@@ -109,9 +109,7 @@ namespace TranslationApp
             this.btnSaveFile = new System.Windows.Forms.Button();
             this.lNbOtherTranslations = new System.Windows.Forms.Label();
             this.lLineBreak = new System.Windows.Forms.Label();
-            this.textPreview1 = new TranslationApp.TextPreview();
-            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.rightColumn = new System.Windows.Forms.Panel();
             this.tabSearchMass = new System.Windows.Forms.TabControl();
             this.tpSearch = new System.Windows.Forms.TabPage();
             this.cbMatchWhole = new System.Windows.Forms.CheckBox();
@@ -134,11 +132,13 @@ namespace TranslationApp
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.middleColumn = new System.Windows.Forms.Panel();
+            this.pPreviewContainer = new System.Windows.Forms.Panel();
+            this.leftColumn = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.pPreviewContainer = new System.Windows.Forms.Panel();
+            this.textPreview1 = new TranslationApp.TextPreview();
+            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -147,14 +147,14 @@ namespace TranslationApp
             this.panel1.SuspendLayout();
             this.panelNb1.SuspendLayout();
             this.panelNb2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.rightColumn.SuspendLayout();
             this.tabSearchMass.SuspendLayout();
             this.tpSearch.SuspendLayout();
             this.tpMassReplace.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.middleColumn.SuspendLayout();
             this.pPreviewContainer.SuspendLayout();
+            this.leftColumn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -168,7 +168,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1060, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1120, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -937,39 +937,14 @@ namespace TranslationApp
             this.lLineBreak.Size = new System.Drawing.Size(143, 13);
             this.lLineBreak.TabIndex = 52;
             // 
-            // textPreview1
+            // rightColumn
             // 
-            this.textPreview1.BackColor = System.Drawing.Color.Transparent;
-            this.textPreview1.fontAtlasImage = null;
-            this.textPreview1.Location = new System.Drawing.Point(0, 0);
-            this.textPreview1.Name = "textPreview1";
-            this.textPreview1.Size = new System.Drawing.Size(371, 163);
-            this.textPreview1.TabIndex = 49;
-            this.textPreview1.TabStop = false;
-            this.textPreview1.text = null;
-            // 
-            // tbEnglishText
-            // 
-            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEnglishText.Location = new System.Drawing.Point(9, 353);
-            this.tbEnglishText.Multiline = true;
-            this.tbEnglishText.Name = "tbEnglishText";
-            this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
-            this.tbEnglishText.TabIndex = 6;
-            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
-            this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.tabSearchMass);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(712, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(347, 709);
-            this.panel2.TabIndex = 53;
+            this.rightColumn.Controls.Add(this.tabSearchMass);
+            this.rightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightColumn.Location = new System.Drawing.Point(712, 24);
+            this.rightColumn.Name = "rightColumn";
+            this.rightColumn.Size = new System.Drawing.Size(408, 709);
+            this.rightColumn.TabIndex = 53;
             // 
             // tabSearchMass
             // 
@@ -982,7 +957,7 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(4, 3);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(330, 694);
+            this.tabSearchMass.Size = new System.Drawing.Size(401, 694);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
@@ -1002,7 +977,7 @@ namespace TranslationApp
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(322, 668);
+            this.tpSearch.Size = new System.Drawing.Size(393, 668);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
@@ -1131,7 +1106,7 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(263, 439);
+            this.lbSearch.Size = new System.Drawing.Size(334, 439);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1149,7 +1124,7 @@ namespace TranslationApp
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(322, 668);
+            this.tpMassReplace.Size = new System.Drawing.Size(393, 668);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1235,59 +1210,72 @@ namespace TranslationApp
             this.lbDistinctTranslations.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbDistinctTranslations_MeasureItem);
             this.lbDistinctTranslations.SelectedIndexChanged += new System.EventHandler(this.lbDistinctTranslations_SelectedIndexChanged);
             // 
-            // panel3
+            // middleColumn
             // 
-            this.panel3.Controls.Add(this.verticalLine);
-            this.panel3.Controls.Add(this.pPreviewContainer);
-            this.panel3.Controls.Add(this.tbFriendlyName);
-            this.panel3.Controls.Add(this.lLineBreak);
-            this.panel3.Controls.Add(this.tbJapaneseText);
-            this.panel3.Controls.Add(this.lNbOtherTranslations);
-            this.panel3.Controls.Add(this.tbEnglishText);
-            this.panel3.Controls.Add(this.tbNoteText);
-            this.panel3.Controls.Add(this.tbSectionName);
-            this.panel3.Controls.Add(this.lblJapanese);
-            this.panel3.Controls.Add(this.lblSectionName);
-            this.panel3.Controls.Add(this.lblEnglish);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.lblFileInfo);
-            this.panel3.Controls.Add(this.trackBarAlign);
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.cbStatus);
-            this.panel3.Controls.Add(this.cbEmpty);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.lErrors);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(319, 24);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(388, 709);
-            this.panel3.TabIndex = 54;
+            this.middleColumn.Controls.Add(this.verticalLine);
+            this.middleColumn.Controls.Add(this.pPreviewContainer);
+            this.middleColumn.Controls.Add(this.tbFriendlyName);
+            this.middleColumn.Controls.Add(this.lLineBreak);
+            this.middleColumn.Controls.Add(this.tbJapaneseText);
+            this.middleColumn.Controls.Add(this.lNbOtherTranslations);
+            this.middleColumn.Controls.Add(this.tbEnglishText);
+            this.middleColumn.Controls.Add(this.tbNoteText);
+            this.middleColumn.Controls.Add(this.tbSectionName);
+            this.middleColumn.Controls.Add(this.lblJapanese);
+            this.middleColumn.Controls.Add(this.lblSectionName);
+            this.middleColumn.Controls.Add(this.lblEnglish);
+            this.middleColumn.Controls.Add(this.label4);
+            this.middleColumn.Controls.Add(this.lblFileInfo);
+            this.middleColumn.Controls.Add(this.trackBarAlign);
+            this.middleColumn.Controls.Add(this.label7);
+            this.middleColumn.Controls.Add(this.label2);
+            this.middleColumn.Controls.Add(this.cbStatus);
+            this.middleColumn.Controls.Add(this.cbEmpty);
+            this.middleColumn.Controls.Add(this.label1);
+            this.middleColumn.Controls.Add(this.lErrors);
+            this.middleColumn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.middleColumn.Location = new System.Drawing.Point(319, 24);
+            this.middleColumn.Name = "middleColumn";
+            this.middleColumn.Size = new System.Drawing.Size(388, 709);
+            this.middleColumn.TabIndex = 54;
             // 
-            // panel4
+            // pPreviewContainer
             // 
-            this.panel4.Controls.Add(this.label3);
-            this.panel4.Controls.Add(this.tcType);
-            this.panel4.Controls.Add(this.lFile);
-            this.panel4.Controls.Add(this.btnSaveFile);
-            this.panel4.Controls.Add(this.bSaveAll);
-            this.panel4.Controls.Add(this.label9);
-            this.panel4.Controls.Add(this.cbFileList);
-            this.panel4.Controls.Add(this.cbFileType);
-            this.panel4.Controls.Add(this.btnRefresh);
-            this.panel4.Controls.Add(this.label5);
-            this.panel4.Controls.Add(this.panelNb2);
-            this.panel4.Controls.Add(this.cbSections);
-            this.panel4.Controls.Add(this.panelNb1);
-            this.panel4.Controls.Add(this.label8);
-            this.panel4.Controls.Add(this.lLanguage);
-            this.panel4.Controls.Add(this.panel1);
-            this.panel4.Controls.Add(this.cbLanguage);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel4.Location = new System.Drawing.Point(0, 24);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(314, 709);
-            this.panel4.TabIndex = 55;
+            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pPreviewContainer.AutoScroll = true;
+            this.pPreviewContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pPreviewContainer.Controls.Add(this.textPreview1);
+            this.pPreviewContainer.Location = new System.Drawing.Point(9, 538);
+            this.pPreviewContainer.Name = "pPreviewContainer";
+            this.pPreviewContainer.Size = new System.Drawing.Size(371, 164);
+            this.pPreviewContainer.TabIndex = 53;
+            // 
+            // leftColumn
+            // 
+            this.leftColumn.Controls.Add(this.label3);
+            this.leftColumn.Controls.Add(this.tcType);
+            this.leftColumn.Controls.Add(this.lFile);
+            this.leftColumn.Controls.Add(this.btnSaveFile);
+            this.leftColumn.Controls.Add(this.bSaveAll);
+            this.leftColumn.Controls.Add(this.label9);
+            this.leftColumn.Controls.Add(this.cbFileList);
+            this.leftColumn.Controls.Add(this.cbFileType);
+            this.leftColumn.Controls.Add(this.btnRefresh);
+            this.leftColumn.Controls.Add(this.label5);
+            this.leftColumn.Controls.Add(this.panelNb2);
+            this.leftColumn.Controls.Add(this.cbSections);
+            this.leftColumn.Controls.Add(this.panelNb1);
+            this.leftColumn.Controls.Add(this.label8);
+            this.leftColumn.Controls.Add(this.lLanguage);
+            this.leftColumn.Controls.Add(this.panel1);
+            this.leftColumn.Controls.Add(this.cbLanguage);
+            this.leftColumn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.leftColumn.Location = new System.Drawing.Point(0, 24);
+            this.leftColumn.Name = "leftColumn";
+            this.leftColumn.Size = new System.Drawing.Size(314, 709);
+            this.leftColumn.TabIndex = 55;
             // 
             // splitter1
             // 
@@ -1310,29 +1298,42 @@ namespace TranslationApp
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
             // 
-            // pPreviewContainer
+            // textPreview1
             // 
-            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.textPreview1.BackColor = System.Drawing.Color.Transparent;
+            this.textPreview1.fontAtlasImage = null;
+            this.textPreview1.Location = new System.Drawing.Point(0, 0);
+            this.textPreview1.Name = "textPreview1";
+            this.textPreview1.Size = new System.Drawing.Size(371, 163);
+            this.textPreview1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.textPreview1.TabIndex = 49;
+            this.textPreview1.TabStop = false;
+            this.textPreview1.text = null;
+            // 
+            // tbEnglishText
+            // 
+            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pPreviewContainer.AutoScroll = true;
-            this.pPreviewContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pPreviewContainer.Controls.Add(this.textPreview1);
-            this.pPreviewContainer.Location = new System.Drawing.Point(9, 538);
-            this.pPreviewContainer.Name = "pPreviewContainer";
-            this.pPreviewContainer.Size = new System.Drawing.Size(371, 164);
-            this.pPreviewContainer.TabIndex = 53;
+            this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEnglishText.Location = new System.Drawing.Point(9, 353);
+            this.tbEnglishText.Multiline = true;
+            this.tbEnglishText.Name = "tbEnglishText";
+            this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
+            this.tbEnglishText.TabIndex = 6;
+            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
+            this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 733);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(1120, 733);
+            this.Controls.Add(this.rightColumn);
             this.Controls.Add(this.splitter2);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.middleColumn);
             this.Controls.Add(this.splitter1);
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.leftColumn);
             this.Controls.Add(this.menuStripMain);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripMain;
@@ -1341,6 +1342,7 @@ namespace TranslationApp
             this.Load += new System.EventHandler(this.fMain_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.fMain_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
+            this.Resize += new System.EventHandler(this.fMain_Resize);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.tcType.ResumeLayout(false);
@@ -1353,18 +1355,19 @@ namespace TranslationApp
             this.panelNb1.PerformLayout();
             this.panelNb2.ResumeLayout(false);
             this.panelNb2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.rightColumn.ResumeLayout(false);
             this.tabSearchMass.ResumeLayout(false);
             this.tpSearch.ResumeLayout(false);
             this.tpSearch.PerformLayout();
             this.tpMassReplace.ResumeLayout(false);
             this.tpMassReplace.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.middleColumn.ResumeLayout(false);
+            this.middleColumn.PerformLayout();
             this.pPreviewContainer.ResumeLayout(false);
+            this.pPreviewContainer.PerformLayout();
+            this.leftColumn.ResumeLayout(false);
+            this.leftColumn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1452,9 +1455,9 @@ namespace TranslationApp
         private System.Windows.Forms.Label lNbOtherTranslations;
         private System.Windows.Forms.Label lLineBreak;
         private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel rightColumn;
+        private System.Windows.Forms.Panel middleColumn;
+        private System.Windows.Forms.Panel leftColumn;
         private System.Windows.Forms.TabControl tabSearchMass;
         private System.Windows.Forms.TabPage tpSearch;
         private System.Windows.Forms.CheckBox cbMatchWhole;
@@ -1477,9 +1480,9 @@ namespace TranslationApp
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ListBox lbDistinctTranslations;
+        private System.Windows.Forms.Panel pPreviewContainer;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Splitter splitter2;
-        private System.Windows.Forms.Panel pPreviewContainer;
     }
 }
 
