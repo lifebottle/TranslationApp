@@ -8,8 +8,6 @@ using System.Windows.Forms;
 using TranslationLib;
 using PackingLib;
 using System.Reflection;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 
 namespace TranslationApp
 {
@@ -393,6 +391,12 @@ namespace TranslationApp
                         TextRenderer.DrawText(e.Graphics, element, regularFont, startPoint, regularColor, flags);
                         startPoint.X += mySize.Width;
                     }
+                }
+
+                // Update HorizonalExtent so we can have horizontal scrolling
+                if (lbEntries.HorizontalExtent < startPoint.X)
+                {
+                    lbEntries.HorizontalExtent = startPoint.X + 20;
                 }
 
                 if (i < lines.Length - 1)
