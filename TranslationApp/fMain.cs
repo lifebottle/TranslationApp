@@ -35,7 +35,7 @@ namespace TranslationApp
 
         struct ProjectEntry
         {
-            public  string shortName, fullName, folder;
+            public string shortName, fullName, folder;
             public ProjectEntry(string sname, string fname, string dir)
             {
                 shortName = sname;
@@ -546,8 +546,8 @@ namespace TranslationApp
                     }
                     nbJapaneseDuplicate -= 1;
                 }
-                    
-                
+
+
                 if (nbJapaneseDuplicate > 0)
                     lblJapanese.Text = $@"Japanese ({nbJapaneseDuplicate} duplicate(s) found)";
                 else
@@ -677,7 +677,7 @@ namespace TranslationApp
             if (Project.CurrentFolder == null)
             {
                 MessageBox.Show("Are you sure you selected the right folder?\n" +
-                            "The folder you have chosen doesn't contain any subfolders\n"+
+                            "The folder you have chosen doesn't contain any subfolders\n" +
                             "or they are empty, please try again.");
                 return;
             }
@@ -1002,7 +1002,8 @@ namespace TranslationApp
                     {
                         SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Proofreading"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
-                    } else
+                    }
+                    else
                     {
                         SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Done"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
