@@ -55,7 +55,6 @@ namespace TranslationApp
             this.hexToJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbJapaneseText = new System.Windows.Forms.TextBox();
-            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.tbNoteText = new System.Windows.Forms.TextBox();
             this.lblJapanese = new System.Windows.Forms.Label();
             this.lblEnglish = new System.Windows.Forms.Label();
@@ -108,6 +107,9 @@ namespace TranslationApp
             this.lblSectionName = new System.Windows.Forms.Label();
             this.tbSectionName = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
+            this.lNbOtherTranslations = new System.Windows.Forms.Label();
+            this.lLineBreak = new System.Windows.Forms.Label();
+            this.rightColumn = new System.Windows.Forms.Panel();
             this.tabSearchMass = new System.Windows.Forms.TabControl();
             this.tpSearch = new System.Windows.Forms.TabPage();
             this.cbMatchWhole = new System.Windows.Forms.CheckBox();
@@ -130,9 +132,13 @@ namespace TranslationApp
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
-            this.lNbOtherTranslations = new System.Windows.Forms.Label();
-            this.lLineBreak = new System.Windows.Forms.Label();
+            this.middleColumn = new System.Windows.Forms.Panel();
+            this.pPreviewContainer = new System.Windows.Forms.Panel();
             this.textPreview1 = new TranslationApp.TextPreview();
+            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
+            this.leftColumn = new System.Windows.Forms.Panel();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.splitter2 = new System.Windows.Forms.Splitter();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -141,10 +147,14 @@ namespace TranslationApp
             this.panel1.SuspendLayout();
             this.panelNb1.SuspendLayout();
             this.panelNb2.SuspendLayout();
+            this.rightColumn.SuspendLayout();
             this.tabSearchMass.SuspendLayout();
             this.tpSearch.SuspendLayout();
             this.tpMassReplace.SuspendLayout();
+            this.middleColumn.SuspendLayout();
+            this.pPreviewContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
+            this.leftColumn.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -158,7 +168,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1074, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1047, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -333,9 +343,11 @@ namespace TranslationApp
             // 
             // tbJapaneseText
             // 
+            this.tbJapaneseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbJapaneseText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbJapaneseText.HideSelection = false;
-            this.tbJapaneseText.Location = new System.Drawing.Point(337, 226);
+            this.tbJapaneseText.Location = new System.Drawing.Point(9, 202);
             this.tbJapaneseText.Multiline = true;
             this.tbJapaneseText.Name = "tbJapaneseText";
             this.tbJapaneseText.ReadOnly = true;
@@ -343,21 +355,11 @@ namespace TranslationApp
             this.tbJapaneseText.Size = new System.Drawing.Size(372, 132);
             this.tbJapaneseText.TabIndex = 5;
             // 
-            // tbEnglishText
-            // 
-            this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEnglishText.Location = new System.Drawing.Point(337, 377);
-            this.tbEnglishText.Multiline = true;
-            this.tbEnglishText.Name = "tbEnglishText";
-            this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
-            this.tbEnglishText.TabIndex = 6;
-            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
-            this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
-            // 
             // tbNoteText
             // 
-            this.tbNoteText.Location = new System.Drawing.Point(338, 97);
+            this.tbNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbNoteText.Location = new System.Drawing.Point(10, 73);
             this.tbNoteText.Multiline = true;
             this.tbNoteText.Name = "tbNoteText";
             this.tbNoteText.Size = new System.Drawing.Size(372, 51);
@@ -366,7 +368,7 @@ namespace TranslationApp
             // 
             // lblJapanese
             // 
-            this.lblJapanese.Location = new System.Drawing.Point(334, 210);
+            this.lblJapanese.Location = new System.Drawing.Point(6, 186);
             this.lblJapanese.Name = "lblJapanese";
             this.lblJapanese.Size = new System.Drawing.Size(203, 13);
             this.lblJapanese.TabIndex = 9;
@@ -374,7 +376,7 @@ namespace TranslationApp
             // 
             // lblEnglish
             // 
-            this.lblEnglish.Location = new System.Drawing.Point(334, 361);
+            this.lblEnglish.Location = new System.Drawing.Point(6, 337);
             this.lblEnglish.Name = "lblEnglish";
             this.lblEnglish.Size = new System.Drawing.Size(47, 13);
             this.lblEnglish.TabIndex = 10;
@@ -383,7 +385,7 @@ namespace TranslationApp
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(335, 81);
+            this.label4.Location = new System.Drawing.Point(7, 57);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 11;
@@ -391,14 +393,15 @@ namespace TranslationApp
             // 
             // tcType
             // 
-            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tcType.Controls.Add(this.tabText);
             this.tcType.Controls.Add(this.tabSpeaker);
-            this.tcType.Location = new System.Drawing.Point(16, 241);
+            this.tcType.Location = new System.Drawing.Point(7, 216);
             this.tcType.Name = "tcType";
             this.tcType.SelectedIndex = 0;
-            this.tcType.Size = new System.Drawing.Size(300, 487);
+            this.tcType.Size = new System.Drawing.Size(300, 486);
             this.tcType.TabIndex = 13;
             this.tcType.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcType_Selected);
             // 
@@ -408,7 +411,7 @@ namespace TranslationApp
             this.tabText.Location = new System.Drawing.Point(4, 22);
             this.tabText.Name = "tabText";
             this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(292, 461);
+            this.tabText.Size = new System.Drawing.Size(292, 460);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
@@ -420,10 +423,11 @@ namespace TranslationApp
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbEntries.FormattingEnabled = true;
+            this.lbEntries.HorizontalScrollbar = true;
             this.lbEntries.Location = new System.Drawing.Point(4, 3);
             this.lbEntries.Name = "lbEntries";
             this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbEntries.Size = new System.Drawing.Size(285, 453);
+            this.lbEntries.Size = new System.Drawing.Size(285, 448);
             this.lbEntries.TabIndex = 0;
             this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
             this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
@@ -435,7 +439,7 @@ namespace TranslationApp
             this.tabSpeaker.Controls.Add(this.lbSpeaker);
             this.tabSpeaker.Location = new System.Drawing.Point(4, 22);
             this.tabSpeaker.Name = "tabSpeaker";
-            this.tabSpeaker.Size = new System.Drawing.Size(292, 461);
+            this.tabSpeaker.Size = new System.Drawing.Size(292, 460);
             this.tabSpeaker.TabIndex = 1;
             this.tabSpeaker.Text = "Speaker";
             this.tabSpeaker.UseVisualStyleBackColor = true;
@@ -447,10 +451,11 @@ namespace TranslationApp
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSpeaker.FormattingEnabled = true;
+            this.lbSpeaker.HorizontalScrollbar = true;
             this.lbSpeaker.Location = new System.Drawing.Point(5, 4);
             this.lbSpeaker.Name = "lbSpeaker";
             this.lbSpeaker.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSpeaker.Size = new System.Drawing.Size(282, 391);
+            this.lbSpeaker.Size = new System.Drawing.Size(282, 443);
             this.lbSpeaker.TabIndex = 1;
             this.lbSpeaker.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSpeaker_DrawItem);
             this.lbSpeaker.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSpeaker_MeasureItem);
@@ -460,14 +465,16 @@ namespace TranslationApp
             // 
             this.lFile.AutoSize = true;
             this.lFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lFile.Location = new System.Drawing.Point(13, 61);
+            this.lFile.Location = new System.Drawing.Point(4, 36);
             this.lFile.Name = "lFile";
             this.lFile.Size = new System.Drawing.Size(0, 16);
             this.lFile.TabIndex = 15;
             // 
             // bSaveAll
             // 
-            this.bSaveAll.Location = new System.Drawing.Point(217, 155);
+            this.bSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bSaveAll.Location = new System.Drawing.Point(208, 130);
             this.bSaveAll.Name = "bSaveAll";
             this.bSaveAll.Size = new System.Drawing.Size(95, 23);
             this.bSaveAll.TabIndex = 16;
@@ -477,8 +484,10 @@ namespace TranslationApp
             // 
             // trackBarAlign
             // 
+            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
-            this.trackBarAlign.Location = new System.Drawing.Point(611, 178);
+            this.trackBarAlign.Location = new System.Drawing.Point(283, 154);
             this.trackBarAlign.Maximum = 30;
             this.trackBarAlign.Name = "trackBarAlign";
             this.trackBarAlign.Size = new System.Drawing.Size(97, 26);
@@ -488,7 +497,7 @@ namespace TranslationApp
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(611, 162);
+            this.label7.Location = new System.Drawing.Point(283, 138);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 19;
@@ -498,20 +507,22 @@ namespace TranslationApp
             // 
             this.verticalLine.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.verticalLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.verticalLine.Location = new System.Drawing.Point(706, 222);
+            this.verticalLine.Location = new System.Drawing.Point(8, 202);
             this.verticalLine.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.verticalLine.Name = "verticalLine";
-            this.verticalLine.Size = new System.Drawing.Size(2, 478);
+            this.verticalLine.Size = new System.Drawing.Size(2, 500);
             this.verticalLine.TabIndex = 20;
             // 
             // cbFileList
             // 
+            this.cbFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFileList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbFileList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFileList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbFileList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFileList.FormattingEnabled = true;
-            this.cbFileList.Location = new System.Drawing.Point(118, 49);
+            this.cbFileList.Location = new System.Drawing.Point(109, 24);
             this.cbFileList.Name = "cbFileList";
             this.cbFileList.Size = new System.Drawing.Size(194, 21);
             this.cbFileList.TabIndex = 21;
@@ -524,7 +535,7 @@ namespace TranslationApp
             this.cbFileType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFileType.FormattingEnabled = true;
-            this.cbFileType.Location = new System.Drawing.Point(20, 49);
+            this.cbFileType.Location = new System.Drawing.Point(11, 24);
             this.cbFileType.Name = "cbFileType";
             this.cbFileType.Size = new System.Drawing.Size(93, 21);
             this.cbFileType.TabIndex = 22;
@@ -540,7 +551,7 @@ namespace TranslationApp
             "Proofread",
             "Problematic",
             "Done"});
-            this.cbStatus.Location = new System.Drawing.Point(377, 184);
+            this.cbStatus.Location = new System.Drawing.Point(49, 160);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(121, 21);
             this.cbStatus.TabIndex = 25;
@@ -550,7 +561,7 @@ namespace TranslationApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(334, 187);
+            this.label1.Location = new System.Drawing.Point(6, 163);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 26;
@@ -560,7 +571,7 @@ namespace TranslationApp
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(17, 79);
+            this.label5.Location = new System.Drawing.Point(8, 54);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 15);
             this.label5.TabIndex = 27;
@@ -571,7 +582,7 @@ namespace TranslationApp
             this.lErrors.AutoSize = true;
             this.lErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lErrors.ForeColor = System.Drawing.Color.Red;
-            this.lErrors.Location = new System.Drawing.Point(335, 158);
+            this.lErrors.Location = new System.Drawing.Point(7, 134);
             this.lErrors.Name = "lErrors";
             this.lErrors.Size = new System.Drawing.Size(14, 15);
             this.lErrors.TabIndex = 1;
@@ -579,9 +590,11 @@ namespace TranslationApp
             // 
             // cbSections
             // 
+            this.cbSections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSections.FormattingEnabled = true;
-            this.cbSections.Location = new System.Drawing.Point(127, 187);
+            this.cbSections.Location = new System.Drawing.Point(118, 162);
             this.cbSections.Name = "cbSections";
             this.cbSections.Size = new System.Drawing.Size(185, 21);
             this.cbSections.TabIndex = 30;
@@ -592,7 +605,7 @@ namespace TranslationApp
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(17, 188);
+            this.label8.Location = new System.Drawing.Point(8, 163);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(78, 15);
             this.label8.TabIndex = 31;
@@ -607,7 +620,7 @@ namespace TranslationApp
             this.panel1.Controls.Add(this.cbEditing);
             this.panel1.Controls.Add(this.cbProof);
             this.panel1.Controls.Add(this.cbToDo);
-            this.panel1.Location = new System.Drawing.Point(20, 97);
+            this.panel1.Location = new System.Drawing.Point(11, 72);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(93, 81);
             this.panel1.TabIndex = 32;
@@ -671,12 +684,14 @@ namespace TranslationApp
             // 
             // cbLanguage
             // 
+            this.cbLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLanguage.FormattingEnabled = true;
             this.cbLanguage.Items.AddRange(new object[] {
             "English (if available)",
             "Japanese"});
-            this.cbLanguage.Location = new System.Drawing.Point(127, 214);
+            this.cbLanguage.Location = new System.Drawing.Point(118, 189);
             this.cbLanguage.Name = "cbLanguage";
             this.cbLanguage.Size = new System.Drawing.Size(185, 21);
             this.cbLanguage.TabIndex = 1;
@@ -686,7 +701,7 @@ namespace TranslationApp
             // 
             this.lLanguage.AutoSize = true;
             this.lLanguage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lLanguage.Location = new System.Drawing.Point(17, 215);
+            this.lLanguage.Location = new System.Drawing.Point(8, 190);
             this.lLanguage.Name = "lLanguage";
             this.lLanguage.Size = new System.Drawing.Size(106, 15);
             this.lLanguage.TabIndex = 33;
@@ -701,7 +716,7 @@ namespace TranslationApp
             this.panelNb1.Controls.Add(this.lNbEditing);
             this.panelNb1.Controls.Add(this.lNbProof);
             this.panelNb1.Controls.Add(this.lNbToDo);
-            this.panelNb1.Location = new System.Drawing.Point(168, 97);
+            this.panelNb1.Location = new System.Drawing.Point(159, 72);
             this.panelNb1.Name = "panelNb1";
             this.panelNb1.Size = new System.Drawing.Size(43, 81);
             this.panelNb1.TabIndex = 34;
@@ -760,7 +775,7 @@ namespace TranslationApp
             this.panelNb2.Controls.Add(this.lNbEditingSect);
             this.panelNb2.Controls.Add(this.lNbProofSect);
             this.panelNb2.Controls.Add(this.lNbToDoSect);
-            this.panelNb2.Location = new System.Drawing.Point(118, 97);
+            this.panelNb2.Location = new System.Drawing.Point(109, 72);
             this.panelNb2.Name = "panelNb2";
             this.panelNb2.Size = new System.Drawing.Size(43, 81);
             this.panelNb2.TabIndex = 35;
@@ -812,7 +827,9 @@ namespace TranslationApp
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(217, 99);
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.Location = new System.Drawing.Point(208, 74);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(95, 23);
             this.btnRefresh.TabIndex = 36;
@@ -823,7 +840,7 @@ namespace TranslationApp
             // cbEmpty
             // 
             this.cbEmpty.AutoSize = true;
-            this.cbEmpty.Location = new System.Drawing.Point(520, 187);
+            this.cbEmpty.Location = new System.Drawing.Point(192, 163);
             this.cbEmpty.Name = "cbEmpty";
             this.cbEmpty.Size = new System.Drawing.Size(61, 17);
             this.cbEmpty.TabIndex = 37;
@@ -834,7 +851,7 @@ namespace TranslationApp
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(334, 546);
+            this.label2.Location = new System.Drawing.Point(6, 522);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 13);
             this.label2.TabIndex = 39;
@@ -843,7 +860,7 @@ namespace TranslationApp
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 33);
+            this.label3.Location = new System.Drawing.Point(8, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 40;
@@ -852,7 +869,7 @@ namespace TranslationApp
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(115, 33);
+            this.label9.Location = new System.Drawing.Point(106, 8);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(54, 13);
             this.label9.TabIndex = 41;
@@ -860,7 +877,7 @@ namespace TranslationApp
             // 
             // lblFileInfo
             // 
-            this.lblFileInfo.Location = new System.Drawing.Point(335, 33);
+            this.lblFileInfo.Location = new System.Drawing.Point(7, 9);
             this.lblFileInfo.Name = "lblFileInfo";
             this.lblFileInfo.Size = new System.Drawing.Size(136, 13);
             this.lblFileInfo.TabIndex = 44;
@@ -868,7 +885,7 @@ namespace TranslationApp
             // 
             // tbFriendlyName
             // 
-            this.tbFriendlyName.Location = new System.Drawing.Point(338, 50);
+            this.tbFriendlyName.Location = new System.Drawing.Point(10, 26);
             this.tbFriendlyName.Name = "tbFriendlyName";
             this.tbFriendlyName.Size = new System.Drawing.Size(222, 20);
             this.tbFriendlyName.TabIndex = 45;
@@ -877,7 +894,7 @@ namespace TranslationApp
             // lblSectionName
             // 
             this.lblSectionName.AutoSize = true;
-            this.lblSectionName.Location = new System.Drawing.Point(565, 33);
+            this.lblSectionName.Location = new System.Drawing.Point(237, 9);
             this.lblSectionName.Name = "lblSectionName";
             this.lblSectionName.Size = new System.Drawing.Size(74, 13);
             this.lblSectionName.TabIndex = 46;
@@ -885,7 +902,9 @@ namespace TranslationApp
             // 
             // tbSectionName
             // 
-            this.tbSectionName.Location = new System.Drawing.Point(566, 50);
+            this.tbSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSectionName.Location = new System.Drawing.Point(238, 26);
             this.tbSectionName.Name = "tbSectionName";
             this.tbSectionName.Size = new System.Drawing.Size(143, 20);
             this.tbSectionName.TabIndex = 47;
@@ -893,7 +912,9 @@ namespace TranslationApp
             // 
             // btnSaveFile
             // 
-            this.btnSaveFile.Location = new System.Drawing.Point(217, 127);
+            this.btnSaveFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveFile.Location = new System.Drawing.Point(208, 102);
             this.btnSaveFile.Name = "btnSaveFile";
             this.btnSaveFile.Size = new System.Drawing.Size(95, 23);
             this.btnSaveFile.TabIndex = 48;
@@ -901,17 +922,44 @@ namespace TranslationApp
             this.btnSaveFile.UseVisualStyleBackColor = true;
             this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
+            // lNbOtherTranslations
+            // 
+            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
+            this.lNbOtherTranslations.Location = new System.Drawing.Point(46, 337);
+            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(207, 13);
+            this.lNbOtherTranslations.TabIndex = 51;
+            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
+            // 
+            // lLineBreak
+            // 
+            this.lLineBreak.ForeColor = System.Drawing.Color.Red;
+            this.lLineBreak.Location = new System.Drawing.Point(223, 337);
+            this.lLineBreak.Name = "lLineBreak";
+            this.lLineBreak.Size = new System.Drawing.Size(143, 13);
+            this.lLineBreak.TabIndex = 52;
+            // 
+            // rightColumn
+            // 
+            this.rightColumn.Controls.Add(this.tabSearchMass);
+            this.rightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightColumn.Location = new System.Drawing.Point(712, 24);
+            this.rightColumn.Name = "rightColumn";
+            this.rightColumn.Size = new System.Drawing.Size(335, 709);
+            this.rightColumn.TabIndex = 53;
+            // 
             // tabSearchMass
             // 
-            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSearchMass.Controls.Add(this.tpSearch);
             this.tabSearchMass.Controls.Add(this.tpMassReplace);
             this.tabSearchMass.Enabled = false;
-            this.tabSearchMass.Location = new System.Drawing.Point(732, 33);
+            this.tabSearchMass.Location = new System.Drawing.Point(4, 3);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(330, 692);
+            this.tabSearchMass.Size = new System.Drawing.Size(328, 699);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
@@ -931,7 +979,7 @@ namespace TranslationApp
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(322, 666);
+            this.tpSearch.Size = new System.Drawing.Size(320, 673);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
@@ -1060,7 +1108,7 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(263, 437);
+            this.lbSearch.Size = new System.Drawing.Size(261, 444);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1078,7 +1126,7 @@ namespace TranslationApp
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(322, 666);
+            this.tpMassReplace.Size = new System.Drawing.Size(393, 673);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1087,7 +1135,7 @@ namespace TranslationApp
             // 
             this.bDoNotReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bDoNotReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bDoNotReplace.Location = new System.Drawing.Point(154, 572);
+            this.bDoNotReplace.Location = new System.Drawing.Point(154, 1167);
             this.bDoNotReplace.Name = "bDoNotReplace";
             this.bDoNotReplace.Size = new System.Drawing.Size(139, 47);
             this.bDoNotReplace.TabIndex = 9;
@@ -1098,7 +1146,7 @@ namespace TranslationApp
             // 
             this.bTake.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bTake.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bTake.Location = new System.Drawing.Point(30, 569);
+            this.bTake.Location = new System.Drawing.Point(30, 1164);
             this.bTake.Name = "bTake";
             this.bTake.Size = new System.Drawing.Size(92, 23);
             this.bTake.TabIndex = 8;
@@ -1115,7 +1163,7 @@ namespace TranslationApp
             this.lbContext.Location = new System.Drawing.Point(30, 260);
             this.lbContext.Name = "lbContext";
             this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbContext.Size = new System.Drawing.Size(263, 303);
+            this.lbContext.Size = new System.Drawing.Size(263, 898);
             this.lbContext.TabIndex = 7;
             this.lbContext.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbContext_DrawItem);
             this.lbContext.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbContext_MeasureItem);
@@ -1124,7 +1172,7 @@ namespace TranslationApp
             // 
             this.bReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bReplace.Location = new System.Drawing.Point(30, 598);
+            this.bReplace.Location = new System.Drawing.Point(30, 1193);
             this.bReplace.Name = "bReplace";
             this.bReplace.Size = new System.Drawing.Size(92, 23);
             this.bReplace.TabIndex = 6;
@@ -1164,79 +1212,131 @@ namespace TranslationApp
             this.lbDistinctTranslations.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbDistinctTranslations_MeasureItem);
             this.lbDistinctTranslations.SelectedIndexChanged += new System.EventHandler(this.lbDistinctTranslations_SelectedIndexChanged);
             // 
-            // lNbOtherTranslations
+            // middleColumn
             // 
-            this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
-            this.lNbOtherTranslations.Location = new System.Drawing.Point(374, 361);
-            this.lNbOtherTranslations.Name = "lNbOtherTranslations";
-            this.lNbOtherTranslations.Size = new System.Drawing.Size(207, 13);
-            this.lNbOtherTranslations.TabIndex = 51;
-            this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
+            this.middleColumn.Controls.Add(this.verticalLine);
+            this.middleColumn.Controls.Add(this.pPreviewContainer);
+            this.middleColumn.Controls.Add(this.tbFriendlyName);
+            this.middleColumn.Controls.Add(this.lLineBreak);
+            this.middleColumn.Controls.Add(this.tbJapaneseText);
+            this.middleColumn.Controls.Add(this.lNbOtherTranslations);
+            this.middleColumn.Controls.Add(this.tbEnglishText);
+            this.middleColumn.Controls.Add(this.tbNoteText);
+            this.middleColumn.Controls.Add(this.tbSectionName);
+            this.middleColumn.Controls.Add(this.lblJapanese);
+            this.middleColumn.Controls.Add(this.lblSectionName);
+            this.middleColumn.Controls.Add(this.lblEnglish);
+            this.middleColumn.Controls.Add(this.label4);
+            this.middleColumn.Controls.Add(this.lblFileInfo);
+            this.middleColumn.Controls.Add(this.trackBarAlign);
+            this.middleColumn.Controls.Add(this.label7);
+            this.middleColumn.Controls.Add(this.label2);
+            this.middleColumn.Controls.Add(this.cbStatus);
+            this.middleColumn.Controls.Add(this.cbEmpty);
+            this.middleColumn.Controls.Add(this.label1);
+            this.middleColumn.Controls.Add(this.lErrors);
+            this.middleColumn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.middleColumn.Location = new System.Drawing.Point(319, 24);
+            this.middleColumn.Name = "middleColumn";
+            this.middleColumn.Size = new System.Drawing.Size(388, 709);
+            this.middleColumn.TabIndex = 54;
             // 
-            // lLineBreak
+            // pPreviewContainer
             // 
-            this.lLineBreak.ForeColor = System.Drawing.Color.Red;
-            this.lLineBreak.Location = new System.Drawing.Point(551, 361);
-            this.lLineBreak.Name = "lLineBreak";
-            this.lLineBreak.Size = new System.Drawing.Size(143, 13);
-            this.lLineBreak.TabIndex = 52;
+            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pPreviewContainer.AutoScroll = true;
+            this.pPreviewContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pPreviewContainer.Controls.Add(this.textPreview1);
+            this.pPreviewContainer.Location = new System.Drawing.Point(11, 538);
+            this.pPreviewContainer.Name = "pPreviewContainer";
+            this.pPreviewContainer.Size = new System.Drawing.Size(369, 164);
+            this.pPreviewContainer.TabIndex = 53;
             // 
             // textPreview1
             // 
             this.textPreview1.BackColor = System.Drawing.Color.Transparent;
             this.textPreview1.fontAtlasImage = null;
-            this.textPreview1.Location = new System.Drawing.Point(337, 562);
+            this.textPreview1.Location = new System.Drawing.Point(0, 0);
             this.textPreview1.Name = "textPreview1";
-            this.textPreview1.Size = new System.Drawing.Size(371, 163);
+            this.textPreview1.Size = new System.Drawing.Size(369, 164);
+            this.textPreview1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.textPreview1.TabIndex = 49;
             this.textPreview1.TabStop = false;
             this.textPreview1.text = null;
+            // 
+            // tbEnglishText
+            // 
+            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEnglishText.Location = new System.Drawing.Point(9, 353);
+            this.tbEnglishText.Multiline = true;
+            this.tbEnglishText.Name = "tbEnglishText";
+            this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
+            this.tbEnglishText.TabIndex = 6;
+            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
+            this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
+            // 
+            // leftColumn
+            // 
+            this.leftColumn.Controls.Add(this.label3);
+            this.leftColumn.Controls.Add(this.tcType);
+            this.leftColumn.Controls.Add(this.lFile);
+            this.leftColumn.Controls.Add(this.btnSaveFile);
+            this.leftColumn.Controls.Add(this.bSaveAll);
+            this.leftColumn.Controls.Add(this.label9);
+            this.leftColumn.Controls.Add(this.cbFileList);
+            this.leftColumn.Controls.Add(this.cbFileType);
+            this.leftColumn.Controls.Add(this.btnRefresh);
+            this.leftColumn.Controls.Add(this.label5);
+            this.leftColumn.Controls.Add(this.panelNb2);
+            this.leftColumn.Controls.Add(this.cbSections);
+            this.leftColumn.Controls.Add(this.panelNb1);
+            this.leftColumn.Controls.Add(this.label8);
+            this.leftColumn.Controls.Add(this.lLanguage);
+            this.leftColumn.Controls.Add(this.panel1);
+            this.leftColumn.Controls.Add(this.cbLanguage);
+            this.leftColumn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.leftColumn.Location = new System.Drawing.Point(0, 24);
+            this.leftColumn.Name = "leftColumn";
+            this.leftColumn.Size = new System.Drawing.Size(314, 709);
+            this.leftColumn.TabIndex = 55;
+            // 
+            // splitter1
+            // 
+            this.splitter1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.splitter1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitter1.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.splitter1.Location = new System.Drawing.Point(314, 24);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(5, 709);
+            this.splitter1.TabIndex = 56;
+            this.splitter1.TabStop = false;
+            // 
+            // splitter2
+            // 
+            this.splitter2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitter2.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.splitter2.Location = new System.Drawing.Point(707, 24);
+            this.splitter2.Name = "splitter2";
+            this.splitter2.Size = new System.Drawing.Size(5, 709);
+            this.splitter2.TabIndex = 57;
+            this.splitter2.TabStop = false;
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 737);
-            this.Controls.Add(this.lLineBreak);
-            this.Controls.Add(this.lNbOtherTranslations);
-            this.Controls.Add(this.tabSearchMass);
-            this.Controls.Add(this.btnSaveFile);
-            this.Controls.Add(this.tbSectionName);
-            this.Controls.Add(this.lblSectionName);
-            this.Controls.Add(this.tbFriendlyName);
-            this.Controls.Add(this.lblFileInfo);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cbEmpty);
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.panelNb2);
-            this.Controls.Add(this.panelNb1);
-            this.Controls.Add(this.lLanguage);
-            this.Controls.Add(this.cbLanguage);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.cbSections);
-            this.Controls.Add(this.lErrors);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbStatus);
-            this.Controls.Add(this.cbFileType);
-            this.Controls.Add(this.cbFileList);
-            this.Controls.Add(this.verticalLine);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.trackBarAlign);
-            this.Controls.Add(this.bSaveAll);
-            this.Controls.Add(this.lFile);
-            this.Controls.Add(this.tcType);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.lblEnglish);
-            this.Controls.Add(this.lblJapanese);
-            this.Controls.Add(this.tbNoteText);
-            this.Controls.Add(this.tbEnglishText);
+            this.ClientSize = new System.Drawing.Size(1047, 733);
+            this.Controls.Add(this.rightColumn);
+            this.Controls.Add(this.splitter2);
+            this.Controls.Add(this.middleColumn);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.leftColumn);
             this.Controls.Add(this.menuStripMain);
-            this.Controls.Add(this.tbJapaneseText);
-            this.Controls.Add(this.textPreview1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "fMain";
@@ -1244,6 +1344,7 @@ namespace TranslationApp
             this.Load += new System.EventHandler(this.fMain_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.fMain_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
+            this.Resize += new System.EventHandler(this.fMain_Resize);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.tcType.ResumeLayout(false);
@@ -1256,12 +1357,19 @@ namespace TranslationApp
             this.panelNb1.PerformLayout();
             this.panelNb2.ResumeLayout(false);
             this.panelNb2.PerformLayout();
+            this.rightColumn.ResumeLayout(false);
             this.tabSearchMass.ResumeLayout(false);
             this.tpSearch.ResumeLayout(false);
             this.tpSearch.PerformLayout();
             this.tpMassReplace.ResumeLayout(false);
             this.tpMassReplace.PerformLayout();
+            this.middleColumn.ResumeLayout(false);
+            this.middleColumn.PerformLayout();
+            this.pPreviewContainer.ResumeLayout(false);
+            this.pPreviewContainer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
+            this.leftColumn.ResumeLayout(false);
+            this.leftColumn.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1346,8 +1454,20 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem importFromCsvToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setFileAsDoneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setSectionAsDoneToolStripMenuItem;
+        private System.Windows.Forms.Label lNbOtherTranslations;
+        private System.Windows.Forms.Label lLineBreak;
+        private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
+        private System.Windows.Forms.Panel rightColumn;
+        private System.Windows.Forms.Panel middleColumn;
+        private System.Windows.Forms.Panel leftColumn;
         private System.Windows.Forms.TabControl tabSearchMass;
         private System.Windows.Forms.TabPage tpSearch;
+        private System.Windows.Forms.CheckBox cbMatchWhole;
+        private System.Windows.Forms.CheckBox cbCase;
+        private System.Windows.Forms.Label lEntriesFound;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbLangSearch;
+        private System.Windows.Forms.CheckBox cbExact;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cbFileKindSearch;
         private System.Windows.Forms.Button bSearch;
@@ -1355,22 +1475,18 @@ namespace TranslationApp
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.ListBox lbSearch;
         private System.Windows.Forms.TabPage tpMassReplace;
-        private System.Windows.Forms.CheckBox cbExact;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox cbLangSearch;
-        private System.Windows.Forms.Label lNbOtherTranslations;
-        private System.Windows.Forms.Label lEntriesFound;
-        private System.Windows.Forms.CheckBox cbCase;
-        private System.Windows.Forms.CheckBox cbMatchWhole;
-        private System.Windows.Forms.ListBox lbDistinctTranslations;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button bReplace;
-        private System.Windows.Forms.ListBox lbContext;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button bDoNotReplace;
         private System.Windows.Forms.Button bTake;
-        private System.Windows.Forms.Label lLineBreak;
-        private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
+        private System.Windows.Forms.ListBox lbContext;
+        private System.Windows.Forms.Button bReplace;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox lbDistinctTranslations;
+        private System.Windows.Forms.Panel pPreviewContainer;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.Splitter splitter2;
+        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
+        private System.Windows.Forms.FontDialog fontDialog1;
     }
 }
 
