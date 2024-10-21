@@ -8,8 +8,6 @@ using System.Windows.Forms;
 using TranslationLib;
 using PackingLib;
 using System.Reflection;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 
 namespace TranslationApp
 {
@@ -28,13 +26,14 @@ namespace TranslationApp
         private string gameName;
         private int nbJapaneseDuplicate;
         private static string windowName;
+        FormWindowState LastWindowState = FormWindowState.Minimized;
 
         private readonly string MULTIPLE_STATUS = "<Multiple Status>";
         private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
 
         struct ProjectEntry
         {
-            public  string shortName, fullName, folder;
+            public string shortName, fullName, folder;
             public ProjectEntry(string sname, string fname, string dir)
             {
                 shortName = sname;
@@ -54,6 +53,9 @@ namespace TranslationApp
         public fMain()
         {
             InitializeComponent();
+            // Use reflection to allow spliters to ignore the Form size
+            typeof(Splitter).GetField("minExtra", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(splitter1, -10000);
+            typeof(Splitter).GetField("minExtra", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(splitter2, -10000);
             var gitInfo = Assembly.GetExecutingAssembly().GetType("GitVersionInformation");
             var ver = gitInfo.GetField("FullSemVer").GetValue(null);
             var sha = gitInfo.GetField("ShortSha").GetValue(null);
@@ -391,6 +393,12 @@ namespace TranslationApp
                     }
                 }
 
+                // Update HorizonalExtent so we can have horizontal scrolling
+                if (lbEntries.HorizontalExtent < startPoint.X)
+                {
+                    lbEntries.HorizontalExtent = startPoint.X + 20;
+                }
+
                 if (i < lines.Length - 1)
                 {
                     startPoint.Y += 13;
@@ -542,8 +550,8 @@ namespace TranslationApp
                     }
                     nbJapaneseDuplicate -= 1;
                 }
-                    
-                
+
+
                 if (nbJapaneseDuplicate > 0)
                     lblJapanese.Text = $@"Japanese ({nbJapaneseDuplicate} duplicate(s) found)";
                 else
@@ -576,7 +584,7 @@ namespace TranslationApp
         private void fMain_Paint(object sender, PaintEventArgs e)
         {
             Point p = new Point();
-            p.X = tbJapaneseText.Location.X + tbJapaneseText.Size.Width - trackBarAlign.Value * 10;
+            p.X = tbJapaneseText.Location.X + ((tbJapaneseText.Size.Width / trackBarAlign.Maximum) * trackBarAlign.Value);
             p.Y = tbJapaneseText.Location.Y;
             verticalLine.Location = p;
         }
@@ -673,7 +681,7 @@ namespace TranslationApp
             if (Project.CurrentFolder == null)
             {
                 MessageBox.Show("Are you sure you selected the right folder?\n" +
-                            "The folder you have chosen doesn't contain any subfolders\n"+
+                            "The folder you have chosen doesn't contain any subfolders\n" +
                             "or they are empty, please try again.");
                 return;
             }
@@ -998,7 +1006,8 @@ namespace TranslationApp
                     {
                         SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Proofreading"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
-                    } else
+                    }
+                    else
                     {
                         SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Done"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
@@ -1649,6 +1658,31 @@ namespace TranslationApp
                 }
             }
         }
+
+        private void splitter2_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void fMain_Resize(object sender, EventArgs e)
+        {
+            if (WindowState != LastWindowState)
+            {
+                if (WindowState == FormWindowState.Maximized)
+                {
+                    leftColumn.Size = new Size((int)(ClientSize.Width * 0.3f), leftColumn.Height);
+                    middleColumn.Size = new Size((int)(ClientSize.Width * 0.4f), middleColumn.Height);
+                    //rightColumn.Size = new Size((int)(ClientSize.Width * 0.3f), rightColumn.Height);
+                }
+                else if(WindowState == FormWindowState.Normal)
+                {
+                    leftColumn.Size = new Size((int)(ClientSize.Width * 0.3f), leftColumn.Height);
+                    middleColumn.Size = new Size((int)(ClientSize.Width * 0.35f), middleColumn.Height);
+                    //rightColumn.Size = new Size((int)(ClientSize.Width * 0.3f), rightColumn.Height);
+                }
+                LastWindowState = WindowState;
+            }
+        }
     }
-    
+
 }
