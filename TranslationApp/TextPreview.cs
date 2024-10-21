@@ -541,12 +541,6 @@ namespace TranslationApp
 
                             canvas_g.ResetTransform();
 
-                            // Update max texture size
-                            if (finalWidth < currentPosition.X)
-                            {
-                                finalWidth = currentPosition.X;
-                            }
-                                
                             // Update the current position for the next character
                             if (line)
                             {
@@ -556,6 +550,11 @@ namespace TranslationApp
                             else
                             {
                                 currentPosition.X += charRect.Width - shift;
+                                // Update max texture size
+                                if (finalWidth < currentPosition.X)
+                                {
+                                    finalWidth = currentPosition.X;
+                                }
                             }
                         }
                     }
