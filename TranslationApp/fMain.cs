@@ -425,8 +425,9 @@ namespace TranslationApp
             {
                 string translation = string.IsNullOrEmpty(tbEnglishText.Text) ? tbJapaneseText.Text : tbEnglishText.Text;
                 translation = translation.Replace("\r\n", "\n");
-                List<EntryFound> Entryfound = FindOtherTranslations("All", tbJapaneseText.Text.Replace("\r\n", "\n"), "Japanese", true, false, false);
-                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText == tbJapaneseText.Text && x.Entry.EnglishText != translation).ToList();
+                string jptext = tbJapaneseText.Text.Replace("\r\n", "\n");
+                List<EntryFound> Entryfound = FindOtherTranslations("All", jptext, "Japanese", true, false, false);
+                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText.Replace("\r\n", "\n") == jptext && x.Entry.EnglishText.Replace("\r\n", "\n") != translation).ToList();
 
                 string cleanedString = tbEnglishText.Text.Replace("\r\n", "").Replace(" ", "");
                 List<EntryFound> DifferentLineBreak = Entryfound.Where(x => x.Entry.EnglishText != null).
