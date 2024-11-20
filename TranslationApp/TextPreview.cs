@@ -449,6 +449,7 @@ namespace TranslationApp
                     float finalWidth = 0;
                     string textToRender = text ?? ""; // Avoid null text
                     Color tintColor = colors["<White>"]; // Start as white text
+                    Color lastColor = tintColor;
 
                     ColorMatrix colorMatrix = new ColorMatrix();
                     ImageAttributes imageAttributes = new ImageAttributes();
@@ -463,6 +464,7 @@ namespace TranslationApp
                         {
                             if (colors.ContainsKey(element))
                             {
+                                lastColor = tintColor;
                                 tintColor = colors[element];
                                 continue;
                             }
@@ -484,10 +486,36 @@ namespace TranslationApp
                                 shear = false;
                                 continue;
                             }
-                            else if (element.Contains("nmb"))
+                            else if (element.StartsWith("<nmb:"))
                             {
                                 string el = element.Substring(5, element.Length - 6);
                                 textToRender = Convert.ToInt32(el, 16).ToString();
+                            }
+                            else if (element.StartsWith("<color:20"))
+                            {
+                                int r, g, b;
+                                if (element.Length - 10 >= 6)
+                                {
+                                    try
+                                    {
+                                        r = Convert.ToInt32(element.Substring(13, 2), 16);
+                                        g = Convert.ToInt32(element.Substring(11, 2), 16);
+                                        b = Convert.ToInt32(element.Substring(9, 2), 16);
+                                        lastColor = tintColor;
+                                        tintColor = Color.FromArgb(r, g, b);
+                                    }
+                                    catch (FormatException)
+                                    {
+                                        // ignore
+                                    }
+
+                                }
+                                continue;
+                            }
+                            else if (element.StartsWith("<color:80"))
+                            {
+                                tintColor = lastColor;
+                                continue;
                             }
                             else
                             {
