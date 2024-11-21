@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace TranslationLib
@@ -99,6 +101,23 @@ namespace TranslationLib
 
             XMLFile.CurrentSection = XMLFile.Sections.First();
             return XMLFile;
+        }
+
+        public int SaveChanged()
+        {
+            int count = 0;
+            Parallel.For(0, XMLFiles.Count(), () => 0, (i, loop, subtotal) =>
+            {
+                if (XMLFiles[i].needsSave)
+                {
+                    XMLFiles[i].SaveToDisk();
+                    XMLFiles[i].needsSave = false;
+                    subtotal++;
+                }
+                return subtotal;
+            },
+            (x) => Interlocked.Add(ref count, x));
+            return count;
         }
 
         public void InvalidateTranslations()

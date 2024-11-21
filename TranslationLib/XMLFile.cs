@@ -16,6 +16,7 @@ namespace TranslationLib
         public List<XMLEntry> Speakers = null;
         public XMLSection CurrentSection { get; set; }
         public bool isLegacy { get; set; }
+        public bool needsSave { get; set; }
 
         public XMLFile()
         {

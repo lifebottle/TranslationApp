@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using TranslationLib;
 using PackingLib;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace TranslationApp
 {
@@ -575,8 +576,12 @@ namespace TranslationApp
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            Project.XmlFolders.ForEach(f => f.XMLFiles.ForEach(x => x.SaveToDisk()));
-            MessageBox.Show("Text has been written to the XML files");
+            int count = 0;
+            foreach (var folder in Project.XmlFolders)
+            {
+                count += folder.SaveChanged();
+            }
+            MessageBox.Show($"{count} XML files has been written to disk");
 
             UpdateDisplayedEntries();
             UpdateStatusData();
@@ -939,6 +944,7 @@ namespace TranslationApp
 
             cbStatus.Text = status;
             textPreview1.ReDraw(tbEnglishText.Text);
+            Project.CurrentFolder.CurrentFile.needsSave = true;
         }
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
@@ -950,6 +956,7 @@ namespace TranslationApp
             if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
             {
                 CurrentTextList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
+                Project.CurrentFolder.CurrentFile.needsSave = true;
             }
         }
 
@@ -1243,6 +1250,7 @@ namespace TranslationApp
         {
             DisableEventHandlers();
             Project.CurrentFolder.XMLFiles[cbFileList.SelectedIndex] = Project.CurrentFolder.LoadXML(Project.CurrentFolder.CurrentFile.FilePath);
+            Project.CurrentFolder.CurrentFile = Project.CurrentFolder.XMLFiles[cbFileList.SelectedIndex];
             Project.CurrentFolder.InvalidateTranslations();
             EnableEventHandlers();
 
@@ -1309,7 +1317,7 @@ namespace TranslationApp
             {
                 setEmpty(lbSpeaker);
             }
-
+            Project.CurrentFolder.CurrentFile.needsSave = true;
         }
 
         private void setEmpty(ListBox lb)
@@ -1359,6 +1367,7 @@ namespace TranslationApp
             {
                 entry.Status = cbStatus.Text;
             }
+            Project.CurrentFolder.CurrentFile.needsSave = true;
             UpdateStatusData();
         }
 
@@ -1384,7 +1393,7 @@ namespace TranslationApp
         }
         private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Project.XmlFolders.ForEach(f => f.XMLFiles.ForEach(x => x.SaveToDisk()));
+            Project.XmlFolders.ForEach(f => f.XMLFiles.AsParallel().ForAll(x => x.SaveToDisk()));
             MessageBox.Show("Text has been written to the XML files");
             UpdateDisplayedEntries();
             UpdateStatusData();
@@ -1431,6 +1440,7 @@ namespace TranslationApp
                 lbEntries.SelectedIndex = tindex;
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+                Project.CurrentFolder.CurrentFile.needsSave = true;
             }
         }
         private void tbSectionName_KeyDown(object sender, KeyEventArgs e)
@@ -1446,6 +1456,7 @@ namespace TranslationApp
                 lbEntries.SelectedIndex = tindex;
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+                Project.CurrentFolder.CurrentFile.needsSave = true;
             }
         }
 

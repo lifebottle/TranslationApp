@@ -478,7 +478,7 @@ namespace TranslationApp
             this.bSaveAll.Name = "bSaveAll";
             this.bSaveAll.Size = new System.Drawing.Size(95, 23);
             this.bSaveAll.TabIndex = 16;
-            this.bSaveAll.Text = "Save All";
+            this.bSaveAll.Text = "Save Changed";
             this.bSaveAll.UseVisualStyleBackColor = true;
             this.bSaveAll.Click += new System.EventHandler(this.bSave_Click);
             // 
@@ -1126,7 +1126,7 @@ namespace TranslationApp
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(393, 673);
+            this.tpMassReplace.Size = new System.Drawing.Size(320, 673);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1163,7 +1163,7 @@ namespace TranslationApp
             this.lbContext.Location = new System.Drawing.Point(30, 260);
             this.lbContext.Name = "lbContext";
             this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbContext.Size = new System.Drawing.Size(263, 898);
+            this.lbContext.Size = new System.Drawing.Size(263, 398);
             this.lbContext.TabIndex = 7;
             this.lbContext.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbContext_DrawItem);
             this.lbContext.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbContext_MeasureItem);
