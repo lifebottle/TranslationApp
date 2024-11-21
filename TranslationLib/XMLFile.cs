@@ -131,43 +131,60 @@ namespace TranslationLib
 
         public void SaveAsCsv(string path)
         {
+            bool hasSpeakers = Speakers != null;
             using (StreamWriter writer = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write), new System.Text.UTF8Encoding(true)))
             {
-                writer.WriteLine("File,Line Number,Section,Status,Speaker JP,Text JP,Speaker EN,Text EN,Comment");
-                writer.WriteLine(
-                            Name + ".xml" + "," +
-                            "," +
-                            "Friendly Name" + "," +
-                            "," +
-                            "," +
-                            "\"" + (FriendlyName ?? "").Replace("\"", "\"\"") + "\"" + "," +
-                            "," +
-                            "\"" + (FriendlyName ?? "").Replace("\"", "\"\"") + "\"" + ","
-                            );
+                // header
+                writer.Write("File,");
+                writer.Write("Line Number,");
+                writer.Write("Section,");
+                writer.Write("Status,");
+                if (hasSpeakers) writer.Write("Speaker JP,");
+                writer.Write("Text JP,");
+                if (hasSpeakers) writer.Write("Speaker EN,");
+                writer.Write("Text EN,");
+                writer.Write("Comment");
+                writer.WriteLine();
 
+                // ident
+                writer.Write(Name + ".xml" + ",");
+                writer.Write(",");
+                writer.Write("Friendly Name,");
+                writer.Write(",");
+                if (hasSpeakers) writer.Write(",");
+                writer.Write("\"" + (FriendlyName ?? "<null>").Replace("\"", "\"\"") + "\"" + ",");
+                if (hasSpeakers) writer.Write(",");
+                writer.Write("\"" + (FriendlyName ?? "<null>").Replace("\"", "\"\"") + "\"" + ",");
+                writer.Write("");
+                writer.WriteLine();
+
+                // Speakers
                 Dictionary<int, string> en_names = new Dictionary<int, string>();
                 Dictionary<int, string> jp_names = new Dictionary<int, string>();
-                foreach (XMLEntry entry in Speakers)
+                if (hasSpeakers)
                 {
-                    string en_name = (entry.EnglishText ?? "").Replace("\"", "\"\"");
-                    string jp_name = (entry.JapaneseText ?? "").Replace("\"", "\"\"");
-                    writer.WriteLine(
-                            Name + ".xml" + "," +
-                            entry.Id + "," +
-                            "Speaker" + "," +
-                            "," +
-                            "," +
-                            "\"" + jp_name + "\"" + "," +
-                            "" + "," +
-                            "\"" + en_name + "\"" + "," +
-                            "\"" + entry.Notes + "\""
-                            );
+                    foreach (XMLEntry entry in Speakers)
+                    {
+                        string en_name = (entry.EnglishText ?? "<null>").Replace("\"", "\"\"");
+                        string jp_name = (entry.JapaneseText ?? "<null>").Replace("\"", "\"\"");
+                        writer.WriteLine(
+                                Name + ".xml" + "," +
+                                entry.Id + "," +
+                                "Speaker" + "," +
+                                entry.Status + "," +
+                                "," +
+                                "\"" + jp_name + "\"" + "," +
+                                "" + "," +
+                                "\"" + en_name + "\"" + "," +
+                                "\"" + entry.Notes + "\""
+                                );
 
-                    en_names.Add(entry.Id.Value, en_name);
-                    jp_names.Add(entry.Id.Value, jp_name);
+                        en_names.Add(entry.Id.Value, en_name);
+                        jp_names.Add(entry.Id.Value, jp_name);
+                    }
                 }
 
-
+                // Text lines
                 foreach (XMLSection section in Sections.Where(s => s.Name != "All strings"))
                 {
                     foreach (XMLEntry entry in section.Entries)
@@ -194,20 +211,20 @@ namespace TranslationLib
                             jp_name += "[" + string.Join(" / ", jp).Replace("\"", "\"\"") + "]";
                         }
 
-                        string en_text = entry.EnglishText ?? "";
-                        string jp_text = entry.JapaneseText ?? "";
+                        string en_text = entry.EnglishText ?? "<null>";
+                        string jp_text = entry.JapaneseText ?? "<null>";
 
-                        writer.WriteLine(
-                            Name + ".xml" + "," +
-                            entry.Id + "," +
-                            "\"" + section.Name.Replace("\"", "\"\"") + "\"" + "," +
-                            entry.Status + "," +
-                            "\"" + jp_name + "\"" + "," +
-                            "\"" + jp_text.Replace("\"", "\"\"") + "\"" + "," +
-                            "\"" + en_name + "\"" + "," +
-                            "\"" + en_text.Replace("\"", "\"\"") + "\"" + "," +
-                            "\"" + entry.Notes + "\""
-                            );
+                        // ident
+                        writer.Write(Name + ".xml" + ",");
+                        writer.Write(entry.Id + ",");
+                        writer.Write("\"" + section.Name.Replace("\"", "\"\"") + "\"" + ",");
+                        writer.Write(entry.Status + ",");
+                        if (hasSpeakers) writer.Write("\"" + jp_name + "\"" + ",");
+                        writer.Write("\"" + jp_text.Replace("\"", "\"\"") + "\"" + ",");
+                        if (hasSpeakers) writer.Write("\"" + en_name + "\"" + ",");
+                        writer.Write("\"" + en_text.Replace("\"", "\"\"") + "\"" + ",");
+                        writer.Write("\"" + entry.Notes + "\"");
+                        writer.WriteLine();
                     }
                 }
             }
