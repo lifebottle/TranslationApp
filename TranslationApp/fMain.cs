@@ -342,7 +342,7 @@ namespace TranslationApp
                 translation = translation.Replace("\r\n", "\n");
                 string jptext = tbJapaneseText.Text.Replace("\r\n", "\n");
                 List<EntryFound> Entryfound = FindOtherTranslations("All", jptext, "Japanese", true, false, false);
-                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText.Replace("\r\n", "\n") == jptext && x.Entry.EnglishText.Replace("\r\n", "\n") != translation).ToList();
+                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText.Replace("\r\n", "\n") == jptext && x.Entry.EnglishText?.Replace("\r\n", "\n") != translation).ToList();
 
                 string cleanedString = tbEnglishText.Text.Replace("\r\n", "").Replace(" ", "");
                 List<EntryFound> DifferentLineBreak = Entryfound.Where(x => x.Entry.EnglishText != null).
@@ -1341,7 +1341,17 @@ namespace TranslationApp
             //OtherTranslations[0].
             EntryFound entry = OtherTranslations[lbDistinctTranslations.SelectedIndex];
             int folderId = Project.GetFolderId(entry.Folder);
-            List<XMLEntry> entries = Project.XmlFolders[folderId].XMLFiles[entry.FileId].Sections.Where(x => x.Name == entry.Section).First().Entries;
+
+            List<XMLEntry> entries;
+
+            if (entry.Section == "Speaker")
+            {
+                entries = Project.XmlFolders[folderId].XMLFiles[entry.FileId].Speakers;
+            }
+            else
+            {
+                 entries = Project.XmlFolders[folderId].XMLFiles[entry.FileId].Sections.Where(x => x.Name == entry.Section).First().Entries;
+            }
 
             List<int?> idList = new List<int?>();
             if (entry.Id > 0)
