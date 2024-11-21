@@ -1241,12 +1241,13 @@ namespace TranslationApp
             // cbShowIndices
             // 
             this.cbShowIndices.AutoSize = true;
-            this.cbShowIndices.Location = new System.Drawing.Point(223, 216);
+            this.cbShowIndices.Location = new System.Drawing.Point(214, 216);
             this.cbShowIndices.Name = "cbShowIndices";
             this.cbShowIndices.Size = new System.Drawing.Size(89, 17);
             this.cbShowIndices.TabIndex = 51;
             this.cbShowIndices.Text = "Show indices";
             this.cbShowIndices.UseVisualStyleBackColor = true;
+            this.cbShowIndices.CheckedChanged += new System.EventHandler(this.cbShowIndices_CheckedChanged);
             // 
             // cbMinimizeTags
             // 

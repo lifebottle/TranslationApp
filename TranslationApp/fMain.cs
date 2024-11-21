@@ -1450,6 +1450,11 @@ namespace TranslationApp
                 LastWindowState = WindowState;
             }
         }
+
+        private void cbShowIndices_CheckedChanged(object sender, EventArgs e)
+        {
+            lbEntries.SetDisplayIndices(cbShowIndices.Checked);
+        }
     }
 
 }

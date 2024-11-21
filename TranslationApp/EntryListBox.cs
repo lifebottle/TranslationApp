@@ -11,6 +11,7 @@ namespace TranslationApp
     public class EntryListBox : ListBox
     {
         public bool displayJapanese { get; set; }
+        public bool displayIndices { get; set; }
         private static readonly Dictionary<string, Color> ColorByStatus = new Dictionary<string, Color>
             {
                 { "To Do", Color.White},
@@ -30,10 +31,16 @@ namespace TranslationApp
             SelectionMode = SelectionMode.MultiExtended;
         }
 
+        public void SetDisplayIndices(bool value)
+        {
+            displayIndices = value;
+            Invalidate();
+        }
+
         private void DrawLines(DrawItemEventArgs e, string text, ref Point startPoint, Font tagFont, Color tagColor, Font regularFont, Color regularColor, Size proposedSize, TextFormatFlags flags)
         {
             Size mySize;
-
+            var initialX = startPoint.X;
             string[] lines = nlPattern.Value.Split(text);
 
             //Starting point for drawing, a little offsetted
@@ -75,7 +82,7 @@ namespace TranslationApp
                 if (i < lines.Length - 1)
                 {
                     startPoint.Y += 13;
-                    startPoint.X = 3;
+                    startPoint.X = initialX;
                 }
             }
         }
@@ -207,6 +214,13 @@ namespace TranslationApp
 
                 string text = GetTextBasedLanguage(entry);
                 Point startPoint = new Point(3, e.Bounds.Y + 3);
+
+                if (displayIndices)
+                {
+                    e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(25, e.Bounds.Top - 1), new Point(25, e.Bounds.Bottom - 1));
+                    TextRenderer.DrawText(e.Graphics, "" + (entry.Id ?? 0), boldFont, startPoint, tagColor, flags);
+                    startPoint.X += 28;
+                }
 
 
                 //1. Add Speaker name
