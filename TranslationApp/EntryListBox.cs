@@ -19,8 +19,8 @@ namespace TranslationApp
                 { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
                 { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
             };
-        private static readonly Regex tagPattern = new Regex(@"(<[\w/]+:?\w+>)", RegexOptions.Compiled);
-        private static readonly Regex nlPattern = new Regex(@"\r*\n", RegexOptions.Compiled);
+        private static readonly Lazy<Regex> tagPattern = new Lazy<Regex>(() => new Regex(@"(<[\w/]+:?\w+>)", RegexOptions.Compiled));
+        private static readonly Lazy<Regex> nlPattern = new Lazy<Regex>(() => new Regex(@"\r*\n", RegexOptions.Compiled));
 
         public EntryListBox()
         {
@@ -34,7 +34,7 @@ namespace TranslationApp
         {
             Size mySize;
 
-            string[] lines = nlPattern.Split(text);
+            string[] lines = nlPattern.Value.Split(text);
 
             //Starting point for drawing, a little offsetted
             //in order to not touch the borders
@@ -46,7 +46,7 @@ namespace TranslationApp
                 //3. Split based on the different tags
                 //Split the text based on the Tags < xxx >
                 string line = lines[i];
-                string[] result = tagPattern.Split(line).Where(x => x != "").ToArray();
+                string[] result = tagPattern.Value.Split(line).Where(x => x != "").ToArray();
                 //We need to loop over each element to adjust the color
                 foreach (string element in result)
                 {
@@ -102,7 +102,7 @@ namespace TranslationApp
                 nb += 1;
             }
 
-            nb += nlPattern.Matches(text).Count;
+            nb += nlPattern.Value.Matches(text).Count;
 
             var size = ((nb + 1) * 14) + 6;
 
@@ -113,7 +113,7 @@ namespace TranslationApp
         private string stripTags(string input)
         {
             string output = "";
-            string[] result = tagPattern.Split(input.Replace("\r", "").Replace("\n", "")).Where(x => x != "").ToArray();
+            string[] result = tagPattern.Value.Split(input.Replace("\r", "").Replace("\n", "")).Where(x => x != "").ToArray();
 
             string[] names = { "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>" };
 
