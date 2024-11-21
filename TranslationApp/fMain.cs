@@ -1365,28 +1365,6 @@ namespace TranslationApp
             lbContext.DataSource = ContextTranslations;
         }
 
-        private void lbContext_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            if (e.Index >= ContextTranslations.Count)
-                return;
-
-            string text = GetTextBasedLanguage(e.Index, ContextTranslations);
-
-            text = text == null ? "" : text;
-
-            int nb = 2;
-            if (ContextTranslations[e.Index].SpeakerId != null)
-            {
-                nb += 1;
-            }
-
-            nb += Regex.Matches(text, "\\r*\\n").Count;
-
-            var size = (int)((nb + 1) * 14) + 6;
-
-            e.ItemHeight = size;
-        }
-
         private void lbSearch_Click(object sender, EventArgs e)
         {
             if (!(cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked))

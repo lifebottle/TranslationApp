@@ -121,6 +121,7 @@ namespace TranslationApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.tpMassReplace = new System.Windows.Forms.TabPage();
+            this.lbContext = new TranslationApp.EntryListBox();
             this.bDoNotReplace = new System.Windows.Forms.Button();
             this.bTake = new System.Windows.Forms.Button();
             this.bReplace = new System.Windows.Forms.Button();
@@ -137,7 +138,6 @@ namespace TranslationApp
             this.cbShowSpeakers = new System.Windows.Forms.CheckBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.lbContext = new TranslationApp.EntryListBox();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAlign)).BeginInit();
             this.panel1.SuspendLayout();
@@ -1076,6 +1076,20 @@ namespace TranslationApp
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
             // 
+            // lbContext
+            // 
+            this.lbContext.displayIndices = false;
+            this.lbContext.displayJapanese = false;
+            this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lbContext.FormattingEnabled = true;
+            this.lbContext.HorizontalScrollbar = true;
+            this.lbContext.Location = new System.Drawing.Point(30, 260);
+            this.lbContext.Name = "lbContext";
+            this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbContext.Size = new System.Drawing.Size(263, 405);
+            this.lbContext.TabIndex = 0;
+            this.lbContext.tagMode = System.Windows.Forms.CheckState.Unchecked;
+            // 
             // bDoNotReplace
             // 
             this.bDoNotReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1292,18 +1306,6 @@ namespace TranslationApp
             this.splitter2.Size = new System.Drawing.Size(5, 709);
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
-            // 
-            // lbContext
-            // 
-            this.lbContext.displayJapanese = false;
-            this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lbContext.FormattingEnabled = true;
-            this.lbContext.HorizontalScrollbar = true;
-            this.lbContext.Location = new System.Drawing.Point(30, 260);
-            this.lbContext.Name = "lbContext";
-            this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbContext.Size = new System.Drawing.Size(263, 405);
-            this.lbContext.TabIndex = 0;
             // 
             // fMain
             // 
