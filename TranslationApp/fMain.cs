@@ -186,6 +186,7 @@ namespace TranslationApp
             cbDone.Enabled = status;
             cbProblematic.Enabled = status;
             cbDone.Enabled = status;
+            cbEmpty.Enabled = status;
 
             //Button
             bSaveAll.Enabled = status;
