@@ -1268,6 +1268,7 @@ namespace TranslationApp
             this.cbShowSpeakers.TabIndex = 49;
             this.cbShowSpeakers.Text = "Show Speakers";
             this.cbShowSpeakers.UseVisualStyleBackColor = true;
+            this.cbShowSpeakers.CheckedChanged += new System.EventHandler(this.cbShowSpeakers_CheckedChanged);
             // 
             // splitter1
             // 

@@ -1451,6 +1451,21 @@ namespace TranslationApp
             }
         }
 
+        private void cbShowSpeakers_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShowSpeakers.Checked)
+            {
+                lbEntries.DataSource = CurrentEntryList = Project.CurrentFolder.CurrentFile.Speakers;
+                cbSections.Enabled = false;
+            }
+            else
+            {
+                lbEntries.DataSource = CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+                cbSections.Enabled = true;
+            }
+            FilterEntryList();
+        }
+
         private void cbShowIndices_CheckedChanged(object sender, EventArgs e)
         {
             lbEntries.SetDisplayIndices(cbShowIndices.Checked);
