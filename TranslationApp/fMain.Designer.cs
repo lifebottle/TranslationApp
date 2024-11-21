@@ -59,11 +59,7 @@ namespace TranslationApp
             this.lblJapanese = new System.Windows.Forms.Label();
             this.lblEnglish = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.tcType = new System.Windows.Forms.TabControl();
-            this.tabText = new System.Windows.Forms.TabPage();
-            this.lbEntries = new System.Windows.Forms.ListBox();
-            this.tabSpeaker = new System.Windows.Forms.TabPage();
-            this.lbSpeaker = new System.Windows.Forms.ListBox();
+            this.lbEntries = new TranslationApp.EntryListBox();
             this.lFile = new System.Windows.Forms.Label();
             this.bSaveAll = new System.Windows.Forms.Button();
             this.trackBarAlign = new System.Windows.Forms.TrackBar();
@@ -127,7 +123,6 @@ namespace TranslationApp
             this.tpMassReplace = new System.Windows.Forms.TabPage();
             this.bDoNotReplace = new System.Windows.Forms.Button();
             this.bTake = new System.Windows.Forms.Button();
-            this.lbContext = new System.Windows.Forms.ListBox();
             this.bReplace = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -137,12 +132,13 @@ namespace TranslationApp
             this.textPreview1 = new TranslationApp.TextPreview();
             this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.leftColumn = new System.Windows.Forms.Panel();
+            this.cbShowIndices = new System.Windows.Forms.CheckBox();
+            this.cbMinimizeTags = new System.Windows.Forms.CheckBox();
+            this.cbShowSpeakers = new System.Windows.Forms.CheckBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
+            this.lbContext = new TranslationApp.EntryListBox();
             this.menuStripMain.SuspendLayout();
-            this.tcType.SuspendLayout();
-            this.tabText.SuspendLayout();
-            this.tabSpeaker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAlign)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelNb1.SuspendLayout();
@@ -391,75 +387,18 @@ namespace TranslationApp
             this.label4.TabIndex = 11;
             this.label4.Text = "Notes";
             // 
-            // tcType
-            // 
-            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tcType.Controls.Add(this.tabText);
-            this.tcType.Controls.Add(this.tabSpeaker);
-            this.tcType.Location = new System.Drawing.Point(7, 216);
-            this.tcType.Name = "tcType";
-            this.tcType.SelectedIndex = 0;
-            this.tcType.Size = new System.Drawing.Size(300, 486);
-            this.tcType.TabIndex = 13;
-            this.tcType.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcType_Selected);
-            // 
-            // tabText
-            // 
-            this.tabText.Controls.Add(this.lbEntries);
-            this.tabText.Location = new System.Drawing.Point(4, 22);
-            this.tabText.Name = "tabText";
-            this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(292, 460);
-            this.tabText.TabIndex = 0;
-            this.tabText.Text = "Text";
-            this.tabText.UseVisualStyleBackColor = true;
-            // 
             // lbEntries
             // 
-            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbEntries.displayJapanese = false;
             this.lbEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbEntries.FormattingEnabled = true;
             this.lbEntries.HorizontalScrollbar = true;
-            this.lbEntries.Location = new System.Drawing.Point(4, 3);
+            this.lbEntries.Location = new System.Drawing.Point(11, 243);
             this.lbEntries.Name = "lbEntries";
             this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbEntries.Size = new System.Drawing.Size(285, 448);
+            this.lbEntries.Size = new System.Drawing.Size(292, 457);
             this.lbEntries.TabIndex = 0;
-            this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
-            this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
             this.lbEntries.SelectedIndexChanged += new System.EventHandler(this.lbEntries_SelectedIndexChanged);
-            this.lbEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbEntries_KeyDown);
-            // 
-            // tabSpeaker
-            // 
-            this.tabSpeaker.Controls.Add(this.lbSpeaker);
-            this.tabSpeaker.Location = new System.Drawing.Point(4, 22);
-            this.tabSpeaker.Name = "tabSpeaker";
-            this.tabSpeaker.Size = new System.Drawing.Size(292, 460);
-            this.tabSpeaker.TabIndex = 1;
-            this.tabSpeaker.Text = "Speaker";
-            this.tabSpeaker.UseVisualStyleBackColor = true;
-            // 
-            // lbSpeaker
-            // 
-            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lbSpeaker.FormattingEnabled = true;
-            this.lbSpeaker.HorizontalScrollbar = true;
-            this.lbSpeaker.Location = new System.Drawing.Point(5, 4);
-            this.lbSpeaker.Name = "lbSpeaker";
-            this.lbSpeaker.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSpeaker.Size = new System.Drawing.Size(282, 443);
-            this.lbSpeaker.TabIndex = 1;
-            this.lbSpeaker.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSpeaker_DrawItem);
-            this.lbSpeaker.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSpeaker_MeasureItem);
-            this.lbSpeaker.SelectedIndexChanged += new System.EventHandler(this.lbSpeaker_SelectedIndexChanged);
             // 
             // lFile
             // 
@@ -924,10 +863,12 @@ namespace TranslationApp
             // 
             // lNbOtherTranslations
             // 
+            this.lNbOtherTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lNbOtherTranslations.ForeColor = System.Drawing.Color.Red;
             this.lNbOtherTranslations.Location = new System.Drawing.Point(46, 337);
             this.lNbOtherTranslations.Name = "lNbOtherTranslations";
-            this.lNbOtherTranslations.Size = new System.Drawing.Size(207, 13);
+            this.lNbOtherTranslations.Size = new System.Drawing.Size(334, 13);
             this.lNbOtherTranslations.TabIndex = 51;
             this.lNbOtherTranslations.Click += new System.EventHandler(this.lNbOtherTranslations_Click);
             // 
@@ -1028,7 +969,7 @@ namespace TranslationApp
             this.cbLangSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbLangSearch.FormattingEnabled = true;
             this.cbLangSearch.Items.AddRange(new object[] {
-            "Japanese",
+            "Japaenese",
             "English"});
             this.cbLangSearch.Location = new System.Drawing.Point(30, 65);
             this.cbLangSearch.Name = "cbLangSearch";
@@ -1116,9 +1057,9 @@ namespace TranslationApp
             // 
             // tpMassReplace
             // 
+            this.tpMassReplace.Controls.Add(this.lbContext);
             this.tpMassReplace.Controls.Add(this.bDoNotReplace);
             this.tpMassReplace.Controls.Add(this.bTake);
-            this.tpMassReplace.Controls.Add(this.lbContext);
             this.tpMassReplace.Controls.Add(this.bReplace);
             this.tpMassReplace.Controls.Add(this.label12);
             this.tpMassReplace.Controls.Add(this.label13);
@@ -1152,21 +1093,6 @@ namespace TranslationApp
             this.bTake.TabIndex = 8;
             this.bTake.Text = "← Take";
             this.bTake.UseVisualStyleBackColor = true;
-            // 
-            // lbContext
-            // 
-            this.lbContext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lbContext.FormattingEnabled = true;
-            this.lbContext.Location = new System.Drawing.Point(30, 260);
-            this.lbContext.Name = "lbContext";
-            this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbContext.Size = new System.Drawing.Size(263, 398);
-            this.lbContext.TabIndex = 7;
-            this.lbContext.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbContext_DrawItem);
-            this.lbContext.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbContext_MeasureItem);
             // 
             // bReplace
             // 
@@ -1282,8 +1208,11 @@ namespace TranslationApp
             // 
             // leftColumn
             // 
+            this.leftColumn.Controls.Add(this.lbEntries);
+            this.leftColumn.Controls.Add(this.cbShowIndices);
+            this.leftColumn.Controls.Add(this.cbMinimizeTags);
+            this.leftColumn.Controls.Add(this.cbShowSpeakers);
             this.leftColumn.Controls.Add(this.label3);
-            this.leftColumn.Controls.Add(this.tcType);
             this.leftColumn.Controls.Add(this.lFile);
             this.leftColumn.Controls.Add(this.btnSaveFile);
             this.leftColumn.Controls.Add(this.bSaveAll);
@@ -1304,6 +1233,36 @@ namespace TranslationApp
             this.leftColumn.Name = "leftColumn";
             this.leftColumn.Size = new System.Drawing.Size(314, 709);
             this.leftColumn.TabIndex = 55;
+            // 
+            // cbShowIndices
+            // 
+            this.cbShowIndices.AutoSize = true;
+            this.cbShowIndices.Location = new System.Drawing.Point(223, 216);
+            this.cbShowIndices.Name = "cbShowIndices";
+            this.cbShowIndices.Size = new System.Drawing.Size(89, 17);
+            this.cbShowIndices.TabIndex = 51;
+            this.cbShowIndices.Text = "Show indices";
+            this.cbShowIndices.UseVisualStyleBackColor = true;
+            // 
+            // cbMinimizeTags
+            // 
+            this.cbMinimizeTags.AutoSize = true;
+            this.cbMinimizeTags.Location = new System.Drawing.Point(118, 216);
+            this.cbMinimizeTags.Name = "cbMinimizeTags";
+            this.cbMinimizeTags.Size = new System.Drawing.Size(93, 17);
+            this.cbMinimizeTags.TabIndex = 50;
+            this.cbMinimizeTags.Text = "Minimize Tags";
+            this.cbMinimizeTags.UseVisualStyleBackColor = true;
+            // 
+            // cbShowSpeakers
+            // 
+            this.cbShowSpeakers.AutoSize = true;
+            this.cbShowSpeakers.Location = new System.Drawing.Point(11, 216);
+            this.cbShowSpeakers.Name = "cbShowSpeakers";
+            this.cbShowSpeakers.Size = new System.Drawing.Size(101, 17);
+            this.cbShowSpeakers.TabIndex = 49;
+            this.cbShowSpeakers.Text = "Show Speakers";
+            this.cbShowSpeakers.UseVisualStyleBackColor = true;
             // 
             // splitter1
             // 
@@ -1326,6 +1285,18 @@ namespace TranslationApp
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
             // 
+            // lbContext
+            // 
+            this.lbContext.displayJapanese = false;
+            this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lbContext.FormattingEnabled = true;
+            this.lbContext.HorizontalScrollbar = true;
+            this.lbContext.Location = new System.Drawing.Point(30, 260);
+            this.lbContext.Name = "lbContext";
+            this.lbContext.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbContext.Size = new System.Drawing.Size(263, 405);
+            this.lbContext.TabIndex = 0;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1347,9 +1318,6 @@ namespace TranslationApp
             this.Resize += new System.EventHandler(this.fMain_Resize);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
-            this.tcType.ResumeLayout(false);
-            this.tabText.ResumeLayout(false);
-            this.tabSpeaker.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAlign)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1386,10 +1354,7 @@ namespace TranslationApp
         private System.Windows.Forms.Label lblJapanese;
         private System.Windows.Forms.Label lblEnglish;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabControl tcType;
-        private System.Windows.Forms.TabPage tabText;
         private System.Windows.Forms.Label lFile;
-        private System.Windows.Forms.ListBox lbEntries;
         private System.Windows.Forms.Button bSaveAll;
         private System.Windows.Forms.TrackBar trackBarAlign;
         private System.Windows.Forms.Label label7;
@@ -1431,8 +1396,6 @@ namespace TranslationApp
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ToolStripMenuItem tsSetup;
         private System.Windows.Forms.ToolStripMenuItem tsTORMakeIso;
-        private System.Windows.Forms.TabPage tabSpeaker;
-        private System.Windows.Forms.ListBox lbSpeaker;
         private System.Windows.Forms.ToolStripMenuItem extractIsoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsNDXMakeIso;
         private System.Windows.Forms.CheckBox cbEmpty;
@@ -1460,6 +1423,15 @@ namespace TranslationApp
         private System.Windows.Forms.Panel rightColumn;
         private System.Windows.Forms.Panel middleColumn;
         private System.Windows.Forms.Panel leftColumn;
+        private System.Windows.Forms.Panel pPreviewContainer;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.Splitter splitter2;
+        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
+        private System.Windows.Forms.FontDialog fontDialog1;
+        private EntryListBox lbEntries;
+        private System.Windows.Forms.CheckBox cbShowIndices;
+        private System.Windows.Forms.CheckBox cbMinimizeTags;
+        private System.Windows.Forms.CheckBox cbShowSpeakers;
         private System.Windows.Forms.TabControl tabSearchMass;
         private System.Windows.Forms.TabPage tpSearch;
         private System.Windows.Forms.CheckBox cbMatchWhole;
@@ -1477,16 +1449,11 @@ namespace TranslationApp
         private System.Windows.Forms.TabPage tpMassReplace;
         private System.Windows.Forms.Button bDoNotReplace;
         private System.Windows.Forms.Button bTake;
-        private System.Windows.Forms.ListBox lbContext;
         private System.Windows.Forms.Button bReplace;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ListBox lbDistinctTranslations;
-        private System.Windows.Forms.Panel pPreviewContainer;
-        private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.Splitter splitter2;
-        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
-        private System.Windows.Forms.FontDialog fontDialog1;
+        private EntryListBox lbContext;
     }
 }
 

@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using TranslationLib;
 using PackingLib;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace TranslationApp
 {
@@ -18,6 +17,7 @@ namespace TranslationApp
         private GameConfig gameConfig;
         private static TranslationProject Project;
         private static PackingProject PackingAssistant;
+        private static List<XMLEntry> CurrentEntryList;
         private static List<XMLEntry> CurrentTextList;
         private static List<XMLEntry> CurrentSpeakerList;
         private static List<EntryFound> ListSearch;
@@ -198,81 +198,6 @@ namespace TranslationApp
             panelNb2.Enabled = status;
         }
 
-        private void DrawEntries(DrawItemEventArgs e, List<XMLEntry> EntryList, bool displaySection)
-        {
-            bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
-
-            //Draw only if elements are present in the listbox
-            if (e.Index > -1)
-            {
-                //Regardless of text, draw elements close together
-                //and use the intmax size as per the docs
-                TextFormatFlags flags = TextFormatFlags.NoPadding | TextFormatFlags.NoPrefix;
-                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
-
-                //Grab the current entry to draw
-                XMLEntry entry = EntryList[e.Index];
-
-                // Background item brush
-                SolidBrush backgroundBrush = new SolidBrush(isSelected ? SystemColors.Highlight : ColorByStatus[entry.Status]);
-
-                // Text colors
-                Color regularColor = e.ForeColor;
-                Color tagColor = isSelected ? Color.Orange : Color.Blue;
-
-                // Draw the background
-                e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
-
-                // Add separators for each entry
-                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Bottom - 1), new Point(e.Bounds.Width, e.Bounds.Bottom - 1));
-                e.Graphics.DrawLine(new Pen(Color.DimGray, 1.5f), new Point(0, e.Bounds.Top - 1), new Point(e.Bounds.Width, e.Bounds.Top - 1));
-
-                Font normalFont = new Font("Arial", 8, FontStyle.Regular);
-                Font boldFont = new Font("Arial", 8, FontStyle.Bold);
-
-                string text = GetTextBasedLanguage(e.Index, EntryList);
-                Point startPoint = new Point(3, e.Bounds.Y + 3);
-
-                //0. Add Section if needed
-                if (displaySection)
-                {
-
-                    EntryFound entryFound = ListSearch[e.Index];
-                    string sectionDetail = $"{entryFound.Folder} - " +
-                $"{Project.GetFolderByName(entryFound.Folder).XMLFiles[entryFound.FileId].Name} - " +
-                $"{entryFound.Section} - {entry.Id}";
-
-                    SolidBrush backgroundBrushSection = new SolidBrush(Color.LightGray);
-                    Size mySize = TextRenderer.MeasureText(e.Graphics, sectionDetail, normalFont, proposedSize, flags);
-                    e.Graphics.FillRectangle(backgroundBrushSection, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, 19);
-                    TextRenderer.DrawText(e.Graphics, sectionDetail, boldFont, startPoint, Color.Black, flags);
-                    startPoint.Y += 16;
-
-
-                    e.Graphics.DrawLine(new Pen(Color.LightGray, 1.5f), new Point(0, startPoint.Y), new Point(e.Bounds.Width, startPoint.Y));
-                    startPoint.Y += 3;
-                }
-
-
-                //1. Add Speaker name
-                if (EntryList[e.Index].SpeakerId != null)
-                {
-                    TextRenderer.DrawText(e.Graphics, EntryList[e.Index].SpeakerName, boldFont, startPoint, tagColor, flags);
-                    startPoint.Y += 13;
-                }
-
-                //2. Split based on the line breaks
-                if (!string.IsNullOrEmpty(text))
-                    DrawLines(e, text, ref startPoint, boldFont, tagColor, normalFont, regularColor, proposedSize, flags);
-
-
-                // Clean up
-                backgroundBrush.Dispose();
-            }
-
-            e.DrawFocusRectangle();
-        }
-
         private void DrawSearchEntries(DrawItemEventArgs e, List<EntryFound> EntryList, bool highlightSearch)
         {
             bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
@@ -407,18 +332,6 @@ namespace TranslationApp
                     startPoint.X = 3;
                 }
             }
-        }
-
-
-        //Draw entries with multiline and font color changed
-        private void lbEntries_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            DrawEntries(e, CurrentTextList, false);
-        }
-
-        private void lbSpeaker_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            DrawEntries(e, CurrentSpeakerList, false);
         }
 
         private void ShowOtherTranslations()
@@ -793,44 +706,31 @@ namespace TranslationApp
                 cbProblematic.Checked ? "Problematic" : string.Empty,
                 cbDone.Checked ? "Done" : string.Empty
             };
-            if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
+
+            List<XMLEntry> list;
+            if (!cbShowSpeakers.Checked)
             {
-                CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
-                var old_index = lbEntries.SelectedIndex;
-                lbEntries.DataSource = CurrentTextList;
-                if (lbEntries.SelectedIndices.Count == 1)
-                {
-                    if (lbEntries.Items.Count > old_index)
-                    {
-                        lbEntries.SelectedIndices.Clear();
-                        lbEntries.SelectedIndices.Add(old_index);
-                    }
-                }
-                LoadEntryData(lbEntries);
+                list = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
             }
             else
             {
-                var speakers = Project.CurrentFolder.CurrentFile.Speakers;
-                if (speakers != null)
-                {
-                    CurrentSpeakerList = speakers.Where(e => checkedFilters.Contains(e.Status)).ToList();
-                }
-                else
-                {
-                    CurrentSpeakerList = new List<XMLEntry>();
-                }
-                var old_index = lbSpeaker.SelectedIndex;
-                lbSpeaker.DataSource = CurrentSpeakerList;
-                if (lbSpeaker.SelectedIndices.Count == 1)
-                {
-                    if (lbSpeaker.Items.Count > old_index)
-                    {
-                        lbSpeaker.SelectedIndices.Clear();
-                        lbSpeaker.SelectedIndices.Add(old_index);
-                    }
-                }
-                LoadEntryData(lbSpeaker);
+                list = Project.CurrentFolder.CurrentFile.Speakers;
             }
+
+            CurrentEntryList = list.Where(e => checkedFilters.Contains(e.Status)).ToList() ?? new List<XMLEntry>();
+
+
+            var old_index = lbEntries.SelectedIndex;
+            lbEntries.DataSource = CurrentTextList;
+            if (lbEntries.SelectedIndices.Count == 1)
+            {
+                if (lbEntries.Items.Count > old_index)
+                {
+                    lbEntries.SelectedIndices.Clear();
+                    lbEntries.SelectedIndices.Add(old_index);
+                }
+            }
+            LoadEntryData(lbEntries);
         }
 
         public void UpdateOptionsVisibility()
@@ -851,7 +751,7 @@ namespace TranslationApp
             lNbDone.Text = (statusStats["Done"]).ToString();
 
             Dictionary<string, int> sectionStatusStats = new Dictionary<string, int>();
-            if (tcType.SelectedTab.Text == "Speaker")
+            if (cbShowSpeakers.Checked)
                 sectionStatusStats = speakerStatusStats;
             else
                 sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData();
@@ -922,11 +822,12 @@ namespace TranslationApp
             else if (tbEnglishText.Text != "")
                 status = "Edited";
 
-            if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
+            var entry = CurrentEntryList[lbEntries.SelectedIndex];
+            if (cbShowSpeakers.Checked)
             {
-                CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null : tbEnglishText.Text;
-                CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = status;
-                int? speakerId = CurrentSpeakerList[lbSpeaker.SelectedIndex].Id;
+                entry.EnglishText = status == "To Do" ? null : tbEnglishText.Text;
+                entry.Status = status;
+                int? speakerId = entry.Id;
                 Project.CurrentFolder.CurrentFile.CurrentSection.Entries.ForEach(x => x.SpeakerName = x.Id == speakerId ? x.SpeakerName = tbEnglishText.Text : x.SpeakerName);
             }
             else
@@ -934,13 +835,13 @@ namespace TranslationApp
                 if (tbEnglishText.Text.Length == 0)
                 {
                     status = "To Do";
-                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = null;
+                    entry.EnglishText = null;
                 }
                 else
                 {
-                    CurrentTextList[lbEntries.SelectedIndex].EnglishText = tbEnglishText.Text;
+                    entry.EnglishText = tbEnglishText.Text;
                 }
-                CurrentTextList[lbEntries.SelectedIndex].Status = status;
+                entry.Status = status;
             }
 
             cbStatus.Text = status;
@@ -959,28 +860,6 @@ namespace TranslationApp
                 CurrentTextList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
                 Project.CurrentFolder.CurrentFile.needsSave = true;
             }
-        }
-
-        private void lbEntries_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            if (e.Index >= CurrentTextList.Count)
-                return;
-
-            string text = GetTextBasedLanguage(e.Index, CurrentTextList);
-
-            text = text == null ? "" : text;
-
-            int nb = 0;
-            if (CurrentTextList[e.Index].SpeakerId != null)
-            {
-                nb += 1;
-            }
-
-            nb += Regex.Matches(text, "\\r*\\n").Count;
-
-            var size = (int)((nb + 1) * 14) + 6;
-
-            e.ItemHeight = size;
         }
 
         private void cbFileList_DrawItem(object sender, DrawItemEventArgs e)
@@ -1115,24 +994,11 @@ namespace TranslationApp
                             break;
                         }
 
-                        if (tcType.SelectedIndex == 0)
+                        if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
                         {
-                            if (lbEntries.Items.Count - 1 != lbEntries.SelectedIndex)
-                            {
-                                int idx = lbEntries.SelectedIndex;
-                                lbEntries.ClearSelected();
-                                lbEntries.SelectedIndex = idx + 1;
-                            }
-                        }
-                        else
-                        {
-                            if (lbSpeaker.Items.Count - 1 != lbSpeaker.SelectedIndex)
-                            {
-                                int idx = lbSpeaker.SelectedIndex;
-                                lbSpeaker.ClearSelected();
-                                lbSpeaker.SelectedIndex = idx + 1;
-
-                            }
+                            int idx = lbEntries.SelectedIndex;
+                            lbEntries.ClearSelected();
+                            lbEntries.SelectedIndex = idx + 1;
                         }
                         tbEnglishText.Select();
                         tbEnglishText.SelectionStart = tbEnglishText.Text.Length;
@@ -1146,23 +1012,11 @@ namespace TranslationApp
                             break;
                         }
 
-                        if (tcType.SelectedIndex == 0)
+                        if (lbEntries.SelectedIndex > 0)
                         {
-                            if (lbEntries.SelectedIndex > 0)
-                            {
-                                int idx = lbEntries.SelectedIndex;
-                                lbEntries.ClearSelected();
-                                lbEntries.SelectedIndex = idx - 1;
-                            }
-                        }
-                        else
-                        {
-                            if (lbSpeaker.SelectedIndex > 0)
-                            {
-                                int idx = lbSpeaker.SelectedIndex;
-                                lbSpeaker.ClearSelected();
-                                lbSpeaker.SelectedIndex = idx - 1;
-                            }
+                            int idx = lbEntries.SelectedIndex;
+                            lbEntries.ClearSelected();
+                            lbEntries.SelectedIndex = idx - 1;
                         }
                         tbEnglishText.Select();
                         tbEnglishText.SelectionStart = tbEnglishText.Text.Length;
@@ -1188,65 +1042,6 @@ namespace TranslationApp
             }
         }
 
-        private string stripTags(string input)
-        {
-            string output = "";
-            string pattern = @"(<[\w/]+:?\w+>)";
-            string[] result = Regex.Split(input.Replace("\r", "").Replace("\n", ""), pattern, RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-
-            string[] names = { "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>" };
-
-            foreach (string element in result)
-            {
-                if (element[0] == '<')
-                {
-                    if (names.Contains(element))
-                    {
-                        output += element.Substring(1, element.Length - 2);
-                    }
-
-                    if (element.Contains("unk") || element.Contains("var"))
-                    {
-                        output += "***";
-                    }
-
-                    if (element.Contains("nmb"))
-                    {
-                        string el = element.Substring(5, element.Length - 6);
-                        output += Convert.ToInt32(el, 16);
-                    }
-                }
-                else
-                {
-                    output += element;
-                }
-            }
-
-            return output;
-        }
-
-        private void lbEntries_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.C)
-            {
-                List<string> st = new List<string>();
-                ListBox curr_lb = (tcType.SelectedIndex == 0) ? lbEntries : lbSpeaker;
-
-                if (curr_lb.SelectedIndices.Count > 1)
-                {
-                    foreach (XMLEntry et in curr_lb.SelectedItems)
-                    {
-                        st.Add(stripTags(et.JapaneseText));
-                    }
-                    Clipboard.SetText(string.Join("\n", st));
-                }
-                else
-                {
-                    Clipboard.SetText(stripTags(tbJapaneseText.Text));
-                }
-            }
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             DisableEventHandlers();
@@ -1263,29 +1058,6 @@ namespace TranslationApp
         {
             fSetup setupForm = new fSetup(this, config, PackingAssistant);
             setupForm.Show();
-        }
-
-        private void lbSpeaker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadEntryData(lbSpeaker);
-        }
-
-        private void lbSpeaker_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            if (e.Index >= CurrentSpeakerList.Count)
-                return;
-
-            string text = GetTextBasedLanguage(e.Index, CurrentSpeakerList);
-
-            int nb;
-            if (string.IsNullOrEmpty(text))
-                nb = 0;
-            else
-                nb = Regex.Matches(text, "\\r*\\n").Count;
-
-            var size = (int)((nb + 1) * 14) + 6;
-
-            e.ItemHeight = size;
         }
 
         private void bBrowse_Click(object sender, EventArgs e)
@@ -1310,14 +1082,7 @@ namespace TranslationApp
 
         private void cbEmpty_CheckedChanged(object sender, EventArgs e)
         {
-            if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
-            {
-                setEmpty(lbEntries);
-            }
-            else
-            {
-                setEmpty(lbSpeaker);
-            }
+            setEmpty(lbEntries);
             Project.CurrentFolder.CurrentFile.needsSave = true;
         }
 
@@ -1355,16 +1120,8 @@ namespace TranslationApp
             {
                 cbStatus.Items.Remove(MULTIPLE_STATUS);
             }
-            ListBox lb;
-            if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
-            {
-                lb = lbEntries;
-            }
-            else
-            {
-                lb = lbSpeaker;
-            }
-            foreach (XMLEntry entry in lb.SelectedItems)
+
+            foreach (XMLEntry entry in lbEntries.SelectedItems)
             {
                 entry.Status = cbStatus.Text;
             }
@@ -1419,8 +1176,15 @@ namespace TranslationApp
             cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
             cbSections.Text = selectedSection;
             cbLanguage.Text = selectedLanguage;
-            lbEntries.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
-            lbSpeaker.DataSource = Project.CurrentFolder.CurrentFile.Speakers;
+            if (cbShowSpeakers.Checked)
+            {
+                lbEntries.DataSource = Project.CurrentFolder.CurrentFile.Speakers;
+            }
+            else
+            {
+
+                lbEntries.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+            }
             EnableEventHandlers();
             UpdateDisplayedEntries();
             UpdateStatusData();
@@ -1519,12 +1283,6 @@ namespace TranslationApp
             tabSearchMass.SelectedIndex = 1;
         }
 
-
-        private void lbMassReplace_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            DrawEntries(e, OtherTranslations.Select(x => x.Entry).ToList(), false);
-        }
-
         private void lbSearch_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             if (e.Index >= ListSearch.Count)
@@ -1601,11 +1359,6 @@ namespace TranslationApp
             lbContext.DataSource = ContextTranslations;
         }
 
-        private void lbContext_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            DrawEntries(e, ContextTranslations, false);
-        }
-
         private void lbContext_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             if (e.Index >= ContextTranslations.Count)
@@ -1650,23 +1403,20 @@ namespace TranslationApp
                     cbFileList.SelectedIndex = eleSelected.FileId;
 
 
-                    if (eleSelected.Section == "Speaker")
-                    {
-                        lbSpeaker.ClearSelected();
-                        tcType.SelectedIndex = 1;
-                        lbSpeaker.SelectedIndex = eleSelected.Id;
-                    }
-                    else
-                    {
+                    //if (eleSelected.Section == "Speaker")
+                    //{
+                    //    lbSpeaker.ClearSelected();
+                    //    tcType.SelectedIndex = 1;
+                    //    lbSpeaker.SelectedIndex = eleSelected.Id;
+                    //}
+                    //else
+                    //{
+                    //    lbEntries.ClearSelected();
+                    //    cbSections.Text = "All strings";
+                    //    tcType.SelectedIndex = 0;
+                    //    lbEntries.SelectedIndex = CurrentTextList.FindIndex(x => x.Id == eleSelected.Id);
 
-
-                        lbEntries.ClearSelected();
-                        cbSections.Text = "All strings";
-                        tcType.SelectedIndex = 0;
-                        lbEntries.SelectedIndex = CurrentTextList.FindIndex(x => x.Id == eleSelected.Id);
-
-                    }
-
+                    //}
 
                 }
             }
