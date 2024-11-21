@@ -34,12 +34,12 @@ namespace TranslationLib
             var speakerDict = keys.Zip(values, (k, v) => new { k, v })
               .ToDictionary(x => x.k, x => x.v);
 
-            foreach (var XMLSection in Sections.Where(x=>x.Entries.Where(y => y.SpeakerId != null).Count() > 0))
+            foreach (var XMLSection in Sections.Where(x => x.Entries.Where(y => y.SpeakerId != null).Count() > 0))
             {
                 foreach (var XMLEntry in XMLSection.Entries)
                 {
                     List<string> ls = new List<string>();
-           
+
                     if (XMLEntry.SpeakerId != null)
                     {
                         foreach (var id in XMLEntry.SpeakerId)
@@ -49,8 +49,8 @@ namespace TranslationLib
 
                         XMLEntry.SpeakerName = string.Join(" / ", ls);
                     }
-                    else             
-                        XMLEntry.SpeakerName = null;                  
+                    else
+                        XMLEntry.SpeakerName = null;
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace TranslationLib
 
         public void SaveToDisk()
         {
-            
+
             var sectionsElements = Sections.Where(s => s.Name != "All strings").Select(GetXmlSectionElement);
             List<XElement> allSections = new List<XElement>();
 
@@ -182,7 +182,7 @@ namespace TranslationLib
                         if (entry.SpeakerId != null)
                         {
                             foreach (var id in entry.SpeakerId)
-                            { 
+                            {
                                 if (!string.IsNullOrEmpty(en_names[id]))
                                     en.Add(en_names[id]);
                                 if (!string.IsNullOrEmpty(jp_names[id]))
@@ -205,14 +205,14 @@ namespace TranslationLib
                             "\"" + jp_name + "\"" + "," +
                             "\"" + jp_text.Replace("\"", "\"\"") + "\"" + "," +
                             "\"" + en_name + "\"" + "," +
-                            "\"" + en_text.Replace("\"", "\"\"") + "\""  + "," +
+                            "\"" + en_text.Replace("\"", "\"\"") + "\"" + "," +
                             "\"" + entry.Notes + "\""
                             );
                     }
                 }
             }
         }
-        
+
         private XElement GetXmlSpeakerElement(List<XMLEntry> SpeakerList)
         {
             var speakerEntry = new List<XElement>
@@ -306,7 +306,7 @@ namespace TranslationLib
         public List<EntryFound> SearchJapanese(string folder, int fileId, string text, bool matchWholeentry, bool matchCase, bool matchWholeWord, string language)
         {
             List<EntryFound> res = new List<EntryFound>();
-            foreach( XMLSection section in Sections)
+            foreach (XMLSection section in Sections)
             {
                 if (section.Name != "All strings")
                 {
@@ -331,9 +331,9 @@ namespace TranslationLib
         {
             List<EntryFound> res = new List<EntryFound>();
             List<int> foundIndexes;
-                foundIndexes = Enumerable.Range(0, Speakers.Count)
-                     .Where(e => Speakers[e].IsFound(text, matchWholeEntry, matchCase, matchWholeWord, language))
-                     .ToList();
+            foundIndexes = Enumerable.Range(0, Speakers.Count)
+                 .Where(e => Speakers[e].IsFound(text, matchWholeEntry, matchCase, matchWholeWord, language))
+                 .ToList();
 
             if (foundIndexes.Count > 0)
             {

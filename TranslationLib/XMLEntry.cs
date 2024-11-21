@@ -64,10 +64,10 @@ namespace TranslationLib
                 textCompare = JapaneseText;
             else
                 textCompare = EnglishText;
-                
-            if (matchWholeEntry)            
+
+            if (matchWholeEntry)
                 return textCompare != null ? textCompare == text : false;
-            
+
             if (matchCase)
                 return textCompare != null ? textCompare.Contains(text) : false;
 

@@ -13,7 +13,6 @@ namespace TranslationLib
         public string Section { get; set; }
         public int Id { get; set; }
         public XMLEntry Entry { get; set; }
-
         public string Category { get; set; }
 
     }

@@ -1686,7 +1686,7 @@ namespace TranslationApp
                     middleColumn.Size = new Size((int)(ClientSize.Width * 0.4f), middleColumn.Height);
                     //rightColumn.Size = new Size((int)(ClientSize.Width * 0.3f), rightColumn.Height);
                 }
-                else if(WindowState == FormWindowState.Normal)
+                else if (WindowState == FormWindowState.Normal)
                 {
                     leftColumn.Size = new Size((int)(ClientSize.Width * 0.3f), leftColumn.Height);
                     middleColumn.Size = new Size((int)(ClientSize.Width * 0.35f), middleColumn.Height);

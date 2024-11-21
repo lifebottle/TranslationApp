@@ -38,10 +38,10 @@ namespace TranslationLib
             foundIndexes = Enumerable.Range(0, Entries.Count)
                     .Where(e => Entries[e].IsFound(text, matchWholeEntry, matchCase, matchWholeWord, language))
                     .ToList();
-    
+
             if (foundIndexes.Count > 0)
             {
-              
+
                 foreach (int index in foundIndexes)
                 {
                     EntryFound entry = new EntryFound();
@@ -57,7 +57,7 @@ namespace TranslationLib
                     entry.Entry.Status = "To Do";
                     res.Add(entry);
                 }
-                
+
             }
             return res;
         }

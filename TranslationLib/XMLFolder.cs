@@ -35,7 +35,8 @@ namespace TranslationLib
             {
                 foreach (var file in fileList)
                 {
-                    if (file.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)) {
+                    if (file.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+                    {
                         XMLFiles.Add(LoadXML(file));
                     }
                 }
@@ -241,10 +242,10 @@ namespace TranslationLib
         {
             List<EntryFound> dict = new List<EntryFound>();
 
-            for(int i=0; i<XMLFiles.Count; i++)
+            for (int i = 0; i < XMLFiles.Count; i++)
             {
                 var res = XMLFiles[i].SearchJapanese(Name, i, japText, matchWholeEntry, matchCase, matchWholeWord, language);
-                if(res.Count() > 0)
+                if (res.Count() > 0)
                     dict.AddRange(res);
             }
             return dict;
