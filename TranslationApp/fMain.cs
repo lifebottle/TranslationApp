@@ -1412,20 +1412,20 @@ namespace TranslationApp
                     cbFileList.SelectedIndex = eleSelected.FileId;
 
 
-                    //if (eleSelected.Section == "Speaker")
-                    //{
-                    //    lbSpeaker.ClearSelected();
-                    //    tcType.SelectedIndex = 1;
-                    //    lbSpeaker.SelectedIndex = eleSelected.Id;
-                    //}
-                    //else
-                    //{
-                    //    lbEntries.ClearSelected();
-                    //    cbSections.Text = "All strings";
-                    //    tcType.SelectedIndex = 0;
-                    //    lbEntries.SelectedIndex = CurrentTextList.FindIndex(x => x.Id == eleSelected.Id);
+                    if (eleSelected.Section == "Speaker")
+                    {
+                        cbShowSpeakers.Checked = true;
+                        lbEntries.ClearSelected();
+                        lbEntries.SelectedIndex = eleSelected.Id;
+                    }
+                    else
+                    {
+                        cbShowSpeakers.Checked = false;
+                        lbEntries.ClearSelected();
+                        cbSections.Text = "All strings";
+                        lbEntries.SelectedIndex = CurrentEntryList.FindIndex(x => x.Id == eleSelected.Id);
 
-                    //}
+                    }
 
                 }
             }
