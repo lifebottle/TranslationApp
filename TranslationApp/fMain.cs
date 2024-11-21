@@ -1431,11 +1431,6 @@ namespace TranslationApp
             }
         }
 
-        private void splitter2_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
         private void fMain_Resize(object sender, EventArgs e)
         {
             if (WindowState != LastWindowState)
