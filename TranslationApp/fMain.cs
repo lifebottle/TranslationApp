@@ -606,7 +606,7 @@ namespace TranslationApp
                 return;
             }
 
-            CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+            CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
             CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
             cbFileType.DataSource = Project.GetFolderNames().OrderByDescending(x => x).ToList();
             cbFileList.DataSource = Project.CurrentFolder.FileList();
@@ -714,14 +714,14 @@ namespace TranslationApp
             }
             else
             {
-                list = Project.CurrentFolder.CurrentFile.Speakers;
+                list = Project.CurrentFolder.CurrentFile.Speakers ?? new List<XMLEntry>();
             }
 
-            CurrentEntryList = list.Where(e => checkedFilters.Contains(e.Status)).ToList() ?? new List<XMLEntry>();
+            CurrentEntryList = list.Where(e => checkedFilters.Contains(e.Status)).ToList();
 
 
             var old_index = lbEntries.SelectedIndex;
-            lbEntries.DataSource = CurrentTextList;
+            lbEntries.DataSource = CurrentEntryList;
             if (lbEntries.SelectedIndices.Count == 1)
             {
                 if (lbEntries.Items.Count > old_index)
@@ -787,7 +787,7 @@ namespace TranslationApp
 
                 if (cbSections.Items.Contains(old_section))
                     cbSections.SelectedItem = old_section;
-                CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
+                CurrentEntryList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries;
                 CurrentSpeakerList = Project.CurrentFolder.CurrentFile.Speakers;
                 FilterEntryList();
 
@@ -874,7 +874,6 @@ namespace TranslationApp
                 }
                 else
                 {
-                    var count = CurrentTextList.Count;
                     var sdata = Project.CurrentFolder.XMLFiles[e.Index].GetStatusData();
                     if (sdata["Problematic"] != 0)
                     {
