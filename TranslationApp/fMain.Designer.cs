@@ -402,6 +402,7 @@ namespace TranslationApp
             this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbEntries.Size = new System.Drawing.Size(292, 457);
             this.lbEntries.TabIndex = 0;
+            this.lbEntries.tagMode = System.Windows.Forms.CheckState.Unchecked;
             this.lbEntries.SelectedIndexChanged += new System.EventHandler(this.lbEntries_SelectedIndexChanged);
             // 
             // lFile
@@ -1257,7 +1258,9 @@ namespace TranslationApp
             this.cbMinimizeTags.Size = new System.Drawing.Size(93, 17);
             this.cbMinimizeTags.TabIndex = 50;
             this.cbMinimizeTags.Text = "Minimize Tags";
+            this.cbMinimizeTags.ThreeState = true;
             this.cbMinimizeTags.UseVisualStyleBackColor = true;
+            this.cbMinimizeTags.CheckStateChanged += new System.EventHandler(this.cbMinimizeTags_CheckStateChanged);
             // 
             // cbShowSpeakers
             // 

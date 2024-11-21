@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using TranslationLib;
 
 namespace TranslationApp
@@ -12,6 +13,7 @@ namespace TranslationApp
     {
         public bool displayJapanese { get; set; }
         public bool displayIndices { get; set; }
+        public CheckState tagMode { get; set; }
         private static readonly Dictionary<string, Color> ColorByStatus = new Dictionary<string, Color>
             {
                 { "To Do", Color.White},
@@ -20,6 +22,33 @@ namespace TranslationApp
                 { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
                 { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
             };
+        private static readonly string[] names = {
+            "<Veigue>",
+            "<Mao>",
+            "<Eugene>",
+            "<Annie>",
+            "<Tytree>",
+            "<Hilda>",
+            "<Claire>",
+            "<Agarte>",
+            "<Annie (NPC)>",
+            "<Leader>"
+        };
+        private static readonly string[] allowTags = {
+            "<nl>",
+            "<cr>",
+            "<Blue>",
+            "<Red>",
+            "<Purple>",
+            "<Green>",
+            "<Cyan>",
+            "<Yellow>",
+            "<White>",
+            "<Grey>",
+            "<Black>",
+            "<Italic>",
+            "</Italic>"
+        };
         private static readonly Lazy<Regex> tagPattern = new Lazy<Regex>(() => new Regex(@"(<[\w/]+:?\w+>)", RegexOptions.Compiled));
         private static readonly Lazy<Regex> nlPattern = new Lazy<Regex>(() => new Regex(@"\r*\n", RegexOptions.Compiled));
 
@@ -31,10 +60,42 @@ namespace TranslationApp
             SelectionMode = SelectionMode.MultiExtended;
         }
 
+        public void SetTagMode(CheckState s)
+        {
+            tagMode = s;
+            Invalidate();
+        }
+
         public void SetDisplayIndices(bool value)
         {
             displayIndices = value;
             Invalidate();
+        }
+
+        // TODO: Un-rebirth this
+        private string GetTagString(string tag)
+        {
+            switch (tagMode)
+            {
+                case CheckState.Unchecked:
+                    break;
+                case CheckState.Checked:
+                    if (allowTags.Contains(tag))
+                    {
+                        return tag;
+                    }
+                    else if (tag.Contains(":"))
+                    {
+                        return tag.Substring(0, tag.IndexOf(":")) + ">";
+                    }
+                    else
+                    {
+                        return "<>";
+                    }
+                case CheckState.Indeterminate:
+                    return "<>";
+            }
+            return tag;
         }
 
         private void DrawLines(DrawItemEventArgs e, string text, ref Point startPoint, Font tagFont, Color tagColor, Font regularFont, Color regularColor, Size proposedSize, TextFormatFlags flags)
@@ -59,9 +120,10 @@ namespace TranslationApp
                 {
                     if (element[0] == '<')
                     {
-                        mySize = TextRenderer.MeasureText(e.Graphics, element, tagFont, proposedSize, flags);
+                        string tag = GetTagString(element);
+                        mySize = TextRenderer.MeasureText(e.Graphics, tag, tagFont, proposedSize, flags);
 
-                        TextRenderer.DrawText(e.Graphics, element, tagFont, startPoint, tagColor, flags);
+                        TextRenderer.DrawText(e.Graphics, tag, tagFont, startPoint, tagColor, flags);
                         startPoint.X += mySize.Width;
                     }
                     else
@@ -121,8 +183,6 @@ namespace TranslationApp
         {
             string output = "";
             string[] result = tagPattern.Value.Split(input.Replace("\r", "").Replace("\n", "")).Where(x => x != "").ToArray();
-
-            string[] names = { "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>" };
 
             foreach (string element in result)
             {

@@ -1470,6 +1470,11 @@ namespace TranslationApp
         {
             lbEntries.SetDisplayIndices(cbShowIndices.Checked);
         }
+
+        private void cbMinimizeTags_CheckStateChanged(object sender, EventArgs e)
+        {
+            lbEntries.SetTagMode(cbMinimizeTags.CheckState);
+        }
     }
 
 }
