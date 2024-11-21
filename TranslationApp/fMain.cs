@@ -855,9 +855,9 @@ namespace TranslationApp
 
         private void tbNoteText_TextChanged(object sender, EventArgs e)
         {
-            if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentTextList.Count)
+            if (lbEntries.SelectedIndex > -1 && lbEntries.SelectedIndex < CurrentEntryList.Count)
             {
-                CurrentTextList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
+                CurrentEntryList[lbEntries.SelectedIndex].Notes = tbNoteText.Text;
                 Project.CurrentFolder.CurrentFile.needsSave = true;
             }
         }
