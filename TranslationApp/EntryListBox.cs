@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using TranslationLib;
 
 namespace TranslationApp
@@ -14,14 +13,59 @@ namespace TranslationApp
         public bool displayJapanese { get; set; }
         public bool displayIndices { get; set; }
         public CheckState tagMode { get; set; }
-        private static readonly Dictionary<string, Color> ColorByStatus = new Dictionary<string, Color>
-            {
-                { "To Do", Color.White},
-                { "Editing", Color.FromArgb(162, 255, 255) }, // Light Cyan
-                { "Proofreading", Color.FromArgb(255, 102, 255) }, // Magenta
-                { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
-                { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
-            };
+        private static readonly Dictionary<string, Color> ColorByStatus = new Dictionary<string, Color> {
+            { "To Do", Color.White},
+            { "Editing", Color.FromArgb(162, 255, 255) }, // Light Cyan
+            { "Proofreading", Color.FromArgb(255, 102, 255) }, // Magenta
+            { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
+            { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
+        };
+        private static readonly Dictionary<string, string> availableTags = new Dictionary<string, string>
+        {
+            { "nl",          "1"},
+            { "cr",          "2"},
+            { "var",         "4"},
+            { "color",       "5"},
+            { "Blue",        "5.1"},
+            { "Red",         "5.2"},
+            { "Purple",      "5.3"},
+            { "Green",       "5.4"},
+            { "Cyan",        "5.5"},
+            { "Yellow",      "5.6"},
+            { "White",       "5.7"},
+            { "Grey",        "5.8"},
+            { "Black",       "5.9"},
+            { "scale",       "6"},
+            { "speed",       "7"},
+            { "italic",      "8"},
+            { "Italic",      "8.1"},
+            { "/Italic",     "8.2"},
+            { "nmb",         "9"},
+            { "ptr",         "10"},
+            { "name",        "11"},
+            {" Veigue",      "11.1"},
+            {" Mao",         "11.2"},
+            {" Eugene",      "11.3"},
+            {" Annie",       "11.4"},
+            {" Tytree",      "11.5"},
+            {" Hilda",       "11.6"},
+            {" Claire",      "11.7"},
+            {" Agarte",      "11.8"},
+            {" Annie (NPC)", "11.9"},
+            {" Leader",      "11.10"},
+            { "item",        "12"},
+            { "icon",        "13"},
+            { "font",        "14"},
+            { "voice",       "15"},
+            { "unk13",       "19"},
+            { "unk14",       "20"},
+            { "unk15",       "21"},
+            { "unk16",       "22"},
+            { "unk17",       "23"},
+            { "unk18",       "24"},
+            { "unk19",       "25"},
+            { "unk1A",       "26"},
+        };
         private static readonly string[] names = {
             "<Veigue>",
             "<Mao>",
@@ -93,7 +137,21 @@ namespace TranslationApp
                         return "<>";
                     }
                 case CheckState.Indeterminate:
-                    return "<>";
+                    var sub = tag.Substring(1, tag.Length - 2);
+                    if (sub.Contains(":"))
+                    {
+                        sub = sub.Substring(0, sub.IndexOf(":"));
+                    }
+
+                    string v;
+                    if (availableTags.TryGetValue(sub, out v))
+                    {
+                        return "<" + v + ">";
+                    } 
+                    else
+                    {
+                        return "<>";
+                    }
             }
             return tag;
         }
