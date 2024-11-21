@@ -626,7 +626,6 @@ namespace TranslationApp
             cbFileType.TextChanged -= cbFileType_TextChanged;
             cbFileList.DrawItem -= cbFileList_DrawItem;
             cbFileList.TextChanged -= cbFileList_TextChanged;
-            cbSections.TextChanged -= cbSections_TextChanged;
             cbSections.SelectedIndexChanged -= cbSections_SelectedIndexChanged;
         }
 
@@ -635,7 +634,6 @@ namespace TranslationApp
             cbFileType.TextChanged += cbFileType_TextChanged;
             cbFileList.DrawItem += cbFileList_DrawItem;
             cbFileList.TextChanged += cbFileList_TextChanged;
-            cbSections.TextChanged += cbSections_TextChanged;
             cbSections.SelectedIndexChanged += cbSections_SelectedIndexChanged;
         }
 
@@ -908,10 +906,6 @@ namespace TranslationApp
             }
         }
 
-        private void cbSections_TextChanged(object sender, EventArgs e)
-        {
-        }
-
         private void hexToJapaneseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fHexToJapanese myForm = new fHexToJapanese();
@@ -958,7 +952,7 @@ namespace TranslationApp
 
         private void cbLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lbEntries.Invalidate();
+            lbEntries.SetDisplayJapanese(cbLanguage.SelectedIndex != 0);
         }
 
         private void cbSections_SelectedIndexChanged(object sender, EventArgs e)

@@ -104,6 +104,12 @@ namespace TranslationApp
             SelectionMode = SelectionMode.MultiExtended;
         }
 
+        public void SetDisplayJapanese(bool flag)
+        {
+            displayJapanese = flag;
+            Invalidate();
+        }
+
         public void SetTagMode(CheckState s)
         {
             tagMode = s;

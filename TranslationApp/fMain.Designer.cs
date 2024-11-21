@@ -543,7 +543,6 @@ namespace TranslationApp
             this.cbSections.Size = new System.Drawing.Size(185, 21);
             this.cbSections.TabIndex = 30;
             this.cbSections.SelectedIndexChanged += new System.EventHandler(this.cbSections_SelectedIndexChanged);
-            this.cbSections.TextChanged += new System.EventHandler(this.cbSections_TextChanged);
             // 
             // label8
             // 
