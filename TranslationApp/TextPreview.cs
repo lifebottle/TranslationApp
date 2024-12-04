@@ -52,7 +52,7 @@ namespace TranslationApp
         #region Glyph width data
         private readonly font_glyph[] tor_glyphs = new font_glyph[97]
         {
-            /*    */ new font_glyph(10, 00),
+            /*    */ new font_glyph(18, 00),
             /* ０ */ new font_glyph(05, 05),
             /* １ */ new font_glyph(06, 05),
             /* ２ */ new font_glyph(05, 05),
