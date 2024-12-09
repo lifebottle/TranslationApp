@@ -146,7 +146,7 @@ namespace TranslationApp
 			/* 「 */ new font_glyph(10, 01),
 			/* 」 */ new font_glyph(01, 11),
 			/* 〜 */ new font_glyph(05, 06),
-			/* ＿ */ new font_glyph(00, 00),
+			/* ＿ */ new font_glyph(05, 06),
 			/* 、 */ new font_glyph(00, 13),
 			/* 。 */ new font_glyph(01, 12),
         };
