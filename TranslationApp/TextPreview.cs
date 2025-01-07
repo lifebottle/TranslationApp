@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Forms;
 
 namespace TranslationApp
 {
+
     public partial class TextPreview : PictureBox
     {
         public Bitmap fontAtlasImage { get; set; }
@@ -252,6 +254,107 @@ namespace TranslationApp
             /* 。 */ new font_glyph(01, 12),
         };
 
+        private readonly font_glyph[] toh_glyphs = new font_glyph[97]
+        {
+            /*    */ new font_glyph(00, 18),
+            /* ０ */ new font_glyph(00, 13),
+            /* １ */ new font_glyph(00, 19),
+            /* ２ */ new font_glyph(00, 13),
+            /* ３ */ new font_glyph(00, 13),
+            /* ４ */ new font_glyph(00, 13),
+            /* ５ */ new font_glyph(00, 13),
+            /* ６ */ new font_glyph(00, 13),
+            /* ７ */ new font_glyph(00, 13),
+            /* ８ */ new font_glyph(00, 13),
+            /* ９ */ new font_glyph(00, 13),
+            /* Ａ */ new font_glyph(00, 13),
+            /* Ｂ */ new font_glyph(00, 13),
+            /* Ｃ */ new font_glyph(00, 13),
+            /* Ｄ */ new font_glyph(00, 13),
+            /* Ｅ */ new font_glyph(00, 13),
+            /* Ｆ */ new font_glyph(00, 13),
+            /* Ｇ */ new font_glyph(00, 13),
+            /* Ｈ */ new font_glyph(00, 13),
+            /* Ｉ */ new font_glyph(00, 13),
+            /* Ｊ */ new font_glyph(00, 21),
+            /* Ｋ */ new font_glyph(00, 13),
+            /* Ｌ */ new font_glyph(00, 13),
+            /* Ｍ */ new font_glyph(00, 13),
+            /* Ｎ */ new font_glyph(00, 13),
+            /* Ｏ */ new font_glyph(00, 13),
+            /* Ｐ */ new font_glyph(00, 13),
+            /* Ｑ */ new font_glyph(00, 13),
+            /* Ｒ */ new font_glyph(00, 13),
+            /* Ｓ */ new font_glyph(00, 13),
+            /* Ｔ */ new font_glyph(00, 13),
+            /* Ｕ */ new font_glyph(00, 13),
+            /* Ｖ */ new font_glyph(00, 13),
+            /* Ｗ */ new font_glyph(00, 13),
+            /* Ｘ */ new font_glyph(00, 13),
+            /* Ｙ */ new font_glyph(00, 13),
+            /* Ｚ */ new font_glyph(00, 13),
+            /* ａ */ new font_glyph(00, 13),
+            /* ｂ */ new font_glyph(00, 13),
+            /* ｃ */ new font_glyph(00, 13),
+            /* ｄ */ new font_glyph(00, 13),
+            /* ｅ */ new font_glyph(00, 13),
+            /* ｆ */ new font_glyph(00, 13),
+            /* ｇ */ new font_glyph(00, 13),
+            /* ｈ */ new font_glyph(00, 13),
+            /* ｉ */ new font_glyph(00, 21),
+            /* ｊ */ new font_glyph(00, 15),
+            /* ｋ */ new font_glyph(00, 15),
+            /* ｌ */ new font_glyph(00, 19),
+            /* ｍ */ new font_glyph(00, 13),
+            /* ｎ */ new font_glyph(00, 13),
+            /* ｏ */ new font_glyph(00, 13),
+            /* ｐ */ new font_glyph(00, 13),
+            /* ｑ */ new font_glyph(00, 13),
+            /* ｒ */ new font_glyph(00, 13),
+            /* ｓ */ new font_glyph(00, 14),
+            /* ｔ */ new font_glyph(00, 14),
+            /* ｕ */ new font_glyph(00, 15),
+            /* ｖ */ new font_glyph(00, 13),
+            /* ｗ */ new font_glyph(00, 13),
+            /* ｘ */ new font_glyph(00, 13),
+            /* ｙ */ new font_glyph(00, 13),
+            /* ｚ */ new font_glyph(00, 13),
+            /* ， */ new font_glyph(00, 20),
+            /* ． */ new font_glyph(00, 20),
+            /* ・ */ new font_glyph(00, 20),
+            /* ： */ new font_glyph(00, 20),
+            /* ； */ new font_glyph(00, 20),
+            /* ？ */ new font_glyph(00, 14),
+            /* ！ */ new font_glyph(00, 22),
+            /* ／ */ new font_glyph(00, 14),
+            /* （ */ new font_glyph(00, 18),
+            /* ） */ new font_glyph(00, 18),
+            /* ［ */ new font_glyph(00, 18),
+            /* ］ */ new font_glyph(00, 18),
+            /* ｛ */ new font_glyph(00, 16),
+            /* ｝ */ new font_glyph(00, 16),
+            /* ＋ */ new font_glyph(00, 14),
+            /* － */ new font_glyph(00, 20),
+            /* ＝ */ new font_glyph(00, 14),
+            /* ＜ */ new font_glyph(00, 18),
+            /* ＞ */ new font_glyph(00, 18),
+            /* ％ */ new font_glyph(00, 14),
+            /* ＃ */ new font_glyph(00, 14),
+            /* ＆ */ new font_glyph(00, 14),
+            /* ＊ */ new font_glyph(00, 14),
+            /* ＠ */ new font_glyph(00, 14),
+            /* ｜ */ new font_glyph(00, 22),
+            /*  ” */ new font_glyph(00, 18),
+            /*  ’ */ new font_glyph(00, 22),
+            /* ＾ */ new font_glyph(00, 16),
+            /* 「 */ new font_glyph(00, 18),
+            /* 」 */ new font_glyph(00, 18),
+            /* 〜 */ new font_glyph(00, 14),
+            /* ＿ */ new font_glyph(00, 14),
+            /* 、 */ new font_glyph(00, 20),
+            /* 。 */ new font_glyph(00, 16),
+        };
+
         private readonly font_glyph[] rm2_glyphs = new font_glyph[97]
         {
             /*    */ new font_glyph(16, 00),
@@ -381,6 +484,12 @@ namespace TranslationApp
                     BackColor = Color.FromArgb(0xA0, 0x0, 0x0, 0x0);
                     glyphs = rm2_glyphs;
                     break;
+
+                case "TOH":
+                    res = "TranslationApp.res.toh_font_atlas.png";
+                    BackColor = Color.FromArgb(0xA0, 0x0, 0x0, 0x0);
+                    glyphs = toh_glyphs;
+                    break;
                 default:
                     fontAtlasImage = null;
                     glyphs = null;
@@ -421,6 +530,7 @@ namespace TranslationApp
             Raster();
             Invalidate();
         }
+
 
         private void Raster()
         {
@@ -603,6 +713,158 @@ namespace TranslationApp
             }
         }
 
+        
+
+
+        public string DoLineBreak(string text, int maxWidth)
+        {
+            List<(string Word, int Size)> words = GetListWords(text);
+            int sum = 0;      
+            int i = 0;
+            string final = "";
+
+            if (maxWidth < words.Select(x => x.Size).Max())
+            {
+                maxWidth = words.Select(x => x.Size).Max();
+                
+            }
+            while (i < words.Count)
+            {
+                sum = 0;
+                List<int> output = words.Select(x => sum += x.Size).ToList();
+                List<int> maxCount = Enumerable.Range(0, output.Count).Where(ind => output[ind] <= maxWidth).ToList();
+
+                string line = "";
+                foreach (int c in maxCount)
+                    line += words[c].Word;
+
+                words.RemoveRange(0, maxCount.Count);
+                i += maxCount.Count;
+                final += (line + Environment.NewLine);
+
+
+            }
+
+            return final;
+
+            
+        }
+
+        public string WordWrap(string text, int maxWidth)
+        {
+            Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
+            List<(string,int)> words = GetListWords(text);
+
+            int curLineLength = 0;
+            StringBuilder strBuilder = new StringBuilder();
+            foreach ((string word, int width) in words)
+            {
+                string finalWord = word;
+                // If adding the new word to the current line would be too long,
+                // then put it on a new line (and split it up if it's too long).
+                if (curLineLength + width > maxWidth)
+                {
+                    // Only move down to a new line if we have text on the current line.
+                    // Avoids situation where
+                    // wrapped whitespace causes emptylines in text.
+                    if (curLineLength > 0)
+                    {
+                        strBuilder.Append(Environment.NewLine);
+                        curLineLength = 0;
+                    }
+
+                    // Remove leading whitespace from the word,
+                    // so the new line starts flush to the left.
+                    finalWord = word.TrimStart();
+                }
+                strBuilder.Append(word + " ");
+                curLineLength += (width + space.Width);
+            }
+
+            return strBuilder.ToString();
+        }
+
+        public List<(string, int)> GetListWords(string text)
+        {
+            //Split tags and text
+            string[] result = Regex.Split(text.Replace("\r", ""), @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+            Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
+
+            string textToRender = "";
+            bool shear = false;
+            List<(string Word, int Size)> wordsSize = new List<(string, int)>();
+
+            foreach (string element in result)
+            {
+                
+                int d = 0;
+                string tag = "";
+
+                int pos = element.IndexOf(">");
+                if (pos > -1)
+                {
+                    tag = element.Substring(0, pos+1);
+
+                    if (names.Contains(tag))
+                    {
+                        textToRender = tag.Substring(1, pos - 1);
+                    }
+                    else if (element.StartsWith("<unk") || element.StartsWith("<var") || element.StartsWith("<icon"))
+                    {
+                        textToRender = "***";
+                    }
+                    else if (element == "<Italic>")
+                    {
+                        shear = true;
+                        continue;
+                    }
+                    else if (element == "</Italic>")
+                    {
+                        shear = false;
+                        continue;
+                    }
+                    else if (element.StartsWith("<nmb:"))
+                    {
+                        string el = element.Substring(5, element.Length - 6);
+                        textToRender = Convert.ToInt32(el, 16).ToString();
+                    }
+
+                    if (pos < element.Length)
+                        textToRender += element.Substring(pos+1, element.Length - pos - 1);
+                    
+                }
+                else
+                {
+                    textToRender = element;
+                }
+
+
+                //Remove all linebreak
+                textToRender = textToRender.Replace("\n", " ");
+                
+                foreach (string word in textToRender.Split(' ').Where(x => x != ""))
+                {
+
+                    wordsSize.Add((word, GetWordWidth(word)));
+                    wordsSize.Add((" ", space.Width));
+
+                }
+            }
+
+            wordsSize.RemoveAt(wordsSize.Count - 1);
+            return wordsSize;
+        }
+
+        private int GetWordWidth(string word)
+        {
+            int width = 0;
+            foreach (char c in word) {
+                Rectangle rect = GetCharacterRectangleFromAtlas(c, out int x, out bool b);
+                width += rect.Width;
+            }
+
+            return width;
+        }
         private void TextPreview_Paint(object sender, PaintEventArgs e)
         {
             
@@ -719,7 +981,7 @@ namespace TranslationApp
             int y = index * charHeight;
             int x = glyphs[index].lskip;
 
-            charWidth -= glyphs[index].lskip;
+            charWidth -= (glyphs[index].lskip);
             s = glyphs[index].rskip;
             return new Rectangle(x, y, charWidth, charHeight);
         }
