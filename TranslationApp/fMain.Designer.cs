@@ -68,7 +68,6 @@ namespace TranslationApp
             this.bSaveAll = new System.Windows.Forms.Button();
             this.trackBarAlign = new System.Windows.Forms.TrackBar();
             this.label7 = new System.Windows.Forms.Label();
-            this.verticalLine = new System.Windows.Forms.Panel();
             this.cbFileList = new System.Windows.Forms.ComboBox();
             this.cbFileType = new System.Windows.Forms.ComboBox();
             this.cbStatus = new System.Windows.Forms.ComboBox();
@@ -112,6 +111,8 @@ namespace TranslationApp
             this.rightColumn = new System.Windows.Forms.Panel();
             this.tabSearchMass = new System.Windows.Forms.TabControl();
             this.tpSearch = new System.Windows.Forms.TabPage();
+            this.tbWrap = new System.Windows.Forms.TextBox();
+            this.tbMax = new System.Windows.Forms.TextBox();
             this.cbMatchWhole = new System.Windows.Forms.CheckBox();
             this.cbCase = new System.Windows.Forms.CheckBox();
             this.lEntriesFound = new System.Windows.Forms.Label();
@@ -168,7 +169,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1047, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1301, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -487,11 +488,12 @@ namespace TranslationApp
             this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
-            this.trackBarAlign.Location = new System.Drawing.Point(283, 154);
-            this.trackBarAlign.Maximum = 30;
+            this.trackBarAlign.Location = new System.Drawing.Point(240, 353);
+            this.trackBarAlign.Maximum = 100;
             this.trackBarAlign.Name = "trackBarAlign";
-            this.trackBarAlign.Size = new System.Drawing.Size(97, 26);
+            this.trackBarAlign.Size = new System.Drawing.Size(140, 28);
             this.trackBarAlign.TabIndex = 18;
+            this.trackBarAlign.Value = 100;
             this.trackBarAlign.ValueChanged += new System.EventHandler(this.trackBarAlign_ValueChanged);
             // 
             // label7
@@ -502,16 +504,6 @@ namespace TranslationApp
             this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 19;
             this.label7.Text = "Text Align";
-            // 
-            // verticalLine
-            // 
-            this.verticalLine.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.verticalLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.verticalLine.Location = new System.Drawing.Point(8, 202);
-            this.verticalLine.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
-            this.verticalLine.Name = "verticalLine";
-            this.verticalLine.Size = new System.Drawing.Size(2, 500);
-            this.verticalLine.TabIndex = 20;
             // 
             // cbFileList
             // 
@@ -945,7 +937,7 @@ namespace TranslationApp
             this.rightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightColumn.Location = new System.Drawing.Point(712, 24);
             this.rightColumn.Name = "rightColumn";
-            this.rightColumn.Size = new System.Drawing.Size(335, 709);
+            this.rightColumn.Size = new System.Drawing.Size(589, 709);
             this.rightColumn.TabIndex = 53;
             // 
             // tabSearchMass
@@ -959,11 +951,13 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(4, 3);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(328, 699);
+            this.tabSearchMass.Size = new System.Drawing.Size(582, 699);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
             // 
+            this.tpSearch.Controls.Add(this.tbWrap);
+            this.tpSearch.Controls.Add(this.tbMax);
             this.tpSearch.Controls.Add(this.cbMatchWhole);
             this.tpSearch.Controls.Add(this.cbCase);
             this.tpSearch.Controls.Add(this.lEntriesFound);
@@ -979,10 +973,29 @@ namespace TranslationApp
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(320, 673);
+            this.tpSearch.Size = new System.Drawing.Size(574, 673);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
+            // 
+            // tbWrap
+            // 
+            this.tbWrap.Location = new System.Drawing.Point(321, 94);
+            this.tbWrap.Multiline = true;
+            this.tbWrap.Name = "tbWrap";
+            this.tbWrap.Size = new System.Drawing.Size(224, 111);
+            this.tbWrap.TabIndex = 61;
+            // 
+            // tbMax
+            // 
+            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMax.Location = new System.Drawing.Point(334, 47);
+            this.tbMax.Name = "tbMax";
+            this.tbMax.Size = new System.Drawing.Size(166, 20);
+            this.tbMax.TabIndex = 60;
+            this.tbMax.Text = "500";
+            this.tbMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMax_KeyDown);
             // 
             // cbMatchWhole
             // 
@@ -1108,7 +1121,7 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(261, 444);
+            this.lbSearch.Size = new System.Drawing.Size(515, 444);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1126,7 +1139,7 @@ namespace TranslationApp
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(320, 673);
+            this.tpMassReplace.Size = new System.Drawing.Size(574, 673);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1214,7 +1227,6 @@ namespace TranslationApp
             // 
             // middleColumn
             // 
-            this.middleColumn.Controls.Add(this.verticalLine);
             this.middleColumn.Controls.Add(this.pPreviewContainer);
             this.middleColumn.Controls.Add(this.tbFriendlyName);
             this.middleColumn.Controls.Add(this.lLineBreak);
@@ -1271,11 +1283,11 @@ namespace TranslationApp
             this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEnglishText.Location = new System.Drawing.Point(9, 353);
+            this.tbEnglishText.Location = new System.Drawing.Point(9, 387);
             this.tbEnglishText.Multiline = true;
             this.tbEnglishText.Name = "tbEnglishText";
             this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbEnglishText.Size = new System.Drawing.Size(372, 163);
+            this.tbEnglishText.Size = new System.Drawing.Size(372, 129);
             this.tbEnglishText.TabIndex = 6;
             this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
             this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
@@ -1330,7 +1342,7 @@ namespace TranslationApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 733);
+            this.ClientSize = new System.Drawing.Size(1301, 733);
             this.Controls.Add(this.rightColumn);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.middleColumn);
@@ -1342,7 +1354,6 @@ namespace TranslationApp
             this.Name = "fMain";
             this.Text = "Translation App";
             this.Load += new System.EventHandler(this.fMain_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.fMain_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.Resize += new System.EventHandler(this.fMain_Resize);
             this.menuStripMain.ResumeLayout(false);
@@ -1393,7 +1404,6 @@ namespace TranslationApp
         private System.Windows.Forms.Button bSaveAll;
         private System.Windows.Forms.TrackBar trackBarAlign;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel verticalLine;
         private System.Windows.Forms.ComboBox cbFileList;
         private System.Windows.Forms.ComboBox cbFileType;
         private System.Windows.Forms.ToolStripMenuItem tsNDXExtract;
@@ -1487,6 +1497,8 @@ namespace TranslationApp
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
         private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.TextBox tbMax;
+        private System.Windows.Forms.TextBox tbWrap;
     }
 }
 

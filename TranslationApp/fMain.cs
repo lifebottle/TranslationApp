@@ -429,7 +429,7 @@ namespace TranslationApp
                 translation = translation.Replace("\r\n", "\n");
                 string jptext = tbJapaneseText.Text.Replace("\r\n", "\n");
                 List<EntryFound> Entryfound = FindOtherTranslations("All", jptext, "Japanese", true, false, false);
-                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText.Replace("\r\n", "\n") == jptext && x.Entry.EnglishText.Replace("\r\n", "\n") != translation).ToList();
+                OtherTranslations = Entryfound.Where(x => x.Entry.JapaneseText.Replace("\r\n", "\n") == jptext && (x.Entry.EnglishText ?? string.Empty).Replace("\r\n", "\n") != translation).ToList();
 
                 string cleanedString = tbEnglishText.Text.Replace("\r\n", "").Replace(" ", "");
                 List<EntryFound> DifferentLineBreak = Entryfound.Where(x => x.Entry.EnglishText != null).
@@ -588,17 +588,13 @@ namespace TranslationApp
             UpdateStatusData();
         }
 
-        private void fMain_Paint(object sender, PaintEventArgs e)
-        {
-            Point p = new Point();
-            p.X = tbJapaneseText.Location.X + ((tbJapaneseText.Size.Width / trackBarAlign.Maximum) * trackBarAlign.Value);
-            p.Y = tbJapaneseText.Location.Y;
-            verticalLine.Location = p;
-        }
 
         private void trackBarAlign_ValueChanged(object sender, EventArgs e)
         {
             Invalidate();
+            string val = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
+            tbEnglishText.Text = val;
+            
         }
 
         private string GetTextBasedLanguage(int entryIndex, List<XMLEntry> EntryList)
@@ -651,7 +647,7 @@ namespace TranslationApp
             var myConfig = config.GetGameConfig(gameName);
             if (myConfig != null)
             {
-                TryLoadFolder(config.GetGameConfig(gameName).FolderPath, gameName.Equals("NDX"));
+                TryLoadFolder(config.GetGameConfig(gameName).FolderPath, false);
                 gameConfig = myConfig;
                 UpdateOptionsVisibility();
             }
@@ -946,7 +942,12 @@ namespace TranslationApp
             cbStatus.Text = status;
             textPreview1.ReDraw(tbEnglishText.Text);
             Project.CurrentFolder.CurrentFile.needsSave = true;
+
+            //string split = textPreview1.DoLineBreak(tbEnglishText.Text, 400);
+            //string split = textPreview1.WordWrap(tbEnglishText.Text, Convert.ToInt32(tbMax.Text));
+            //tbWrap.Text = split;
         }
+
 
         private void cbStatus_TextChanged(object sender, EventArgs e)
         {
@@ -1695,6 +1696,15 @@ namespace TranslationApp
                 }
                 LastWindowState = WindowState;
             }
+        }
+
+        private void tbMax_KeyDown(object sender, KeyEventArgs e)
+        {
+            int max = 0;
+            bool t = Int32.TryParse(tbMax.Text, out max);
+
+            if (t)
+                tbWrap.Text = textPreview1.DoLineBreak(tbEnglishText.Text, Convert.ToInt32(tbMax.Text));
         }
     }
 
