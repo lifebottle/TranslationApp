@@ -170,7 +170,7 @@ namespace TranslationLib
                 Status = ExtractNullableString(element.Element("Status")),
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
                 BubbleId = ExtractNullableInt(element.Element("BubbleId")),
-                SubId = ExtractNullableInt(element.Element("SubId")),
+                SubId = ExtractOptionalInt(element.Element("SubId")),
                 StructId = ExtractNullableInt(element.Element("StructId")),
                 UnknownPointer = ExtractNullableInt(element.Element("UnknownPointer")),
                 MaxLength = ExtractNullableInt(element.Element("MaxLength"))
@@ -196,6 +196,18 @@ namespace TranslationLib
                 return null;
 
             return int.Parse(element.Value);
+        }
+
+        private int? ExtractOptionalInt(XElement element)
+        {
+            int value;
+
+            if (element != null && int.TryParse(element.Value, out value))
+            {
+                return value;
+            }
+
+            return null;
         }
 
         private int[] ExtractNullableIntArray(XElement element)

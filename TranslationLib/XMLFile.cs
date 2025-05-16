@@ -257,7 +257,7 @@ namespace TranslationLib
         {
             var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
             var bubbleId = entry.BubbleId == null ? null : new XElement("BubbleId", entry.BubbleId);
-            var subId = entry.BubbleId == null ? null : new XElement("SubId", entry.SubId);
+            var subId = entry.SubId == null ? null : new XElement("SubId", entry.SubId);
             var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",", entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
             var maxLength = entry.MaxLength == null ? null : new XElement("MaxLength", entry.MaxLength);
@@ -300,7 +300,6 @@ namespace TranslationLib
             }
             else
             {
-
                 return new XElement("Entry",
                     new XElement("PointerOffset", entry.PointerOffset),
                     embedOffset,
