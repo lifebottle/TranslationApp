@@ -594,7 +594,6 @@ namespace TranslationApp
             Invalidate();
             string val = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
             tbEnglishText.Text = val;
-            
         }
 
         private string GetTextBasedLanguage(int entryIndex, List<XMLEntry> EntryList)

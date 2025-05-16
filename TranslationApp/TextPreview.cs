@@ -722,13 +722,14 @@ namespace TranslationApp
             int sum = 0;      
             int i = 0;
             string final = "";
+            int oCount = words.Count;
 
             if (maxWidth < words.Select(x => x.Size).Max())
             {
                 maxWidth = words.Select(x => x.Size).Max();
                 
             }
-            while (i < words.Count)
+            while (i < oCount)
             {
                 sum = 0;
                 List<int> output = words.Select(x => sum += x.Size).ToList();
@@ -745,9 +746,7 @@ namespace TranslationApp
 
             }
 
-            return final;
-
-            
+            return final; 
         }
 
         public string WordWrap(string text, int maxWidth)
