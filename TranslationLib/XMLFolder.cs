@@ -52,6 +52,7 @@ namespace TranslationLib
             XMLFile.FileType = document.Root.Name.ToString();
             XMLFile.FriendlyName = document.Root.Element("FriendlyName")?.Value;
             XMLFile.isLegacy = isLegacy;
+            XMLFile.Declaration = document.Declaration;
             var XMLSections = document.Root.Elements("Strings");
 
             // Add a dummy "Everyting" section
