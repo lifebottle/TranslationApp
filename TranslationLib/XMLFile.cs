@@ -17,7 +17,7 @@ namespace TranslationLib
         public XMLSection CurrentSection { get; set; }
         public bool isLegacy { get; set; }
         public bool needsSave { get; set; }
-        public XDeclaration? Declaration { get; set; }
+        public XDeclaration Declaration { get; set; }
 
         public XMLFile()
         {
