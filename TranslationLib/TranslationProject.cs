@@ -10,13 +10,11 @@ namespace TranslationLib
         public string ProjectPath { get; }
         public List<XMLFolder> XmlFolders { get; set; }
         public XMLFolder CurrentFolder { get; set; }
-        public bool isLegacy { get; set; }
 
-        public TranslationProject(string basePath, List<string> folderIncluded, bool legacy)
+        public TranslationProject(string basePath, List<string> folderIncluded)
         {
             ProjectPath = basePath;
             XmlFolders = new List<XMLFolder>();
-            isLegacy = legacy;
 
             foreach (var folder in folderIncluded)
             {
@@ -24,7 +22,7 @@ namespace TranslationLib
                 var files = Directory.GetFiles(fullPath);
                 if (files.Count() != 0 && files.Any(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)))
                 {
-                    XmlFolders.Add(new XMLFolder(folder, fullPath, legacy));
+                    XmlFolders.Add(new XMLFolder(folder, fullPath));
                 }
             }
 

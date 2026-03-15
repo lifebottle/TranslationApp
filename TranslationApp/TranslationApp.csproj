@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>TranslationApp</RootNamespace>
     <AssemblyName>TranslationApp</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -31,6 +31,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -194,8 +195,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.props'))" />
     <Error Condition="!Exists('..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.props'))" />
   </Target>
   <Import Project="..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.targets" Condition="Exists('..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.targets')" />
 </Project>

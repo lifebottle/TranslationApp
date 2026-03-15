@@ -795,8 +795,6 @@ namespace TranslationApp
 
             foreach (string element in result)
             {
-                
-                int d = 0;
                 string tag = "";
 
                 int pos = element.IndexOf(">");

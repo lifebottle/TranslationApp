@@ -15,16 +15,14 @@ namespace TranslationLib
         public List<XMLFile> XMLFiles { get; set; }
         public Dictionary<string, TranslationEntry> Translations { get; set; }
         public XMLFile CurrentFile { get; set; }
-        public bool isLegacy { get; set; }
 
-        public XMLFolder(string name, string path, bool legacy)
+        public XMLFolder(string name, string path)
         {
             Name = name;
             FolderPath = path;
             Translations = new Dictionary<string, TranslationEntry>();
             XMLFiles = new List<XMLFile>();
             CurrentFile = new XMLFile();
-            isLegacy = legacy;
         }
 
         public void LoadXMLs()
@@ -51,7 +49,6 @@ namespace TranslationLib
             var document = XDocument.Load(xmlpath, LoadOptions.PreserveWhitespace);
             XMLFile.FileType = document.Root.Name.ToString();
             XMLFile.FriendlyName = document.Root.Element("FriendlyName")?.Value;
-            XMLFile.isLegacy = isLegacy;
             XMLFile.Declaration = document.Declaration;
             var XMLSections = document.Root.Elements("Strings");
 

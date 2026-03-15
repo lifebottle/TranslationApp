@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace TranslationLib
@@ -124,11 +125,16 @@ namespace TranslationLib
 
             allSections.AddRange(sectionsElements);
             var document = new XDocument(
-                Declaration,
                 new XElement(FileType, allSections)
             );
 
-            File.WriteAllText(FilePath, document.ToString().Replace(" />", "/>") + Environment.NewLine);
+            var xml = document.ToString().Replace(" />", "/>") + Environment.NewLine;
+            if (Declaration != null)
+            {
+                xml = "<?xml version='1.0' encoding='UTF-8'?>" + Environment.NewLine + xml;
+            }
+
+            File.WriteAllText(FilePath, xml);
         }
 
         public void SaveAsCsv(string path)
@@ -281,43 +287,20 @@ namespace TranslationLib
                 embedOffset = null;
             }
 
-            if (isLegacy)
-            {
-                return new XElement("Entry",
-                    new XElement("PointerOffset", entry.PointerOffset),
-                    embedOffset,
-                    maxLength,
-                    voiceId,
-                    new XElement("JapaneseText", entry.JapaneseText),
-                    new XElement("EnglishText", entry.EnglishText),
-                    new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
-                    elemenId,
-                    structId,
-                    speakerId,
-                    unknownPointer,
-                    bubbleId,
-                    subId,
-                    new XElement("Status", entry.Status)
-                );
-            }
-            else
-            {
-                return new XElement("Entry",
-                    new XElement("PointerOffset", entry.PointerOffset),
-                    embedOffset,
-                    maxLength,
-                    voiceId,
-                    new XElement("JapaneseText", entry.JapaneseText),
-                    new XElement("EnglishText", entry.EnglishText),
-                    new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
-                    speakerId,
-                    elemenId,
-                    bubbleId,
-                    subId,
-                    new XElement("Status", entry.Status)
-
-                );
-            }
+            return new XElement("Entry",
+                new XElement("PointerOffset", entry.PointerOffset),
+                embedOffset,
+                maxLength,
+                voiceId,
+                new XElement("JapaneseText", entry.JapaneseText),
+                new XElement("EnglishText", entry.EnglishText),
+                new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
+                speakerId,
+                elemenId,
+                bubbleId,
+                subId,
+                new XElement("Status", entry.Status)
+            );
         }
 
 
