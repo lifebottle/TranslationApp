@@ -100,20 +100,34 @@ namespace TranslationApp
 
         private void LoadNewFolder_Click(object sender, EventArgs e)
         {
+            var previousProject = Project;
+
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
             LoadProjectFolder(pe.shortName, pe.folder);
-            textPreview1.ChangeImage(pe.shortName);
-            UpdateTitle(pe.fullName);
+
+            // Only update UI if a new project was actually loaded
+            if (Project != null && Project.CurrentFolder != null && Project != previousProject)
+            {
+                textPreview1.ChangeImage(pe.shortName);
+                UpdateTitle(pe.fullName);
+            }
         }
 
         private void LoadLastFolder_Click(object sender, EventArgs e)
         {
+            var previousProject = Project;
+
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
             LoadLastFolder(pe.shortName);
-            textPreview1.ChangeImage(pe.shortName);
-            UpdateTitle(pe.fullName);
+
+            // Only update UI if project was successfully loaded
+            if (Project != null && Project.CurrentFolder != null && Project != previousProject)
+            {
+                textPreview1.ChangeImage(pe.shortName);
+                UpdateTitle(pe.fullName);
+            }
         }
 
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -607,13 +621,88 @@ namespace TranslationApp
 
         public string GetFolderPath()
         {
-            using (var fbd = new FolderBrowserDialog())
+            // Use modern Windows API folder picker for better user experience
+            try
             {
-                if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                    return fbd.SelectedPath;
-
-                return "";
+                return GetModernWindowsFolderPicker();
             }
+            catch
+            {
+                // Fallback to Windows Forms FolderBrowserDialog
+                return GetFallbackFolderPicker();
+            }
+        }
+
+        private string GetModernWindowsFolderPicker()
+        {
+            try
+            {
+                // Try to use the modern Windows Vista+ folder picker
+                using (var openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.ValidateNames = false;
+                    openFileDialog.CheckFileExists = false;
+                    openFileDialog.CheckPathExists = true;
+                    openFileDialog.FileName = "Select Folder";
+                    openFileDialog.Title = "Select project folder";
+
+                    // Set initial directory to parent of last used path (go up one level)
+                    if (!string.IsNullOrEmpty(config?.GamesConfigList?.LastOrDefault()?.LastFolderPath))
+                    {
+                        string lastPath = config.GamesConfigList.Last().LastFolderPath;
+                        openFileDialog.InitialDirectory = lastPath;
+                    }
+                    else
+                    {
+                        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+                    }
+
+                    // Show the dialog and handle the result
+                    DialogResult result = openFileDialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        string folderPath = Path.GetDirectoryName(openFileDialog.FileName);
+                        if (!string.IsNullOrEmpty(folderPath) && Directory.Exists(folderPath))
+                            return folderPath;
+                    }
+                    // If user cancelled (DialogResult.Cancel), return empty string
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Modern folder picker error: {ex.Message}");
+                // Fall through to fallback method
+            }
+
+            return "";
+        }
+        private string GetFallbackFolderPicker()
+        {
+            try
+            {
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    fbd.Description = "Select your project folder";
+
+                    // Show the dialog and handle the result
+                    DialogResult result = fbd.ShowDialog();
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        // Verify the selected path actually exists
+                        if (Directory.Exists(fbd.SelectedPath))
+                            return fbd.SelectedPath;
+                    }
+                    // If user cancelled (DialogResult.Cancel), return empty string
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Fallback folder picker error: {ex.Message}");
+            }
+
+            return "";
         }
 
         private void LoadProjectFolder(string gameName, string path)
