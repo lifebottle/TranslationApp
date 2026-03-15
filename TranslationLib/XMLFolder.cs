@@ -25,7 +25,7 @@ namespace TranslationLib
             CurrentFile = new XMLFile();
         }
 
-        public void LoadXMLs()
+        public void LoadXMLs(Action fileLoadedCallback = null)
         {
             var fileList = Directory.GetFiles(FolderPath);
 
@@ -36,6 +36,7 @@ namespace TranslationLib
                     if (file.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
                     {
                         XMLFiles.Add(LoadXML(file));
+                        fileLoadedCallback?.Invoke();
                     }
                 }
                 CurrentFile = XMLFiles.First();

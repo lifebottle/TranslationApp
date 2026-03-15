@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -770,6 +770,30 @@ namespace TranslationApp
             }
 
             Project = new TranslationProject(path, folderIncluded);
+
+            using (var fLoad = new fLoading())
+            {
+                fLoad.progressBar.Style = ProgressBarStyle.Continuous;
+                fLoad.progressBar.Minimum = 0;
+
+                fLoad.Shown += async (s, ev) =>
+                {
+                    await Task.Run(() =>
+                    {
+                        Project.LoadXMLs((current, total) =>
+                        {
+                            fLoad.Invoke((Action)(() =>
+                            {
+                                fLoad.progressBar.Maximum = total;
+                                fLoad.progressBar.Value = current;
+                                fLoad.lblStatus.Text = $"Loading XML files... {current}/{total}";
+                            }));
+                        });
+                    });
+                    fLoad.Close();
+                };
+                fLoad.ShowDialog(this);
+            }
 
             if (Project.CurrentFolder == null)
             {

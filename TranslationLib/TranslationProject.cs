@@ -25,15 +25,34 @@ namespace TranslationLib
                     XmlFolders.Add(new XMLFolder(folder, fullPath));
                 }
             }
+        }
 
+        public void LoadXMLs(Action<int, int> progressCallback = null)
+        {
             if (XmlFolders.Count == 0)
             {
                 CurrentFolder = null;
                 return;
             }
 
+            int totalFiles = 0;
+            foreach (var folder in XmlFolders)
+            {
+                if (Directory.Exists(folder.FolderPath))
+                {
+                    totalFiles += Directory.GetFiles(folder.FolderPath, "*.xml").Length;
+                }
+            }
+
+            int currentFile = 0;
             foreach (var xmlFolder in XmlFolders)
-                xmlFolder.LoadXMLs();
+            {
+                xmlFolder.LoadXMLs(() => 
+                {
+                    currentFile++;
+                    progressCallback?.Invoke(currentFile, totalFiles);
+                });
+            }
 
             CurrentFolder = XmlFolders.First();
         }

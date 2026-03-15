@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.props" Condition="Exists('..\packages\GitVersion.MsBuild.5.12.0\build\GitVersion.MsBuild.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -107,6 +107,9 @@
       <DependentUpon>fSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="fLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextPreview.cs">
       <SubType>Component</SubType>
@@ -114,6 +117,9 @@
     <Compile Include="TextPreview.Designer.cs">
       <DependentUpon>TextPreview.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="fLoading.resx">
+      <DependentUpon>fLoading.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
     </EmbeddedResource>
