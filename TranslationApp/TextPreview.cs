@@ -42,14 +42,17 @@ namespace TranslationApp
         struct font_glyph
         {
             public byte lskip;
-            public byte rskip;
+            public byte width;
 
             public font_glyph(byte x, byte y)
             {
                 lskip = x;
-                rskip = y;
+                width = y;
             }
         }
+
+        private float scale = 1.0f;
+        private float finalRenderScale = 1.0f;
 
         #region Glyph width data
         private readonly font_glyph[] tor_glyphs = new font_glyph[97]
@@ -455,6 +458,108 @@ namespace TranslationApp
             /* 、 */ new font_glyph(00, 13),
             /* 。 */ new font_glyph(01, 12),
         };
+
+        private readonly font_glyph[] srwz_glyphs = new font_glyph[]
+        {
+            /*   */ new font_glyph(0,6),
+            /* ! */ new font_glyph(0,4),
+            /* " */ new font_glyph(0,4),
+            /* # */ new font_glyph(0,13),
+            /* $ */ new font_glyph(0,13),
+            /* % */ new font_glyph(0,13),
+            /* & */ new font_glyph(0,13),
+            /* ' */ new font_glyph(0,3),
+            /* ( */ new font_glyph(0,6),
+            /* ) */ new font_glyph(0,6),
+            /* * */ new font_glyph(0,13),
+            /* + */ new font_glyph(0,13),
+            /* , */ new font_glyph(0,3),
+            /* - */ new font_glyph(0,13),
+            /* . */ new font_glyph(0,3),
+            /* / */ new font_glyph(0,13),
+            /* 0 */ new font_glyph(0,12),
+            /* 1 */ new font_glyph(0,11),
+            /* 2 */ new font_glyph(0,11),
+            /* 3 */ new font_glyph(0,11),
+            /* 4 */ new font_glyph(0,11),
+            /* 5 */ new font_glyph(0,11),
+            /* 6 */ new font_glyph(0,11),
+            /* 7 */ new font_glyph(0,11),
+            /* 8 */ new font_glyph(0,11),
+            /* 9 */ new font_glyph(0,11),
+            /* : */ new font_glyph(0,13),
+            /* ; */ new font_glyph(0,13),
+            /* < */ new font_glyph(0,13),
+            /* = */ new font_glyph(0,13),
+            /* > */ new font_glyph(0,13),
+            /* ? */ new font_glyph(0,13),
+            /* @ */ new font_glyph(0,13),
+            /* A */ new font_glyph(0,12),
+            /* B */ new font_glyph(0,12),
+            /* C */ new font_glyph(0,12),
+            /* D */ new font_glyph(0,11),
+            /* E */ new font_glyph(0,11),
+            /* F */ new font_glyph(0,9),
+            /* G */ new font_glyph(0,13),
+            /* H */ new font_glyph(0,12),
+            /* I */ new font_glyph(0,3),
+            /* J */ new font_glyph(0,9),
+            /* K */ new font_glyph(0,12),
+            /* L */ new font_glyph(0,11),
+            /* M */ new font_glyph(0,14),
+            /* N */ new font_glyph(0,13),
+            /* O */ new font_glyph(0,13),
+            /* P */ new font_glyph(0,12),
+            /* Q */ new font_glyph(0,14),
+            /* R */ new font_glyph(0,12),
+            /* S */ new font_glyph(0,11),
+            /* T */ new font_glyph(0,13),
+            /* U */ new font_glyph(0,12),
+            /* V */ new font_glyph(0,12),
+            /* W */ new font_glyph(0,15),
+            /* X */ new font_glyph(0,12),
+            /* Y */ new font_glyph(0,11),
+            /* Z */ new font_glyph(0,10),
+            /* [ */ new font_glyph(0,7),
+            /* \ */ new font_glyph(0,7),
+            /* ] */ new font_glyph(0,7),
+            /*   */ new font_glyph(0,7),
+            /* ^ */ new font_glyph(0,13),
+            /* _ */ new font_glyph(0,13),
+            /* ` */ new font_glyph(0,13),
+            /* a */ new font_glyph(0,8),
+            /* b */ new font_glyph(0,9),
+            /* c */ new font_glyph(0,9),
+            /* d */ new font_glyph(0,10),
+            /* e */ new font_glyph(0,8),
+            /* f */ new font_glyph(0,8),
+            /* g */ new font_glyph(0,9),
+            /* h */ new font_glyph(0,9),
+            /* i */ new font_glyph(0,3),
+            /* j */ new font_glyph(0,7),
+            /* k */ new font_glyph(0,9),
+            /* l */ new font_glyph(0,3),
+            /* m */ new font_glyph(0,14),
+            /* n */ new font_glyph(0,9),
+            /* o */ new font_glyph(0,9),
+            /* p */ new font_glyph(0,9),
+            /* q */ new font_glyph(0,10),
+            /* r */ new font_glyph(0,6),
+            /* s */ new font_glyph(0,8),
+            /* t */ new font_glyph(0,7),
+            /* u */ new font_glyph(0,9),
+            /* v */ new font_glyph(0,9),
+            /* w */ new font_glyph(0,10),
+            /* x */ new font_glyph(0,8),
+            /* y */ new font_glyph(0,8),
+            /* z */ new font_glyph(0,10),
+            /* { */ new font_glyph(0,10),
+            /* | */ new font_glyph(0,10),
+            /* } */ new font_glyph(0,10),
+            /* ~ */ new font_glyph(0,10),
+            /* ≥ */ new font_glyph(0,10)
+
+        };
         #endregion
 
         public TextPreview()
@@ -467,6 +572,9 @@ namespace TranslationApp
         public void ChangeImage(string id)
         {
             string res;
+            scale = 1.0f;
+            finalRenderScale = 1.0f;
+
             switch (id)
             {
                 case "TOR":
@@ -490,9 +598,18 @@ namespace TranslationApp
                     BackColor = Color.FromArgb(0xA0, 0x0, 0x0, 0x0);
                     glyphs = toh_glyphs;
                     break;
+
+                case "SRWZ":
+                    res = "TranslationApp.res.srwz_font_atlas.png";
+                    BackColor = Color.FromArgb(0xA0, 0x0, 0x0, 0x0);
+                    glyphs = srwz_glyphs;
+                    scale = 0.8f;
+                    finalRenderScale = 0.8f;
+                    break;
+
                 default:
                     fontAtlasImage = null;
-                    glyphs = null;
+                    glyphs = srwz_glyphs;
                     return;
             }
 
@@ -529,6 +646,12 @@ namespace TranslationApp
             this.text = text;
             Raster();
             Invalidate();
+        }
+
+        public int GetLayoutWidthFromRenderedWidth(int renderedWidth)
+        {
+            float safeScale = Math.Max(0.01f, finalRenderScale);
+            return Math.Max(1, (int)Math.Ceiling(renderedWidth / safeScale));
         }
 
 
@@ -647,10 +770,12 @@ namespace TranslationApp
                         foreach (char c in textToRender)
                         {
                             // Get the rectangle for the current character in the atlas
-                            Rectangle charRect = GetCharacterRectangleFromAtlas(c, out int shift, out bool line);
+                            Rectangle charRect = GetCharacterRectangleFromAtlas(c, out int glyphWidth, out bool line);
 
                             // Create a destination rectangle using the currentPosition
-                            RectangleF destinationRect = new RectangleF(currentPosition, new SizeF(charRect.Width, charRect.Height));
+                            RectangleF destinationRect = new RectangleF(
+                                currentPosition,
+                                new SizeF(charRect.Width * scale, charRect.Height * scale));
 
                             if (shear)
                             {
@@ -683,31 +808,47 @@ namespace TranslationApp
                             if (line)
                             {
                                 currentPosition.X = 10;
-                                currentPosition.Y += 24;
+                                currentPosition.Y += 24 * scale;
                             }
                             else
                             {
-                                currentPosition.X += charRect.Width - shift;
-                                // Update max texture size
-                                if (finalWidth < currentPosition.X)
-                                {
-                                    finalWidth = currentPosition.X;
-                                }
+                                // glyphWidth is already stored at the intended font scale.
+                                currentPosition.X += (glyphWidth + 1);
+                                finalWidth = Math.Max(finalWidth, currentPosition.X);
                             }
                         }
                     }
 
-                    currentImage = new Bitmap((int)((finalWidth + 10) * 0.75f), (int)((currentPosition.Y + 34) * 0.75f));
+                    int outputWidth = Math.Max(1, (int)Math.Ceiling(finalWidth + 10));
+                    int outputHeight = Math.Max(
+                        1,
+                        (int)Math.Ceiling(currentPosition.Y + (24 * scale) + 10));
 
-                    // Draw the final image scaled down
+                    int finalOutputWidth = Math.Max(
+                        1,
+                        (int)Math.Ceiling(outputWidth * finalRenderScale));
+                    int finalOutputHeight = Math.Max(
+                        1,
+                        (int)Math.Ceiling(outputHeight * finalRenderScale));
+
+                    currentImage = new Bitmap(
+                        finalOutputWidth,
+                        finalOutputHeight,
+                        PixelFormat.Format32bppArgb);
+
+                    // Scale the completed rendering without changing glyph layout metrics.
                     using (Graphics canvas_f = Graphics.FromImage(currentImage))
                     {
-                        canvas_f.ScaleTransform(0.75f, 0.75f);
-                        canvas_f.DrawImage(canvas, 0, 0);
+                        canvas_f.Clear(Color.Transparent);
+                        canvas_f.CompositingMode = CompositingMode.SourceCopy;
+                        canvas_f.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        canvas_f.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        canvas_f.DrawImage(
+                            canvas,
+                            new Rectangle(0, 0, finalOutputWidth, finalOutputHeight),
+                            new Rectangle(0, 0, outputWidth, outputHeight),
+                            GraphicsUnit.Pixel);
                     }
-                    //Graphics g = e.Graphics;
-                    //g.ScaleTransform(0.75f, 0.75f);
-                    //g.DrawImage(currentImage, 0, 0);
                     Image = currentImage;
                 }
             }
@@ -718,41 +859,159 @@ namespace TranslationApp
 
         public string DoLineBreak(string text, int maxWidth)
         {
-            List<(string Word, int Size)> words = GetListWords(text);
-            int sum = 0;      
-            int i = 0;
-            string final = "";
-
-            if (maxWidth < words.Select(x => x.Size).Max())
+            if (string.IsNullOrWhiteSpace(text) || glyphs == null)
             {
-                maxWidth = words.Select(x => x.Size).Max();
-                
-            }
-            while (i < words.Count)
-            {
-                sum = 0;
-                List<int> output = words.Select(x => sum += x.Size).ToList();
-                List<int> maxCount = Enumerable.Range(0, output.Count).Where(ind => output[ind] <= maxWidth).ToList();
-
-                string line = "";
-                foreach (int c in maxCount)
-                    line += words[c].Word;
-
-                words.RemoveRange(0, maxCount.Count);
-                i += maxCount.Count;
-                final += (line + Environment.NewLine);
-
-
+                return text ?? string.Empty;
             }
 
-            return final;
+            List<(string Text, int Width)> words = GetLineBreakWords(text);
+            if (words.Count == 0)
+            {
+                return string.Empty;
+            }
 
-            
+            maxWidth = Math.Max(1, maxWidth);
+            int spaceWidth = GetRenderedTextWidth(" ");
+            int currentLineWidth = 0;
+            bool hasContentOnLine = false;
+            StringBuilder output = new StringBuilder();
+
+            foreach ((string wordText, int wordWidth) in words)
+            {
+                int separatorWidth = hasContentOnLine ? spaceWidth : 0;
+
+                // Keep words intact. A word wider than maxWidth is placed alone.
+                if (hasContentOnLine &&
+                    currentLineWidth + separatorWidth + wordWidth > maxWidth)
+                {
+                    output.Append(Environment.NewLine);
+                    currentLineWidth = 0;
+                    hasContentOnLine = false;
+                    separatorWidth = 0;
+                }
+
+                if (hasContentOnLine)
+                {
+                    output.Append(' ');
+                    currentLineWidth += separatorWidth;
+                }
+
+                output.Append(wordText);
+                currentLineWidth += wordWidth;
+                hasContentOnLine = true;
+            }
+
+            return output.ToString();
+        }
+
+        private List<(string Text, int Width)> GetLineBreakWords(string source)
+        {
+            List<(string Text, int Width)> words = new List<(string, int)>();
+            StringBuilder currentWord = new StringBuilder();
+            int currentWidth = 0;
+
+            // Tags remain in the returned text but only their visible replacement
+            // contributes to the measured width. Whitespace is normalized to one
+            // separator so existing line breaks can be reflowed.
+            MatchCollection tokens = Regex.Matches(
+                source,
+                @"<[^>]*>|\s+|[^<\s]+|<",
+                RegexOptions.IgnoreCase);
+
+            foreach (Match token in tokens)
+            {
+                string value = token.Value;
+                if (Regex.IsMatch(value, @"^\s+$"))
+                {
+                    if (currentWord.Length > 0)
+                    {
+                        words.Add((currentWord.ToString(), currentWidth));
+                        currentWord.Clear();
+                        currentWidth = 0;
+                    }
+                    continue;
+                }
+
+                currentWord.Append(value);
+                if (value.StartsWith("<") && value.EndsWith(">"))
+                {
+                    currentWidth += GetTagRenderedWidth(value);
+                }
+                else
+                {
+                    currentWidth += GetRenderedTextWidth(value);
+                }
+            }
+
+            if (currentWord.Length > 0)
+            {
+                words.Add((currentWord.ToString(), currentWidth));
+            }
+
+            return words;
+        }
+
+        private int GetTagRenderedWidth(string tag)
+        {
+            if (colors.ContainsKey(tag) ||
+                tag == "<Italic>" ||
+                tag == "</Italic>" ||
+                tag.StartsWith("<color:"))
+            {
+                return 0;
+            }
+
+            string renderedText;
+            if (names.Contains(tag))
+            {
+                renderedText = tag.Substring(1, tag.Length - 2);
+            }
+            else if (tag.StartsWith("<unk") ||
+                     tag.StartsWith("<var") ||
+                     tag.StartsWith("<icon"))
+            {
+                renderedText = "***";
+            }
+            else if (tag.StartsWith("<nmb:") && tag.EndsWith(">"))
+            {
+                string hexadecimalValue = tag.Substring(5, tag.Length - 6);
+                if (!int.TryParse(
+                    hexadecimalValue,
+                    System.Globalization.NumberStyles.HexNumber,
+                    null,
+                    out int number))
+                {
+                    return 0;
+                }
+                renderedText = number.ToString();
+            }
+            else
+            {
+                // Unknown control tags are ignored by Raster().
+                return 0;
+            }
+
+            return GetRenderedTextWidth(renderedText);
+        }
+
+        private int GetRenderedTextWidth(string renderedText)
+        {
+            int width = 0;
+            foreach (char character in renderedText)
+            {
+                GetCharacterRectangleFromAtlas(character, out int glyphWidth, out bool addLine);
+                if (!addLine)
+                {
+                    // This must match the character advance used by Raster().
+                    width += glyphWidth + 1;
+                }
+            }
+            return width;
         }
 
         public string WordWrap(string text, int maxWidth)
         {
-            Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
+            GetCharacterRectangleFromAtlas(' ', out int spaceWidth, out bool add);
             List<(string,int)> words = GetListWords(text);
 
             int curLineLength = 0;
@@ -778,7 +1037,7 @@ namespace TranslationApp
                     finalWord = word.TrimStart();
                 }
                 strBuilder.Append(word + " ");
-                curLineLength += (width + space.Width);
+                curLineLength += width + spaceWidth;
             }
 
             return strBuilder.ToString();
@@ -788,7 +1047,7 @@ namespace TranslationApp
         {
             //Split tags and text
             string[] result = Regex.Split(text.Replace("\r", ""), @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-            Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
+            GetCharacterRectangleFromAtlas(' ', out int spaceWidth, out bool add);
 
             string textToRender = "";
             bool shear = false;
@@ -846,7 +1105,7 @@ namespace TranslationApp
                 {
 
                     wordsSize.Add((word, GetWordWidth(word)));
-                    wordsSize.Add((" ", space.Width));
+                    wordsSize.Add((" ", spaceWidth));
 
                 }
             }
@@ -859,8 +1118,8 @@ namespace TranslationApp
         {
             int width = 0;
             foreach (char c in word) {
-                Rectangle rect = GetCharacterRectangleFromAtlas(c, out int x, out bool b);
-                width += rect.Width;
+                GetCharacterRectangleFromAtlas(c, out int glyphWidth, out bool b);
+                width += glyphWidth;
             }
 
             return width;
@@ -877,112 +1136,33 @@ namespace TranslationApp
             int charHeight = 24;
             addline = false;
 
-            // Calculate the index of the character in the font atlas
             int index;
-            if (character >= 0x30 && character <= 0x39)
+            if (character == '\n')
             {
-                index = character - 0x2F;
+                index = 0;
+                addline = true;
             }
-            else if (character >= 0x41 && character <= 0x5A)
+            else
             {
-                index = character - 0x36;
-            }
-            else if (character >= 0x61 && character <= 0x7A)
-            {
-                index = character - 0x3C;
-            }
-            else switch (character)
-                {
-                    case '\n':
-                        index = 0;
-                        addline = true;
-                        break;
-                    case '!':
-                        index = 69;
-                        break;
-                    case ',':
-                        index = 63;
-                        break;
-                    case '/':
-                        index = 70;
-                        break;
-                    case '~':
-                        index = 93;
-                        break;
-                    case '_':
-                        index = 94;
-                        break;
-                    case '+':
-                        index = 77;
-                        break;
-                    case '&':
-                        index = 84;
-                        break;
-                    case '*':
-                        index = 85;
-                        break;
-                    case '=':
-                        index = 79;
-                        break;
-                    case '(':
-                        index = 71;
-                        break;
-                    case ')':
-                        index = 72;
-                        break;
-                    case '[':
-                        index = 73;
-                        break;
-                    case ']':
-                        index = 74;
-                        break;
-                    case '{':
-                        index = 75;
-                        break;
-                    case '}':
-                        index = 76;
-                        break;
-                    case '-':
-                        index = 78;
-                        break;
-                    case '\'':
-                        index = 89;
-                        break;
-                    case '"':
-                        index = 88;
-                        break;
-                    case '.':
-                        index = 64;
-                        break;
-                    case ':':
-                        index = 66;
-                        break;
-                    case ';':
-                        index = 67;
-                        break;
-                    case '?':
-                        index = 68;
-                        break;
-                    case '<':
-                        index = 80;
-                        break;
-                    case '>':
-                        index = 81;
-                        break;
-                    case '%':
-                        index = 82;
-                        break;
-                    default:
-                        index = 0;
-                        break;
-                }
+                // The SRWZ atlas is ordered consecutively from ASCII 0x20.
+                index = character - 0x20;
 
-            // Calculate the position of the character in the atlas based on its index
+                if (character >= 0x61)
+                    index += 1;
+            }
+
+            // Unsupported characters use the first (space) glyph.
+            if (index < 0 || index >= glyphs.Length)
+            {
+                index = 0;
+            }
+
+            // Source coordinates always remain in the native 24x24 atlas.
             int y = index * charHeight;
             int x = glyphs[index].lskip;
 
-            charWidth -= (glyphs[index].lskip);
-            s = glyphs[index].rskip;
+            charWidth -= glyphs[index].lskip;
+            s = glyphs[index].width;
             return new Rectangle(x, y, charWidth, charHeight);
         }
     }

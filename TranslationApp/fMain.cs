@@ -1,17 +1,19 @@
-﻿using System;
+﻿using PackingLib;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using TranslationLib;
-using PackingLib;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
+using TranslationLib;
 
 namespace TranslationApp
 {
+
     public partial class fMain : Form
     {
         private static Config config;
@@ -31,7 +33,7 @@ namespace TranslationApp
 
         private readonly string MULTIPLE_STATUS = "<Multiple Status>";
         private readonly string MULTIPLE_SELECT = "<Multiple Entries Selected>";
-
+        public static bool adjustSection = false;
         struct ProjectEntry
         {
             public string shortName, fullName, folder;
@@ -48,6 +50,8 @@ namespace TranslationApp
             new ProjectEntry("NDX", "Narikiri Dungeon X", "2_translated"),
             new ProjectEntry("TOR", "Tales of Rebirth", "2_translated"),
             new ProjectEntry("TOH", "Tales of Hearts (DS)", "2_translated"),
+            new ProjectEntry("SRWZ", "Super-Robot-Wars-Z", "2_translated"),
+            new ProjectEntry("SRWBX", "Super-Robot-Wars-BX", "2_translated"),
             new ProjectEntry("RM2", "Tales of the World: Radiant Mythology 2", "2_translated"),
         };
 
@@ -103,6 +107,10 @@ namespace TranslationApp
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             ProjectEntry pe = (ProjectEntry)clickedItem.Tag;
             LoadProjectFolder(pe.shortName, pe.folder);
+
+            if (pe.shortName == "SRWZ")
+                adjustSection = true;
+
             textPreview1.ChangeImage(pe.shortName);
             UpdateTitle(pe.fullName);
         }
@@ -142,8 +150,10 @@ namespace TranslationApp
             ColorByStatus = new Dictionary<string, Color>
             {
                 { "To Do", Color.White },
-                { "Editing", Color.FromArgb(162, 255, 255) }, // Light Cyan
-                { "Proofreading", Color.FromArgb(255, 102, 255) }, // Magenta
+                { "Translated", Color.FromArgb(162, 255, 255) }, // Light Cyan
+                { "Edited", Color.FromArgb(255, 102, 255) }, // Magenta
+                { "Spaced", Color.LightCoral},
+                { "Finalized", Color.MintCream }, // Mint Cream
                 { "Problematic", Color.FromArgb(255, 255, 162) }, // Light Yellow
                 { "Done", Color.FromArgb(162, 255, 162) }, // Light Green
             };
@@ -152,16 +162,16 @@ namespace TranslationApp
         private void InitialiseStatusText()
         {
             lNbToDo.Text = "";
-            lNbEditing.Text = "";
-            lNbProb.Text = "";
-            lNbProof.Text = "";
+            lNbTranslated.Text = "";
             lNbDone.Text = "";
+            lNbEdited.Text = "";
+            lNbFinalized.Text = "";
 
             lNbToDoSect.Text = "";
-            lNbProbSect.Text = "";
-            lNbEditingSect.Text = "";
-            lNbProofSect.Text = "";
-            lNbDoneSect.Text = "";
+            lNbSpacedSect.Text = "";
+            lNbTranslatedSect.Text = "";
+            lNbEditedSect.Text = "";
+            lNbFinalizedSect.Text = "";
         }
 
         private void ChangeEnabledProp(bool status)
@@ -181,12 +191,15 @@ namespace TranslationApp
 
             //Checked List
             cbToDo.Enabled = status;
-            cbEditing.Enabled = status;
-            cbProof.Enabled = status;
-            cbDone.Enabled = status;
+            cbTranslated.Enabled = status;
+            cbEdited.Enabled = status;
+            cbFinalized.Enabled = status;
+            cbSpaced.Enabled = status;
+            cbFinalized.Enabled = status;
             cbProblematic.Enabled = status;
             cbDone.Enabled = status;
             cbEmpty.Enabled = status;
+            
 
             //Button
             bSaveAll.Enabled = status;
@@ -568,8 +581,8 @@ namespace TranslationApp
                     tbNoteText.Text = currentEntry.Notes;
 
                 cbEmpty.Checked = currentEntry.EnglishText?.Equals("") ?? false;
-
-                cbStatus.Text = currentEntry._Status; // Need the modified name (bandaid)
+                tbChapter.Text = currentEntry.Chapter;
+                cbStatus.Text = currentEntry.Status; // Need the modified name (bandaid)
             }
             textPreview1.ReDraw(tbEnglishText.Text);
             tbEnglishText.TextChanged += tbEnglishText_TextChanged;
@@ -592,7 +605,17 @@ namespace TranslationApp
         private void trackBarAlign_ValueChanged(object sender, EventArgs e)
         {
             Invalidate();
-            string val = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
+            float sliderRange = trackBarAlign.Maximum - trackBarAlign.Minimum;
+            float sliderPosition = sliderRange > 0
+                ? (trackBarAlign.Value - trackBarAlign.Minimum) / sliderRange
+                : 1.0f;
+
+            int renderedWrapWidth = Math.Max(
+                1,
+                (int)Math.Round(tbEnglishText.ClientSize.Width * sliderPosition));
+            int layoutWrapWidth = textPreview1.GetLayoutWidthFromRenderedWidth(renderedWrapWidth);
+
+            string val = textPreview1.DoLineBreak(tbEnglishText.Text, layoutWrapWidth);
             tbEnglishText.Text = val;
             
         }
@@ -694,6 +717,7 @@ namespace TranslationApp
             cbFileType.DataSource = Project.GetFolderNames().OrderByDescending(x => x).ToList();
             cbFileList.DataSource = Project.CurrentFolder.FileList();
             cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+            cbChapters.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.GetChapterNames();
             cbFileList.SelectedIndex = 0;
 
             UpdateDisplayedEntries();
@@ -775,6 +799,7 @@ namespace TranslationApp
 
 
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+                cbChapters.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.GetChapterNames();
                 UpdateStatusData();
             }
         }
@@ -784,14 +809,20 @@ namespace TranslationApp
             var checkedFilters = new List<string>
             {
                 cbToDo.Checked ? "To Do" : string.Empty,
-                cbProof.Checked ? "Proofreading" : string.Empty,
-                cbEditing.Checked ? "Editing" : string.Empty,
+                cbEdited.Checked ? "Edited" : string.Empty,
+                cbTranslated.Checked ? "Translated" : string.Empty,
+                cbSpaced.Checked ? "Spaced" : string.Empty,
+                cbFinalized.Checked ? "Finalized" : string.Empty,
                 cbProblematic.Checked ? "Problematic" : string.Empty,
-                cbDone.Checked ? "Done" : string.Empty
+                cbDone.Checked ? "Done" : string.Empty,
             };
             if (tcType.Controls[tcType.SelectedIndex].Text == "Text")
             {
-                CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                if (cbChapters.Text == "All chapters")
+                    CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status)).ToList();
+                else
+                    CurrentTextList = Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(e => checkedFilters.Contains(e.Status) && e.Chapter == cbChapters.Text).ToList();
+                
                 var old_index = lbEntries.SelectedIndex;
                 lbEntries.DataSource = CurrentTextList;
                 if (lbEntries.SelectedIndices.Count == 1)
@@ -838,24 +869,28 @@ namespace TranslationApp
         private void UpdateStatusData()
         {
             var speakerStatusStats = Project.CurrentFolder.CurrentFile.SpeakersGetStatusData();
-            var statusStats = Project.CurrentFolder.CurrentFile.GetStatusData();
+            var statusStats = Project.CurrentFolder.CurrentFile.GetStatusData(cbChapters.Text);
             //File Count of status
             lNbToDo.Text = (statusStats["To Do"]).ToString();
-            lNbProof.Text = (statusStats["Proofread"]).ToString();
-            lNbProb.Text = (statusStats["Problematic"]).ToString();
-            lNbEditing.Text = (statusStats["Edited"]).ToString();
+            lNbTranslated.Text = (statusStats["Translated"]).ToString();
+            lNbEdited.Text = (statusStats["Edited"]).ToString();
+            lNbSpaced.Text = (statusStats["Spaced"]).ToString(); 
+            lNbFinalized.Text = (statusStats["Finalized"]).ToString();
+            lNbProblematic.Text = (statusStats["Problematic"]).ToString();
             lNbDone.Text = (statusStats["Done"]).ToString();
 
             Dictionary<string, int> sectionStatusStats = new Dictionary<string, int>();
             if (tcType.SelectedTab.Text == "Speaker")
                 sectionStatusStats = speakerStatusStats;
             else
-                sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData();
+                sectionStatusStats = Project.CurrentFolder.CurrentFile.CurrentSection.GetStatusData(cbChapters.Text);
             //Section Count of status
             lNbToDoSect.Text = sectionStatusStats["To Do"].ToString();
-            lNbProofSect.Text = sectionStatusStats["Proofread"].ToString();
-            lNbProbSect.Text = sectionStatusStats["Problematic"].ToString();
-            lNbEditingSect.Text = sectionStatusStats["Edited"].ToString();
+            lNbTranslatedSect.Text = sectionStatusStats["Translated"].ToString();
+            lNbEditedSect.Text = sectionStatusStats["Edited"].ToString();
+            lNbSpacedSect.Text = sectionStatusStats["Spaced"].ToString();
+            lNbFinalizedSect.Text = sectionStatusStats["Finalized"].ToString();
+            lNbProblematicSect.Text = sectionStatusStats["Problematic"].ToString();
             lNbDoneSect.Text = sectionStatusStats["Done"].ToString();
         }
 
@@ -880,6 +915,7 @@ namespace TranslationApp
                 var old_section = cbSections.SelectedItem.ToString();
 
                 cbSections.DataSource = Project.CurrentFolder.CurrentFile.GetSectionNames();
+                cbChapters.DataSource = Project.CurrentFolder.CurrentFile.CurrentSection.GetChapterNames();
 
                 if (cbSections.Items.Contains(old_section))
                     cbSections.SelectedItem = old_section;
@@ -914,16 +950,16 @@ namespace TranslationApp
 
             string status = cbStatus.Text;
             if (tbEnglishText.Text == tbJapaneseText.Text)
-                status = "Edited";
+                status = "Translated";
             else if (tbEnglishText.Text != "")
-                status = "Edited";
+                status = "Translated";
 
             if (tcType.Controls[tcType.SelectedIndex].Text == "Speaker")
             {
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null : tbEnglishText.Text;
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = status;
                 int? speakerId = CurrentSpeakerList[lbSpeaker.SelectedIndex].Id;
-                Project.CurrentFolder.CurrentFile.CurrentSection.Entries.ForEach(x => x.SpeakerName = x.Id == speakerId ? x.SpeakerName = tbEnglishText.Text : x.SpeakerName);
+                Project.CurrentFolder.CurrentFile.CurrentSection.Entries.Where(x => x.SpeakerId != null).ToList().ForEach(x => x.SpeakerName = x.SpeakerId[0] == speakerId ? x.SpeakerName = tbEnglishText.Text : x.SpeakerName);
             }
             else
             {
@@ -997,29 +1033,34 @@ namespace TranslationApp
                 else
                 {
                     var count = CurrentTextList.Count;
-                    var sdata = Project.CurrentFolder.XMLFiles[e.Index].GetStatusData();
-                    if (sdata["Problematic"] != 0)
+                    var sdata = Project.CurrentFolder.XMLFiles[e.Index].GetStatusData(cbChapters.Text);
+                    if (sdata["Spaced"] != 0)
                     {
-                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Problematic"]);
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Spaced"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                     }
                     else if (sdata["To Do"] > 0)
                     {
                         e.Graphics.FillRectangle(new SolidBrush(((Control)sender).BackColor), e.Bounds);
                     }
-                    else if (sdata["Edited"] > 0)
+                    else if (sdata["Translated"] > 0)
                     {
-                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Editing"]);
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Translated"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                     }
-                    else if (sdata["Proofread"] > 0)
+                    else if (sdata["Edited"] > 0)
                     {
-                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Proofreading"]);
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Edited"]);
+                        e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                    }
+                    else if (sdata["Problematic"] > 0)
+                    {
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Problematic"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                     }
                     else
                     {
-                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Done"]);
+                        SolidBrush backgroundBrush = new SolidBrush(ColorByStatus["Finalized"]);
                         e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
                     }
                 }
@@ -1058,17 +1099,17 @@ namespace TranslationApp
             FilterEntryList();
         }
 
-        private void cbDone_CheckedChanged(object sender, EventArgs e)
+        private void cbFinalized_CheckedChanged(object sender, EventArgs e)
         {
             FilterEntryList();
         }
 
-        private void cbProblematic_CheckedChanged(object sender, EventArgs e)
+        private void cbSpaced_CheckedChanged(object sender, EventArgs e)
         {
             FilterEntryList();
         }
 
-        private void cbInReview_CheckedChanged(object sender, EventArgs e)
+        private void cbEdited_CheckedChanged(object sender, EventArgs e)
         {
             FilterEntryList();
         }
@@ -1329,8 +1370,8 @@ namespace TranslationApp
                 foreach (XMLEntry e in lb.SelectedItems)
                 {
                     e.EnglishText = "";
-                    e.Status = "Done";
-                    cbStatus.Text = "Done";
+                    e.Status = "Finalized";
+                    cbStatus.Text = "Finalized";
                 }
             }
             else
@@ -1484,7 +1525,7 @@ namespace TranslationApp
             {
                 foreach (XMLEntry entry in s.Entries)
                 {
-                    entry.Status = "Done";
+                    entry.Status = "Finalized";
                 }
             }
             cbFileList.Text = "___";
@@ -1499,7 +1540,7 @@ namespace TranslationApp
 
             foreach (XMLEntry entry in Project.CurrentFolder.CurrentFile.Sections[cbSections.SelectedIndex].Entries)
             {
-                entry.Status = "Done";
+                entry.Status = "Finalized";
             }
             cbFileList.Text = "___";
         }
@@ -1507,12 +1548,20 @@ namespace TranslationApp
         private void bSearch_Click(object sender, EventArgs e)
         {
             string textToFind = tbSearch.Text.Replace("\r\n", "\n");
-            ListSearch = FindOtherTranslations(cbFileKindSearch.Text, textToFind, cbLangSearch.Text, cbExact.Checked, cbCase.Checked, cbMatchWhole.Checked);
+            if (tbSearch.Text != "")
+            {
 
-            lEntriesFound.Text = $"Entries Found ({ListSearch.Count} entries)";
-            lbSearch.DataSource = ListSearch.Select(x => $"{x.Folder} - " +
-            $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
-            $"{x.Section} - {x.Id}").ToList();
+                ListSearch = FindOtherTranslations(cbFileKindSearch.Text, textToFind, cbLangSearch.Text, cbExact.Checked, cbCase.Checked, cbMatchWhole.Checked);
+                lEntriesFound.Text = $"Entries Found ({ListSearch.Count} entries)";
+                lbSearch.DataSource = ListSearch.Select(x => $"{x.Folder} - " +
+                $"{Project.GetFolderByName(x.Folder).XMLFiles[Convert.ToInt32(x.FileId)].Name} - " +
+                $"{x.Section} - {x.Id}").ToList();
+            }
+            else
+                MessageBox.Show("You need to enter a text to search for");
+
+
+            
         }
 
         private void lNbOtherTranslations_Click(object sender, EventArgs e)
@@ -1631,18 +1680,18 @@ namespace TranslationApp
 
         private void lbSearch_Click(object sender, EventArgs e)
         {
-            if (!(cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked))
+            if (!(cbFinalized.Checked && cbFinalized.Checked && cbSpaced.Checked && cbTranslated.Checked && cbToDo.Checked && cbEdited.Checked))
             {
                 cbToDo.Checked = true;
-                cbProof.Checked = true;
-                cbEditing.Checked = true;
-                cbProblematic.Checked = true;
-                cbDone.Checked = true;
+                cbEdited.Checked = true;
+                cbTranslated.Checked = true;
+                cbSpaced.Checked = true;
+                cbFinalized.Checked = true;
             }
 
             if (ListSearch != null)
             {
-                if (cbDone.Checked && cbDone.Checked && cbProblematic.Checked && cbEditing.Checked && cbToDo.Checked && cbProof.Checked)
+                if (cbFinalized.Checked && cbFinalized.Checked && cbSpaced.Checked && cbTranslated.Checked && cbToDo.Checked && cbEdited.Checked)
                 {
 
 
@@ -1663,9 +1712,10 @@ namespace TranslationApp
 
                         lbEntries.ClearSelected();
                         cbSections.Text = "All strings";
+                        cbChapters.Text = "All chapters";
                         tcType.SelectedIndex = 0;
-                        lbEntries.SelectedIndex = CurrentTextList.FindIndex(x => x.Id == eleSelected.Id);
-
+                        int selected = CurrentTextList.FindIndex(x => x.Id == eleSelected.Id);
+                        lbEntries.SelectedIndex = selected;
                     }
 
 
@@ -1698,13 +1748,75 @@ namespace TranslationApp
             }
         }
 
-        private void tbMax_KeyDown(object sender, KeyEventArgs e)
-        {
-            int max = 0;
-            bool t = Int32.TryParse(tbMax.Text, out max);
 
-            if (t)
-                tbWrap.Text = textPreview1.DoLineBreak(tbEnglishText.Text, Convert.ToInt32(tbMax.Text));
+
+        private void tbChapter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int sindex = cbSections.SelectedIndex;
+                int findex = cbFileList.SelectedIndex;
+                int cindex = cbChapters.SelectedIndex;
+                int scroll = lbEntries.TopIndex;
+
+                foreach (XMLEntry selectedEntry in lbEntries.SelectedItems)
+                {
+
+                    var original = Project.CurrentFolder.CurrentFile.CurrentSection.Entries
+                    .FirstOrDefault(x => x == selectedEntry);
+
+                    if (original != null)
+                    {
+                        original.Chapter = tbChapter.Text;
+                    }
+
+                }
+
+
+
+
+
+                cbFileType.Text = "___";
+                cbFileList.SelectedIndex = findex;
+                cbSections.SelectedIndex = sindex;
+                cbChapters.SelectedIndex = cindex;
+                lbEntries.TopIndex = scroll;
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                Project.CurrentFolder.CurrentFile.needsSave = true;
+            }
+        }
+
+        private void cbChapters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDisplayedEntries();
+            UpdateStatusData();
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbTranslated_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterEntryList();
+        }
+
+        private void lNbTranslatedSect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbProblematic_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterEntryList();
+        }
+
+        private void cbDone_CheckedChanged_1(object sender, EventArgs e)
+        {
+            FilterEntryList();
         }
     }
 

@@ -55,13 +55,15 @@ namespace TranslationLib
             }
         }
 
-        public Dictionary<string, int> GetStatusData()
+        public Dictionary<string, int> GetStatusData(string chapter)
         {
             var dictionary = new Dictionary<string, int>()
             {
                 { "To Do", 0 },
+                { "Translated", 0 },
                 { "Edited", 0 },
-                { "Proofread", 0 },
+                { "Spaced", 0 },
+                { "Finalized", 0 },
                 { "Problematic", 0 },
                 { "Done", 0 },
             };
@@ -70,7 +72,7 @@ namespace TranslationLib
             {
                 if (section.Name != "Other Strings" && section.Name != "All strings")
                 {
-                    var sectionDictionary = section.GetStatusData();
+                    var sectionDictionary = section.GetStatusData(chapter);
                     foreach (var key in sectionDictionary.Keys)
                     {
                         dictionary[key] += sectionDictionary[key];
@@ -90,9 +92,11 @@ namespace TranslationLib
             return new Dictionary<string, int>
             {
                 { "To Do",          CountEntryByStatus(t,"To Do") },
-                { "Edited",         CountEntryByStatus(t,"Edited") },
-                { "Proofread",      CountEntryByStatus(t,"Proofread") },
+                { "Translated",         CountEntryByStatus(t,"Translated") },
+                { "Edited",      CountEntryByStatus(t,"Edited") },
+                { "Spaced",    CountEntryByStatus(t,"Spaced") },
                 { "Problematic",    CountEntryByStatus(t,"Problematic") },
+                { "Finalized",           CountEntryByStatus(t,"Finalized") },
                 { "Done",           CountEntryByStatus(t,"Done") },
             };
         }
@@ -132,30 +136,36 @@ namespace TranslationLib
         public void SaveAsCsv(string path)
         {
             bool hasSpeakers = Speakers != null;
+
+            using (var writer = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write), new System.Text.UTF8Encoding(true)))
+            {
+                var header = new[] { "Line No", "Chapter", "Section", "Japanese", "English" };
+                writer.WriteLine(string.Join(",", header.Select(EscapeForCsv)));
+
+                foreach (XMLSection section in Sections.Where(s => s.Name != "All strings"))
+                {
+                    foreach (XMLEntry entry in section.Entries)
+                    {
+                        var entry_val = new[] { entry.Id.ToString() ?? "", entry.Chapter ?? "", section.Name ?? "", entry.JapaneseText, entry.EnglishText ?? ""};
+                        writer.WriteLine(string.Join(",", entry_val.Select(EscapeForCsv)));
+                    }
+                }
+    
+                
+            }
+            /*
             using (StreamWriter writer = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write), new System.Text.UTF8Encoding(true)))
             {
                 // header
                 writer.Write("File,");
                 writer.Write("Line Number,");
-                writer.Write("Section,");
+                writer.Write("Chapter,");
                 writer.Write("Status,");
                 if (hasSpeakers) writer.Write("Speaker JP,");
                 writer.Write("Text JP,");
                 if (hasSpeakers) writer.Write("Speaker EN,");
                 writer.Write("Text EN,");
                 writer.Write("Comment");
-                writer.WriteLine();
-
-                // ident
-                writer.Write(Name + ".xml" + ",");
-                writer.Write(",");
-                writer.Write("Friendly Name,");
-                writer.Write(",");
-                if (hasSpeakers) writer.Write(",");
-                writer.Write("\"" + (FriendlyName ?? "<null>").Replace("\"", "\"\"") + "\"" + ",");
-                if (hasSpeakers) writer.Write(",");
-                writer.Write("\"" + (FriendlyName ?? "<null>").Replace("\"", "\"\"") + "\"" + ",");
-                writer.Write("");
                 writer.WriteLine();
 
                 // Speakers
@@ -210,26 +220,32 @@ namespace TranslationLib
                             jp_name = string.Join(",", entry.SpeakerId);
                             jp_name += "[" + string.Join(" / ", jp).Replace("\"", "\"\"") + "]";
                         }
-
+                          
                         string en_text = entry.EnglishText ?? "<null>";
                         string jp_text = entry.JapaneseText ?? "<null>";
 
                         // ident
                         writer.Write(Name + ".xml" + ",");
                         writer.Write(entry.Id + ",");
-                        writer.Write("\"" + section.Name.Replace("\"", "\"\"") + "\"" + ",");
-                        writer.Write(entry.Status + ",");
+                        writer.Write("\"" + entry.Chapter ?? "<null>" + "\"" + ",");
+                        writer.Write("\"" + entry.Status + "\"" + ",");
                         if (hasSpeakers) writer.Write("\"" + jp_name + "\"" + ",");
-                        writer.Write("\"" + jp_text.Replace("\"", "\"\"") + "\"" + ",");
+                        string fixedJap = jp_text.Replace("\"", "\"\"").Replace("\n", "\\r\\n");
+                         writer.Write("\"" + fixedJap + "\"" + ",");
                         if (hasSpeakers) writer.Write("\"" + en_name + "\"" + ",");
                         writer.Write("\"" + en_text.Replace("\"", "\"\"") + "\"" + ",");
                         writer.Write("\"" + entry.Notes + "\"");
                         writer.WriteLine();
                     }
                 }
-            }
+            }*/
         }
 
+        string EscapeForCsv(string value)
+        {
+            value = value.Replace("\n", "\\r\\n");
+            return "\"" + value + "\"";
+        }
         private XElement GetXmlSpeakerElement(List<XMLEntry> SpeakerList)
         {
             var speakerEntry = new List<XElement>
@@ -237,7 +253,7 @@ namespace TranslationLib
                 new XElement("Section", "Speaker"),
             };
 
-            speakerEntry.AddRange(SpeakerList.Select(entry => GetXMLEntryElement(entry, isLegacy)).ToList());
+            speakerEntry.AddRange(SpeakerList.Select(entry => GetXMLEntryElement(entry, isLegacy, true)).ToList());
 
             return new XElement("Speakers", speakerEntry);
         }
@@ -248,21 +264,24 @@ namespace TranslationLib
                 new XElement("Section", section.Name),
             };
 
-            sectionEntry.AddRange(section.Entries.Select(entry => GetXMLEntryElement(entry, isLegacy)).ToList());
+            sectionEntry.AddRange(section.Entries.Select(entry => GetXMLEntryElement(entry, isLegacy, false)).ToList());
 
             return new XElement("Strings", sectionEntry);
         }
 
-        private static XElement GetXMLEntryElement(XMLEntry entry, bool isLegacy)
+        private static XElement GetXMLEntryElement(XMLEntry entry, bool isLegacy, bool speaker)
         {
-            var elemenId = entry.Id == null ? null : new XElement("Id", entry.Id);
+            var elemenId = speaker == false ? null : new XElement("Id", entry.Id);
+            var pointerOffset = entry.PointerOffset == null ? null : new XElement("PointerOffset", entry.PointerOffset);
             var bubbleId = entry.BubbleId == null ? null : new XElement("BubbleId", entry.BubbleId);
-            var subId = entry.BubbleId == null ? null : new XElement("SubId", entry.SubId);
+            var subId = entry.SubId == null ? null : new XElement("SubId", entry.SubId);
             var speakerId = entry.SpeakerId == null ? null : new XElement("SpeakerId", string.Join(",", entry.SpeakerId));
             var voiceId = entry.VoiceId == null ? null : new XElement("VoiceId", entry.VoiceId);
             var maxLength = entry.MaxLength == null ? null : new XElement("MaxLength", entry.MaxLength);
             var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
             var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
+            var chapter = entry.Chapter == null ? null : new XElement("Chapter", string.IsNullOrEmpty(entry.Chapter) ? null : entry.Chapter);
+
             XElement embedOffset;
 
             if (entry.EmbedOffset)
@@ -282,7 +301,7 @@ namespace TranslationLib
             if (isLegacy)
             {
                 return new XElement("Entry",
-                    new XElement("PointerOffset", entry.PointerOffset),
+                    pointerOffset,
                     embedOffset,
                     maxLength,
                     voiceId,
@@ -295,6 +314,7 @@ namespace TranslationLib
                     unknownPointer,
                     bubbleId,
                     subId,
+                    new XElement("Chapter", string.IsNullOrEmpty(entry.Chapter) ? null : entry.Chapter),
                     new XElement("Status", entry.Status)
                 );
             }
@@ -302,17 +322,18 @@ namespace TranslationLib
             {
 
                 return new XElement("Entry",
-                    new XElement("PointerOffset", entry.PointerOffset),
+                    pointerOffset,
                     embedOffset,
                     maxLength,
                     voiceId,
                     new XElement("JapaneseText", entry.JapaneseText),
                     new XElement("EnglishText", entry.EnglishText),
                     new XElement("Notes", string.IsNullOrEmpty(entry.Notes) ? null : entry.Notes),
-                    speakerId,
                     elemenId,
+                    speakerId,
                     bubbleId,
                     subId,
+                    new XElement("Chapter", string.IsNullOrEmpty(entry.Chapter) ? null : entry.Chapter),
                     new XElement("Status", entry.Status)
 
                 );

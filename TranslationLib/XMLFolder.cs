@@ -46,7 +46,7 @@ namespace TranslationLib
 
         public XMLFile LoadXML(string xmlpath)
         {
-
+            int seqId = 1;
             var XMLFile = new XMLFile { Name = Path.GetFileNameWithoutExtension(xmlpath), FilePath = xmlpath };
             var document = XDocument.Load(xmlpath, LoadOptions.PreserveWhitespace);
             XMLFile.FileType = document.Root.Name.ToString();
@@ -65,7 +65,7 @@ namespace TranslationLib
 
                 foreach (var XMLEntry in XMLSection.Elements("Entry"))
                 {
-                    var entry = ExtractXMLEntry(XMLEntry);
+                    var entry = ExtractXMLEntry(XMLEntry, seqId);
                     section.Entries.Add(entry);
                     everything_section.Entries.Add(entry);
 
@@ -76,17 +76,19 @@ namespace TranslationLib
                         else
                             AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
                     }
+                    seqId++;
                 }
             }
 
             var XMLSpeaker = document.Root.Element("Speakers");
+            seqId = 1;
 
             if (XMLSpeaker != null)
             {
                 XMLFile.Speakers = new List<XMLEntry>();
                 foreach (var XMLEntry in XMLSpeaker.Elements("Entry"))
                 {
-                    var entry = ExtractXMLEntry(XMLEntry);
+                    var entry = ExtractXMLEntry(XMLEntry, -1);
                     XMLFile.Speakers.Add(entry);
 
                     if (!string.IsNullOrEmpty(entry.JapaneseText))
@@ -96,6 +98,7 @@ namespace TranslationLib
                         else
                             AddExistingDictionnaryEntry(entry.JapaneseText, entry.EnglishText);
                     }
+                    seqId++;
                 }
                 XMLFile.UpdateAllEntryText();
             }
@@ -157,16 +160,18 @@ namespace TranslationLib
             }
         }
 
-        private XMLEntry ExtractXMLEntry(XElement element)
+        private XMLEntry ExtractXMLEntry(XElement element, int seqId)
         {
             var e = new XMLEntry
             {
-                Id = ExtractNullableInt(element.Element("Id")),
+        
+                Id = seqId == -1 ? ExtractNullableInt(element.Element("Id")) : seqId,
                 PointerOffset = ExtractNullableString(element.Element("PointerOffset")),
                 VoiceId = ExtractNullableString(element.Element("VoiceId")),
                 EnglishText = ExtractNullableString(element.Element("EnglishText")),
                 JapaneseText = ExtractNullableString(element.Element("JapaneseText")),
                 Notes = ExtractNullableString(element.Element("Notes")),
+                Chapter = ExtractNullableString(element.Element("Chapter")),
                 Status = ExtractNullableString(element.Element("Status")),
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
                 BubbleId = ExtractNullableInt(element.Element("BubbleId")),

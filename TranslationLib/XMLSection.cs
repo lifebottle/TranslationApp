@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TranslationLib
 {
@@ -10,25 +11,41 @@ namespace TranslationLib
 
         public XMLSection(string name)
         {
-            Name = name;
+
+            if (name.StartsWith("1"))
+                Name = "2" + name.Substring(1);
+            else
+                Name = name;
             Entries = new List<XMLEntry>();
         }
 
-        public Dictionary<string, int> GetStatusData()
+        public Dictionary<string, int> GetStatusData(string chapter)
         {
             return new Dictionary<string, int>
             {
-                { "To Do", GetEntryCountByStatus("To Do") },
-                { "Edited", GetEntryCountByStatus("Editing") },
-                { "Proofread", GetEntryCountByStatus("Proofreading") },
-                { "Problematic", GetEntryCountByStatus("Problematic") },
-                { "Done", GetEntryCountByStatus("Done") },
+                { "To Do", GetEntryCountByStatus("To Do", chapter) },
+                { "Translated", GetEntryCountByStatus("Translated", chapter) },
+                { "Edited", GetEntryCountByStatus("Edited", chapter) },
+                { "Spaced", GetEntryCountByStatus("Spaced", chapter) },
+                { "Finalized", GetEntryCountByStatus("Finalized", chapter) },
+                { "Problematic", GetEntryCountByStatus("Problematic", chapter) },
+                { "Done", GetEntryCountByStatus("Done", chapter) },
             };
         }
 
-        private int GetEntryCountByStatus(string status)
+        private int GetEntryCountByStatus(string status, string chapter)
         {
-            return Entries.Count(e => e.Status == status);
+            if (chapter == "All chapters")
+                return Entries.Count(e => e.Status == status);
+            else
+                return Entries.Count(e => e.Status == status && e.Chapter == chapter);
+        }
+
+        public List<string> GetChapterNames()
+        {
+            List<string> l = Entries.Select(s => s.Chapter).Where(s => s != "All strings").Distinct().ToList();
+            l.Insert(0, "All chapters");
+            return l;
         }
 
         public List<EntryFound> SearchJapanese(string folder, int fileId, string sectionName, string text, bool matchWholeEntry, bool matchCase, bool matchWholeWord, string language)

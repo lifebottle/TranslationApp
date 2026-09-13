@@ -14,6 +14,7 @@ namespace TranslationLib
         public int Id { get; set; }
         public XMLEntry Entry { get; set; }
         public string Category { get; set; }
+        public string Chapter { get; set; }
 
     }
 }
