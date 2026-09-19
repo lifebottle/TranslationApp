@@ -281,6 +281,7 @@ namespace TranslationLib
             var structId = entry.StructId == null ? null : new XElement("StructId", entry.StructId);
             var unknownPointer = entry.UnknownPointer == null ? null : new XElement("UnknownPointer", entry.UnknownPointer);
             var chapter = entry.Chapter == null ? null : new XElement("Chapter", string.IsNullOrEmpty(entry.Chapter) ? null : entry.Chapter);
+            var pngId = entry.PngId == null ? null : new XElement("PngId", entry.PngId);
 
             XElement embedOffset;
 
@@ -315,7 +316,8 @@ namespace TranslationLib
                     bubbleId,
                     subId,
                     new XElement("Chapter", string.IsNullOrEmpty(entry.Chapter) ? null : entry.Chapter),
-                    new XElement("Status", entry.Status)
+                    new XElement("Status", entry.Status),
+                    pngId
                 );
             }
             else
@@ -334,7 +336,8 @@ namespace TranslationLib
                     bubbleId,
                     subId,
                     new XElement("Chapter", string.IsNullOrEmpty(entry.Chapter) ? null : entry.Chapter),
-                    new XElement("Status", entry.Status)
+                    new XElement("Status", entry.Status),
+                    pngId
 
                 );
             }

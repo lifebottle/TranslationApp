@@ -58,6 +58,7 @@ namespace TranslationApp
         public fMain()
         {
             InitializeComponent();
+            AlignBottomSplitterToEnglishText();
             // Use reflection to allow spliters to ignore the Form size
             typeof(Splitter).GetField("minExtra", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(splitter1, -10000);
             typeof(Splitter).GetField("minExtra", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(splitter2, -10000);
@@ -610,9 +611,15 @@ namespace TranslationApp
                 ? (trackBarAlign.Value - trackBarAlign.Minimum) / sliderRange
                 : 1.0f;
 
+            const int previewRightMargin = 12;
+            int previewWidth = Math.Max(
+                1,
+                bottomPanel.ClientSize.Width - textPreview1.Left - previewRightMargin);
+            int maximumRenderedWrapWidth =
+                textPreview1.GetRenderedContentWidthForPreview(previewWidth);
             int renderedWrapWidth = Math.Max(
                 1,
-                (int)Math.Round(tbEnglishText.ClientSize.Width * sliderPosition));
+                (int)Math.Round(maximumRenderedWrapWidth * sliderPosition));
             int layoutWrapWidth = textPreview1.GetLayoutWidthFromRenderedWidth(renderedWrapWidth);
 
             string val = textPreview1.DoLineBreak(tbEnglishText.Text, layoutWrapWidth);
@@ -1746,6 +1753,21 @@ namespace TranslationApp
                 }
                 LastWindowState = WindowState;
             }
+
+            AlignBottomSplitterToEnglishText();
+        }
+
+        private void AlignBottomSplitterToEnglishText()
+        {
+            if (bottomPanel == null || splitterBottom == null || tbEnglishText == null)
+                return;
+
+            int bottomPanelHeight = ClientSize.Height
+                - middleColumn.Top
+                - tbEnglishText.Bottom
+                - splitterBottom.Height;
+
+            bottomPanel.Height = Math.Max(splitterBottom.MinSize, bottomPanelHeight);
         }
 
 

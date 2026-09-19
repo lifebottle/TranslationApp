@@ -137,16 +137,18 @@ namespace TranslationApp
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
             this.middleColumn = new System.Windows.Forms.Panel();
-            this.textPreview1 = new TranslationApp.TextPreview();
             this.menuImage = new System.Windows.Forms.PictureBox();
             this.tbChapter = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tbEnglishText = new TranslationApp.ExtendedTextBox();
+            this.textPreview1 = new TranslationApp.TextPreview();
             this.leftColumn = new System.Windows.Forms.Panel();
             this.cbChapters = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
+            this.splitterBottom = new System.Windows.Forms.Splitter();
+            this.bottomPanel = new System.Windows.Forms.Panel();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -160,9 +162,10 @@ namespace TranslationApp
             this.tpSearch.SuspendLayout();
             this.tpMassReplace.SuspendLayout();
             this.middleColumn.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.leftColumn.SuspendLayout();
+            this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -496,12 +499,14 @@ namespace TranslationApp
             this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
-            this.trackBarAlign.Location = new System.Drawing.Point(9, 347);
-            this.trackBarAlign.Maximum = 100;
+            this.trackBarAlign.LargeChange = 10;
+            this.trackBarAlign.Location = new System.Drawing.Point(362, 6);
+            this.trackBarAlign.Maximum = 1000;
             this.trackBarAlign.Name = "trackBarAlign";
             this.trackBarAlign.Size = new System.Drawing.Size(372, 28);
             this.trackBarAlign.TabIndex = 18;
-            this.trackBarAlign.Value = 100;
+            this.trackBarAlign.TickFrequency = 100;
+            this.trackBarAlign.Value = 1000;
             this.trackBarAlign.ValueChanged += new System.EventHandler(this.trackBarAlign_ValueChanged);
             // 
             // cbFileList
@@ -1032,7 +1037,7 @@ namespace TranslationApp
             this.rightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightColumn.Location = new System.Drawing.Point(712, 24);
             this.rightColumn.Name = "rightColumn";
-            this.rightColumn.Size = new System.Drawing.Size(345, 659);
+            this.rightColumn.Size = new System.Drawing.Size(345, 482);
             this.rightColumn.TabIndex = 53;
             // 
             // tabSearchMass
@@ -1046,7 +1051,7 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(3, 4);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(338, 649);
+            this.tabSearchMass.Size = new System.Drawing.Size(338, 472);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
@@ -1066,7 +1071,7 @@ namespace TranslationApp
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(330, 623);
+            this.tpSearch.Size = new System.Drawing.Size(330, 446);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
@@ -1195,7 +1200,7 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(297, 288);
+            this.lbSearch.Size = new System.Drawing.Size(297, 111);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1213,7 +1218,7 @@ namespace TranslationApp
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
             this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(330, 623);
+            this.tpMassReplace.Size = new System.Drawing.Size(330, 446);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1301,7 +1306,6 @@ namespace TranslationApp
             // 
             // middleColumn
             // 
-            this.middleColumn.Controls.Add(this.textPreview1);
             this.middleColumn.Controls.Add(this.menuImage);
             this.middleColumn.Controls.Add(this.tbChapter);
             this.middleColumn.Controls.Add(this.label15);
@@ -1317,7 +1321,6 @@ namespace TranslationApp
             this.middleColumn.Controls.Add(this.lblEnglish);
             this.middleColumn.Controls.Add(this.label4);
             this.middleColumn.Controls.Add(this.lblFileInfo);
-            this.middleColumn.Controls.Add(this.trackBarAlign);
             this.middleColumn.Controls.Add(this.label2);
             this.middleColumn.Controls.Add(this.cbStatus);
             this.middleColumn.Controls.Add(this.cbEmpty);
@@ -1326,20 +1329,8 @@ namespace TranslationApp
             this.middleColumn.Dock = System.Windows.Forms.DockStyle.Left;
             this.middleColumn.Location = new System.Drawing.Point(319, 24);
             this.middleColumn.Name = "middleColumn";
-            this.middleColumn.Size = new System.Drawing.Size(388, 659);
+            this.middleColumn.Size = new System.Drawing.Size(388, 482);
             this.middleColumn.TabIndex = 54;
-            // 
-            // textPreview1
-            // 
-            this.textPreview1.BackColor = System.Drawing.Color.Transparent;
-            this.textPreview1.fontAtlasImage = null;
-            this.textPreview1.Location = new System.Drawing.Point(12, 189);
-            this.textPreview1.Name = "textPreview1";
-            this.textPreview1.Size = new System.Drawing.Size(369, 164);
-            this.textPreview1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.textPreview1.TabIndex = 49;
-            this.textPreview1.TabStop = false;
-            this.textPreview1.text = null;
             // 
             // menuImage
             // 
@@ -1375,7 +1366,7 @@ namespace TranslationApp
             this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEnglishText.Location = new System.Drawing.Point(9, 390);
+            this.tbEnglishText.Location = new System.Drawing.Point(9, 353);
             this.tbEnglishText.Multiline = true;
             this.tbEnglishText.Name = "tbEnglishText";
             this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1383,6 +1374,18 @@ namespace TranslationApp
             this.tbEnglishText.TabIndex = 6;
             this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
             this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
+            // 
+            // textPreview1
+            // 
+            this.textPreview1.BackColor = System.Drawing.Color.Transparent;
+            this.textPreview1.fontAtlasImage = null;
+            this.textPreview1.Location = new System.Drawing.Point(244, 41);
+            this.textPreview1.Name = "textPreview1";
+            this.textPreview1.Size = new System.Drawing.Size(460, 124);
+            this.textPreview1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.textPreview1.TabIndex = 49;
+            this.textPreview1.TabStop = false;
+            this.textPreview1.text = null;
             // 
             // leftColumn
             // 
@@ -1454,9 +1457,30 @@ namespace TranslationApp
             this.splitter2.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.splitter2.Location = new System.Drawing.Point(707, 24);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(5, 659);
+            this.splitter2.Size = new System.Drawing.Size(5, 482);
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
+            // 
+            // splitterBottom
+            // 
+            this.splitterBottom.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitterBottom.Cursor = System.Windows.Forms.Cursors.SizeNS;
+            this.splitterBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitterBottom.Location = new System.Drawing.Point(319, 506);
+            this.splitterBottom.Name = "splitterBottom";
+            this.splitterBottom.Size = new System.Drawing.Size(738, 5);
+            this.splitterBottom.TabIndex = 58;
+            this.splitterBottom.TabStop = false;
+            // 
+            // bottomPanel
+            // 
+            this.bottomPanel.Controls.Add(this.textPreview1);
+            this.bottomPanel.Controls.Add(this.trackBarAlign);
+            this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomPanel.Location = new System.Drawing.Point(319, 511);
+            this.bottomPanel.Name = "bottomPanel";
+            this.bottomPanel.Size = new System.Drawing.Size(738, 172);
+            this.bottomPanel.TabIndex = 59;
             // 
             // fMain
             // 
@@ -1466,6 +1490,8 @@ namespace TranslationApp
             this.Controls.Add(this.rightColumn);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.middleColumn);
+            this.Controls.Add(this.splitterBottom);
+            this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.leftColumn);
             this.Controls.Add(this.menuStripMain);
@@ -1496,10 +1522,12 @@ namespace TranslationApp
             this.tpMassReplace.PerformLayout();
             this.middleColumn.ResumeLayout(false);
             this.middleColumn.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.leftColumn.ResumeLayout(false);
             this.leftColumn.PerformLayout();
+            this.bottomPanel.ResumeLayout(false);
+            this.bottomPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1625,6 +1653,8 @@ namespace TranslationApp
         private System.Windows.Forms.PictureBox menuImage;
         protected internal System.Windows.Forms.Panel middleColumn;
         private System.Windows.Forms.Splitter splitter2;
+        private System.Windows.Forms.Splitter splitterBottom;
+        private System.Windows.Forms.Panel bottomPanel;
     }
 }
 

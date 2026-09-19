@@ -654,6 +654,16 @@ namespace TranslationApp
             return Math.Max(1, (int)Math.Ceiling(renderedWidth / safeScale));
         }
 
+        public int GetRenderedContentWidthForPreview(int previewWidth)
+        {
+            float safeScale = Math.Max(0.01f, finalRenderScale);
+
+            // Raster() starts text 10 layout pixels from the left and adds
+            // another 10 layout pixels on the right of the rendered image.
+            int renderedHorizontalPadding = (int)Math.Ceiling(20 * safeScale);
+            return Math.Max(1, previewWidth - renderedHorizontalPadding);
+        }
+
 
         private void Raster()
         {

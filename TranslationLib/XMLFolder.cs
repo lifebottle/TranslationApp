@@ -173,6 +173,7 @@ namespace TranslationLib
                 Notes = ExtractNullableString(element.Element("Notes")),
                 Chapter = ExtractNullableString(element.Element("Chapter")),
                 Status = ExtractNullableString(element.Element("Status")),
+                PngId = ExtractNullableInt(element.Element("PngId")),
                 SpeakerId = ExtractNullableIntArray(element.Element("SpeakerId")),
                 BubbleId = ExtractNullableInt(element.Element("BubbleId")),
                 SubId = ExtractNullableInt(element.Element("SubId")),

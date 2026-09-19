@@ -25,7 +25,8 @@ namespace TranslationLib
         public string lo { get; set; }
         public string _Status { get; set; }
         public string Status { get; set; }
-   
+        public int? PngId { get; set; }
+
 
         [JsonIgnore] public string SpeakerName { get; set; }
 
