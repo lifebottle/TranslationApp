@@ -8,25 +8,38 @@ namespace TranslationLib
     public class TranslationProject
     {
         public string ProjectPath { get; }
+        public string PortraitPath { get; set; }
         public List<XMLFolder> XmlFolders { get; set; }
         public XMLFolder CurrentFolder { get; set; }
         public bool isLegacy { get; set; }
 
+        public bool portraitValid { get; set; }
+
+        
+
         public TranslationProject(string basePath, List<string> folderIncluded, bool legacy)
         {
             ProjectPath = basePath;
+          
             XmlFolders = new List<XMLFolder>();
             isLegacy = legacy;
+            PortraitPath = Path.Combine(basePath, "..","1_extracted", "portraits");
+
+            if (Directory.Exists(PortraitPath))
+                portraitValid = true;
+
+            else
+                portraitValid = false;
 
             foreach (var folder in folderIncluded)
-            {
-                string fullPath = Path.Combine(basePath, folder, "");
-                var files = Directory.GetFiles(fullPath);
-                if (files.Count() != 0 && files.Any(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)))
                 {
-                    XmlFolders.Add(new XMLFolder(folder, fullPath, legacy));
+                    string fullPath = Path.Combine(basePath, folder, "");
+                    var files = Directory.GetFiles(fullPath);
+                    if (files.Count() != 0 && files.Any(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)))
+                    {
+                        XmlFolders.Add(new XMLFolder(folder, fullPath, legacy));
+                    }
                 }
-            }
 
             if (XmlFolders.Count == 0)
             {
@@ -59,6 +72,8 @@ namespace TranslationLib
         {
             return XmlFolders.FindIndex(x => x.Name == name);
         }
+
+
 
     }
 }

@@ -66,7 +66,7 @@ namespace TranslationApp
             var ver = gitInfo.GetField("FullSemVer").GetValue(null);
             var sha = gitInfo.GetField("ShortSha").GetValue(null);
 #if DEBUG
-            Text = "Translation App v" + ver + " (commit: " + sha + ")";
+            Text = "Translation App v1.0.9";
 #else
             Text = "Translation App v" + ver;
 #endif
@@ -475,6 +475,65 @@ namespace TranslationApp
         {
             LoadEntryData(lbEntries);
             ShowOtherTranslations();
+            LoadPortrait();
+        }
+
+        private void LoadPortrait()
+        {
+            if (Project.portraitValid && lbEntries.SelectedIndex > 0 && cbFileType.Text == "story")
+            {
+                XMLEntry entry =  (XMLEntry)(lbEntries.Items[lbEntries.SelectedIndex]);
+            
+
+                string path = Path.Combine(Project.PortraitPath, entry.PngId.ToString()+".png");
+                if (File.Exists(path) && entry.SpeakerName != "")
+                {
+                    using (Image source = Image.FromFile(path))
+                    {
+                        pbPortrait.Image?.Dispose();
+                        pbPortrait.SizeMode = PictureBoxSizeMode.Normal;
+                        pbPortrait.Image = DrawPortrait(
+                           source,
+                           pbPortrait.ClientSize,
+                           zoom: 1.5f,
+                           offsetY: -40);
+                    }
+                }
+                else
+                    pbPortrait.Image = null;
+                   
+            }
+        }
+
+        private static Bitmap DrawPortrait(
+            Image source,
+            Size targetSize,
+            float zoom = 1.0f,
+            int offsetX = 0,
+            int offsetY = 0)
+        {
+            Bitmap result = new Bitmap(targetSize.Width, targetSize.Height);
+
+            using (Graphics graphics = Graphics.FromImage(result))
+            {
+                graphics.Clear(Color.Transparent);
+                graphics.InterpolationMode =
+                    System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+
+                float scale = Math.Min(
+                    (float)targetSize.Width / source.Width,
+                    (float)targetSize.Height / source.Height) * zoom;
+
+                int width = (int)(source.Width * scale);
+                int height = (int)(source.Height * scale);
+
+                int x = (targetSize.Width - width) / 2 + offsetX;
+                int y = (targetSize.Height - height) / 2 + offsetY;
+
+                graphics.DrawImage(source, x, y, width, height);
+            }
+
+            return result;
         }
 
         private List<EntryFound> FindOtherTranslations(string folderSearch, string textToFind, string language, bool matchWholeEntry, bool matchCase, bool matchWholeWord)
