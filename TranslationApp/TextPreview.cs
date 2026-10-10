@@ -25,17 +25,60 @@ namespace TranslationApp
 
         private font_glyph[] glyphs;
 
-        private static readonly Dictionary<string, Color> colors = new Dictionary<string, Color> {
-                    { "<Blue>", Color.FromArgb(0x50,0x50,0x80) },
-                    { "<Red>", Color.FromArgb(0x80,0x48,0x40) },
-                    { "<Purple>", Color.FromArgb(0x80,0x58,0x80) },
-                    { "<Green>", Color.FromArgb(0x60,0x80,0x50) },
-                    { "<Cyan>", Color.FromArgb(0x60,0x80,0x80) },
-                    { "<Yellow>", Color.FromArgb(0x80,0x80,0x50) },
-                    { "<White>", Color.FromArgb(0x80,0x80,0x80) },
-                    { "<Grey>", Color.FromArgb(0x48,0x48,0x48) },
-                    { "<Black>", Color.FromArgb(0x00,0x00,0x00)  },
-                };
+        private static readonly Dictionary<string, Color> rebirth_colors = new Dictionary<string, Color> {
+            { "<Blue>", Color.FromArgb(0x50,0x50,0x80) },
+            { "<Red>", Color.FromArgb(0x80,0x48,0x40) },
+            { "<Purple>", Color.FromArgb(0x80,0x58,0x80) },
+            { "<Green>", Color.FromArgb(0x60,0x80,0x50) },
+            { "<Cyan>", Color.FromArgb(0x60,0x80,0x80) },
+            { "<Yellow>", Color.FromArgb(0x80,0x80,0x50) },
+            { "<White>", Color.FromArgb(0x80,0x80,0x80) },
+            { "<Grey>", Color.FromArgb(0x48,0x48,0x48) },
+            { "<Black>", Color.FromArgb(0x00,0x00,0x00)  },
+        };
+
+        private static readonly Dictionary<string, Color> ndx_colors = new Dictionary<string, Color> {
+            { "<Black>", Color.FromArgb(0x00, 0x00, 0x00) },
+            { "<Blue>", Color.FromArgb(0x80, 0x80, 0xFF) },
+            { "<Red>", Color.FromArgb(0xFF, 0x80, 0x80) },
+            { "<Purple>", Color.FromArgb(0xC1, 0x82, 0xCA) },
+            { "<Green>", Color.FromArgb(0x80, 0xFF, 0x80) },
+            { "<Cyan>", Color.FromArgb(0x80, 0xFF, 0xFF) },
+            { "<Yellow>", Color.FromArgb(0xFB, 0xEC, 0x8F) },
+            { "<White>", Color.FromArgb(0xFF, 0xFF, 0xFF) },
+            { "<Grey>", Color.FromArgb(0xA0, 0xA0, 0xA0) },
+            { "<DarkBlue>", Color.FromArgb(0x00, 0x49, 0x76) },
+            { "<DarkLightBlue>", Color.FromArgb(0x4D, 0xA4, 0xC1) },
+            { "<DarkWhite>", Color.FromArgb(0xB7, 0xCF, 0xD2) },
+            { "<DarkLime>", Color.FromArgb(0x12, 0xB1, 0x4E) },
+            { "<DarkGreen>", Color.FromArgb(0x37, 0x98, 0x37) },
+            { "<DarkCyan>", Color.FromArgb(0x1A, 0xBD, 0xCA) },
+            { "<DarkYellow>", Color.FromArgb(0xEE, 0xC6, 0x0E) },
+            { "<DarkGrey>", Color.FromArgb(0x7E, 0x7D, 0x79) },
+            { "<AsOutline>", Color.FromArgb(0x00, 0x00, 0x00) },
+            { "<BlackOutline>", Color.FromArgb(0x00, 0x00, 0x00) },
+            { "<BlueOutline>", Color.FromArgb(0x80, 0x80, 0xFF) },
+            { "<RedOutline>", Color.FromArgb(0xFF, 0x80, 0x80) },
+            { "<PurpleOutline>", Color.FromArgb(0xC1, 0x82, 0xCA) },
+            { "<GreenOutline>", Color.FromArgb(0x80, 0xFF, 0x80) },
+            { "<CyanOutline>", Color.FromArgb(0x80, 0xFF, 0xFF) },
+            { "<YellowOutline>", Color.FromArgb(0xFB, 0xEC, 0x8F) },
+            { "<WhiteOutline>", Color.FromArgb(0xFF, 0xFF, 0xFF) },
+            { "<GreyOutline>", Color.FromArgb(0xA0, 0xA0, 0xA0) },
+            { "<DarkBlueOutline>", Color.FromArgb(0x00, 0x49, 0x76) },
+            { "<DarkLightBlueOutline>", Color.FromArgb(0x4D, 0xA4, 0xC1) },
+            { "<DarkWhiteOutline>", Color.FromArgb(0xB7, 0xCF, 0xD2) },
+            { "<DarkLimeOutline>", Color.FromArgb(0x12, 0xB1, 0x4E) },
+            { "<DarkGreenOutline>", Color.FromArgb(0x37, 0x98, 0x37) },
+            { "<DarkCyanOutline>", Color.FromArgb(0x1A, 0xBD, 0xCA) },
+            { "<DarkYellowOutline>", Color.FromArgb(0xEE, 0xC6, 0x0E) },
+            { "<DarkGreyOutline>", Color.FromArgb(0x7E, 0x7D, 0x79) },
+            { "<NoOutline>", Color.FromArgb(0x00, 0x00, 0x00) },
+        };
+
+        private static Dictionary<string, Color> colors;
+
+        private static float scale_factor = 256.0f;
 
         private static readonly string[] names = { 
             // Rebirth
@@ -66,6 +109,8 @@ namespace TranslationApp
         public void ChangeImage(string id)
         {
             string res;
+            colors = rebirth_colors;
+            scale_factor = 128.0f;
             switch (id)
             {
                 case "TOR":
@@ -77,6 +122,8 @@ namespace TranslationApp
                     res = "TranslationApp.res.ndx_font_atlas.png";
                     BackColor = Color.FromArgb(0x14, 0x3F, 0x60);
                     glyphs = ndx_glyphs;
+                    colors = ndx_colors;
+                    scale_factor = 256.0f;
                     break;
                 case "RM2":
                     res = "TranslationApp.res.rm2_font_atlas.png";
@@ -159,6 +206,8 @@ namespace TranslationApp
                     string textToRender = text ?? ""; // Avoid null text
                     Color tintColor = colors["<White>"]; // Start as white text
                     Color lastColor = tintColor;
+                    Color outlineColor = colors["<White>"];
+                    bool outline = false;
 
                     ColorMatrix colorMatrix = new ColorMatrix();
                     ImageAttributes imageAttributes = new ImageAttributes();
@@ -173,8 +222,20 @@ namespace TranslationApp
                         {
                             if (colors.ContainsKey(element))
                             {
-                                lastColor = tintColor;
-                                tintColor = colors[element];
+                                if (element.Contains("NoOutline"))
+                                {
+                                    outline = false;
+                                }
+                                else if (element.Contains("Outline"))
+                                {
+                                    outlineColor = colors[element];
+                                    outline = true;
+                                }
+                                else
+                                {
+                                    lastColor = tintColor;
+                                    tintColor = colors[element];
+                                }
                                 continue;
                             }
                             else if (names.Contains(element))
@@ -253,9 +314,9 @@ namespace TranslationApp
                         }
 
                         // Apply colors
-                        colorMatrix.Matrix00 = tintColor.R / 128f;
-                        colorMatrix.Matrix11 = tintColor.G / 128f;
-                        colorMatrix.Matrix22 = tintColor.B / 128f;
+                        colorMatrix.Matrix00 = tintColor.R / scale_factor;
+                        colorMatrix.Matrix11 = tintColor.G / scale_factor;
+                        colorMatrix.Matrix22 = tintColor.B / scale_factor;
                         colorMatrix.Matrix33 = 1.8f;
                         imageAttributes.SetColorMatrix(colorMatrix);
 
@@ -281,6 +342,28 @@ namespace TranslationApp
                             }
 
                             // Draw the character onto the surface
+                            if (outline)
+                            {
+                                ColorMatrix colorMatrix1 = new ColorMatrix();
+                                ImageAttributes imageAttributes1 = new ImageAttributes();
+                                colorMatrix1.Matrix00 = outlineColor.R / scale_factor;
+                                colorMatrix1.Matrix11 = outlineColor.G / scale_factor;
+                                colorMatrix1.Matrix22 = outlineColor.B / scale_factor;
+                                colorMatrix1.Matrix33 = 1.8f;
+                                imageAttributes1.SetColorMatrix(colorMatrix1);
+
+                                canvas_g.DrawImage(
+                                    fontAtlasImage,
+                                    Rectangle.Round(destinationRect),
+                                    charRect.X - 2,
+                                    charRect.Y - 2,
+                                    charRect.Width,
+                                    charRect.Height,
+                                    GraphicsUnit.Pixel,
+                                    imageAttributes1
+                                );
+                            }
+
                             canvas_g.DrawImage(
                                 fontAtlasImage,
                                 Rectangle.Round(destinationRect),
@@ -290,7 +373,7 @@ namespace TranslationApp
                                 charRect.Height,
                                 GraphicsUnit.Pixel,
                                 imageAttributes
-                                );
+                            );
 
                             canvas_g.ResetTransform();
 
