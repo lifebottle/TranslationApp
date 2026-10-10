@@ -37,7 +37,12 @@ namespace TranslationApp
                     { "<Black>", Color.FromArgb(0x00,0x00,0x00)  },
                 };
 
-        private static readonly string[] names = { "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>" };
+        private static readonly string[] names = { 
+            // Rebirth
+            "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>",
+            // NDX
+            "<Arche>", "<Beryl>", "<Cless>", "<Chester>", "<Dio>", "<Hisui>", "<Ines>", "<Klarth>", "<Kohaku>", "<Couleur>", "<Kunzite>", "<Mel>", "<Mint>", "<Rondoline>", "<Rody>", "<Shing>", "<Suzu>"
+        };
 
         struct font_glyph
         {
