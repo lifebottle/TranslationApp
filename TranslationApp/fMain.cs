@@ -1037,7 +1037,7 @@ namespace TranslationApp
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].EnglishText = status == "To Do" ? null : tbEnglishText.Text;
                 CurrentSpeakerList[lbSpeaker.SelectedIndex].Status = status;
                 int? speakerId = CurrentSpeakerList[lbSpeaker.SelectedIndex].Id;
-                Project.CurrentFolder.CurrentFile.CurrentSection.Entries.ForEach(x => x.SpeakerName = x.Id == speakerId ? x.SpeakerName = tbEnglishText.Text : x.SpeakerName);
+                Project.CurrentFolder.CurrentFile.UpdateAllEntryText();
             }
             else
             {
