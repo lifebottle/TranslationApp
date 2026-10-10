@@ -117,6 +117,9 @@
     <Compile Include="TextPreview.Designer.cs">
       <DependentUpon>TextPreview.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextPreviewData.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="fLoading.resx">
       <DependentUpon>fLoading.cs</DependentUpon>
     </EmbeddedResource>
