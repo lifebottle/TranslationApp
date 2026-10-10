@@ -180,6 +180,22 @@ namespace TranslationApp
                             {
                                 textToRender = "***";
                             }
+                            else if (element == "<lt>")
+                            {
+                                textToRender = "<";
+                            }
+                            else if (element == "<gt>")
+                            {
+                                textToRender = ">";
+                            }
+                            else if (element == "<lb>")
+                            {
+                                textToRender = "{";
+                            }
+                            else if (element == "<rb>")
+                            {
+                                textToRender = "}";
+                            }
                             else if (element == "<Italic>")
                             {
                                 shear = true;
