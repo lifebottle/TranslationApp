@@ -84,7 +84,8 @@ namespace TranslationApp
             "<Arche>", "<Beryl>", "<Cless>", "<Chester>", "<Dio>", "<Hisui>", "<Ines>", "<Klarth>", "<Kohaku>", "<Couleur>", "<Kunzite>", "<Mel>", "<Mint>", "<Rondoline>", "<Rody>", "<Shing>", "<Suzu>"
         };
 
-        public class Style {
+        public class Style
+        {
             public font_glyph[] Glyphs;
             public string Resource;
             public Color BackColor;
@@ -119,27 +120,36 @@ namespace TranslationApp
         public TextPreview()
         {
             textbox_styles = new Dictionary<string, Style> {
-                { "TOR", new Style(tor_glyphs, tor_colors,
+                {
+                    "TOR", new Style(tor_glyphs, tor_colors,
                     "TranslationApp.res.tor_font_atlas.png",
-                    Color.FromArgb(0), false) },
-
-                { "NDX", new Style(ndx_glyphs, ndx_colors,
+                    Color.FromArgb(0), false)
+                },
+                {
+                    "NDX", new Style(ndx_glyphs, ndx_colors,
                     "TranslationApp.res.ndx_font_atlas.png",
-                    Color.FromArgb(0x14, 0x3F, 0x60), true) },
-
-                { "RM2", new Style(rm2_glyphs, tor_colors,
+                    Color.FromArgb(0x14, 0x3F, 0x60), true)
+                },
+                {
+                    "RM2", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
-                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
-                { "RM3", new Style(rm2_glyphs, tor_colors,
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false)
+                },
+                {
+                    "RM3", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
-                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
-                { "TB", new Style(rm2_glyphs, tor_colors,
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false)
+                },
+                {
+                    "TB", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
-                    Color.FromArgb(0x92,0x7B,0x59), false) },
-
-                { "TOH", new Style(toh_glyphs, tor_colors,
+                    Color.FromArgb(0x92,0x7B,0x59), false)
+                },
+                {
+                    "TOH", new Style(toh_glyphs, tor_colors,
                     "TranslationApp.res.toh_font_atlas.png",
-                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false)
+                },
             };
             InitializeComponent();
             SizeMode = PictureBoxSizeMode.AutoSize;
@@ -464,7 +474,7 @@ namespace TranslationApp
         public string DoLineBreak(string text, int maxWidth)
         {
             List<(string Word, int Size)> words = GetListWords(text);
-            int sum = 0;      
+            int sum = 0;
             int i = 0;
             string final = "";
             int oCount = words.Count;
@@ -472,7 +482,7 @@ namespace TranslationApp
             if (maxWidth < words.Select(x => x.Size).Max())
             {
                 maxWidth = words.Select(x => x.Size).Max();
-                
+
             }
             while (i < oCount)
             {
@@ -491,13 +501,13 @@ namespace TranslationApp
 
             }
 
-            return final; 
+            return final;
         }
 
         public string WordWrap(string text, int maxWidth)
         {
             Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
-            List<(string,int)> words = GetListWords(text);
+            List<(string, int)> words = GetListWords(text);
 
             int curLineLength = 0;
             StringBuilder strBuilder = new StringBuilder();
@@ -545,7 +555,7 @@ namespace TranslationApp
                 int pos = element.IndexOf(">");
                 if (pos > -1)
                 {
-                    tag = element.Substring(0, pos+1);
+                    tag = element.Substring(0, pos + 1);
 
                     if (names.Contains(tag))
                     {
@@ -572,8 +582,8 @@ namespace TranslationApp
                     }
 
                     if (pos < element.Length)
-                        textToRender += element.Substring(pos+1, element.Length - pos - 1);
-                    
+                        textToRender += element.Substring(pos + 1, element.Length - pos - 1);
+
                 }
                 else
                 {
@@ -583,7 +593,7 @@ namespace TranslationApp
 
                 //Remove all linebreak
                 textToRender = textToRender.Replace("\n", " ");
-                
+
                 foreach (string word in textToRender.Split(' ').Where(x => x != ""))
                 {
 
@@ -600,7 +610,8 @@ namespace TranslationApp
         private int GetWordWidth(string word)
         {
             int width = 0;
-            foreach (char c in word) {
+            foreach (char c in word)
+            {
                 Rectangle rect = GetCharacterRectangleFromAtlas(c, out int x, out bool b);
                 width += rect.Width;
             }
@@ -609,7 +620,7 @@ namespace TranslationApp
         }
         private void TextPreview_Paint(object sender, PaintEventArgs e)
         {
-            
+
 
         }
 
