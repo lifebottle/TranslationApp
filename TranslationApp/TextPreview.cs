@@ -474,28 +474,28 @@ namespace TranslationApp
         public string DoLineBreak(string text, int maxWidth)
         {
             List<(string Word, int Size)> words = GetListWords(text);
-            int sum = 0;
-            int i = 0;
             List<string> lines = new List<string>();
             int space_width = GetCharacterRectangleFromAtlas(' ', out _, out _).Width;
 
             int oCount = words.Count;
 
-            if (maxWidth < words.Select(x => x.Size).Max())
+            // Nothing to do...
+            if (words.Count == 0)
+                return string.Empty;
+
+            int largestWord = words.Max(x => x.Size);
+            maxWidth = Math.Max(maxWidth, largestWord);
+
+            while (words.Count > 0)
             {
-                maxWidth = words.Select(x => x.Size).Max();
+                int sum = 0;
+                List<int> output = words.Select((x, ind) => sum += x.Size + (ind > 0 ? space_width : 0)).ToList();
+                int count = output.TakeWhile(x => x <= maxWidth).Count();
 
-            }
-
-            while (i < oCount)
-            {
-                sum = 0;
-                List<int> output = words.Select(x => sum += x.Size).ToList();
-                List<int> maxCount = Enumerable.Range(0, output.Count).Where(ind => output[ind] <= maxWidth).ToList();
-
-                lines.Add(string.Join(" ", maxCount.Select(x => words[x].Word)));
-                words.RemoveRange(0, maxCount.Count);
-                i += maxCount.Count;
+                // Always include at least one word.
+                count = Math.Max(1, count);
+                lines.Add(string.Join(" ", words.Take(count).Select(x => x.Word)));
+                words.RemoveRange(0, count);
             }
 
             return string.Join(Environment.NewLine, lines);
@@ -504,7 +504,8 @@ namespace TranslationApp
         public List<(string, int)> GetListWords(string text)
         {
             //Split tags and text
-            string[] result = Regex.Split(text.Replace("\r", ""), @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+            text = string.Join(" ", text.Replace("\r", "").Split('\n'));
+            string[] result = Regex.Split(text, @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
             Rectangle space = GetCharacterRectangleFromAtlas(' ', out _, out _);
 
             string textToRender = "";
@@ -542,18 +543,12 @@ namespace TranslationApp
                     textToRender = element;
                 }
 
-
-                //Remove all linebreak
-                textToRender = textToRender.Replace("\n", "");
-
                 foreach (string word in textToRender.Split(' ').Where(x => x != ""))
                 {
-
                     wordsSize.Add((word, GetWordWidth(word)));
                 }
             }
 
-            wordsSize.RemoveAt(wordsSize.Count - 1);
             return wordsSize;
         }
 
