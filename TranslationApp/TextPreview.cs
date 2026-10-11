@@ -476,7 +476,9 @@ namespace TranslationApp
             List<(string Word, int Size)> words = GetListWords(text);
             int sum = 0;
             int i = 0;
-            string final = "";
+            List<string> lines = new List<string>();
+            int space_width = GetCharacterRectangleFromAtlas(' ', out _, out _).Width;
+
             int oCount = words.Count;
 
             if (maxWidth < words.Select(x => x.Size).Max())
@@ -484,68 +486,28 @@ namespace TranslationApp
                 maxWidth = words.Select(x => x.Size).Max();
 
             }
+
             while (i < oCount)
             {
                 sum = 0;
                 List<int> output = words.Select(x => sum += x.Size).ToList();
                 List<int> maxCount = Enumerable.Range(0, output.Count).Where(ind => output[ind] <= maxWidth).ToList();
 
-                string line = "";
-                foreach (int c in maxCount)
-                    line += words[c].Word;
-
+                lines.Add(string.Join(" ", maxCount.Select(x => words[x].Word)));
                 words.RemoveRange(0, maxCount.Count);
                 i += maxCount.Count;
-                final += (line + Environment.NewLine);
-
-
             }
 
-            return final;
-        }
-
-        public string WordWrap(string text, int maxWidth)
-        {
-            Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
-            List<(string, int)> words = GetListWords(text);
-
-            int curLineLength = 0;
-            StringBuilder strBuilder = new StringBuilder();
-            foreach ((string word, int width) in words)
-            {
-                string finalWord = word;
-                // If adding the new word to the current line would be too long,
-                // then put it on a new line (and split it up if it's too long).
-                if (curLineLength + width > maxWidth)
-                {
-                    // Only move down to a new line if we have text on the current line.
-                    // Avoids situation where
-                    // wrapped whitespace causes emptylines in text.
-                    if (curLineLength > 0)
-                    {
-                        strBuilder.Append(Environment.NewLine);
-                        curLineLength = 0;
-                    }
-
-                    // Remove leading whitespace from the word,
-                    // so the new line starts flush to the left.
-                    finalWord = word.TrimStart();
-                }
-                strBuilder.Append(word + " ");
-                curLineLength += (width + space.Width);
-            }
-
-            return strBuilder.ToString();
+            return string.Join(Environment.NewLine, lines);
         }
 
         public List<(string, int)> GetListWords(string text)
         {
             //Split tags and text
             string[] result = Regex.Split(text.Replace("\r", ""), @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-            Rectangle space = GetCharacterRectangleFromAtlas(' ', out int s, out bool add);
+            Rectangle space = GetCharacterRectangleFromAtlas(' ', out _, out _);
 
             string textToRender = "";
-            bool shear = false;
             List<(string Word, int Size)> wordsSize = new List<(string, int)>();
 
             foreach (string element in result)
@@ -565,16 +527,6 @@ namespace TranslationApp
                     {
                         textToRender = "***";
                     }
-                    else if (element == "<Italic>")
-                    {
-                        shear = true;
-                        continue;
-                    }
-                    else if (element == "</Italic>")
-                    {
-                        shear = false;
-                        continue;
-                    }
                     else if (element.StartsWith("<nmb:"))
                     {
                         string el = element.Substring(5, element.Length - 6);
@@ -592,14 +544,12 @@ namespace TranslationApp
 
 
                 //Remove all linebreak
-                textToRender = textToRender.Replace("\n", " ");
+                textToRender = textToRender.Replace("\n", "");
 
                 foreach (string word in textToRender.Split(' ').Where(x => x != ""))
                 {
 
                     wordsSize.Add((word, GetWordWidth(word)));
-                    wordsSize.Add((" ", space.Width));
-
                 }
             }
 
@@ -618,6 +568,7 @@ namespace TranslationApp
 
             return width;
         }
+
         private void TextPreview_Paint(object sender, PaintEventArgs e)
         {
 
