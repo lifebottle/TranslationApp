@@ -234,6 +234,7 @@ namespace TranslationApp
             bSaveAll.Enabled = status;
             btnRefresh.Enabled = status;
             btnSaveFile.Enabled = status;
+            btnLinebreak.Enabled = status;
 
             //Panel
             panelNb1.Enabled = status;
@@ -537,6 +538,9 @@ namespace TranslationApp
 
                 tbEnglishText.Text = MULTIPLE_SELECT;
                 tbEnglishText.Enabled = false;
+
+                trackBarAlign.Enabled = false;
+
                 string st = ((XMLEntry)lb.SelectedItems[0]).Status;
                 foreach (XMLEntry e in lb.SelectedItems)
                 {
@@ -561,6 +565,8 @@ namespace TranslationApp
 
                 tbJapaneseText.Text = string.Empty;
                 tbEnglishText.Text = string.Empty;
+
+                trackBarAlign.Enabled = true;
 
                 XMLEntry currentEntry = (XMLEntry)lb.SelectedItem;
                 if (currentEntry == null)
@@ -1847,6 +1853,30 @@ namespace TranslationApp
 
             if (t)
                 tbWrap.Text = textPreview1.DoLineBreak(tbEnglishText.Text, Convert.ToInt32(tbMax.Text));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListBox lb = (tcType.SelectedIndex == 0) ? lbEntries : lbSpeaker;
+
+            if (lb.SelectedIndices.Count > 1)
+            {
+                foreach (XMLEntry entry in lb.SelectedItems)
+                {
+                    entry.EnglishText = textPreview1.DoLineBreak(entry.EnglishText, trackBarAlign.Value * 30);
+                }
+            }
+            else
+            {
+                tbEnglishText.Text = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
+            }
+
+            Project.CurrentFolder.CurrentFile.needsSave = true;
+
+            // Hack...
+            var drawMode = lb.DrawMode;
+            lb.DrawMode = DrawMode.Normal;
+            lb.DrawMode = drawMode;
         }
     }
 

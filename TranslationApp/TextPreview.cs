@@ -504,6 +504,10 @@ namespace TranslationApp
         public List<(string, int)> GetListWords(string text)
         {
             //Split tags and text
+            if (text == null)
+            {
+                return new List<(string, int)>();
+            }
             text = string.Join(" ", text.Replace("\r", "").Split('\n'));
             string[] result = Regex.Split(text, @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
             Rectangle space = GetCharacterRectangleFromAtlas(' ', out _, out _);

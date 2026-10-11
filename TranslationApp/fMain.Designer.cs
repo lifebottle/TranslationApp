@@ -34,6 +34,7 @@ namespace TranslationApp
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.translationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeTextboxStyleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +68,6 @@ namespace TranslationApp
             this.lFile = new System.Windows.Forms.Label();
             this.bSaveAll = new System.Windows.Forms.Button();
             this.trackBarAlign = new System.Windows.Forms.TrackBar();
-            this.label7 = new System.Windows.Forms.Label();
             this.cbFileList = new System.Windows.Forms.ComboBox();
             this.cbFileType = new System.Windows.Forms.ComboBox();
             this.cbStatus = new System.Windows.Forms.ComboBox();
@@ -140,7 +140,7 @@ namespace TranslationApp
             this.leftColumn = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.changeTextboxStyleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLinebreak = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -189,6 +189,12 @@ namespace TranslationApp
             this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
             this.openFolderToolStripMenuItem.Text = "Open Folder";
             this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
+            // 
+            // changeTextboxStyleToolStripMenuItem
+            // 
+            this.changeTextboxStyleToolStripMenuItem.Name = "changeTextboxStyleToolStripMenuItem";
+            this.changeTextboxStyleToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.changeTextboxStyleToolStripMenuItem.Text = "Change Textbox";
             // 
             // fileToolStripMenuItem
             // 
@@ -346,7 +352,7 @@ namespace TranslationApp
             // 
             // tbJapaneseText
             // 
-            this.tbJapaneseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbJapaneseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbJapaneseText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbJapaneseText.HideSelection = false;
@@ -360,7 +366,7 @@ namespace TranslationApp
             // 
             // tbNoteText
             // 
-            this.tbNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNoteText.Location = new System.Drawing.Point(10, 73);
             this.tbNoteText.Multiline = true;
@@ -396,8 +402,8 @@ namespace TranslationApp
             // 
             // tcType
             // 
-            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcType.Controls.Add(this.tabText);
             this.tcType.Controls.Add(this.tabSpeaker);
@@ -421,8 +427,8 @@ namespace TranslationApp
             // 
             // lbEntries
             // 
-            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbEntries.FormattingEnabled = true;
@@ -449,8 +455,8 @@ namespace TranslationApp
             // 
             // lbSpeaker
             // 
-            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSpeaker.FormattingEnabled = true;
@@ -475,7 +481,7 @@ namespace TranslationApp
             // 
             // bSaveAll
             // 
-            this.bSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.bSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bSaveAll.Location = new System.Drawing.Point(208, 130);
             this.bSaveAll.Name = "bSaveAll";
@@ -487,7 +493,7 @@ namespace TranslationApp
             // 
             // trackBarAlign
             // 
-            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
             this.trackBarAlign.Location = new System.Drawing.Point(240, 353);
@@ -498,18 +504,9 @@ namespace TranslationApp
             this.trackBarAlign.Value = 100;
             this.trackBarAlign.ValueChanged += new System.EventHandler(this.trackBarAlign_ValueChanged);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(283, 138);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "Text Align";
-            // 
             // cbFileList
             // 
-            this.cbFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFileList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbFileList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -584,7 +581,7 @@ namespace TranslationApp
             // 
             // cbSections
             // 
-            this.cbSections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbSections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSections.FormattingEnabled = true;
@@ -678,7 +675,7 @@ namespace TranslationApp
             // 
             // cbLanguage
             // 
-            this.cbLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLanguage.FormattingEnabled = true;
@@ -821,7 +818,7 @@ namespace TranslationApp
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.Location = new System.Drawing.Point(208, 74);
             this.btnRefresh.Name = "btnRefresh";
@@ -896,7 +893,7 @@ namespace TranslationApp
             // 
             // tbSectionName
             // 
-            this.tbSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSectionName.Location = new System.Drawing.Point(238, 26);
             this.tbSectionName.Name = "tbSectionName";
@@ -906,7 +903,7 @@ namespace TranslationApp
             // 
             // btnSaveFile
             // 
-            this.btnSaveFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnSaveFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveFile.Location = new System.Drawing.Point(208, 102);
             this.btnSaveFile.Name = "btnSaveFile";
@@ -944,8 +941,8 @@ namespace TranslationApp
             // 
             // tabSearchMass
             // 
-            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSearchMass.Controls.Add(this.tpSearch);
             this.tabSearchMass.Controls.Add(this.tpMassReplace);
@@ -990,7 +987,7 @@ namespace TranslationApp
             // 
             // tbMax
             // 
-            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMax.Location = new System.Drawing.Point(334, 47);
             this.tbMax.Name = "tbMax";
@@ -1115,8 +1112,8 @@ namespace TranslationApp
             // 
             // lbSearch
             // 
-            this.lbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSearch.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSearch.FormattingEnabled = true;
@@ -1170,8 +1167,8 @@ namespace TranslationApp
             // 
             // lbContext
             // 
-            this.lbContext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbContext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbContext.FormattingEnabled = true;
@@ -1214,7 +1211,7 @@ namespace TranslationApp
             // 
             // lbDistinctTranslations
             // 
-            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDistinctTranslations.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbDistinctTranslations.FormattingEnabled = true;
@@ -1229,6 +1226,7 @@ namespace TranslationApp
             // 
             // middleColumn
             // 
+            this.middleColumn.Controls.Add(this.btnLinebreak);
             this.middleColumn.Controls.Add(this.pPreviewContainer);
             this.middleColumn.Controls.Add(this.tbFriendlyName);
             this.middleColumn.Controls.Add(this.lLineBreak);
@@ -1243,7 +1241,6 @@ namespace TranslationApp
             this.middleColumn.Controls.Add(this.label4);
             this.middleColumn.Controls.Add(this.lblFileInfo);
             this.middleColumn.Controls.Add(this.trackBarAlign);
-            this.middleColumn.Controls.Add(this.label7);
             this.middleColumn.Controls.Add(this.label2);
             this.middleColumn.Controls.Add(this.cbStatus);
             this.middleColumn.Controls.Add(this.cbEmpty);
@@ -1257,8 +1254,8 @@ namespace TranslationApp
             // 
             // pPreviewContainer
             // 
-            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pPreviewContainer.AutoScroll = true;
             this.pPreviewContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -1282,7 +1279,7 @@ namespace TranslationApp
             // 
             // tbEnglishText
             // 
-            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbEnglishText.Location = new System.Drawing.Point(9, 387);
@@ -1340,11 +1337,17 @@ namespace TranslationApp
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
             // 
-            // changeTextboxStyleToolStripMenuItem
+            // button1
             // 
-            this.changeTextboxStyleToolStripMenuItem.Name = "changeTextboxStyleToolStripMenuItem";
-            this.changeTextboxStyleToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
-            this.changeTextboxStyleToolStripMenuItem.Text = "Change Textbox";
+            this.btnLinebreak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinebreak.Location = new System.Drawing.Point(252, 160);
+            this.btnLinebreak.Name = "button1";
+            this.btnLinebreak.Size = new System.Drawing.Size(127, 28);
+            this.btnLinebreak.TabIndex = 49;
+            this.btnLinebreak.Text = "Apply Linebreak";
+            this.btnLinebreak.UseVisualStyleBackColor = true;
+            this.btnLinebreak.Click += new System.EventHandler(this.button1_Click);
             // 
             // fMain
             // 
@@ -1411,7 +1414,6 @@ namespace TranslationApp
         private System.Windows.Forms.ListBox lbEntries;
         private System.Windows.Forms.Button bSaveAll;
         private System.Windows.Forms.TrackBar trackBarAlign;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbFileList;
         private System.Windows.Forms.ComboBox cbFileType;
         private System.Windows.Forms.ToolStripMenuItem tsNDXExtract;
@@ -1508,6 +1510,7 @@ namespace TranslationApp
         private System.Windows.Forms.TextBox tbMax;
         private System.Windows.Forms.TextBox tbWrap;
         private System.Windows.Forms.ToolStripMenuItem changeTextboxStyleToolStripMenuItem;
+        private System.Windows.Forms.Button btnLinebreak;
     }
 }
 
