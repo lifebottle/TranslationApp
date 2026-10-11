@@ -1,14 +1,15 @@
+using Newtonsoft.Json.Linq;
+using PackingLib;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TranslationLib;
-using PackingLib;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace TranslationApp
 {
@@ -73,6 +74,7 @@ namespace TranslationApp
             cbLanguage.Text = "English (if available)";
             CreateColorByStatusDictionnary();
             PopulateProjectTypes();
+            PopulateTextboxTypes();
             InitialiseStatusText();
             ChangeEnabledProp(false);
 
@@ -96,6 +98,30 @@ namespace TranslationApp
                 items.Add(item);
             }
             translationToolStripMenuItem.DropDownItems.AddRange(items.ToArray());
+        }
+
+        private void PopulateTextboxTypes()
+        {
+            List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
+            foreach (KeyValuePair<string, TextPreview.Style> style in TextPreview.textbox_styles)
+            {
+                var item = new ToolStripMenuItem();
+                item.Name = "tsi" + style.Key + "style";
+                item.Text = style.Key + " Style";
+                item.Click += new EventHandler(ChangeTextbox_Click);
+                item.Tag = style.Value;
+                items.Add(item);
+            }
+            changeTextboxStyleToolStripMenuItem.DropDownItems.AddRange(items.ToArray());
+        }
+
+        private void ChangeTextbox_Click(object sender, EventArgs e)
+        {
+            var previousProject = Project;
+
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            TextPreview.Style style = (TextPreview.Style)clickedItem.Tag;
+            textPreview1.ChangeStyle(style);
         }
 
         private void LoadNewFolder_Click(object sender, EventArgs e)

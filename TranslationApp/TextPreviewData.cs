@@ -10,7 +10,7 @@ namespace TranslationApp
     public partial class TextPreview : PictureBox
     {
         // Glyph width tables
-        private readonly font_glyph[] tor_glyphs = new font_glyph[97]
+        private static readonly font_glyph[] tor_glyphs = new font_glyph[97]
         {
             /*    */ new font_glyph(18, 00),
 			/* ０ */ new font_glyph(05, 06),
@@ -111,7 +111,7 @@ namespace TranslationApp
 			/* 。 */ new font_glyph(01, 12),
         };
 
-        private readonly font_glyph[] ndx_glyphs = new font_glyph[97]
+        private static readonly font_glyph[] ndx_glyphs = new font_glyph[97]
         {
             /*    */ new font_glyph(10, 00),
             /* ０ */ new font_glyph(06, 06),
@@ -212,7 +212,7 @@ namespace TranslationApp
             /* 。 */ new font_glyph(01, 12),
         };
 
-        private readonly font_glyph[] toh_glyphs = new font_glyph[97]
+        private static readonly font_glyph[] toh_glyphs = new font_glyph[97]
         {
             /*    */ new font_glyph(00, 18),
             /* ０ */ new font_glyph(00, 13),
@@ -313,7 +313,7 @@ namespace TranslationApp
             /* 。 */ new font_glyph(00, 16),
         };
 
-        private readonly font_glyph[] rm2_glyphs = new font_glyph[97]
+        private static readonly font_glyph[] rm2_glyphs = new font_glyph[97]
         {
             /*    */ new font_glyph(16, 00),
             /* ０ */ new font_glyph(03, 03),

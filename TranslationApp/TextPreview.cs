@@ -9,10 +9,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static TranslationApp.TextPreview;
 
 namespace TranslationApp
 {
@@ -23,9 +26,7 @@ namespace TranslationApp
         private Bitmap currentImage;
         public string text { get; set; }
 
-        private font_glyph[] glyphs;
-
-        private static readonly Dictionary<string, Color> rebirth_colors = new Dictionary<string, Color> {
+        private static readonly Dictionary<string, Color> tor_colors = new Dictionary<string, Color> {
             { "<Blue>", Color.FromArgb(0x50,0x50,0x80) },
             { "<Red>", Color.FromArgb(0x80,0x48,0x40) },
             { "<Purple>", Color.FromArgb(0x80,0x58,0x80) },
@@ -76,10 +77,6 @@ namespace TranslationApp
             { "<NoOutline>", Color.FromArgb(0x00, 0x00, 0x00) },
         };
 
-        private static Dictionary<string, Color> colors;
-
-        private static float scale_factor = 256.0f;
-
         private static readonly string[] names = { 
             // Rebirth
             "<Veigue>", "<Mao>", "<Eugene>", "<Annie>", "<Tytree>", "<Hilda>", "<Claire>", "<Agarte>", "<Annie (NPC)>", "<Leader>",
@@ -87,7 +84,27 @@ namespace TranslationApp
             "<Arche>", "<Beryl>", "<Cless>", "<Chester>", "<Dio>", "<Hisui>", "<Ines>", "<Klarth>", "<Kohaku>", "<Couleur>", "<Kunzite>", "<Mel>", "<Mint>", "<Rondoline>", "<Rody>", "<Shing>", "<Suzu>"
         };
 
-        struct font_glyph
+        public class Style {
+            public font_glyph[] Glyphs;
+            public string Resource;
+            public Color BackColor;
+            public float scale_factor;
+            public Dictionary<string, Color> Colors;
+            public Style(font_glyph[] glyphs, Dictionary<string, Color> colors, string resource, Color back_color, bool full_range)
+            {
+                Glyphs = glyphs;
+                Resource = resource;
+                BackColor = back_color;
+                scale_factor = full_range ? 256.0f : 128.0f;
+                Colors = colors;
+            }
+        };
+
+        public static Dictionary<string, Style> textbox_styles;
+
+        private Style current_style;
+
+        public struct font_glyph
         {
             public byte lskip;
             public byte rskip;
@@ -101,53 +118,48 @@ namespace TranslationApp
 
         public TextPreview()
         {
+            textbox_styles = new Dictionary<string, Style> {
+                { "TOR", new Style(tor_glyphs, tor_colors,
+                    "TranslationApp.res.tor_font_atlas.png",
+                    Color.FromArgb(0), false) },
+
+                { "NDX", new Style(ndx_glyphs, ndx_colors,
+                    "TranslationApp.res.ndx_font_atlas.png",
+                    Color.FromArgb(0x14, 0x3F, 0x60), true) },
+
+                { "RM2", new Style(rm2_glyphs, tor_colors,
+                    "TranslationApp.res.rm2_font_atlas.png",
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
+
+                { "TOH", new Style(toh_glyphs, tor_colors,
+                    "TranslationApp.res.toh_font_atlas.png",
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
+            };
             InitializeComponent();
             SizeMode = PictureBoxSizeMode.AutoSize;
             Dock = DockStyle.None;
+            ChangeImage("TOR");
         }
 
         public void ChangeImage(string id)
         {
-            string res;
-            colors = rebirth_colors;
-            scale_factor = 128.0f;
-            switch (id)
-            {
-                case "TOR":
-                    res = "TranslationApp.res.tor_font_atlas.png";
-                    BackColor = Color.FromArgb(0);
-                    glyphs = tor_glyphs;
-                    break;
-                case "NDX":
-                    res = "TranslationApp.res.ndx_font_atlas.png";
-                    BackColor = Color.FromArgb(0x14, 0x3F, 0x60);
-                    glyphs = ndx_glyphs;
-                    colors = ndx_colors;
-                    scale_factor = 256.0f;
-                    break;
-                case "RM2":
-                    res = "TranslationApp.res.rm2_font_atlas.png";
-                    BackColor = Color.FromArgb(0xA0, 0x0, 0x0, 0x0);
-                    glyphs = rm2_glyphs;
-                    break;
+            textbox_styles.TryGetValue(id, out current_style);
+            ChangeStyle(current_style);
+        }
 
-                case "TOH":
-                    res = "TranslationApp.res.toh_font_atlas.png";
-                    BackColor = Color.FromArgb(0xA0, 0x0, 0x0, 0x0);
-                    glyphs = toh_glyphs;
-                    break;
-                default:
-                    fontAtlasImage = null;
-                    glyphs = null;
-                    return;
-            }
+        public void ChangeStyle(Style style)
+        {
+            current_style = style;
+            BackColor = style.BackColor;
 
             if (fontAtlasImage != null)
             {
                 fontAtlasImage.Dispose();
             }
 
-            fontAtlasImage = LoadEmbeddedImage(res);
+            fontAtlasImage = LoadEmbeddedImage(current_style.Resource);
+            Raster();
+            Invalidate();
         }
 
         private Bitmap LoadEmbeddedImage(string resourceName)
@@ -204,6 +216,8 @@ namespace TranslationApp
                     PointF currentPosition = new PointF(10, 10);  // Starting position
                     float finalWidth = 0;
                     string textToRender = text ?? ""; // Avoid null text
+                    var colors = current_style.Colors;
+                    var scale_factor = current_style.scale_factor;
                     Color tintColor = colors["<White>"]; // Start as white text
                     Color lastColor = tintColor;
                     Color outlineColor = colors["<White>"];
@@ -357,6 +371,36 @@ namespace TranslationApp
                                     Rectangle.Round(destinationRect),
                                     charRect.X - 2,
                                     charRect.Y - 2,
+                                    charRect.Width,
+                                    charRect.Height,
+                                    GraphicsUnit.Pixel,
+                                    imageAttributes1
+                                );
+                                canvas_g.DrawImage(
+                                    fontAtlasImage,
+                                    Rectangle.Round(destinationRect),
+                                    charRect.X + 2,
+                                    charRect.Y - 2,
+                                    charRect.Width,
+                                    charRect.Height,
+                                    GraphicsUnit.Pixel,
+                                    imageAttributes1
+                                );
+                                canvas_g.DrawImage(
+                                    fontAtlasImage,
+                                    Rectangle.Round(destinationRect),
+                                    charRect.X - 2,
+                                    charRect.Y + 2,
+                                    charRect.Width,
+                                    charRect.Height,
+                                    GraphicsUnit.Pixel,
+                                    imageAttributes1
+                                );
+                                canvas_g.DrawImage(
+                                    fontAtlasImage,
+                                    Rectangle.Round(destinationRect),
+                                    charRect.X + 2,
+                                    charRect.Y + 2,
                                     charRect.Width,
                                     charRect.Height,
                                     GraphicsUnit.Pixel,
@@ -671,10 +715,10 @@ namespace TranslationApp
 
             // Calculate the position of the character in the atlas based on its index
             int y = index * charHeight;
-            int x = glyphs[index].lskip;
+            int x = current_style.Glyphs[index].lskip;
 
-            charWidth -= (glyphs[index].lskip);
-            s = glyphs[index].rskip;
+            charWidth -= (current_style.Glyphs[index].lskip);
+            s = current_style.Glyphs[index].rskip;
             return new Rectangle(x, y, charWidth, charHeight);
         }
     }
