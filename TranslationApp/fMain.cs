@@ -50,6 +50,8 @@ namespace TranslationApp
             new ProjectEntry("TOR", "Tales of Rebirth", "2_translated"),
             new ProjectEntry("TOH", "Tales of Hearts (DS)", "2_translated"),
             new ProjectEntry("RM2", "Tales of the World: Radiant Mythology 2", "2_translated"),
+            new ProjectEntry("RM3", "Tales of the World: Radiant Mythology 3", "2_translated"),
+            new ProjectEntry("TB", "Tales of the Heroes: Twin Brave", "2_translated"),
         };
 
         public fMain()

@@ -130,6 +130,12 @@ namespace TranslationApp
                 { "RM2", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
                     Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
+                { "RM3", new Style(rm2_glyphs, tor_colors,
+                    "TranslationApp.res.rm2_font_atlas.png",
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false) },
+                { "TB", new Style(rm2_glyphs, tor_colors,
+                    "TranslationApp.res.rm2_font_atlas.png",
+                    Color.FromArgb(0x92,0x7B,0x59), false) },
 
                 { "TOH", new Style(toh_glyphs, tor_colors,
                     "TranslationApp.res.toh_font_atlas.png",
