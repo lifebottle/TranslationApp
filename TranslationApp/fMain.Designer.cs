@@ -1355,6 +1355,7 @@ namespace TranslationApp
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.leftColumn);
             this.Controls.Add(this.menuStripMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "fMain";
