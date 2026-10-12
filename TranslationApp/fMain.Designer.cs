@@ -112,8 +112,6 @@ namespace TranslationApp
             this.rightColumn = new System.Windows.Forms.Panel();
             this.tabSearchMass = new System.Windows.Forms.TabControl();
             this.tpSearch = new System.Windows.Forms.TabPage();
-            this.tbWrap = new System.Windows.Forms.TextBox();
-            this.tbMax = new System.Windows.Forms.TextBox();
             this.cbMatchWhole = new System.Windows.Forms.CheckBox();
             this.cbCase = new System.Windows.Forms.CheckBox();
             this.lEntriesFound = new System.Windows.Forms.Label();
@@ -134,6 +132,7 @@ namespace TranslationApp
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
+            this.tbMax = new System.Windows.Forms.TextBox();
             this.middleColumn = new System.Windows.Forms.Panel();
             this.btnLinebreak = new System.Windows.Forms.Button();
             this.pPreviewContainer = new System.Windows.Forms.Panel();
@@ -171,7 +170,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(5, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1155, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1031, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -420,7 +419,7 @@ namespace TranslationApp
             this.tabText.Controls.Add(this.lbEntries);
             this.tabText.Location = new System.Drawing.Point(4, 22);
             this.tabText.Name = "tabText";
-            this.tabText.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabText.Padding = new System.Windows.Forms.Padding(3);
             this.tabText.Size = new System.Drawing.Size(292, 413);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text";
@@ -449,7 +448,7 @@ namespace TranslationApp
             this.tabSpeaker.Controls.Add(this.lbSpeaker);
             this.tabSpeaker.Location = new System.Drawing.Point(4, 22);
             this.tabSpeaker.Name = "tabSpeaker";
-            this.tabSpeaker.Size = new System.Drawing.Size(292, 462);
+            this.tabSpeaker.Size = new System.Drawing.Size(292, 413);
             this.tabSpeaker.TabIndex = 1;
             this.tabSpeaker.Text = "Speaker";
             this.tabSpeaker.UseVisualStyleBackColor = true;
@@ -494,14 +493,14 @@ namespace TranslationApp
             // 
             // trackBarAlign
             // 
-            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
-            this.trackBarAlign.Location = new System.Drawing.Point(240, 353);
+            this.trackBarAlign.Location = new System.Drawing.Point(240, 357);
             this.trackBarAlign.Maximum = 100;
             this.trackBarAlign.Name = "trackBarAlign";
-            this.trackBarAlign.Size = new System.Drawing.Size(140, 28);
+            this.trackBarAlign.Size = new System.Drawing.Size(140, 22);
             this.trackBarAlign.TabIndex = 18;
+            this.trackBarAlign.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarAlign.Value = 100;
             this.trackBarAlign.ValueChanged += new System.EventHandler(this.trackBarAlign_ValueChanged);
             // 
@@ -937,7 +936,7 @@ namespace TranslationApp
             this.rightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightColumn.Location = new System.Drawing.Point(712, 24);
             this.rightColumn.Name = "rightColumn";
-            this.rightColumn.Size = new System.Drawing.Size(443, 663);
+            this.rightColumn.Size = new System.Drawing.Size(319, 663);
             this.rightColumn.TabIndex = 53;
             // 
             // tabSearchMass
@@ -951,13 +950,11 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(4, 3);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(436, 652);
+            this.tabSearchMass.Size = new System.Drawing.Size(312, 652);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
             // 
-            this.tpSearch.Controls.Add(this.tbWrap);
-            this.tpSearch.Controls.Add(this.tbMax);
             this.tpSearch.Controls.Add(this.cbMatchWhole);
             this.tpSearch.Controls.Add(this.cbCase);
             this.tpSearch.Controls.Add(this.lEntriesFound);
@@ -972,30 +969,11 @@ namespace TranslationApp
             this.tpSearch.Controls.Add(this.lbSearch);
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
-            this.tpSearch.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tpSearch.Size = new System.Drawing.Size(428, 626);
+            this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSearch.Size = new System.Drawing.Size(304, 626);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
-            // 
-            // tbWrap
-            // 
-            this.tbWrap.Location = new System.Drawing.Point(321, 94);
-            this.tbWrap.Multiline = true;
-            this.tbWrap.Name = "tbWrap";
-            this.tbWrap.Size = new System.Drawing.Size(224, 111);
-            this.tbWrap.TabIndex = 61;
-            // 
-            // tbMax
-            // 
-            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMax.Location = new System.Drawing.Point(334, 47);
-            this.tbMax.Name = "tbMax";
-            this.tbMax.Size = new System.Drawing.Size(20, 20);
-            this.tbMax.TabIndex = 60;
-            this.tbMax.Text = "500";
-            this.tbMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMax_KeyDown);
             // 
             // cbMatchWhole
             // 
@@ -1121,7 +1099,7 @@ namespace TranslationApp
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(369, 398);
+            this.lbSearch.Size = new System.Drawing.Size(263, 398);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1138,8 +1116,8 @@ namespace TranslationApp
             this.tpMassReplace.Controls.Add(this.lbDistinctTranslations);
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
-            this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tpMassReplace.Size = new System.Drawing.Size(574, 675);
+            this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMassReplace.Size = new System.Drawing.Size(304, 626);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1225,9 +1203,24 @@ namespace TranslationApp
             this.lbDistinctTranslations.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbDistinctTranslations_MeasureItem);
             this.lbDistinctTranslations.SelectedIndexChanged += new System.EventHandler(this.lbDistinctTranslations_SelectedIndexChanged);
             // 
+            // tbMax
+            // 
+            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbMax.Location = new System.Drawing.Point(196, 361);
+            this.tbMax.MaximumSize = new System.Drawing.Size(42, 13);
+            this.tbMax.MinimumSize = new System.Drawing.Size(42, 13);
+            this.tbMax.Name = "tbMax";
+            this.tbMax.Size = new System.Drawing.Size(42, 13);
+            this.tbMax.TabIndex = 60;
+            this.tbMax.Text = "100";
+            this.tbMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMax_KeyDown);
+            // 
             // middleColumn
             // 
             this.middleColumn.Controls.Add(this.btnLinebreak);
+            this.middleColumn.Controls.Add(this.tbMax);
             this.middleColumn.Controls.Add(this.pPreviewContainer);
             this.middleColumn.Controls.Add(this.tbFriendlyName);
             this.middleColumn.Controls.Add(this.lLineBreak);
@@ -1257,7 +1250,7 @@ namespace TranslationApp
             // 
             this.btnLinebreak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLinebreak.Location = new System.Drawing.Point(252, 158);
+            this.btnLinebreak.Location = new System.Drawing.Point(253, 158);
             this.btnLinebreak.Name = "btnLinebreak";
             this.btnLinebreak.Size = new System.Drawing.Size(127, 28);
             this.btnLinebreak.TabIndex = 49;
@@ -1355,7 +1348,7 @@ namespace TranslationApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1155, 687);
+            this.ClientSize = new System.Drawing.Size(1031, 687);
             this.Controls.Add(this.rightColumn);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.middleColumn);
@@ -1510,7 +1503,6 @@ namespace TranslationApp
         private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.TextBox tbMax;
-        private System.Windows.Forms.TextBox tbWrap;
         private System.Windows.Forms.ToolStripMenuItem changeTextboxStyleToolStripMenuItem;
         private System.Windows.Forms.Button btnLinebreak;
     }

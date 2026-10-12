@@ -640,8 +640,8 @@ namespace TranslationApp
         private void trackBarAlign_ValueChanged(object sender, EventArgs e)
         {
             Invalidate();
-            string val = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
-            tbEnglishText.Text = val;
+            tbMax.Text = trackBarAlign.Value.ToString();
+            tbEnglishText.Text = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
         }
 
         private string GetTextBasedLanguage(int entryIndex, List<XMLEntry> EntryList)
@@ -1848,11 +1848,10 @@ namespace TranslationApp
 
         private void tbMax_KeyDown(object sender, KeyEventArgs e)
         {
-            int max = 0;
-            bool t = Int32.TryParse(tbMax.Text, out max);
-
-            if (t)
-                tbWrap.Text = textPreview1.DoLineBreak(tbEnglishText.Text, Convert.ToInt32(tbMax.Text));
+            if (Int32.TryParse(tbMax.Text, out int max) && max >= 0 && max <= 100)
+            {
+                trackBarAlign.Value = max;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
