@@ -31,6 +31,7 @@ namespace TranslationApp
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.translationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,13 +135,13 @@ namespace TranslationApp
             this.label13 = new System.Windows.Forms.Label();
             this.lbDistinctTranslations = new System.Windows.Forms.ListBox();
             this.middleColumn = new System.Windows.Forms.Panel();
+            this.btnLinebreak = new System.Windows.Forms.Button();
             this.pPreviewContainer = new System.Windows.Forms.Panel();
             this.textPreview1 = new TranslationApp.TextPreview();
             this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.leftColumn = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.btnLinebreak = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -170,7 +171,7 @@ namespace TranslationApp
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(5, 1, 0, 1);
-            this.menuStripMain.Size = new System.Drawing.Size(1735, 26);
+            this.menuStripMain.Size = new System.Drawing.Size(1155, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -180,20 +181,20 @@ namespace TranslationApp
             this.openFolderToolStripMenuItem,
             this.changeTextboxStyleToolStripMenuItem});
             this.translationToolStripMenuItem.Name = "translationToolStripMenuItem";
-            this.translationToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
+            this.translationToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
             this.translationToolStripMenuItem.Text = "Project";
             // 
             // openFolderToolStripMenuItem
             // 
             this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
-            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.openFolderToolStripMenuItem.Text = "Open Folder";
             this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // changeTextboxStyleToolStripMenuItem
             // 
             this.changeTextboxStyleToolStripMenuItem.Name = "changeTextboxStyleToolStripMenuItem";
-            this.changeTextboxStyleToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.changeTextboxStyleToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.changeTextboxStyleToolStripMenuItem.Text = "Change Textbox";
             // 
             // fileToolStripMenuItem
@@ -208,62 +209,62 @@ namespace TranslationApp
             this.setFileAsDoneToolStripMenuItem,
             this.setSectionAsDoneToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // saveCurrentFileToolStripMenuItem
             // 
             this.saveCurrentFileToolStripMenuItem.Name = "saveCurrentFileToolStripMenuItem";
-            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.saveCurrentFileToolStripMenuItem.Text = "Save Current File";
             this.saveCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFileToolStripMenuItem_Click);
             // 
             // reloadCurrentFileToolStripMenuItem
             // 
             this.reloadCurrentFileToolStripMenuItem.Name = "reloadCurrentFileToolStripMenuItem";
-            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reloadCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.reloadCurrentFileToolStripMenuItem.Text = "Reload Current File";
             this.reloadCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.reloadCurrentFileToolStripMenuItem_Click);
             // 
             // saveAllToolStripMenuItem
             // 
             this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.saveAllToolStripMenuItem.Text = "Save All";
             this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
             // 
             // reloadAllToolStripMenuItem
             // 
             this.reloadAllToolStripMenuItem.Name = "reloadAllToolStripMenuItem";
-            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reloadAllToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.reloadAllToolStripMenuItem.Text = "Reload All";
             this.reloadAllToolStripMenuItem.Click += new System.EventHandler(this.reloadAllToolStripMenuItem_Click);
             // 
             // exportFileToCsvToolStripMenuItem
             // 
             this.exportFileToCsvToolStripMenuItem.Name = "exportFileToCsvToolStripMenuItem";
-            this.exportFileToCsvToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportFileToCsvToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.exportFileToCsvToolStripMenuItem.Text = "Export file to csv";
             this.exportFileToCsvToolStripMenuItem.Click += new System.EventHandler(this.exportFileToCsvToolStripMenuItem_Click);
             // 
             // importFromCsvToolStripMenuItem
             // 
             this.importFromCsvToolStripMenuItem.Name = "importFromCsvToolStripMenuItem";
-            this.importFromCsvToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.importFromCsvToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.importFromCsvToolStripMenuItem.Text = "Import from csv";
             this.importFromCsvToolStripMenuItem.Click += new System.EventHandler(this.importFromCsvToolStripMenuItem_Click);
             // 
             // setFileAsDoneToolStripMenuItem
             // 
             this.setFileAsDoneToolStripMenuItem.Name = "setFileAsDoneToolStripMenuItem";
-            this.setFileAsDoneToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.setFileAsDoneToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.setFileAsDoneToolStripMenuItem.Text = "Set file as Done";
             this.setFileAsDoneToolStripMenuItem.Click += new System.EventHandler(this.setFileAsDoneToolStripMenuItem_Click);
             // 
             // setSectionAsDoneToolStripMenuItem
             // 
             this.setSectionAsDoneToolStripMenuItem.Name = "setSectionAsDoneToolStripMenuItem";
-            this.setSectionAsDoneToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.setSectionAsDoneToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.setSectionAsDoneToolStripMenuItem.Text = "Set section as Done";
             this.setSectionAsDoneToolStripMenuItem.Click += new System.EventHandler(this.setSectionAsDoneToolStripMenuItem_Click);
             // 
@@ -274,13 +275,13 @@ namespace TranslationApp
             this.tsNDXExtract,
             this.tsTORPacking});
             this.packToolStripMenuItem.Name = "packToolStripMenuItem";
-            this.packToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.packToolStripMenuItem.Size = new System.Drawing.Size(61, 22);
             this.packToolStripMenuItem.Text = "Packing";
             // 
             // tsSetup
             // 
             this.tsSetup.Name = "tsSetup";
-            this.tsSetup.Size = new System.Drawing.Size(130, 26);
+            this.tsSetup.Size = new System.Drawing.Size(104, 22);
             this.tsSetup.Text = "Setup";
             this.tsSetup.Click += new System.EventHandler(this.tsSetup_Click);
             // 
@@ -290,20 +291,20 @@ namespace TranslationApp
             this.extractIsoToolStripMenuItem,
             this.tsNDXMakeIso});
             this.tsNDXExtract.Name = "tsNDXExtract";
-            this.tsNDXExtract.Size = new System.Drawing.Size(130, 26);
+            this.tsNDXExtract.Size = new System.Drawing.Size(104, 22);
             this.tsNDXExtract.Text = "NDX";
             // 
             // extractIsoToolStripMenuItem
             // 
             this.extractIsoToolStripMenuItem.Name = "extractIsoToolStripMenuItem";
-            this.extractIsoToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.extractIsoToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.extractIsoToolStripMenuItem.Text = "Extract Iso";
             this.extractIsoToolStripMenuItem.Click += new System.EventHandler(this.extractIsoToolStripMenuItem_Click);
             // 
             // tsNDXMakeIso
             // 
             this.tsNDXMakeIso.Name = "tsNDXMakeIso";
-            this.tsNDXMakeIso.Size = new System.Drawing.Size(160, 26);
+            this.tsNDXMakeIso.Size = new System.Drawing.Size(127, 22);
             this.tsNDXMakeIso.Text = "Make Iso";
             // 
             // tsTORPacking
@@ -312,20 +313,20 @@ namespace TranslationApp
             this.tsTORExtract,
             this.tsTORMakeIso});
             this.tsTORPacking.Name = "tsTORPacking";
-            this.tsTORPacking.Size = new System.Drawing.Size(130, 26);
+            this.tsTORPacking.Size = new System.Drawing.Size(104, 22);
             this.tsTORPacking.Text = "TOR";
             // 
             // tsTORExtract
             // 
             this.tsTORExtract.Name = "tsTORExtract";
-            this.tsTORExtract.Size = new System.Drawing.Size(160, 26);
+            this.tsTORExtract.Size = new System.Drawing.Size(127, 22);
             this.tsTORExtract.Text = "Extract Iso";
             this.tsTORExtract.Click += new System.EventHandler(this.menuToolStripMenuItem_Click_1);
             // 
             // tsTORMakeIso
             // 
             this.tsTORMakeIso.Name = "tsTORMakeIso";
-            this.tsTORMakeIso.Size = new System.Drawing.Size(160, 26);
+            this.tsTORMakeIso.Size = new System.Drawing.Size(127, 22);
             this.tsTORMakeIso.Text = "Make Iso";
             // 
             // toolsToolStripMenuItem
@@ -334,25 +335,25 @@ namespace TranslationApp
             this.hexToJapaneseToolStripMenuItem,
             this.searchJapaneseToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // hexToJapaneseToolStripMenuItem
             // 
             this.hexToJapaneseToolStripMenuItem.Name = "hexToJapaneseToolStripMenuItem";
-            this.hexToJapaneseToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
+            this.hexToJapaneseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.hexToJapaneseToolStripMenuItem.Text = "Hex to Japanese";
             this.hexToJapaneseToolStripMenuItem.Click += new System.EventHandler(this.hexToJapaneseToolStripMenuItem_Click);
             // 
             // searchJapaneseToolStripMenuItem
             // 
             this.searchJapaneseToolStripMenuItem.Name = "searchJapaneseToolStripMenuItem";
-            this.searchJapaneseToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
+            this.searchJapaneseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.searchJapaneseToolStripMenuItem.Text = "Search files for Japanese";
             // 
             // tbJapaneseText
             // 
-            this.tbJapaneseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tbJapaneseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbJapaneseText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbJapaneseText.HideSelection = false;
@@ -366,7 +367,7 @@ namespace TranslationApp
             // 
             // tbNoteText
             // 
-            this.tbNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tbNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNoteText.Location = new System.Drawing.Point(10, 73);
             this.tbNoteText.Multiline = true;
@@ -402,15 +403,15 @@ namespace TranslationApp
             // 
             // tcType
             // 
-            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tcType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcType.Controls.Add(this.tabText);
             this.tcType.Controls.Add(this.tabSpeaker);
             this.tcType.Location = new System.Drawing.Point(7, 216);
             this.tcType.Name = "tcType";
             this.tcType.SelectedIndex = 0;
-            this.tcType.Size = new System.Drawing.Size(300, 486);
+            this.tcType.Size = new System.Drawing.Size(300, 439);
             this.tcType.TabIndex = 13;
             this.tcType.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcType_Selected);
             // 
@@ -419,16 +420,16 @@ namespace TranslationApp
             this.tabText.Controls.Add(this.lbEntries);
             this.tabText.Location = new System.Drawing.Point(4, 22);
             this.tabText.Name = "tabText";
-            this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(292, 460);
+            this.tabText.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabText.Size = new System.Drawing.Size(292, 413);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
             // 
             // lbEntries
             // 
-            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lbEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbEntries.FormattingEnabled = true;
@@ -436,7 +437,7 @@ namespace TranslationApp
             this.lbEntries.Location = new System.Drawing.Point(4, 3);
             this.lbEntries.Name = "lbEntries";
             this.lbEntries.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbEntries.Size = new System.Drawing.Size(285, 448);
+            this.lbEntries.Size = new System.Drawing.Size(285, 401);
             this.lbEntries.TabIndex = 0;
             this.lbEntries.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbEntries_DrawItem);
             this.lbEntries.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbEntries_MeasureItem);
@@ -448,15 +449,15 @@ namespace TranslationApp
             this.tabSpeaker.Controls.Add(this.lbSpeaker);
             this.tabSpeaker.Location = new System.Drawing.Point(4, 22);
             this.tabSpeaker.Name = "tabSpeaker";
-            this.tabSpeaker.Size = new System.Drawing.Size(292, 460);
+            this.tabSpeaker.Size = new System.Drawing.Size(292, 462);
             this.tabSpeaker.TabIndex = 1;
             this.tabSpeaker.Text = "Speaker";
             this.tabSpeaker.UseVisualStyleBackColor = true;
             // 
             // lbSpeaker
             // 
-            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lbSpeaker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSpeaker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSpeaker.FormattingEnabled = true;
@@ -481,7 +482,7 @@ namespace TranslationApp
             // 
             // bSaveAll
             // 
-            this.bSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.bSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bSaveAll.Location = new System.Drawing.Point(208, 130);
             this.bSaveAll.Name = "bSaveAll";
@@ -493,7 +494,7 @@ namespace TranslationApp
             // 
             // trackBarAlign
             // 
-            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
             this.trackBarAlign.Location = new System.Drawing.Point(240, 353);
@@ -506,7 +507,7 @@ namespace TranslationApp
             // 
             // cbFileList
             // 
-            this.cbFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.cbFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFileList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbFileList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -581,7 +582,7 @@ namespace TranslationApp
             // 
             // cbSections
             // 
-            this.cbSections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.cbSections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSections.FormattingEnabled = true;
@@ -675,7 +676,7 @@ namespace TranslationApp
             // 
             // cbLanguage
             // 
-            this.cbLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.cbLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLanguage.FormattingEnabled = true;
@@ -818,7 +819,7 @@ namespace TranslationApp
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.Location = new System.Drawing.Point(208, 74);
             this.btnRefresh.Name = "btnRefresh";
@@ -893,7 +894,7 @@ namespace TranslationApp
             // 
             // tbSectionName
             // 
-            this.tbSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tbSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSectionName.Location = new System.Drawing.Point(238, 26);
             this.tbSectionName.Name = "tbSectionName";
@@ -903,7 +904,7 @@ namespace TranslationApp
             // 
             // btnSaveFile
             // 
-            this.btnSaveFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnSaveFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveFile.Location = new System.Drawing.Point(208, 102);
             this.btnSaveFile.Name = "btnSaveFile";
@@ -936,13 +937,13 @@ namespace TranslationApp
             this.rightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightColumn.Location = new System.Drawing.Point(712, 24);
             this.rightColumn.Name = "rightColumn";
-            this.rightColumn.Size = new System.Drawing.Size(589, 709);
+            this.rightColumn.Size = new System.Drawing.Size(443, 663);
             this.rightColumn.TabIndex = 53;
             // 
             // tabSearchMass
             // 
-            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabSearchMass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSearchMass.Controls.Add(this.tpSearch);
             this.tabSearchMass.Controls.Add(this.tpMassReplace);
@@ -950,7 +951,7 @@ namespace TranslationApp
             this.tabSearchMass.Location = new System.Drawing.Point(4, 3);
             this.tabSearchMass.Name = "tabSearchMass";
             this.tabSearchMass.SelectedIndex = 0;
-            this.tabSearchMass.Size = new System.Drawing.Size(582, 699);
+            this.tabSearchMass.Size = new System.Drawing.Size(436, 652);
             this.tabSearchMass.TabIndex = 50;
             // 
             // tpSearch
@@ -971,8 +972,8 @@ namespace TranslationApp
             this.tpSearch.Controls.Add(this.lbSearch);
             this.tpSearch.Location = new System.Drawing.Point(4, 22);
             this.tpSearch.Name = "tpSearch";
-            this.tpSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSearch.Size = new System.Drawing.Size(574, 673);
+            this.tpSearch.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpSearch.Size = new System.Drawing.Size(428, 626);
             this.tpSearch.TabIndex = 0;
             this.tpSearch.Text = "Search";
             this.tpSearch.UseVisualStyleBackColor = true;
@@ -987,11 +988,11 @@ namespace TranslationApp
             // 
             // tbMax
             // 
-            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tbMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMax.Location = new System.Drawing.Point(334, 47);
             this.tbMax.Name = "tbMax";
-            this.tbMax.Size = new System.Drawing.Size(166, 20);
+            this.tbMax.Size = new System.Drawing.Size(20, 20);
             this.tbMax.TabIndex = 60;
             this.tbMax.Text = "500";
             this.tbMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMax_KeyDown);
@@ -1112,15 +1113,15 @@ namespace TranslationApp
             // 
             // lbSearch
             // 
-            this.lbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSearch.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbSearch.FormattingEnabled = true;
             this.lbSearch.Location = new System.Drawing.Point(30, 211);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbSearch.Size = new System.Drawing.Size(515, 444);
+            this.lbSearch.Size = new System.Drawing.Size(369, 398);
             this.lbSearch.TabIndex = 0;
             this.lbSearch.Click += new System.EventHandler(this.lbSearch_Click);
             this.lbSearch.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSearch_DrawItem);
@@ -1137,8 +1138,8 @@ namespace TranslationApp
             this.tpMassReplace.Controls.Add(this.lbDistinctTranslations);
             this.tpMassReplace.Location = new System.Drawing.Point(4, 22);
             this.tpMassReplace.Name = "tpMassReplace";
-            this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMassReplace.Size = new System.Drawing.Size(574, 673);
+            this.tpMassReplace.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpMassReplace.Size = new System.Drawing.Size(574, 675);
             this.tpMassReplace.TabIndex = 1;
             this.tpMassReplace.Text = "Other Translations";
             this.tpMassReplace.UseVisualStyleBackColor = true;
@@ -1167,8 +1168,8 @@ namespace TranslationApp
             // 
             // lbContext
             // 
-            this.lbContext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lbContext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbContext.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbContext.FormattingEnabled = true;
@@ -1211,7 +1212,7 @@ namespace TranslationApp
             // 
             // lbDistinctTranslations
             // 
-            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lbDistinctTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDistinctTranslations.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lbDistinctTranslations.FormattingEnabled = true;
@@ -1249,26 +1250,39 @@ namespace TranslationApp
             this.middleColumn.Dock = System.Windows.Forms.DockStyle.Left;
             this.middleColumn.Location = new System.Drawing.Point(319, 24);
             this.middleColumn.Name = "middleColumn";
-            this.middleColumn.Size = new System.Drawing.Size(388, 709);
+            this.middleColumn.Size = new System.Drawing.Size(388, 663);
             this.middleColumn.TabIndex = 54;
+            // 
+            // btnLinebreak
+            // 
+            this.btnLinebreak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLinebreak.Location = new System.Drawing.Point(252, 158);
+            this.btnLinebreak.Name = "btnLinebreak";
+            this.btnLinebreak.Size = new System.Drawing.Size(127, 28);
+            this.btnLinebreak.TabIndex = 49;
+            this.btnLinebreak.Text = "Apply Linebreak";
+            this.btnLinebreak.UseVisualStyleBackColor = true;
+            this.btnLinebreak.Click += new System.EventHandler(this.button1_Click);
             // 
             // pPreviewContainer
             // 
-            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.pPreviewContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pPreviewContainer.AutoScroll = true;
             this.pPreviewContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pPreviewContainer.Controls.Add(this.textPreview1);
             this.pPreviewContainer.Location = new System.Drawing.Point(11, 538);
             this.pPreviewContainer.Name = "pPreviewContainer";
-            this.pPreviewContainer.Size = new System.Drawing.Size(369, 164);
+            this.pPreviewContainer.Size = new System.Drawing.Size(369, 118);
             this.pPreviewContainer.TabIndex = 53;
             // 
             // textPreview1
             // 
             this.textPreview1.BackColor = System.Drawing.Color.Transparent;
             this.textPreview1.fontAtlasImage = null;
+            this.textPreview1.Image = ((System.Drawing.Image)(resources.GetObject("textPreview1.Image")));
             this.textPreview1.Location = new System.Drawing.Point(0, 0);
             this.textPreview1.Name = "textPreview1";
             this.textPreview1.Size = new System.Drawing.Size(369, 164);
@@ -1279,7 +1293,7 @@ namespace TranslationApp
             // 
             // tbEnglishText
             // 
-            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbEnglishText.Location = new System.Drawing.Point(9, 387);
@@ -1313,7 +1327,7 @@ namespace TranslationApp
             this.leftColumn.Dock = System.Windows.Forms.DockStyle.Left;
             this.leftColumn.Location = new System.Drawing.Point(0, 24);
             this.leftColumn.Name = "leftColumn";
-            this.leftColumn.Size = new System.Drawing.Size(314, 709);
+            this.leftColumn.Size = new System.Drawing.Size(314, 663);
             this.leftColumn.TabIndex = 55;
             // 
             // splitter1
@@ -1323,7 +1337,7 @@ namespace TranslationApp
             this.splitter1.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.splitter1.Location = new System.Drawing.Point(314, 24);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(5, 709);
+            this.splitter1.Size = new System.Drawing.Size(5, 663);
             this.splitter1.TabIndex = 56;
             this.splitter1.TabStop = false;
             // 
@@ -1333,27 +1347,15 @@ namespace TranslationApp
             this.splitter2.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.splitter2.Location = new System.Drawing.Point(707, 24);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(5, 709);
+            this.splitter2.Size = new System.Drawing.Size(5, 663);
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
-            // 
-            // button1
-            // 
-            this.btnLinebreak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLinebreak.Location = new System.Drawing.Point(252, 160);
-            this.btnLinebreak.Name = "button1";
-            this.btnLinebreak.Size = new System.Drawing.Size(127, 28);
-            this.btnLinebreak.TabIndex = 49;
-            this.btnLinebreak.Text = "Apply Linebreak";
-            this.btnLinebreak.UseVisualStyleBackColor = true;
-            this.btnLinebreak.Click += new System.EventHandler(this.button1_Click);
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1301, 733);
+            this.ClientSize = new System.Drawing.Size(1155, 687);
             this.Controls.Add(this.rightColumn);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.middleColumn);
