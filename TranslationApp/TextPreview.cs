@@ -86,12 +86,12 @@ namespace TranslationApp
 
         public class Style
         {
-            public font_glyph[] Glyphs;
+            public Dictionary<char, Rectangle> Glyphs;
             public string Resource;
             public Color BackColor;
             public float scale_factor;
             public Dictionary<string, Color> Colors;
-            public Style(font_glyph[] glyphs, Dictionary<string, Color> colors, string resource, Color back_color, bool full_range)
+            public Style(Dictionary<char, Rectangle> glyphs, Dictionary<string, Color> colors, string resource, Color back_color, bool full_range)
             {
                 Glyphs = glyphs;
                 Resource = resource;
@@ -353,7 +353,7 @@ namespace TranslationApp
                         foreach (char c in textToRender)
                         {
                             // Get the rectangle for the current character in the atlas
-                            Rectangle charRect = GetCharacterRectangleFromAtlas(c, out int shift, out bool line);
+                            Rectangle charRect = GetCharacterRectangleFromAtlas(c, out bool line);
 
                             // Create a destination rectangle using the currentPosition
                             RectangleF destinationRect = new RectangleF(currentPosition, new SizeF(charRect.Width, charRect.Height));
@@ -445,7 +445,7 @@ namespace TranslationApp
                             }
                             else
                             {
-                                currentPosition.X += charRect.Width - shift;
+                                currentPosition.X += charRect.Width;
                                 // Update max texture size
                                 if (finalWidth < currentPosition.X)
                                 {
@@ -475,7 +475,7 @@ namespace TranslationApp
         {
             List<(string Word, int Size)> words = GetListWords(text);
             List<string> lines = new List<string>();
-            int space_width = GetCharacterRectangleFromAtlas(' ', out _, out _).Width;
+            int space_width = GetCharacterRectangleFromAtlas(' ', out _).Width;
 
             int oCount = words.Count;
 
@@ -510,7 +510,7 @@ namespace TranslationApp
             }
             text = string.Join(" ", text.Replace("\r", "").Split('\n'));
             string[] result = Regex.Split(text, @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-            Rectangle space = GetCharacterRectangleFromAtlas(' ', out _, out _);
+            Rectangle space = GetCharacterRectangleFromAtlas(' ', out _);
 
             string textToRender = "";
             List<(string Word, int Size)> wordsSize = new List<(string, int)>();
@@ -561,7 +561,7 @@ namespace TranslationApp
             int width = 0;
             foreach (char c in word)
             {
-                Rectangle rect = GetCharacterRectangleFromAtlas(c, out int x, out bool b);
+                Rectangle rect = GetCharacterRectangleFromAtlas(c, out bool b);
                 width += rect.Width;
             }
 
@@ -574,119 +574,18 @@ namespace TranslationApp
 
         }
 
-        private Rectangle GetCharacterRectangleFromAtlas(int character, out int s, out bool addline)
+        private Rectangle GetCharacterRectangleFromAtlas(char character, out bool addline)
         {
-            int charWidth = 24;
-            int charHeight = 24;
-            addline = false;
+            addline = character == '\n';
 
-            // Calculate the index of the character in the font atlas
-            int index;
-            if (character >= 0x30 && character <= 0x39)
-            {
-                index = character - 0x2F;
-            }
-            else if (character >= 0x41 && character <= 0x5A)
-            {
-                index = character - 0x36;
-            }
-            else if (character >= 0x61 && character <= 0x7A)
-            {
-                index = character - 0x3C;
-            }
-            else switch (character)
-                {
-                    case '\n':
-                        index = 0;
-                        addline = true;
-                        break;
-                    case '!':
-                        index = 69;
-                        break;
-                    case ',':
-                        index = 63;
-                        break;
-                    case '/':
-                        index = 70;
-                        break;
-                    case '~':
-                        index = 93;
-                        break;
-                    case '_':
-                        index = 94;
-                        break;
-                    case '+':
-                        index = 77;
-                        break;
-                    case '&':
-                        index = 84;
-                        break;
-                    case '*':
-                        index = 85;
-                        break;
-                    case '=':
-                        index = 79;
-                        break;
-                    case '(':
-                        index = 71;
-                        break;
-                    case ')':
-                        index = 72;
-                        break;
-                    case '[':
-                        index = 73;
-                        break;
-                    case ']':
-                        index = 74;
-                        break;
-                    case '{':
-                        index = 75;
-                        break;
-                    case '}':
-                        index = 76;
-                        break;
-                    case '-':
-                        index = 78;
-                        break;
-                    case '\'':
-                        index = 89;
-                        break;
-                    case '"':
-                        index = 88;
-                        break;
-                    case '.':
-                        index = 64;
-                        break;
-                    case ':':
-                        index = 66;
-                        break;
-                    case ';':
-                        index = 67;
-                        break;
-                    case '?':
-                        index = 68;
-                        break;
-                    case '<':
-                        index = 80;
-                        break;
-                    case '>':
-                        index = 81;
-                        break;
-                    case '%':
-                        index = 82;
-                        break;
-                    default:
-                        index = 0;
-                        break;
-                }
+            bool has_glyph = current_style.Glyphs.TryGetValue(character, out Rectangle rect);
 
-            // Calculate the position of the character in the atlas based on its index
-            int y = index * charHeight;
-            int x = current_style.Glyphs[index].lskip;
+            if (has_glyph)
+            {
+                return rect;
+            }
 
-            charWidth -= (current_style.Glyphs[index].lskip);
-            s = current_style.Glyphs[index].rskip;
-            return new Rectangle(x, y, charWidth, charHeight);
+            return current_style.Glyphs[' '];
         }
     }
 }

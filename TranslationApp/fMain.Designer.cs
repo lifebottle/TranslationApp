@@ -136,11 +136,11 @@ namespace TranslationApp
             this.middleColumn = new System.Windows.Forms.Panel();
             this.btnLinebreak = new System.Windows.Forms.Button();
             this.pPreviewContainer = new System.Windows.Forms.Panel();
-            this.textPreview1 = new TranslationApp.TextPreview();
-            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.leftColumn = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
+            this.textPreview1 = new TranslationApp.TextPreview();
+            this.tbEnglishText = new TranslationApp.ExtendedTextBox();
             this.menuStripMain.SuspendLayout();
             this.tcType.SuspendLayout();
             this.tabText.SuspendLayout();
@@ -155,8 +155,8 @@ namespace TranslationApp
             this.tpMassReplace.SuspendLayout();
             this.middleColumn.SuspendLayout();
             this.pPreviewContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.leftColumn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -496,12 +496,12 @@ namespace TranslationApp
             this.trackBarAlign.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarAlign.AutoSize = false;
             this.trackBarAlign.Location = new System.Drawing.Point(240, 357);
-            this.trackBarAlign.Maximum = 100;
+            this.trackBarAlign.Maximum = 640;
             this.trackBarAlign.Name = "trackBarAlign";
             this.trackBarAlign.Size = new System.Drawing.Size(140, 22);
             this.trackBarAlign.TabIndex = 18;
             this.trackBarAlign.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBarAlign.Value = 100;
+            this.trackBarAlign.Value = 640;
             this.trackBarAlign.ValueChanged += new System.EventHandler(this.trackBarAlign_ValueChanged);
             // 
             // cbFileList
@@ -1213,7 +1213,7 @@ namespace TranslationApp
             this.tbMax.Name = "tbMax";
             this.tbMax.Size = new System.Drawing.Size(42, 13);
             this.tbMax.TabIndex = 60;
-            this.tbMax.Text = "100";
+            this.tbMax.Text = "640";
             this.tbMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMax_KeyDown);
             // 
@@ -1271,33 +1271,6 @@ namespace TranslationApp
             this.pPreviewContainer.Size = new System.Drawing.Size(369, 118);
             this.pPreviewContainer.TabIndex = 53;
             // 
-            // textPreview1
-            // 
-            this.textPreview1.BackColor = System.Drawing.Color.Transparent;
-            this.textPreview1.fontAtlasImage = null;
-            this.textPreview1.Image = ((System.Drawing.Image)(resources.GetObject("textPreview1.Image")));
-            this.textPreview1.Location = new System.Drawing.Point(0, 0);
-            this.textPreview1.Name = "textPreview1";
-            this.textPreview1.Size = new System.Drawing.Size(369, 164);
-            this.textPreview1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.textPreview1.TabIndex = 49;
-            this.textPreview1.TabStop = false;
-            this.textPreview1.text = null;
-            // 
-            // tbEnglishText
-            // 
-            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEnglishText.Location = new System.Drawing.Point(9, 387);
-            this.tbEnglishText.Multiline = true;
-            this.tbEnglishText.Name = "tbEnglishText";
-            this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbEnglishText.Size = new System.Drawing.Size(372, 129);
-            this.tbEnglishText.TabIndex = 6;
-            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
-            this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
-            // 
             // leftColumn
             // 
             this.leftColumn.Controls.Add(this.label3);
@@ -1344,6 +1317,33 @@ namespace TranslationApp
             this.splitter2.TabIndex = 57;
             this.splitter2.TabStop = false;
             // 
+            // textPreview1
+            // 
+            this.textPreview1.BackColor = System.Drawing.Color.Transparent;
+            this.textPreview1.fontAtlasImage = null;
+            this.textPreview1.Image = ((System.Drawing.Image)(resources.GetObject("textPreview1.Image")));
+            this.textPreview1.Location = new System.Drawing.Point(0, 0);
+            this.textPreview1.Name = "textPreview1";
+            this.textPreview1.Size = new System.Drawing.Size(369, 164);
+            this.textPreview1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.textPreview1.TabIndex = 49;
+            this.textPreview1.TabStop = false;
+            this.textPreview1.text = null;
+            // 
+            // tbEnglishText
+            // 
+            this.tbEnglishText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbEnglishText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEnglishText.Location = new System.Drawing.Point(9, 387);
+            this.tbEnglishText.Multiline = true;
+            this.tbEnglishText.Name = "tbEnglishText";
+            this.tbEnglishText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbEnglishText.Size = new System.Drawing.Size(372, 129);
+            this.tbEnglishText.TabIndex = 6;
+            this.tbEnglishText.TextPasted += new System.EventHandler<TranslationApp.ClipboardEventArgs>(this.tbEnglishText_TextPasted);
+            this.tbEnglishText.TextChanged += new System.EventHandler(this.tbEnglishText_TextChanged);
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1385,9 +1385,9 @@ namespace TranslationApp
             this.middleColumn.PerformLayout();
             this.pPreviewContainer.ResumeLayout(false);
             this.pPreviewContainer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.leftColumn.ResumeLayout(false);
             this.leftColumn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textPreview1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

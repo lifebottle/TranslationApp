@@ -641,7 +641,7 @@ namespace TranslationApp
         {
             Invalidate();
             tbMax.Text = trackBarAlign.Value.ToString();
-            tbEnglishText.Text = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
+            tbEnglishText.Text = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value);
         }
 
         private string GetTextBasedLanguage(int entryIndex, List<XMLEntry> EntryList)
@@ -1862,12 +1862,12 @@ namespace TranslationApp
             {
                 foreach (XMLEntry entry in lb.SelectedItems)
                 {
-                    entry.EnglishText = textPreview1.DoLineBreak(entry.EnglishText, trackBarAlign.Value * 30);
+                    entry.EnglishText = textPreview1.DoLineBreak(entry.EnglishText, trackBarAlign.Value);
                 }
             }
             else
             {
-                tbEnglishText.Text = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value * 30);
+                tbEnglishText.Text = textPreview1.DoLineBreak(tbEnglishText.Text, trackBarAlign.Value);
             }
 
             Project.CurrentFolder.CurrentFile.needsSave = true;
