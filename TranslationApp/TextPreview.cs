@@ -8,6 +8,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -372,46 +374,26 @@ namespace TranslationApp
                                 colorMatrix1.Matrix33 = 1.8f;
                                 imageAttributes1.SetColorMatrix(colorMatrix1);
 
-                                canvas_g.DrawImage(
-                                    fontAtlasImage,
-                                    Rectangle.Round(destinationRect),
-                                    charRect.X - 2,
-                                    charRect.Y - 2,
-                                    charRect.Width,
-                                    charRect.Height,
-                                    GraphicsUnit.Pixel,
-                                    imageAttributes1
-                                );
-                                canvas_g.DrawImage(
-                                    fontAtlasImage,
-                                    Rectangle.Round(destinationRect),
-                                    charRect.X + 2,
-                                    charRect.Y - 2,
-                                    charRect.Width,
-                                    charRect.Height,
-                                    GraphicsUnit.Pixel,
-                                    imageAttributes1
-                                );
-                                canvas_g.DrawImage(
-                                    fontAtlasImage,
-                                    Rectangle.Round(destinationRect),
-                                    charRect.X - 2,
-                                    charRect.Y + 2,
-                                    charRect.Width,
-                                    charRect.Height,
-                                    GraphicsUnit.Pixel,
-                                    imageAttributes1
-                                );
-                                canvas_g.DrawImage(
-                                    fontAtlasImage,
-                                    Rectangle.Round(destinationRect),
-                                    charRect.X + 2,
-                                    charRect.Y + 2,
-                                    charRect.Width,
-                                    charRect.Height,
-                                    GraphicsUnit.Pixel,
-                                    imageAttributes1
-                                );
+                                PointF[] offsets = {
+                                    new PointF(-1, -1),
+                                    new PointF( 1, -1),
+                                    new PointF(-1,  1),
+                                    new PointF( 1,  1),
+                                };
+
+                                foreach (PointF offset in offsets)
+                                {
+                                    Rectangle dest = Rectangle.Round(new RectangleF(
+                                        destinationRect.X + offset.X,
+                                        destinationRect.Y + offset.Y,
+                                        destinationRect.Width, destinationRect.Height
+                                    ));
+
+                                    canvas_g.DrawImage(fontAtlasImage, dest,
+                                        charRect.X, charRect.Y, charRect.Width, charRect.Height,
+                                        GraphicsUnit.Pixel, imageAttributes1
+                                    );
+                                }
                             }
 
                             canvas_g.DrawImage(fontAtlasImage, Rectangle.Round(destinationRect),
