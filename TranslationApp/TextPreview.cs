@@ -494,7 +494,7 @@ namespace TranslationApp
 
                 // Always include at least one word.
                 count = Math.Max(1, count);
-                lines.Add(string.Join(" ", words.Take(count).Select(x => x.Word)));
+                lines.Add(string.Join(" ", words.Take(count).Select(x => x.Word )));
                 words.RemoveRange(0, count);
             }
 
@@ -508,50 +508,52 @@ namespace TranslationApp
             {
                 return new List<(string, int)>();
             }
+
             text = string.Join(" ", text.Replace("\r", "").Split('\n'));
-            string[] result = Regex.Split(text, @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
-            Rectangle space = GetCharacterRectangleFromAtlas(' ', out _);
-
-            string textToRender = "";
             List<(string Word, int Size)> wordsSize = new List<(string, int)>();
+            var words = text.Split(' ');
 
-            foreach (string element in result)
+            foreach (string word in words)
             {
-                string tag = "";
 
-                int pos = element.IndexOf(">");
-                if (pos > -1)
+                string[] result = Regex.Split(word, @"(<[\w/]+:?\w+>[,|.|\[||\]]*)", RegexOptions.IgnoreCase).Where(x => x != "").ToArray();
+
+                int total_size = 0;
+
+                foreach (string element in result)
                 {
-                    tag = element.Substring(0, pos + 1);
-
-                    if (names.Contains(tag))
+                    // Only parse actual potential tags
+                    if (element[0] == '<' && element[element.Length - 1] == '>')
                     {
-                        textToRender = tag.Substring(1, pos - 1);
+                        if (names.Contains(element))
+                        {
+                            string name = element.Substring(1, element.Length - 2);
+                            total_size += GetWordWidth(name);
+                        }
+                        else if (element.StartsWith("<unk") || element.StartsWith("<var") || element.StartsWith("<icon"))
+                        {
+                            total_size += GetWordWidth("****");
+                        }
+                        else if (element.StartsWith("<nmb:"))
+                        {
+                            string el = element.Substring(5, element.Length - 6);
+                            string num = Convert.ToInt32(el, 16).ToString();
+                            total_size += GetWordWidth(num);
+                        } 
+                        else
+                        {
+                            total_size += 0;
+                        }
                     }
-                    else if (element.StartsWith("<unk") || element.StartsWith("<var") || element.StartsWith("<icon"))
+                    else
                     {
-                        textToRender = "***";
+                        total_size += GetWordWidth(element);
                     }
-                    else if (element.StartsWith("<nmb:"))
-                    {
-                        string el = element.Substring(5, element.Length - 6);
-                        textToRender = Convert.ToInt32(el, 16).ToString();
-                    }
-
-                    if (pos < element.Length)
-                        textToRender += element.Substring(pos + 1, element.Length - pos - 1);
-
-                }
-                else
-                {
-                    textToRender = element;
                 }
 
-                foreach (string word in textToRender.Split(' ').Where(x => x != ""))
-                {
-                    wordsSize.Add((word, GetWordWidth(word)));
-                }
+                wordsSize.Add((word, total_size));
             }
+
 
             return wordsSize;
         }
