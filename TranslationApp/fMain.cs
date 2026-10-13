@@ -1862,6 +1862,10 @@ namespace TranslationApp
             {
                 foreach (XMLEntry entry in lb.SelectedItems)
                 {
+                    if (string.IsNullOrEmpty(entry.EnglishText))
+                    {
+                        continue;
+                    }
                     entry.EnglishText = textPreview1.DoLineBreak(entry.EnglishText, trackBarAlign.Value);
                 }
             }
