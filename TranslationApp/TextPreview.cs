@@ -91,13 +91,15 @@ namespace TranslationApp
             public Color BackColor;
             public float scale_factor;
             public Dictionary<string, Color> Colors;
-            public Style(Dictionary<char, Rectangle> glyphs, Dictionary<string, Color> colors, string resource, Color back_color, bool full_range)
+            public float PixelRatio;
+            public Style(Dictionary<char, Rectangle> glyphs, Dictionary<string, Color> colors, string resource, Color back_color, bool full_range, float pixel_ratio)
             {
                 Glyphs = glyphs;
                 Resource = resource;
                 BackColor = back_color;
                 scale_factor = full_range ? 256.0f : 128.0f;
                 Colors = colors;
+                PixelRatio = pixel_ratio;
             }
         };
 
@@ -105,50 +107,38 @@ namespace TranslationApp
 
         private Style current_style;
 
-        public struct font_glyph
-        {
-            public byte lskip;
-            public byte rskip;
-
-            public font_glyph(byte x, byte y)
-            {
-                lskip = x;
-                rskip = y;
-            }
-        }
-
         public TextPreview()
         {
             textbox_styles = new Dictionary<string, Style> {
                 {
                     "TOR", new Style(tor_glyphs, tor_colors,
                     "TranslationApp.res.tor_font_atlas.png",
-                    Color.FromArgb(0), false)
+                    Color.FromArgb(0), false, 1)
                 },
                 {
                     "NDX", new Style(ndx_glyphs, ndx_colors,
                     "TranslationApp.res.ndx_font_atlas.png",
-                    Color.FromArgb(0x14, 0x3F, 0x60), true)
+                    Color.FromArgb(0x14, 0x3F, 0x60), true, 1)
                 },
                 {
                     "RM2", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
-                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false)
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false, 1)
                 },
                 {
                     "RM3", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
-                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false)
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false, 1)
                 },
                 {
                     "TB", new Style(rm2_glyphs, tor_colors,
                     "TranslationApp.res.rm2_font_atlas.png",
-                    Color.FromArgb(0x92,0x7B,0x59), false)
+                    Color.FromArgb(0x92,0x7B,0x59), false, 80.0f / 56.0f)
                 },
                 {
                     "TOH", new Style(toh_glyphs, tor_colors,
                     "TranslationApp.res.toh_font_atlas.png",
-                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false)
+                    Color.FromArgb(0xA0, 0x00, 0x00, 0x00), false, 1)
                 },
             };
             InitializeComponent();
@@ -424,13 +414,8 @@ namespace TranslationApp
                                 );
                             }
 
-                            canvas_g.DrawImage(
-                                fontAtlasImage,
-                                Rectangle.Round(destinationRect),
-                                charRect.X,
-                                charRect.Y,
-                                charRect.Width,
-                                charRect.Height,
+                            canvas_g.DrawImage(fontAtlasImage, Rectangle.Round(destinationRect),
+                                charRect.X, charRect.Y, charRect.Width, charRect.Height,
                                 GraphicsUnit.Pixel,
                                 imageAttributes
                             );
@@ -484,7 +469,7 @@ namespace TranslationApp
                 return string.Empty;
 
             int largestWord = words.Max(x => x.Size);
-            maxWidth = Math.Max(maxWidth, largestWord);
+            maxWidth = Math.Max((int)(maxWidth * current_style.PixelRatio), largestWord);
 
             while (words.Count > 0)
             {
